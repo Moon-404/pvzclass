@@ -3,6 +3,7 @@
 #include "Events/VaseOpenEvent.h"
 #include <iostream>
 #include <thread>
+#include "ModLoader.h"
 
 using std::cout;
 using std::endl;
@@ -35,6 +36,10 @@ SPT<PVZ::Vase> listenerM(SPT<PVZ::Vase> vase, bool& cancelled)
 
 int main()
 {
+	ModLoader modloader;
+	modloader.loadAll();
+	return 0;
+
 	DWORD pid = ProcessOpener::Open();
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);

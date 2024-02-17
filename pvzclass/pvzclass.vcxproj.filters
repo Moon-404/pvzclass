@@ -336,6 +336,9 @@
     <ClCompile Include="Enums\ChallengePage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ModLoader.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -597,6 +600,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Enums\ChallengePage.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Mod.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ModLoader.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
