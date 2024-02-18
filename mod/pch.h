@@ -16,8 +16,9 @@ class ExampleMod : public Mod
 {
 public:
 	ExampleMod();
-	void onLoad();
+	void onLoad(DWORD pid, HANDLE hprocess, HWND mainwindowhandle, int Variable, DWORD mainThreadId, HANDLE hThread);
 	void update();
+	void onFree();
 };
 
 extern "C"

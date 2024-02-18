@@ -73,6 +73,7 @@
 namespace PVZ
 {
 	void InitPVZ(DWORD pid);
+	void CopyPVZ(DWORD pid, HANDLE hprocess, HWND mainwindowhandle, int Variable, DWORD mainThreadId, HANDLE hThread);
 	void QuitPVZ();
 
 #pragma region Memory Class

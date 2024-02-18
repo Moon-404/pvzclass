@@ -27,10 +27,28 @@ void ModLoader::loadAll()
             std::cout << "模组名与版本号：" << mod->MOD_TITLE << " " << mod->MOD_VERSION << std::endl;
             std::cout << "作者：" << mod->MOD_AUTHOR << std::endl;
             std::cout << "描述：" << mod->MOD_DESCRIPTION << std::endl;
-            mod->onLoad();
+            mod->onLoad(PVZ::Memory::processId, PVZ::Memory::hProcess, PVZ::Memory::mainwindowhandle,
+                PVZ::Memory::Variable, PVZ::Memory::mainThreadId, PVZ::Memory::hThread);
         }
 
-        // 确保在程序退出时卸载DLL
-        FreeLibrary(dll);
+        dlls.push_back(dll);
+        mods.push_back(mod);
+    }
+}
+
+void ModLoader::update()
+{
+    for (int i = 0; i < mods.size(); i++)
+    {
+        mods[i]->update();
+    }
+}
+
+void ModLoader::freeAll()
+{
+    for (int i = 0; i < dlls.size(); i++)
+    {
+        FreeLibrary(dlls[i]);
+        mods[i]->onFree();
     }
 }

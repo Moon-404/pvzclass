@@ -40,6 +40,18 @@ namespace PVZ
 		Memory::WriteArray<BYTE>(0x415D40, STRING(__asm__UpdateHook));
 	}
 
+	// 用于在模组中复制modloader的设置
+	void CopyPVZ(DWORD pid, HANDLE hprocess, HWND mainwindowhandle, int Variable, DWORD mainThreadId, HANDLE hThread)
+	{
+		Memory::processId = pid;
+		Memory::hProcess = hprocess;
+		Memory::mainwindowhandle = mainwindowhandle;
+		Memory::Variable = Variable;
+		Memory::mainThreadId = mainThreadId;
+		Memory::hThread = hThread;
+		Memory::immediateExecute = false;
+	}
+
 	void QuitPVZ()
 	{
 		CloseHandle(Memory::hProcess);

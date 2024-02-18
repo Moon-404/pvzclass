@@ -7,7 +7,14 @@
 
 class ModLoader
 {
+private:
+	std::vector<Mod*> mods;
+	std::vector<HMODULE> dlls;
 public:
 	// 加载全部模组
 	void loadAll();
+	// 调用所有模组的更新
+	void update();
+	// 卸载全部模组
+	void freeAll();
 };
