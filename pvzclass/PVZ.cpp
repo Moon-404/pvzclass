@@ -49,7 +49,7 @@ namespace PVZ
 		Memory::Variable = Variable;
 		Memory::mainThreadId = mainThreadId;
 		Memory::hThread = hThread;
-		Memory::immediateExecute = false;
+		Memory::immediateExecute = true;
 	}
 
 	void QuitPVZ()

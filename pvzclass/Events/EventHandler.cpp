@@ -117,15 +117,22 @@ bool EventHandler::run(int ms)
 	}
 	getContext();
 	context.Eip--;
+	DWORD address = 0;
+	BYTE raw = 0;
 	for (int i = 0; i < events.size(); i++)
 	{
 		if (context.Eip == events[i]->address)
 		{
 			events[i]->handle(context);
-			PVZ::Memory::WriteMemory<BYTE>(events[i]->address, events[i]->raw);
-			singleStep();
-			PVZ::Memory::WriteMemory<BYTE>(events[i]->address, 0xCC);
+			address = events[i]->address;
+			raw = events[i]->raw;
 		}
+	}
+	if (address > 0)
+	{
+		PVZ::Memory::WriteMemory<BYTE>(address, raw);
+		singleStep();
+		PVZ::Memory::WriteMemory<BYTE>(address, 0xCC);
 	}
 	resume();
 	return true;
