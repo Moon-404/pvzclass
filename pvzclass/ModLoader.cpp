@@ -32,8 +32,6 @@ void ModLoader::loadPath(std::filesystem::path p, EventHandler& handler)
                 std::cout << "模组名与版本号：" << mod->MOD_TITLE << " " << mod->MOD_VERSION << std::endl;
                 std::cout << "作者：" << mod->MOD_AUTHOR << std::endl;
                 std::cout << "描述：" << mod->MOD_DESCRIPTION << std::endl;
-                mod->PVZPath = PVZPath;
-                mod->ModPath = PVZPath / entry.path();
                 mod->onLoad(PVZ::Memory::processId, PVZ::Memory::hProcess, PVZ::Memory::mainwindowhandle,
                     PVZ::Memory::Variable, PVZ::Memory::mainThreadId, PVZ::Memory::hThread, handler);
             }

@@ -256,7 +256,6 @@
     <ClCompile Include="Events\ZombieHypnotizeEvent.cpp" />
     <ClCompile Include="Events\ZombieRemoveEvent.cpp" />
     <ClCompile Include="Events\ImitaterPlantEvent.cpp" />
-    <ClCompile Include="Mod.cpp" />
     <ClCompile Include="ModLoader.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
