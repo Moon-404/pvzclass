@@ -1,39 +1,57 @@
 #include "ModLoader.h"
 
-void ModLoader::loadAll(EventHandler& handler)
+void ModLoader::loadPath(std::filesystem::path p, EventHandler& handler)
 {
-    std::filesystem::path p = "mods";
     for (const auto& entry : std::filesystem::directory_iterator(p))
     {
-        HMODULE dll = LoadLibrary(entry.path().c_str());
-        if (dll == nullptr)
+        if (std::filesystem::is_directory(entry.path()))
         {
-            std::cout << "无法加载模组：" << entry.path().string() << std::endl;
-            continue;
+            loadPath(entry.path(), handler);
         }
-
-        auto getMod = (Mod*(*)())GetProcAddress(dll, "getMod");
-        if (getMod == nullptr)
+        else if (entry.path().extension() == ".dll")
         {
-            std::cout << "找不到初始化函数：" << entry.path().string() << std::endl;
-            FreeLibrary(dll);
-            continue;
-        }
+            HMODULE dll = LoadLibrary(entry.path().c_str());
+            if (dll == nullptr)
+            {
+                std::cout << "无法加载模组：" << entry.path() << std::endl;
+                continue;
+            }
 
-        Mod* mod = getMod();
-        if (mod != nullptr)
-        {
-            std::cout << "成功加载模组：" << entry.path().string() << std::endl;
-            std::cout << "模组名与版本号：" << mod->MOD_TITLE << " " << mod->MOD_VERSION << std::endl;
-            std::cout << "作者：" << mod->MOD_AUTHOR << std::endl;
-            std::cout << "描述：" << mod->MOD_DESCRIPTION << std::endl;
-            mod->onLoad(PVZ::Memory::processId, PVZ::Memory::hProcess, PVZ::Memory::mainwindowhandle,
-                PVZ::Memory::Variable, PVZ::Memory::mainThreadId, PVZ::Memory::hThread, handler);
-        }
+            auto getMod = (Mod * (*)())GetProcAddress(dll, "getMod");
+            if (getMod == nullptr)
+            {
+                std::cout << "找不到初始化函数：" << entry.path() << std::endl;
+                FreeLibrary(dll);
+                continue;
+            }
 
-        dlls.push_back(dll);
-        mods.push_back(mod);
+            Mod* mod = getMod();
+            if (mod != nullptr)
+            {
+                std::cout << "成功加载模组：" << entry.path() << std::endl;
+                std::cout << "模组名与版本号：" << mod->MOD_TITLE << " " << mod->MOD_VERSION << std::endl;
+                std::cout << "作者：" << mod->MOD_AUTHOR << std::endl;
+                std::cout << "描述：" << mod->MOD_DESCRIPTION << std::endl;
+                mod->PVZPath = PVZPath;
+                mod->ModPath = PVZPath / entry.path();
+                mod->onLoad(PVZ::Memory::processId, PVZ::Memory::hProcess, PVZ::Memory::mainwindowhandle,
+                    PVZ::Memory::Variable, PVZ::Memory::mainThreadId, PVZ::Memory::hThread, handler);
+            }
+
+            dlls.push_back(dll);
+            mods.push_back(mod);
+        }
     }
+}
+
+void ModLoader::loadAll(EventHandler& handler)
+{
+    TCHAR path[1024] = { 0 };
+    DWORD size = 0;
+    GetModuleFileNameEx(PVZ::Memory::hProcess, NULL, path, 1024);
+    std::filesystem::path exePath = path;
+    PVZPath = exePath.parent_path();
+    loadPath("mods", handler);
 }
 
 void ModLoader::update()

@@ -31,6 +31,7 @@ void ExampleMod::update()
 	{
 		std::thread t(caption);
 		t.detach();
+		Sleep(10);
 	}
 }
 
