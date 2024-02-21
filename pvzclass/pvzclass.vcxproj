@@ -334,6 +334,7 @@
     <ClInclude Include="Events\PlantRemoveEvent.h" />
     <ClInclude Include="Enums\MagnetItemType.h" />
     <ClInclude Include="Events\PlantReloadEvent.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="Mod.h" />
     <ClInclude Include="ModLoader.h" />
     <ClInclude Include="ProcessOpener.h" />

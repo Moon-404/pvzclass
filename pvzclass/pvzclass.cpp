@@ -4,14 +4,16 @@
 
 int main()
 {
+	ModLoader modloader;
+	EventHandler handler;
+	modloader.loadAsset(handler);
+
 	DWORD pid = ProcessOpener::Open();
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);
 	EnableBackgroundRunning();
 
-	EventHandler handler;
-	ModLoader modloader;
-	modloader.loadAll(handler);
+	modloader.loadDll(handler);
 	handler.start();
 
 	while (true)
