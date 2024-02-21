@@ -23,28 +23,39 @@ void ModLoader::loadPath(std::filesystem::path p, EventHandler& handler, int sta
             std::cout << u8"模组名与版本号：" << assetName << " " << assetVersion << std::endl;
             std::cout << u8"作者：" << assetAuthor << std::endl;
             std::cout << u8"描述：" << assetDescription << std::endl;
-            SetConsoleOutputCP(936);
             for (const auto& asset : jsonData["assets"])
             {
                 std::filesystem::path source = asset["source"];
                 std::filesystem::path target = asset["target"];
-                std::filesystem::path backup = "ModBackupAssets" / target;
-                nlohmann::json info;
-                info["source"] = "";
-                info["target"] = target;
-                std::filesystem::create_directories(target.parent_path());
-                std::filesystem::create_directories(backup.parent_path());
-                if (std::filesystem::exists(target))
+                std::string targetString = target.string();
+                if (assetMap.find(targetString) == assetMap.end())
                 {
-                    std::filesystem::copy_file(target, backup, std::filesystem::copy_options::overwrite_existing);
-                    info["source"] = backup;
+                    assetMap[targetString] = assetName;
+                    std::filesystem::path backup = "ModBackupAssets" / target;
+                    nlohmann::json info;
+                    info["source"] = "";
+                    info["target"] = target;
+                    std::filesystem::create_directories(target.parent_path());
+                    std::filesystem::create_directories(backup.parent_path());
+                    if (std::filesystem::exists(target))
+                    {
+                        std::filesystem::copy_file(target, backup, std::filesystem::copy_options::overwrite_existing);
+                        info["source"] = backup;
+                    }
+                    std::filesystem::copy_file(path.parent_path() / source, target, std::filesystem::copy_options::overwrite_existing);
+                    assets.push_back(info);
                 }
-                std::filesystem::copy_file(path.parent_path() / source, target, std::filesystem::copy_options::overwrite_existing);
-                assets.push_back(info);
+                else
+                {
+                    std::cout << u8"警告：" << target << u8" 已经被 " << assetMap[targetString] << u8" 所注册，本项资源不会生效！\n";
+                }
             }
+            SetConsoleOutputCP(936);
+            std::cout << "------\n";
         }
         else if (stage == 2 && path.extension() == ".dll")
         {
+            std::cout << "------\n";
             HMODULE dll = LoadLibrary(path.c_str());
             if (dll == nullptr)
             {
@@ -79,6 +90,7 @@ void ModLoader::loadPath(std::filesystem::path p, EventHandler& handler, int sta
 
 void ModLoader::loadAsset(EventHandler& handler)
 {
+    std::cout << "------\n加载资源包...\n------\n";
     if (std::filesystem::exists("assets.json"))
     {
         std::ifstream infile("assets.json");
@@ -103,16 +115,19 @@ void ModLoader::loadAsset(EventHandler& handler)
     std::ofstream outfile("assets.json");
     outfile << assets;
     outfile.close();
+    std::cout << "启动游戏中...\n------\n";
 }
 
 void ModLoader::loadDll(EventHandler& handler)
 {
+    std::cout << "加载模组包...\n";
     TCHAR path[1024] = { 0 };
     DWORD size = 0;
     GetModuleFileNameEx(PVZ::Memory::hProcess, NULL, path, 1024);
     std::filesystem::path exePath = path;
     PVZPath = exePath.parent_path();
     loadPath("mods", handler, 2);
+    std::cout << "------\n";
 }
 
 void ModLoader::update()

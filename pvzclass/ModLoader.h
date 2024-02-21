@@ -8,12 +8,14 @@
 #include <Psapi.h>
 #include "json.hpp"
 #include <fstream>
+#include <map>
 
 class ModLoader
 {
 private:
 	std::vector<Mod*> mods;
 	std::vector<HMODULE> dlls;
+	std::map<std::string, std::string> assetMap;
 	nlohmann::json assets;
 	// 递归加载路径
 	// stage 1资源包 2dll模组
