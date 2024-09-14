@@ -15,6 +15,9 @@ namespace Draw
 	// 将字符串转化为字符数组
 	char* ToChar(PString str);
 
+	// 释放字符数组资源
+	void FreeString(PString str);
+
 	// 加载字体，由于汉化版的特殊处理，这个函数实际上调用的是计算字符串长度
 	void StringWidth(PString str, DWORD imageFontAddress);
 

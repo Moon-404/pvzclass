@@ -37,6 +37,19 @@ char* Draw::ToChar(PString str)
 	return result;
 }
 
+BYTE __asm__FreeString[]
+{
+	MOV_ECX(0),
+	INVOKE(0x404420),
+	RET
+};
+
+void Draw::FreeString(PString str)
+{
+	SETARG(__asm__FreeString, 1) = str;
+	PVZ::Memory::Execute(STRING(__asm__FreeString));
+}
+
 BYTE __asm__StringWidth[]
 {
 	PUSHDWORD(0),

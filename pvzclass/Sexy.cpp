@@ -251,7 +251,7 @@ void Sexy::FreeWidget(PWidget widget)
 	PVZ::Memory::Execute(STRING(__asm__FreeWidget));
 }
 
-BYTE __asm__ResizeButton[]
+BYTE __asm__ResizeWidget[]
 {
 	PUSHDWORD(0),
 	PUSHDWORD(0),
@@ -266,12 +266,12 @@ BYTE __asm__ResizeButton[]
 
 void Sexy::ResizeWidget(PWidget widget, int x, int y, int width, int height)
 {
-	SETARG(__asm__ResizeButton, 1) = height;
-	SETARG(__asm__ResizeButton, 6) = width;
-	SETARG(__asm__ResizeButton, 11) = y;
-	SETARG(__asm__ResizeButton, 16) = x;
-	SETARG(__asm__ResizeButton, 21) = widget;
-	PVZ::Memory::Execute(STRING(__asm__ResizeButton));
+	SETARG(__asm__ResizeWidget, 1) = height;
+	SETARG(__asm__ResizeWidget, 6) = width;
+	SETARG(__asm__ResizeWidget, 11) = y;
+	SETARG(__asm__ResizeWidget, 16) = x;
+	SETARG(__asm__ResizeWidget, 21) = widget;
+	PVZ::Memory::Execute(STRING(__asm__ResizeWidget));
 }
 
 BYTE __asm__AddToWidget[]
