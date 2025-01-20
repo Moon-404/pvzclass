@@ -927,7 +927,7 @@ namespace PVZ
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		INT_PROPERTY(CollisionLength, __get_CollisionLength, __set_CollisionLength, 0x10);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
-		INT_READONLY_PROPERTY(CardsCount, __get_CardsCount, 0x24);
+		PROPERTY(int, __get_CardsCount, SetCardsCount) CardsCount;
 		class SeedCard
 		{
 			int BaseAddress;
@@ -954,7 +954,6 @@ namespace PVZ
 			// 该卡槽进入CD，持续时间为-1则为该卡槽的默认时间
 			void EnterCoolDown(int duration = -1);
 		};
-		void SetCardsCount(int num);
 		SPT<PVZ::CardSlot::SeedCard> GetCard(int index);
 	};
 	class Miscellaneous
@@ -1150,4 +1149,4 @@ namespace PVZ
 	};
 
 #pragma endregion
-};
+};		
