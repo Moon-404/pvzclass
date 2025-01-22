@@ -787,6 +787,7 @@ namespace PVZ
 		INT_READONLY_PROPERTY(Id, __get_Id, 0xD0);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Collect();
+		void Die();
 	};
 	class Lawnmover
 	{
