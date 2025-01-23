@@ -21,6 +21,12 @@ byte __asm__UpdateHook[]
 	0xE9, 0, 0, 0, 0, 0x66, 0x90
 };
 
+byte __asm__Revert_UpdateHook[]
+{
+	PUSH(255),
+	PUSHDWORD(0x64FA35)
+};
+
 namespace PVZ
 {
 	// 在使用 Resource 类的静态成员前，应当先调用此函数。
@@ -53,6 +59,7 @@ namespace PVZ
 	{
 		CloseHandle(Memory::hProcess);
 		Memory::FreeMemory(Memory::Variable);
+		Memory::WriteArray<BYTE>(0x415D40, STRING(__asm__Revert_UpdateHook));
 	}
 }
 
