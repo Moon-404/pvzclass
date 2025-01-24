@@ -68,6 +68,11 @@ void PVZ::Zombie::SetMemSize(int NewSize, int NewCount)
 	Memory::WriteArray<byte>(0x535364, STRING(__asm__Mem4));
 }
 
+FLOAT PVZ::Zombie::__get_Speed()
+{
+	return(Memory::ReadMemory<float>(BaseAddress + 0x34));
+}
+
 void PVZ::Zombie::SetSpeed(float speed)
 {
 	Memory::WriteMemory<float>(BaseAddress + 0x34, speed);

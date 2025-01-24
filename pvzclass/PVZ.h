@@ -580,8 +580,7 @@ namespace PVZ
 		T_PROPERTY(ZombieState::ZombieState, State, __get_State, __set_State, 0x28);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x2C);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x30);
-		T_READONLY_PROPERTY(FLOAT, Speed, __get_Speed, 0x34);
-		void SetSpeed(float speed);
+		PROPERTY(FLOAT, __get_Speed, SetSpeed) Speed;
 		T_READONLY_PROPERTY(BOOLEAN, ShowingTongue, __get_ShowingTongue, 0x50);
 		T_READONLY_PROPERTY(BOOLEAN, Eating, __get_Eating, 0x51);
 		void Light(int cs = 100);
