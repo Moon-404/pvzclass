@@ -178,7 +178,7 @@ namespace PVZ
 		static void WaitPVZ(); // 等待PVZ到达更新前
 		static void ResumePVZ(); // 恢复PVZ
 
-#ifdef PVZCLASS_LOCAL
+#ifdef __PVZCLASS_LOCALEXECUTE
 #define ReadMemory ReadMemoryLocal
 #define WriteMemory WriteMemoryLocal
 #else
