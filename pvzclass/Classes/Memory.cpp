@@ -24,6 +24,21 @@ inline static T PVZ::Memory::ReadMemoryRemote(DWORD address)
 	return buffer;
 };
 
+template <class T>
+inline static BOOL PVZ::Memory::WriteMemoryLocal(DWORD address, T value)
+{
+	PVZ::Memory::AllAccess(address);
+	T* buffer = (T*)address;
+	*buffer = value;
+	return true;
+};
+
+template <class T>
+inline static BOOL PVZ::Memory::WriteMemoryRemote(DWORD address, T value)
+{
+	return WriteProcessMemory(hProcess, (LPVOID)address, &value, sizeof(T), NULL);
+};
+
 int PVZ::Memory::ReadPointer(int baseaddress, int offset)
 {
 	return ReadMemory<int>(ReadMemory<int>(baseaddress) + offset);

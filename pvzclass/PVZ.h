@@ -115,20 +115,11 @@ namespace PVZ
 		inline static T ReadMemoryRemote(DWORD address);
 
 		template <class T>
-		inline static BOOL WriteMemory(DWORD address, T value)
-		{
-			if (localExecute)
-			{
-				AllAccess(address);
-				T* buffer = (T*)address;
-				*buffer = value;
-				return true;
-			}
-			else
-			{
-				return WriteProcessMemory(hProcess, (LPVOID)address, &value, sizeof(T), NULL);
-			}
-		};
+		inline static BOOL WriteMemoryLocal(DWORD address, T value);
+
+		template <class T>
+		inline static BOOL WriteMemoryRemote(DWORD address, T value);
+
 		template <class T>
 		inline static BOOL ReadArray(DWORD address, T* result, size_t length)
 		{
@@ -172,8 +163,10 @@ namespace PVZ
 
 #ifdef PVZCLASS_LOCAL
 #define ReadMemory ReadMemoryLocal
+#define WriteMemory WriteMemoryLocal
 #else
 #define ReadMemory ReadMemoryRemote
+#define WriteMemory WriteMemoryRemote
 #endif
 	};
 
