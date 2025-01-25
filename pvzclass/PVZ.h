@@ -107,21 +107,13 @@ namespace PVZ
 		// 如果为true，则在当前线程执行代码，在dll中设置为true
 		static bool localExecute;
 		static int DLLAddress;
+		
 		template <class T>
-		inline static T ReadMemory(DWORD address)
-		{
-			if (localExecute)
-			{
-				T* buffer = (T*)address;
-				return *buffer;
-			}
-			else
-			{
-				T buffer = (T)NULL;
-				ReadProcessMemory(hProcess, (LPCVOID)address, &buffer, sizeof(T), NULL);
-				return buffer;
-			}
-		};
+		inline static T ReadMemoryLocal(DWORD address);
+
+		template <class T>
+		inline static T ReadMemoryRemote(DWORD address);
+
 		template <class T>
 		inline static BOOL WriteMemory(DWORD address, T value)
 		{
@@ -177,6 +169,12 @@ namespace PVZ
 		static int InvokeDllProc(const char* procname);
 		static void WaitPVZ(); // 等待PVZ到达更新前
 		static void ResumePVZ(); // 恢复PVZ
+
+#ifdef PVZCLASS_LOCAL
+#define ReadMemory ReadMemoryLocal
+#else
+#define ReadMemory ReadMemoryRemote
+#endif
 	};
 
 #pragma endregion

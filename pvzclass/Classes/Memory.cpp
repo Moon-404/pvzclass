@@ -10,6 +10,20 @@ bool PVZ::Memory::immediateExecute = false;
 bool PVZ::Memory::localExecute = false;
 int PVZ::Memory::DLLAddress = 0;
 
+template <class T>
+inline static T PVZ::Memory::ReadMemoryLocal(DWORD address)
+{
+	return *((T*)address);
+};
+
+template <class T>
+inline static T PVZ::Memory::ReadMemoryRemote(DWORD address)
+{
+	T buffer = (T)NULL;
+	ReadProcessMemory(hProcess, (LPCVOID)address, &buffer, sizeof(T), NULL);
+	return buffer;
+};
+
 int PVZ::Memory::ReadPointer(int baseaddress, int offset)
 {
 	return ReadMemory<int>(ReadMemory<int>(baseaddress) + offset);
