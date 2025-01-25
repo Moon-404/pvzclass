@@ -1,5 +1,6 @@
 # TOC
-- [1.17.2（TBD）](#1.17.2)
+- [2.0 (TBD)](#2.0)
+- [1.17.2](#1.17.2（2025/1/25）)
 - [1.17.1](#1.17.1（2025/1/4）)
 - [1.17](#1.17（2024/12/23）)
 - [1.16.2](#1.16.2（2024/10/19）)
@@ -13,9 +14,25 @@
 
 ## 1.17.2
 
+### 新增内容
+
+- `DisableBoardDraw()`，可以关闭关卡内大部分内容的绘制。
+- `DisableNewParticle()`，阻止新生成的粒子系统产生粒子效果。
+- `DisableAllSounds()`，禁用一切音效播放。
+- `ResourceManager`，用于管理资源文件。
+- `Coin::DisappearCounter`，硬币消失倒计时。
+- `Coin::Die()`，可以直接移除硬币。
+
 ### 改动
 
-待定。
+- `CardSlot::__get_CardsCount` 和 `CardSlot::SetCardsCount` 现在均可通过 `CardsCount` 使用。
+- `Coin::__get_Speed` 和 `Coin::SetSpeed` 现在均可通过 `Speed` 使用。
+
+### 漏洞修复
+
+- 修复 #9
+- 修复 #11
+- 修复了 QuitPVZ() 不会清理 UpdateHook 代码段的漏洞。
 
 ### 兼容性
 
