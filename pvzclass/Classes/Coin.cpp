@@ -38,3 +38,16 @@ void PVZ::Coin::Collect()
 	SETARG(__asm__Collect, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm__Collect));
 }
+
+byte __asm__Coin_die[] =
+{
+	MOV_ESI(0),
+	INVOKE(0x432DD0),
+	RET
+};
+
+void PVZ::Coin::Die()
+{
+	SETARG(__asm__Coin_die, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__Coin_die));
+}
