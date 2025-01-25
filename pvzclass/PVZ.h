@@ -109,16 +109,33 @@ namespace PVZ
 		static int DLLAddress;
 		
 		template <class T>
-		inline static T ReadMemoryLocal(DWORD address);
+		inline static T ReadMemoryLocal(DWORD address)
+		{
+			return *((T*)address);
+		};
 
 		template <class T>
-		inline static T ReadMemoryRemote(DWORD address);
+		inline static T ReadMemoryRemote(DWORD address)
+		{
+			T buffer = (T)NULL;
+			ReadProcessMemory(hProcess, (LPCVOID)address, &buffer, sizeof(T), NULL);
+			return buffer;
+		};
 
 		template <class T>
-		inline static BOOL WriteMemoryLocal(DWORD address, T value);
+		inline static BOOL WriteMemoryLocal(DWORD address, T value)
+		{
+			PVZ::Memory::AllAccess(address);
+			T* buffer = (T*)address;
+			*buffer = value;
+			return true;
+		};
 
 		template <class T>
-		inline static BOOL WriteMemoryRemote(DWORD address, T value);
+		inline static BOOL WriteMemoryRemote(DWORD address, T value)
+		{
+			return WriteProcessMemory(hProcess, (LPVOID)address, &value, sizeof(T), NULL);
+		};
 
 		template <class T>
 		inline static BOOL ReadArray(DWORD address, T* result, size_t length)
