@@ -107,63 +107,63 @@ namespace PVZ
 		// 如果为true，则在当前线程执行代码，在dll中设置为true
 		static bool localExecute;
 		static int DLLAddress;
+		
 		template <class T>
-		inline static T ReadMemory(DWORD address)
+		inline static T ReadMemoryLocal(DWORD address)
 		{
-			if (localExecute)
-			{
-				T* buffer = (T*)address;
-				return *buffer;
-			}
-			else
-			{
-				T buffer = (T)NULL;
-				ReadProcessMemory(hProcess, (LPCVOID)address, &buffer, sizeof(T), NULL);
-				return buffer;
-			}
+			return *((T*)address);
 		};
+
 		template <class T>
-		inline static BOOL WriteMemory(DWORD address, T value)
+		inline static T ReadMemoryRemote(DWORD address)
 		{
-			if (localExecute)
-			{
-				AllAccess(address);
-				T* buffer = (T*)address;
-				*buffer = value;
-				return true;
-			}
-			else
-			{
-				return WriteProcessMemory(hProcess, (LPVOID)address, &value, sizeof(T), NULL);
-			}
+			T buffer = (T)NULL;
+			ReadProcessMemory(hProcess, (LPCVOID)address, &buffer, sizeof(T), NULL);
+			return buffer;
 		};
+
 		template <class T>
-		inline static BOOL ReadArray(DWORD address, T* result, size_t length)
+		inline static BOOL WriteMemoryLocal(DWORD address, T value)
 		{
-			if (localExecute)
-			{
-				memcpy(result, (const void*)address, length);
-				return true;
-			}
-			else
-			{
-				return ReadProcessMemory(hProcess, (LPCVOID)address, (LPVOID)result, length, NULL);
-			}
+			PVZ::Memory::AllAccess(address);
+			T* buffer = (T*)address;
+			*buffer = value;
+			return true;
 		};
+
 		template <class T>
-		inline static BOOL WriteArray(DWORD address, T* value, size_t length)
+		inline static BOOL WriteMemoryRemote(DWORD address, T value)
 		{
-			if (localExecute)
-			{
-				AllAccess(address);
-				memcpy((void*)address, value, length);
-				return true;
-			}
-			else
-			{
-				return WriteProcessMemory(hProcess, (LPVOID)address, value, length, NULL);
-			}
+			return WriteProcessMemory(hProcess, (LPVOID)address, &value, sizeof(T), NULL);
 		};
+
+		template <class T>
+		inline static BOOL ReadArrayLocal(DWORD address, T* result, size_t length)
+		{
+			memcpy(result, (const void*)address, length);
+			return true;
+		};
+
+		template <class T>
+		inline static BOOL ReadArrayRemote(DWORD address, T* result, size_t length)
+		{
+			return ReadProcessMemory(hProcess, (LPCVOID)address, (LPVOID)result, length, NULL);
+		};
+
+		template <class T>
+		inline static BOOL WriteArrayLocal(DWORD address, T* value, size_t length)
+		{
+			AllAccess(address);
+			memcpy((void*)address, value, length);
+			return true;
+		};
+
+		template <class T>
+		inline static BOOL WriteArrayRemote(DWORD address, T* value, size_t length)
+		{
+			return WriteProcessMemory(hProcess, (LPVOID)address, value, length, NULL);
+		};
+
 		static int ReadPointer(int baseaddress, int offset);
 		static int ReadPointer(int baseaddress, int offset, int offset1);
 		static int ReadPointer(int baseaddress, int offset, int offset1, int offset2);
@@ -177,6 +177,18 @@ namespace PVZ
 		static int InvokeDllProc(const char* procname);
 		static void WaitPVZ(); // 等待PVZ到达更新前
 		static void ResumePVZ(); // 恢复PVZ
+
+#ifdef __PVZCLASS_LOCALEXECUTE
+#define ReadMemory ReadMemoryLocal
+#define ReadArray ReadArrayLocal
+#define WriteMemory WriteMemoryLocal
+#define WriteArray WriteArrayLocal
+#else
+#define ReadMemory ReadMemoryRemote
+#define ReadArray ReadArrayRemote
+#define WriteMemory WriteMemoryRemote
+#define WriteArray WriteArrayRemote
+#endif
 	};
 
 #pragma endregion
