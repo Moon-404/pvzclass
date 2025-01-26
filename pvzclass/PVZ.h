@@ -138,18 +138,18 @@ namespace PVZ
 		};
 
 		template <class T>
-		inline static BOOL ReadArray(DWORD address, T* result, size_t length)
+		inline static BOOL ReadArrayLocal(DWORD address, T* result, size_t length)
 		{
-			if (localExecute)
-			{
-				memcpy(result, (const void*)address, length);
-				return true;
-			}
-			else
-			{
-				return ReadProcessMemory(hProcess, (LPCVOID)address, (LPVOID)result, length, NULL);
-			}
+			memcpy(result, (const void*)address, length);
+			return true;
 		};
+
+		template <class T>
+		inline static BOOL ReadArrayRemote(DWORD address, T* result, size_t length)
+		{
+			return ReadProcessMemory(hProcess, (LPCVOID)address, (LPVOID)result, length, NULL);
+		};
+
 		template <class T>
 		inline static BOOL WriteArray(DWORD address, T* value, size_t length)
 		{
@@ -180,9 +180,11 @@ namespace PVZ
 
 #ifdef __PVZCLASS_LOCALEXECUTE
 #define ReadMemory ReadMemoryLocal
+#define ReadArray ReadArrayLocal
 #define WriteMemory WriteMemoryLocal
 #else
 #define ReadMemory ReadMemoryRemote
+#define ReadArray ReadArrayRemote
 #define WriteMemory WriteMemoryRemote
 #endif
 	};
