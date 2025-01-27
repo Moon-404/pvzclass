@@ -7,7 +7,6 @@ DWORD PVZ::Memory::mainThreadId = 0;
 int PVZ::Memory::Variable = 0;
 HWND PVZ::Memory::mainwindowhandle = NULL;
 bool PVZ::Memory::immediateExecute = false;
-bool PVZ::Memory::localExecute = false;
 int PVZ::Memory::DLLAddress = 0;
 
 int PVZ::Memory::ReadPointer(int baseaddress, int offset)

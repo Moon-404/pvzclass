@@ -104,8 +104,6 @@ namespace PVZ
 		static HWND mainwindowhandle;
 		// 如果为true，则不会等待PVZ进程，立即执行远程代码
 		static bool immediateExecute;
-		// 如果为true，则在当前线程执行代码，在dll中设置为true
-		static bool localExecute;
 		static int DLLAddress;
 		
 		template <class T>
@@ -182,6 +180,7 @@ namespace PVZ
 		static void WaitPVZ(); // 等待PVZ到达更新前
 		static void ResumePVZ(); // 恢复PVZ
 
+// 如果为true，则在当前线程执行代码，在dll中设置为true
 #ifdef __PVZCLASS_LOCALEXECUTE
 #define ReadMemory ReadMemoryLocal
 #define ReadArray ReadArrayLocal
