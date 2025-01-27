@@ -73,29 +73,27 @@ void PVZ::Memory::FreeMemoryRemote(int address)
 	VirtualFreeEx(hProcess, (LPVOID)address, 0, MEM_RELEASE);
 }
 
-int PVZ::Memory::Execute(byte asmCode[], int length)
+int PVZ::Memory::ExecuteLocal(byte asmCode[], int length)
 {
-	if (localExecute)
-	{
-		byte* code = new byte[length + 2];
-		code[0] = PUSHAD;
-		memcpy(code + 1, asmCode, length);
-		code[length] = POPAD;
-		code[length + 1] = RET;
-		void (*func)() = (void (*)())code;
-		func();
-		return ReadMemory<int>(Variable);
-	}
-	else
-	{
-		int Address = AllocMemory();
-		WriteArray<byte>(Address, asmCode, length);
-		if (!immediateExecute) WaitPVZ();
-		CreateThread(Address);
-		if (!immediateExecute) ResumePVZ();
-		FreeMemory(Address);
-		return ReadMemory<int>(Variable);
-	}
+	byte* code = new byte[length + 2];
+	code[0] = PUSHAD;
+	memcpy(code + 1, asmCode, length);
+	code[length] = POPAD;
+	code[length + 1] = RET;
+	void (*func)() = (void (*)())code;
+	func();
+	return ReadMemory<int>(Variable);
+}
+
+int PVZ::Memory::ExecuteRemote(byte asmCode[], int length)
+{
+	int Address = AllocMemory();
+	WriteArray<byte>(Address, asmCode, length);
+	if (!immediateExecute) WaitPVZ();
+	CreateThread(Address);
+	if (!immediateExecute) ResumePVZ();
+	FreeMemory(Address);
+	return ReadMemory<int>(Variable);
 }
 
 void PVZ::Memory::WaitPVZ()
