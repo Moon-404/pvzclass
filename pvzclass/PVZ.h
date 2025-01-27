@@ -172,7 +172,8 @@ namespace PVZ
 		static int AllocMemoryLocal(int pages = 1, int size = 0);
 		static int AllocMemoryRemote(int pages = 1, int size = 0);
 		static void CreateThread(int address);
-		static void FreeMemory(int address);
+		static void FreeMemoryLocal(int address);
+		static void FreeMemoryRemote(int address);
 		static int Execute(byte asmcode[], int lengrh);
 		static bool InjectDll(const char* dllname);
 		static int GetProcAddress(const char* procname);
@@ -187,6 +188,7 @@ namespace PVZ
 #define WriteArray WriteArrayLocal
 #define AllAccess AllAccessLocal
 #define AllocMemory AllocMemoryLocal
+#define FreeMemory FreeMemoryLocal
 #else
 #define ReadMemory ReadMemoryRemote
 #define ReadArray ReadArrayRemote
@@ -194,6 +196,7 @@ namespace PVZ
 #define WriteArray WriteArrayRemote
 #define AllAccess AllAccessRemote
 #define AllocMemory AllocMemoryRemote
+#define FreeMemory FreeMemoryRemote
 #endif
 	};
 

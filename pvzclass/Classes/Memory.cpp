@@ -63,16 +63,14 @@ void PVZ::Memory::CreateThread(int address)
 	}
 }
 
-void PVZ::Memory::FreeMemory(int address)
+void PVZ::Memory::FreeMemoryLocal(int address)
 {
-	if (localExecute)
-	{
-		delete (void*)address;
-	}
-	else
-	{
-		VirtualFreeEx(hProcess, (LPVOID)address, 0, MEM_RELEASE);
-	}
+	delete (void*)address;
+}
+
+void PVZ::Memory::FreeMemoryRemote(int address)
+{
+	VirtualFreeEx(hProcess, (LPVOID)address, 0, MEM_RELEASE);
 }
 
 int PVZ::Memory::Execute(byte asmCode[], int length)
