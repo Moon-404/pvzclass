@@ -37,18 +37,16 @@ BOOL PVZ::Memory::AllAccessRemote(int address)
 	return VirtualProtectEx(hProcess, (LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
 }
 
-int PVZ::Memory::AllocMemory(int pages, int size)
+int PVZ::Memory::AllocMemoryLocal(int pages, int size)
 {
-	if (localExecute)
-	{
-		BYTE* page = new BYTE[PAGE_SIZE * pages + size];
-		AllAccessLocal((int)page);
-		return (int)page;
-	}
-	else
-	{
-		return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE * pages + size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-	}
+	BYTE* page = new BYTE[PAGE_SIZE * pages + size];
+	AllAccessLocal((int)page);
+	return (int)page;
+}
+
+int PVZ::Memory::AllocMemoryRemote(int pages, int size)
+{
+	return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE * pages + size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 }
 
 void PVZ::Memory::CreateThread(int address)

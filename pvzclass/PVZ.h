@@ -169,7 +169,8 @@ namespace PVZ
 		static int ReadPointer(int baseaddress, int offset, int offset1, int offset2);
 		static BOOL AllAccessLocal(int address);
 		static BOOL AllAccessRemote(int address);
-		static int AllocMemory(int pages = 1, int size = 0);
+		static int AllocMemoryLocal(int pages = 1, int size = 0);
+		static int AllocMemoryRemote(int pages = 1, int size = 0);
 		static void CreateThread(int address);
 		static void FreeMemory(int address);
 		static int Execute(byte asmcode[], int lengrh);
@@ -184,11 +185,15 @@ namespace PVZ
 #define ReadArray ReadArrayLocal
 #define WriteMemory WriteMemoryLocal
 #define WriteArray WriteArrayLocal
+#define AllAccess AllAccessLocal
+#define AllocMemory AllocMemoryLocal
 #else
 #define ReadMemory ReadMemoryRemote
 #define ReadArray ReadArrayRemote
 #define WriteMemory WriteMemoryRemote
 #define WriteArray WriteArrayRemote
+#define AllAccess AllAccessRemote
+#define AllocMemory AllocMemoryRemote
 #endif
 	};
 
