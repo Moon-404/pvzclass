@@ -167,7 +167,8 @@ namespace PVZ
 		static int ReadPointer(int baseaddress, int offset);
 		static int ReadPointer(int baseaddress, int offset, int offset1);
 		static int ReadPointer(int baseaddress, int offset, int offset1, int offset2);
-		static BOOL AllAccess(int address);
+		static BOOL AllAccessLocal(int address);
+		static BOOL AllAccessRemote(int address);
 		static int AllocMemory(int pages = 1, int size = 0);
 		static void CreateThread(int address);
 		static void FreeMemory(int address);

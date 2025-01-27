@@ -25,17 +25,16 @@ int PVZ::Memory::ReadPointer(int baseaddress, int offset, int offset1, int offse
 	return ReadMemory<int>(ReadPointer(baseaddress, offset, offset1) + offset2);
 }
 
-BOOL PVZ::Memory::AllAccess(int address)
+BOOL PVZ::Memory::AllAccessLocal(int address)
 {
 	DWORD op = PAGE_READONLY;
-	if (localExecute)
-	{
-		return VirtualProtect((LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
-	}
-	else
-	{
-		return VirtualProtectEx(hProcess, (LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
-	}
+	return VirtualProtect((LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
+}
+
+BOOL PVZ::Memory::AllAccessRemote(int address)
+{
+	DWORD op = PAGE_READONLY;
+	return VirtualProtectEx(hProcess, (LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
 }
 
 int PVZ::Memory::AllocMemory(int pages, int size)
@@ -43,7 +42,7 @@ int PVZ::Memory::AllocMemory(int pages, int size)
 	if (localExecute)
 	{
 		BYTE* page = new BYTE[PAGE_SIZE * pages + size];
-		AllAccess((int)page);
+		AllAccessLocal((int)page);
 		return (int)page;
 	}
 	else
