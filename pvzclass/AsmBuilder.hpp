@@ -32,7 +32,17 @@ public:
         return *this;
     }
 
-    
+    enum Reg8
+    {
+        REG_AL = 0,
+        REG_CL,
+        REG_DL,
+        REG_BL,
+        REG_AH,
+        REG_CH,
+        REG_DH,
+        REG_BH,
+    };
 
     // 添加多个字节到机器码中
     AsmBuilder& add_bytes(const std::vector<uint8_t>& bytes) {
@@ -609,7 +619,7 @@ public:
     }
 
     // 添加 NOT 指令
-    AsmBuilder& not_reg(uint8_t reg) {
+    AsmBuilder& not_reg(Reg8 reg) {
         if (reg > 7) {
             throw std::invalid_argument("Invalid register for NOT");
         }
