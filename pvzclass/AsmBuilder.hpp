@@ -1341,7 +1341,23 @@ public:
         return *this;
     }
 
-
+    // 添加 PUSHAD 指令
+    AsmBuilder& pushad()
+    {
+        return add_byte(PUSHAD);
+    }
+    // 添加 POPAD 指令
+    AsmBuilder& popad()
+    {
+        return add_byte(POPAD);
+    }
+    // 退回 1 位或多位机器码
+    AsmBuilder& back(const uint32_t count)
+    {
+        for (int i = 0; i < count; i++)
+            code.pop_back();
+        return *this;
+    }
 
 };
 
