@@ -259,15 +259,6 @@
 
 #pragma region asm float
 
-#define F_ST0 0
-#define F_ST1 1
-#define F_ST2 2
-#define F_ST3 3
-#define F_ST4 4
-#define F_ST5 5
-#define F_ST6 6
-#define F_ST7 7
-
 #define FNOP 0xD9,0xD0
 #define FCHS 0xD9,0xE0
 #define FABSc 0xD9,0xE1

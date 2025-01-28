@@ -2,7 +2,7 @@
 #include "Enums.h"
 #include "Flags.h"
 #include "AsmFunctions.h"
-#include "AsmBuilder.h"
+#include "AsmBuilder.hpp"
 #include <ctime>
 #include <memory>
 #include <vector>
