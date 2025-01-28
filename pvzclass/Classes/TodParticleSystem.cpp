@@ -34,6 +34,7 @@ PVZ::TodParticleSystem PVZ::CreateParticleSystem(float X, float Y, int render_or
 		.push_float(X)
 		.mov_reg_imm(REG_EDX, PVZ_BASE)
 		.invoke(0x453C80)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
 		.ret();
 
 	return PVZ::TodParticleSystem(PVZ::Memory::Execute(builder));

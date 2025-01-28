@@ -142,7 +142,7 @@ public:
     }
 
     // 添加 MOV 指令（内存到寄存器）
-    AsmBuilder& mov_mem_reg(uint32_t address, uint8_t reg) {
+    AsmBuilder& mov_reg_mem(uint8_t reg, uint32_t address) {
         if (reg > 7) {
             throw std::invalid_argument("Invalid register for MOV");
         }
@@ -153,7 +153,7 @@ public:
     }
 
     // 添加 MOV 指令（寄存器到内存）
-    AsmBuilder& mov_reg_mem(uint8_t reg, uint32_t address) {
+    AsmBuilder& mov_mem_reg(uint32_t address, uint8_t reg) {
         if (reg > 7) {
             throw std::invalid_argument("Invalid register for MOV");
         }
