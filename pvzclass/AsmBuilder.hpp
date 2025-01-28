@@ -637,20 +637,12 @@ public:
     }
 
     // 添加 NEG 指令
-    AsmBuilder& neg_reg(uint8_t reg) {
+    AsmBuilder& neg_reg(Reg8 reg) {
         if (reg > 7) {
             throw std::invalid_argument("Invalid register for NEG");
         }
         add_byte(0xF6);
         add_byte(0xD8 + reg);
-        return *this;
-    }
-
-    // 添加 NEG 指令（内存）
-    AsmBuilder& neg_mem(uint32_t address) {
-        add_byte(0xF7);
-        add_byte(0x3D);
-        add_dword(address);
         return *this;
     }
 
