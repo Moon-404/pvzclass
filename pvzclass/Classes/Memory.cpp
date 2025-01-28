@@ -84,10 +84,38 @@ int PVZ::Memory::ExecuteLocal(byte asmCode[], int length)
 	return ReadMemory<int>(Variable);
 }
 
+int PVZ::Memory::ExecuteLocal(const AsmBuilder& builder)
+{
+	auto ori_code = builder.get_code();
+	DWORD length = ori_code.size();
+	byte* code = new byte[length + 2];
+
+	code[0] = PUSHAD;
+	memcpy(code + 1, ori_code.data(), length - 1);
+	code[length] = POPAD;
+	code[length + 1] = RET;
+	void (*func)() = (void (*)())code;
+	func();
+
+	delete(code);
+	return ReadMemory<int>(Variable);
+}
+
 int PVZ::Memory::ExecuteRemote(byte asmCode[], int length)
 {
 	int Address = AllocMemory();
 	WriteArray<byte>(Address, asmCode, length);
+	if (!immediateExecute) WaitPVZ();
+	CreateThread(Address);
+	if (!immediateExecute) ResumePVZ();
+	FreeMemory(Address);
+	return ReadMemory<int>(Variable);
+}
+
+int PVZ::Memory::ExecuteRemote(const AsmBuilder& builder)
+{
+	int Address = AllocMemory();
+	WriteArray<byte>(Address, builder.get_code().data(), builder.get_code().size());
 	if (!immediateExecute) WaitPVZ();
 	CreateThread(Address);
 	if (!immediateExecute) ResumePVZ();

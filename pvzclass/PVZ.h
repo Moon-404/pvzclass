@@ -174,7 +174,9 @@ namespace PVZ
 		static void FreeMemoryLocal(int address);
 		static void FreeMemoryRemote(int address);
 		static int ExecuteLocal(byte asmcode[], int lengrh);
+		static int ExecuteLocal(const AsmBuilder& builder);
 		static int ExecuteRemote(byte asmcode[], int lengrh);
+		static int ExecuteRemote(const AsmBuilder& builder);
 		static bool InjectDll(const char* dllname);
 		static int GetProcAddress(const char* procname);
 		static int InvokeDllProc(const char* procname);
