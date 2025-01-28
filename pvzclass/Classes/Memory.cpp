@@ -7,7 +7,6 @@ DWORD PVZ::Memory::mainThreadId = 0;
 int PVZ::Memory::Variable = 0;
 HWND PVZ::Memory::mainwindowhandle = NULL;
 bool PVZ::Memory::immediateExecute = false;
-bool PVZ::Memory::localExecute = false;
 int PVZ::Memory::DLLAddress = 0;
 
 int PVZ::Memory::ReadPointer(int baseaddress, int offset)
@@ -25,31 +24,28 @@ int PVZ::Memory::ReadPointer(int baseaddress, int offset, int offset1, int offse
 	return ReadMemory<int>(ReadPointer(baseaddress, offset, offset1) + offset2);
 }
 
-BOOL PVZ::Memory::AllAccess(int address)
+BOOL PVZ::Memory::AllAccessLocal(int address)
 {
 	DWORD op = PAGE_READONLY;
-	if (localExecute)
-	{
-		return VirtualProtect((LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
-	}
-	else
-	{
-		return VirtualProtectEx(hProcess, (LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
-	}
+	return VirtualProtect((LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
 }
 
-int PVZ::Memory::AllocMemory(int pages, int size)
+BOOL PVZ::Memory::AllAccessRemote(int address)
 {
-	if (localExecute)
-	{
-		BYTE* page = new BYTE[PAGE_SIZE * pages + size];
-		AllAccess((int)page);
-		return (int)page;
-	}
-	else
-	{
-		return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE * pages + size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-	}
+	DWORD op = PAGE_READONLY;
+	return VirtualProtectEx(hProcess, (LPVOID)address, PAGE_SIZE, PAGE_EXECUTE_READWRITE, &op);
+}
+
+int PVZ::Memory::AllocMemoryLocal(int pages, int size)
+{
+	BYTE* page = new BYTE[PAGE_SIZE * pages + size];
+	AllAccessLocal((int)page);
+	return (int)page;
+}
+
+int PVZ::Memory::AllocMemoryRemote(int pages, int size)
+{
+	return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE * pages + size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 }
 
 void PVZ::Memory::CreateThread(int address)
@@ -66,41 +62,37 @@ void PVZ::Memory::CreateThread(int address)
 	}
 }
 
-void PVZ::Memory::FreeMemory(int address)
+void PVZ::Memory::FreeMemoryLocal(int address)
 {
-	if (localExecute)
-	{
-		delete (void*)address;
-	}
-	else
-	{
-		VirtualFreeEx(hProcess, (LPVOID)address, 0, MEM_RELEASE);
-	}
+	delete (void*)address;
 }
 
-int PVZ::Memory::Execute(byte asmCode[], int length)
+void PVZ::Memory::FreeMemoryRemote(int address)
 {
-	if (localExecute)
-	{
-		byte* code = new byte[length + 2];
-		code[0] = PUSHAD;
-		memcpy(code + 1, asmCode, length);
-		code[length] = POPAD;
-		code[length + 1] = RET;
-		void (*func)() = (void (*)())code;
-		func();
-		return ReadMemory<int>(Variable);
-	}
-	else
-	{
-		int Address = AllocMemory();
-		WriteArray<byte>(Address, asmCode, length);
-		if (!immediateExecute) WaitPVZ();
-		CreateThread(Address);
-		if (!immediateExecute) ResumePVZ();
-		FreeMemory(Address);
-		return ReadMemory<int>(Variable);
-	}
+	VirtualFreeEx(hProcess, (LPVOID)address, 0, MEM_RELEASE);
+}
+
+int PVZ::Memory::ExecuteLocal(byte asmCode[], int length)
+{
+	byte* code = new byte[length + 2];
+	code[0] = PUSHAD;
+	memcpy(code + 1, asmCode, length);
+	code[length] = POPAD;
+	code[length + 1] = RET;
+	void (*func)() = (void (*)())code;
+	func();
+	return ReadMemory<int>(Variable);
+}
+
+int PVZ::Memory::ExecuteRemote(byte asmCode[], int length)
+{
+	int Address = AllocMemory();
+	WriteArray<byte>(Address, asmCode, length);
+	if (!immediateExecute) WaitPVZ();
+	CreateThread(Address);
+	if (!immediateExecute) ResumePVZ();
+	FreeMemory(Address);
+	return ReadMemory<int>(Variable);
 }
 
 void PVZ::Memory::WaitPVZ()
