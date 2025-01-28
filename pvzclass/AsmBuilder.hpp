@@ -9,7 +9,7 @@ private:
     int ptr;  // 指向最后一条指令的下一字节
 
 public:
-    AsmBuilder() : ptr(0) {}
+    AsmBuilder() : code(std::vector<uint8_t>()), ptr(0) {}
 
     // 返回当前生成的机器码
     std::vector<uint8_t> get_code() const {
@@ -1232,9 +1232,17 @@ public:
         return *this;
     }
 
-    // 添加 INVOKE 指令（自动处理 CALL 的相对地址）
-    AsmBuilder& invoke(uint32_t address) {
-        return call(address);
+    // 添加 CALL 指令
+    AsmBuilder& call_rel(uint32_t address) {
+        add_byte(0xE8);
+        add_dword(address);
+        return *this;
+    }
+
+    // 添加 INVOKE 指令（绝对跳转）
+    AsmBuilder& invoke(uint32_t address)
+    {
+        return this->call_rel(2).jmp_rel(6).push(address).ret();
     }
 
     // 添加 INT 指令
