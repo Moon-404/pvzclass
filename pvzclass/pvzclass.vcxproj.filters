@@ -716,5 +716,8 @@
     <ClInclude Include="Classes\ResourceManager.hpp">
       <Filter>头文件\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="AsmBuilder.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
