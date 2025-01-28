@@ -1144,8 +1144,8 @@ public:
         return *this;
     }
 
-    // 添加 CQO 指令
-    AsmBuilder& cqo() {
+    // 添加 CDQ 指令
+    AsmBuilder& cdq() {
         add_byte(0x99);
         return *this;
     }
