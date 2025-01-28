@@ -670,320 +670,296 @@ public:
 
     // 添加 JZ 指令
     AsmBuilder& jz(uint32_t address) {
-        add_byte(0x74);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x84);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JZ 指令（相对地址）
     AsmBuilder& jz_rel(int32_t offset) {
-        add_byte(0x74);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x84);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JNZ 指令
     AsmBuilder& jnz(uint32_t address) {
-        add_byte(0x75);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x85);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JNZ 指令（相对地址）
     AsmBuilder& jnz_rel(int32_t offset) {
-        add_byte(0x75);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x85);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JE 指令
     AsmBuilder& je(uint32_t address) {
-        add_byte(0x74);
-        add_byte(0x00);
-        add_dword(address - (ptr + 4));
-        return *this;
+        return jz(address);
     }
 
     // 添加 JE 指令（相对地址）
     AsmBuilder& je_rel(int32_t offset) {
-        add_byte(0x74);
-        add_byte(0x00);
-        add_dword(offset);
-        return *this;
+        return jz_rel(offset);
     }
 
     // 添加 JNE 指令
     AsmBuilder& jne(uint32_t address) {
-        add_byte(0x75);
-        add_byte(0x00);
-        add_dword(address - (ptr + 4));
-        return *this;
+        return jnz(address);
     }
 
     // 添加 JNE 指令（相对地址）
     AsmBuilder& jne_rel(int32_t offset) {
-        add_byte(0x75);
-        add_byte(0x00);
-        add_dword(offset);
-        return *this;
+        return jnz_rel(offset);
     }
 
     // 添加 JB 指令
     AsmBuilder& jb(uint32_t address) {
-        add_byte(0x72);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x82);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JB 指令（相对地址）
     AsmBuilder& jb_rel(int32_t offset) {
-        add_byte(0x72);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x82);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JBE 指令
     AsmBuilder& jbe(uint32_t address) {
-        add_byte(0x76);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x86);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JBE 指令（相对地址）
     AsmBuilder& jbe_rel(int32_t offset) {
-        add_byte(0x76);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x86);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JA 指令
     AsmBuilder& ja(uint32_t address) {
-        add_byte(0x77);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x87);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JA 指令（相对地址）
     AsmBuilder& ja_rel(int32_t offset) {
-        add_byte(0x77);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x87);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JAE 指令
     AsmBuilder& jae(uint32_t address) {
-        add_byte(0x73);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x83);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JAE 指令（相对地址）
     AsmBuilder& jae_rel(int32_t offset) {
-        add_byte(0x73);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x83);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JC 指令
     AsmBuilder& jc(uint32_t address) {
-        add_byte(0x72);
-        add_byte(0x00);
-        add_dword(address - (ptr + 4));
-        return *this;
+        return jb(address);
     }
 
     // 添加 JC 指令（相对地址）
     AsmBuilder& jc_rel(int32_t offset) {
-        add_byte(0x72);
-        add_byte(0x00);
-        add_dword(offset);
-        return *this;
+        return jb_rel(offset);
     }
 
     // 添加 JNC 指令
     AsmBuilder& jnc(uint32_t address) {
-        add_byte(0x73);
-        add_byte(0x00);
-        add_dword(address - (ptr + 4));
-        return *this;
+        return jae(address);
     }
 
     // 添加 JNC 指令（相对地址）
     AsmBuilder& jnc_rel(int32_t offset) {
-        add_byte(0x73);
-        add_byte(0x00);
-        add_dword(offset);
-        return *this;
+        return jae_rel(offset);
     }
 
     // 添加 JS 指令
     AsmBuilder& js(uint32_t address) {
-        add_byte(0x78);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x88);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JS 指令（相对地址）
     AsmBuilder& js_rel(int32_t offset) {
-        add_byte(0x78);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x88);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JNS 指令
     AsmBuilder& jns(uint32_t address) {
-        add_byte(0x79);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x89);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JNS 指令（相对地址）
     AsmBuilder& jns_rel(int32_t offset) {
-        add_byte(0x79);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x89);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JP 指令
     AsmBuilder& jp(uint32_t address) {
-        add_byte(0x7A);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x8A);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JP 指令（相对地址）
     AsmBuilder& jp_rel(int32_t offset) {
-        add_byte(0x7A);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x8A);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JNP 指令
     AsmBuilder& jnp(uint32_t address) {
-        add_byte(0x7B);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x8B);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JNP 指令（相对地址）
     AsmBuilder& jnp_rel(int32_t offset) {
-        add_byte(0x7B);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x8B);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JO 指令
     AsmBuilder& jo(uint32_t address) {
-        add_byte(0x70);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x80);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JO 指令（相对地址）
     AsmBuilder& jo_rel(int32_t offset) {
-        add_byte(0x70);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x80);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JNO 指令
     AsmBuilder& jno(uint32_t address) {
-        add_byte(0x71);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x81);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JNO 指令（相对地址）
     AsmBuilder& jno_rel(int32_t offset) {
-        add_byte(0x71);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x81);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JG 指令
     AsmBuilder& jg(uint32_t address) {
-        add_byte(0x7F);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x8F);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JG 指令（相对地址）
     AsmBuilder& jg_rel(int32_t offset) {
-        add_byte(0x7F);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x8F);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JGE 指令
     AsmBuilder& jge(uint32_t address) {
-        add_byte(0x7D);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x8D);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JGE 指令（相对地址）
     AsmBuilder& jge_rel(int32_t offset) {
-        add_byte(0x7D);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x8D);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JL 指令
     AsmBuilder& jl(uint32_t address) {
-        add_byte(0x7C);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x8C);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JL 指令（相对地址）
     AsmBuilder& jl_rel(int32_t offset) {
-        add_byte(0x7C);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x8C);
         add_dword(offset);
         return *this;
     }
 
     // 添加 JLE 指令
     AsmBuilder& jle(uint32_t address) {
-        add_byte(0x7E);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x8E);
         add_dword(address - (ptr + 4));
         return *this;
     }
 
     // 添加 JLE 指令（相对地址）
     AsmBuilder& jle_rel(int32_t offset) {
-        add_byte(0x7E);
-        add_byte(0x00);
+        add_byte(0x0F);
+        add_byte(0x8E);
         add_dword(offset);
         return *this;
     }
@@ -1030,6 +1006,8 @@ public:
     // 添加 RETN 指令
     AsmBuilder& retn(uint16_t count) {
         add_byte(0xC2);
+        add_byte(static_cast<uint8_t>(count & 0xFF));
+        add_byte(static_cast<uint8_t>((count >> 8) & 0xFF));
         return *this;
     }
 
