@@ -51,6 +51,14 @@ public:
         return *this;
     }
 
+    // 添加多个字节到机器码中（byte 数组形式）
+    AsmBuilder& add_bytes(const uint8_t bytes[], uint32_t length)
+    {
+        code.insert(code.end(), bytes, bytes + length);
+        ptr += length;
+        return *this;
+    }
+
     // 添加一个 DWORD (4 字节) 到机器码中
     AsmBuilder& add_dword(uint32_t dword) {
         code.push_back(static_cast<uint8_t>(dword & 0xFF));
@@ -79,6 +87,13 @@ public:
             add_dword(value);
         }
         return *this;
+    }
+
+    AsmBuilder& push_float(float value)
+    {
+        static uint8_t tmp[] = {PUSHDWORD(0)};
+        *(float*)(tmp + 1) = value;
+        return add_bytes(tmp, 5);
     }
 
     // 添加 PUSH 指令(地址)
