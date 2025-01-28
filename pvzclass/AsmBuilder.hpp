@@ -1134,13 +1134,6 @@ public:
         return *this;
     }
 
-    // 添加 HLT 指令
-    AsmBuilder& hlt() {
-        add_byte(0xF4);
-        return *this;
-    }
-
-
     // 添加 CQO 指令
     AsmBuilder& cqo() {
         add_byte(0x99);
@@ -1159,20 +1152,7 @@ public:
         return *this;
     }
 
-    // 添加 CLI 指令
-    AsmBuilder& cli() {
-        add_byte(0xFA);
-        return *this;
-    }
-
-    // 添加 CLTS 指令
-    AsmBuilder& clts() {
-        add_byte(0x0F);
-        add_byte(0x06);
-        return *this;
-    }
-
-    // 添加 CMC 指令
+     // 添加 CMC 指令
     AsmBuilder& cmc() {
         add_byte(0xF5);
         return *this;
@@ -1190,12 +1170,6 @@ public:
         return *this;
     }
 
-    // 添加 STI 指令
-    AsmBuilder& sti() {
-        add_byte(0xFB);
-        return *this;
-    }
-
     // 添加 LAHF 指令
     AsmBuilder& lahf() {
         add_byte(0x9F);
@@ -1207,66 +1181,6 @@ public:
         add_byte(0x9E);
         return *this;
     }
-
-    // 添加 LDS 指令
-    AsmBuilder& lds(uint16_t seg_reg, uint32_t address) {
-        if (seg_reg > 6) {
-            throw std::invalid_argument("Invalid segment register for LDS");
-        }
-        add_byte(0xC5);
-        add_byte(0x80 + seg_reg);
-        add_dword(address);
-        return *this;
-    }
-
-    // 添加 LES 指令
-    AsmBuilder& les(uint16_t seg_reg, uint32_t address) {
-        if (seg_reg > 6) {
-            throw std::invalid_argument("Invalid segment register for LES");
-        }
-        add_byte(0xC4);
-        add_byte(0x80 + seg_reg);
-        add_dword(address);
-        return *this;
-    }
-
-    // 添加 LSS 指令
-    AsmBuilder& lss(uint16_t seg_reg, uint32_t address) {
-        if (seg_reg > 6) {
-            throw std::invalid_argument("Invalid segment register for LSS");
-        }
-        add_byte(0x0F);
-        add_byte(0xB2);
-        add_byte(0x80 + seg_reg);
-        add_dword(address);
-        return *this;
-    }
-
-    // 添加 LFS 指令
-    AsmBuilder& lfs(uint16_t seg_reg, uint32_t address) {
-        if (seg_reg > 6) {
-            throw std::invalid_argument("Invalid segment register for LFS");
-        }
-        add_byte(0x0F);
-        add_byte(0xB4);
-        add_byte(0x80 + seg_reg);
-        add_dword(address);
-        return *this;
-    }
-
-    // 添加 LGS 指令
-    AsmBuilder& lgs(uint16_t seg_reg, uint32_t address) {
-        if (seg_reg > 6) {
-            throw std::invalid_argument("Invalid segment register for LGS");
-        }
-        add_byte(0x0F);
-        add_byte(0xB5);
-        add_byte(0x80 + seg_reg);
-        add_dword(address);
-        return *this;
-    }
-
-   
 
     // 添加 MOVZX 指令
     AsmBuilder& movzx_reg_mem(uint8_t dest_reg, uint8_t src_reg) {
