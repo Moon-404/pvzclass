@@ -499,7 +499,7 @@ public:
         if (reg > 7) {
             throw std::invalid_argument("Invalid register for CMP");
         }
-        add_byte(0x3B);
+        add_byte(0x39);
         add_byte(0x05 + (reg << 3));
         add_dword(address);
         return *this;
@@ -631,7 +631,7 @@ public:
     // 添加 NOT 指令（内存）
     AsmBuilder& not_mem(uint32_t address) {
         add_byte(0xF7);
-        add_byte(0x2D);
+        add_byte(0x15);
         add_dword(address);
         return *this;
     }
@@ -1133,7 +1133,7 @@ public:
     }
 
     // 添加 RETN 指令
-    AsmBuilder& retn() {
+    AsmBuilder& retn(uint16_t count) {
         add_byte(0xC2);
         return *this;
     }
