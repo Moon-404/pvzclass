@@ -89,6 +89,15 @@ public:
         return *this;
     }
 
+    // Ìí¼Ó PUSH Ö¸Áî
+    AsmBuilder& push_reg(uint8_t reg)
+    {
+        if (reg > 7)
+            throw std::invalid_argument("Invalid register for ADD");
+
+        return add_byte(0x50 + reg);
+    }
+
     AsmBuilder& push_float(float value)
     {
         static uint8_t tmp[] = {PUSHDWORD(0)};
