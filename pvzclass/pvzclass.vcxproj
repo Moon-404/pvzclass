@@ -187,6 +187,7 @@
     <ClCompile Include="Classes\SaveData.cpp" />
     <ClCompile Include="Classes\SeedCard.cpp" />
     <ClCompile Include="Classes\SeedChoserScreen.cpp" />
+    <ClCompile Include="Classes\TodParticleSystem.cpp" />
     <ClCompile Include="Classes\TrackInstance.cpp" />
     <ClCompile Include="Classes\ZenGarden.cpp" />
     <ClCompile Include="Creators.cpp" />
@@ -248,6 +249,7 @@
     <ClInclude Include="Classes\ChallengeScreen.hpp" />
     <ClInclude Include="Classes.hpp" />
     <ClInclude Include="Classes\ResourceManager.hpp" />
+    <ClInclude Include="Classes\TodParticleSystem.hpp" />
     <ClInclude Include="Draw.h" />
     <ClInclude Include="Enums\KeyCode.hpp" />
     <ClInclude Include="Enums\StoreItem.hpp" />

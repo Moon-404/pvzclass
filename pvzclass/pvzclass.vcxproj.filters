@@ -312,6 +312,9 @@
     <ClCompile Include="Classes\ResourceManager.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\TodParticleSystem.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -718,6 +721,9 @@
     </ClInclude>
     <ClInclude Include="AsmBuilder.hpp">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\TodParticleSystem.hpp">
+      <Filter>头文件\Classes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

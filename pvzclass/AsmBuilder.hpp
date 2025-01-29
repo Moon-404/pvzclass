@@ -51,6 +51,14 @@ public:
         return *this;
     }
 
+    // 添加多个字节到机器码中（byte 数组形式）
+    AsmBuilder& add_bytes(const uint8_t bytes[], uint32_t length)
+    {
+        code.insert(code.end(), bytes, bytes + length);
+        ptr += length;
+        return *this;
+    }
+
     // 添加一个 DWORD (4 字节) 到机器码中
     AsmBuilder& add_dword(uint32_t dword) {
         code.push_back(static_cast<uint8_t>(dword & 0xFF));
@@ -79,6 +87,22 @@ public:
             add_dword(value);
         }
         return *this;
+    }
+
+    // 添加 PUSH 指令
+    AsmBuilder& push_reg(uint8_t reg)
+    {
+        if (reg > 7)
+            throw std::invalid_argument("Invalid register for ADD");
+
+        return add_byte(0x50 + reg);
+    }
+
+    AsmBuilder& push_float(float value)
+    {
+        static uint8_t tmp[] = {PUSHDWORD(0)};
+        *(float*)(tmp + 1) = value;
+        return add_bytes(tmp, 5);
     }
 
     // 添加 PUSH 指令(地址)
@@ -127,7 +151,7 @@ public:
     }
 
     // 添加 MOV 指令（内存到寄存器）
-    AsmBuilder& mov_mem_reg(uint32_t address, uint8_t reg) {
+    AsmBuilder& mov_reg_mem(uint8_t reg, uint32_t address) {
         if (reg > 7) {
             throw std::invalid_argument("Invalid register for MOV");
         }
@@ -138,7 +162,7 @@ public:
     }
 
     // 添加 MOV 指令（寄存器到内存）
-    AsmBuilder& mov_reg_mem(uint8_t reg, uint32_t address) {
+    AsmBuilder& mov_mem_reg(uint32_t address, uint8_t reg) {
         if (reg > 7) {
             throw std::invalid_argument("Invalid register for MOV");
         }
@@ -1341,7 +1365,23 @@ public:
         return *this;
     }
 
-
+    // 添加 PUSHAD 指令
+    AsmBuilder& pushad()
+    {
+        return add_byte(PUSHAD);
+    }
+    // 添加 POPAD 指令
+    AsmBuilder& popad()
+    {
+        return add_byte(POPAD);
+    }
+    // 退回 1 位或多位机器码
+    AsmBuilder& back(const uint32_t count)
+    {
+        for (int i = 0; i < count; i++)
+            code.pop_back();
+        return *this;
+    }
 
 };
 
