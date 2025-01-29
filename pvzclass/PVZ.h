@@ -152,7 +152,7 @@ namespace PVZ
 		template <class T>
 		inline static BOOL WriteArrayLocal(DWORD address, T* value, size_t length)
 		{
-			AllAccess(address);
+			AllAccessLocal(address);
 			memcpy((void*)address, value, length);
 			return true;
 		};
