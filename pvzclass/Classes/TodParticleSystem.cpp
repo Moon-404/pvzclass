@@ -104,7 +104,7 @@ std::vector<PVZ::TodParticleSystem> PVZ::GetAllParticleSystem()
 }
 
 
-PVZ::TodParticleSystem PVZ::CreateParticleSystem(float X, float Y, int render_order, EffectType::EffectType type)
+PVZ::TodParticleSystem PVZ::CreateParticleSystem(const float X, const float Y, const int render_order, const EffectType::EffectType type)
 {
 	AsmBuilder builder = AsmBuilder()
 		.mov_reg_imm(REG_EAX, type)

@@ -19,5 +19,5 @@ namespace PVZ
 		void OverrideScale(const float scale);
 	};
 	std::vector<TodParticleSystem> GetAllParticleSystem();
-	PVZ::TodParticleSystem CreateParticleSystem(float X, float Y, int render_order, EffectType::EffectType type);
+	PVZ::TodParticleSystem CreateParticleSystem(const float X, const float Y, const int render_order, const EffectType::EffectType type);
 }
