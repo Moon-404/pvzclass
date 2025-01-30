@@ -39,6 +39,18 @@ void PVZ::TodParticleSystem::OverrideExtraAdditiveDraw(boolean isEnable)
 	PVZ::Memory::Execute(additive_builder);
 }
 
+AsmBuilder image_builder = AsmBuilder();
+void PVZ::TodParticleSystem::OverrideImage(Image image)
+{
+	image_builder.clear()
+		.mov_reg_imm(REG_ESI, image.GetBaseAddress())
+		.mov_reg_imm(REG_EDX, this->BaseAddress)
+		.invoke(0x518600)
+		.ret();
+
+	PVZ::Memory::Execute(image_builder);
+}
+
 std::vector<PVZ::TodParticleSystem> PVZ::GetAllParticleSystem()
 {
 	std::vector<PVZ::TodParticleSystem> particle_syss;
