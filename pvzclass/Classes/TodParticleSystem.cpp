@@ -19,6 +19,19 @@ void PVZ::TodParticleSystem::Die()
 	PVZ::Memory::Execute(color_builder);
 }
 
+AsmBuilder moveto_builder = AsmBuilder();
+void PVZ::TodParticleSystem::MoveTo(const float X, const float Y)
+{
+	moveto_builder.clear()
+		.push_float(Y)
+		.push_float(X)
+		.mov_reg_imm(REG_ESI, this->BaseAddress)
+		.invoke(0x518440)
+		.ret();
+
+	PVZ::Memory::Execute(moveto_builder);
+}
+
 AsmBuilder color_builder = AsmBuilder();
 void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, const Color color)
 {
