@@ -115,7 +115,7 @@ public:
 
 	AsmBuilder& push_float(float value)
 	{
-		return add_byte(0x68).add_dword(value);
+		return add_byte(0x68).add_float(value);
 	}
 
 	// Ìí¼Ó PUSH Ö¸Áî(µØÖ·)
