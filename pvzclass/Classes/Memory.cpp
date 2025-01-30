@@ -81,6 +81,8 @@ int PVZ::Memory::ExecuteLocal(byte asmCode[], int length)
 	code[length + 1] = RET;
 	void (*func)() = (void (*)())code;
 	func();
+
+	delete[](code);
 	return ReadMemory<int>(Variable);
 }
 
@@ -97,7 +99,7 @@ int PVZ::Memory::ExecuteLocal(const AsmBuilder& builder)
 	void (*func)() = (void (*)())code;
 	func();
 
-	delete(code);
+	delete[](code);
 	return ReadMemory<int>(Variable);
 }
 
