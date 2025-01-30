@@ -27,6 +27,18 @@ void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, const Color
 	PVZ::Memory::Execute(color_builder);
 }
 
+AsmBuilder additive_builder = AsmBuilder();
+void PVZ::TodParticleSystem::OverrideExtraAdditiveDraw(boolean isEnable)
+{
+	additive_builder.clear()
+		.mov_reg_imm(REG_EDX, isEnable)
+		.mov_reg_imm(REG_ESI, this->BaseAddress)
+		.invoke(0x5185D0)
+		.ret();
+
+	PVZ::Memory::Execute(additive_builder);
+}
+
 std::vector<PVZ::TodParticleSystem> PVZ::GetAllParticleSystem()
 {
 	std::vector<PVZ::TodParticleSystem> particle_syss;
