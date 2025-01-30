@@ -30,6 +30,11 @@ public:
 		return code;
 	}
 
+	int get_length() const
+	{
+		return ptr;
+	}
+
 	// 浮点寄存器常量
 	static const uint8_t F_ST0 = 0;
 	static const uint8_t F_ST1 = 1;
@@ -39,11 +44,6 @@ public:
 	static const uint8_t F_ST5 = 5;
 	static const uint8_t F_ST6 = 6;
 	static const uint8_t F_ST7 = 7;
-	// 添加一个字节到机器码中
-	inline AsmBuilder& add_byte(uint8_t byte) {
-		code[ptr++] = byte;
-		return *this;
-	}
 
 	enum Reg8
 	{
@@ -56,6 +56,12 @@ public:
 		REG_DH,
 		REG_BH,
 	};
+
+	// 添加一个字节到机器码中
+	inline AsmBuilder& add_byte(uint8_t byte) {
+		code[ptr++] = byte;
+		return *this;
+	}
 
 	// 添加多个字节到机器码中（byte 数组形式）
 	AsmBuilder& add_bytes(const uint8_t bytes[], const uint32_t length)
