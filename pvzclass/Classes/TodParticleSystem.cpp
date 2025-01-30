@@ -8,6 +8,25 @@ PVZ::TodParticleSystem::TodParticleSystem(DWORD indexoraddress) : BaseClass(0)
 		BaseAddress = indexoraddress;
 }
 
+AsmBuilder color_builder = AsmBuilder();
+void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, const Color color)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, emitter_name, std::strlen(emitter_name) + 1);
+	color_builder.clear()
+		.mov_reg_imm(REG_EBX, PVZ::Memory::Variable + 100)
+		.push(color.Alpha)
+		.push(color.Blue)
+		.push(color.Green)
+		.push(color.Red)
+		.push_reg(REG_ESP)
+		.push(this->BaseAddress)
+		.invoke(0x518560)
+		.add_reg_imm(REG_ESP, 16)
+		.ret();
+
+	PVZ::Memory::Execute(color_builder);
+}
+
 std::vector<PVZ::TodParticleSystem> PVZ::GetAllParticleSystem()
 {
 	std::vector<PVZ::TodParticleSystem> particle_syss;

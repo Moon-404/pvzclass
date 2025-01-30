@@ -1136,9 +1136,9 @@ public:
 
 	// 添加 CALL 指令
 	AsmBuilder& call_rel(uint32_t address) {
-        add_byte(0xE8);
-        add_dword(address);
-        return *this;
+		add_byte(0xE8);
+		add_dword(address);
+		return *this;
 	}
 
 	// 添加 INVOKE 指令（绝对跳转）
