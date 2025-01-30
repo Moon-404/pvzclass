@@ -33,7 +33,7 @@ void PVZ::TodParticleSystem::MoveTo(const float X, const float Y)
 }
 
 AsmBuilder color_builder = AsmBuilder();
-void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, const Color color)
+void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, const Color& color)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, emitter_name, std::strlen(emitter_name) + 1);
 	color_builder.clear()

@@ -13,7 +13,7 @@ namespace PVZ
 		// @brief 移除此粒子系统。
 		void Die();
 		void MoveTo(const float X, const float Y);
-		void OverrideColor(const char* emitter_name, const Color color);
+		void OverrideColor(const char* emitter_name, const Color& color);
 		void OverrideExtraAdditiveDraw(const boolean isEnable);
 		void OverrideImage(Image image);
 		void OverrideScale(const float scale);
