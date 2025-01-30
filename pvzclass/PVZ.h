@@ -163,9 +163,12 @@ namespace PVZ
 			return WriteProcessMemory(hProcess, (LPVOID)address, value, length, NULL);
 		};
 
-		static int ReadPointer(int baseaddress, int offset);
-		static int ReadPointer(int baseaddress, int offset, int offset1);
-		static int ReadPointer(int baseaddress, int offset, int offset1, int offset2);
+		static int ReadPointerLocal(int baseaddress, int offset);
+		static int ReadPointerLocal(int baseaddress, int offset, int offset1);
+		static int ReadPointerLocal(int baseaddress, int offset, int offset1, int offset2);
+		static int ReadPointerRemote(int baseaddress, int offset);
+		static int ReadPointerRemote(int baseaddress, int offset, int offset1);
+		static int ReadPointerRemote(int baseaddress, int offset, int offset1, int offset2);
 		static BOOL AllAccessLocal(int address);
 		static BOOL AllAccessRemote(int address);
 		static int AllocMemoryLocal(int pages = 1, int size = 0);
@@ -180,8 +183,12 @@ namespace PVZ
 		static bool InjectDll(const char* dllname);
 		static int GetProcAddress(const char* procname);
 		static int InvokeDllProc(const char* procname);
-		static void WaitPVZ(); // 等待PVZ到达更新前
-		static void ResumePVZ(); // 恢复PVZ
+		// 等待PVZ到达更新前
+		// 不应在 __PVZCLASS_LOCALEXECUTE 环境下使用。
+		static void WaitPVZ();
+		// 恢复PVZ
+		// 不应在 __PVZCLASS_LOCALEXECUTE 环境下使用。
+		static void ResumePVZ();
 
 // 如果为true，则在当前线程执行代码，在dll中设置为true
 #ifdef __PVZCLASS_LOCALEXECUTE
@@ -189,6 +196,7 @@ namespace PVZ
 #define ReadArray ReadArrayLocal
 #define WriteMemory WriteMemoryLocal
 #define WriteArray WriteArrayLocal
+#define ReadPointer ReadPointerLocal
 #define AllAccess AllAccessLocal
 #define AllocMemory AllocMemoryLocal
 #define FreeMemory FreeMemoryLocal
@@ -198,6 +206,7 @@ namespace PVZ
 #define ReadArray ReadArrayRemote
 #define WriteMemory WriteMemoryRemote
 #define WriteArray WriteArrayRemote
+#define ReadPointer ReadPointerRemote
 #define AllAccess AllAccessRemote
 #define AllocMemory AllocMemoryRemote
 #define FreeMemory FreeMemoryRemote

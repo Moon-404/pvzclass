@@ -9,19 +9,34 @@ HWND PVZ::Memory::mainwindowhandle = NULL;
 bool PVZ::Memory::immediateExecute = false;
 int PVZ::Memory::DLLAddress = 0;
 
-int PVZ::Memory::ReadPointer(int baseaddress, int offset)
+int PVZ::Memory::ReadPointerLocal(int baseaddress, int offset)
 {
-	return ReadMemory<int>(ReadMemory<int>(baseaddress) + offset);
+	return ReadMemoryLocal<int>(ReadMemoryLocal<int>(baseaddress) + offset);
 }
 
-int PVZ::Memory::ReadPointer(int baseaddress, int offset, int offset1)
+int PVZ::Memory::ReadPointerLocal(int baseaddress, int offset, int offset1)
 {
-	return ReadMemory<int>(ReadPointer(baseaddress, offset) + offset1);
+	return ReadMemoryLocal<int>(ReadPointerLocal(baseaddress, offset) + offset1);
 }
 
-int PVZ::Memory::ReadPointer(int baseaddress, int offset, int offset1, int offset2)
+int PVZ::Memory::ReadPointerLocal(int baseaddress, int offset, int offset1, int offset2)
 {
-	return ReadMemory<int>(ReadPointer(baseaddress, offset, offset1) + offset2);
+	return ReadMemoryLocal<int>(ReadPointerLocal(baseaddress, offset, offset1) + offset2);
+}
+
+int PVZ::Memory::ReadPointerRemote(int baseaddress, int offset)
+{
+	return ReadMemoryRemote<int>(ReadMemoryRemote<int>(baseaddress) + offset);
+}
+
+int PVZ::Memory::ReadPointerRemote(int baseaddress, int offset, int offset1)
+{
+	return ReadMemoryRemote<int>(ReadPointerRemote(baseaddress, offset) + offset1);
+}
+
+int PVZ::Memory::ReadPointerRemote(int baseaddress, int offset, int offset1, int offset2)
+{
+	return ReadMemoryRemote<int>(ReadPointerRemote(baseaddress, offset, offset1) + offset2);
 }
 
 BOOL PVZ::Memory::AllAccessLocal(int address)
@@ -81,55 +96,57 @@ int PVZ::Memory::ExecuteLocal(byte asmCode[], int length)
 	code[length + 1] = RET;
 	void (*func)() = (void (*)())code;
 	func();
-	return ReadMemory<int>(Variable);
+
+	delete[](code);
+	return ReadMemoryLocal<int>(Variable);
 }
 
 int PVZ::Memory::ExecuteLocal(const AsmBuilder& builder)
 {
-	auto ori_code = builder.get_code();
-	DWORD length = ori_code.size();
+	byte* ori_code = builder.get_code();
+	DWORD length = builder.get_length();
 	byte* code = new byte[length + 2];
 
 	code[0] = PUSHAD;
-	memcpy(code + 1, ori_code.data(), length - 1);
+	memcpy(code + 1, ori_code, length - 1);
 	code[length] = POPAD;
 	code[length + 1] = RET;
 	void (*func)() = (void (*)())code;
 	func();
 
-	delete(code);
-	return ReadMemory<int>(Variable);
+	delete[](code);
+	return ReadMemoryLocal<int>(Variable);
 }
 
 int PVZ::Memory::ExecuteRemote(byte asmCode[], int length)
 {
-	int Address = AllocMemory();
-	WriteArray<byte>(Address, asmCode, length);
+	int Address = AllocMemoryRemote();
+	WriteArrayRemote<byte>(Address, asmCode, length);
 	if (!immediateExecute) WaitPVZ();
 	CreateThread(Address);
 	if (!immediateExecute) ResumePVZ();
-	FreeMemory(Address);
-	return ReadMemory<int>(Variable);
+	FreeMemoryRemote(Address);
+	return ReadMemoryRemote<int>(Variable);
 }
 
 int PVZ::Memory::ExecuteRemote(const AsmBuilder& builder)
 {
-	int Address = AllocMemory();
-	WriteArray<byte>(Address, builder.get_code().data(), builder.get_code().size());
+	int Address = AllocMemoryRemote();
+	WriteArrayRemote<byte>(Address, builder.get_code(), builder.get_length());
 	if (!immediateExecute) WaitPVZ();
 	CreateThread(Address);
 	if (!immediateExecute) ResumePVZ();
-	FreeMemory(Address);
-	return ReadMemory<int>(Variable);
+	FreeMemoryRemote(Address);
+	return ReadMemoryRemote<int>(Variable);
 }
 
 void PVZ::Memory::WaitPVZ()
 {
-	WriteMemory<BYTE>(Variable + 0x530, 1);
-	while (ReadMemory<BYTE>(Variable + 0x540) == 0);
+	WriteMemoryRemote<BYTE>(Variable + 0x530, 1);
+	while (ReadMemoryRemote<BYTE>(Variable + 0x540) == 0);
 }
 
 void PVZ::Memory::ResumePVZ()
 {
-	WriteMemory<BYTE>(Variable + 0x530, 0);
+	WriteMemoryRemote<BYTE>(Variable + 0x530, 0);
 }
