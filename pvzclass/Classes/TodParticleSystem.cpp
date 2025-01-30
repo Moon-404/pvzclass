@@ -8,6 +8,17 @@ PVZ::TodParticleSystem::TodParticleSystem(DWORD indexoraddress) : BaseClass(0)
 		BaseAddress = indexoraddress;
 }
 
+AsmBuilder die_builder = AsmBuilder();
+void PVZ::TodParticleSystem::Die()
+{
+	die_builder.clear()
+		.push(this->BaseAddress)
+		.invoke(0x5160C0)
+		.ret();
+
+	PVZ::Memory::Execute(color_builder);
+}
+
 AsmBuilder color_builder = AsmBuilder();
 void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, const Color color)
 {

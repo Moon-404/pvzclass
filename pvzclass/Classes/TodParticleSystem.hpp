@@ -10,6 +10,7 @@ namespace PVZ
 	public:
 		TodParticleSystem(DWORD indexoraddress);
 		T_PROPERTY(BOOLEAN, Dead, __get_Dead, __set_Dead, 0x1C);
+		void Die();
 		void OverrideColor(const char* emitter_name, const Color color);
 		void OverrideExtraAdditiveDraw(const boolean isEnable);
 		void OverrideImage(Image image);
