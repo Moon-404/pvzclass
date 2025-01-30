@@ -9,19 +9,34 @@ HWND PVZ::Memory::mainwindowhandle = NULL;
 bool PVZ::Memory::immediateExecute = false;
 int PVZ::Memory::DLLAddress = 0;
 
-int PVZ::Memory::ReadPointer(int baseaddress, int offset)
+int PVZ::Memory::ReadPointerLocal(int baseaddress, int offset)
 {
-	return ReadMemory<int>(ReadMemory<int>(baseaddress) + offset);
+	return ReadMemoryLocal<int>(ReadMemoryLocal<int>(baseaddress) + offset);
 }
 
-int PVZ::Memory::ReadPointer(int baseaddress, int offset, int offset1)
+int PVZ::Memory::ReadPointerLocal(int baseaddress, int offset, int offset1)
 {
-	return ReadMemory<int>(ReadPointer(baseaddress, offset) + offset1);
+	return ReadMemoryLocal<int>(ReadPointerLocal(baseaddress, offset) + offset1);
 }
 
-int PVZ::Memory::ReadPointer(int baseaddress, int offset, int offset1, int offset2)
+int PVZ::Memory::ReadPointerLocal(int baseaddress, int offset, int offset1, int offset2)
 {
-	return ReadMemory<int>(ReadPointer(baseaddress, offset, offset1) + offset2);
+	return ReadMemoryLocal<int>(ReadPointerLocal(baseaddress, offset, offset1) + offset2);
+}
+
+int PVZ::Memory::ReadPointerRemote(int baseaddress, int offset)
+{
+	return ReadMemoryRemote<int>(ReadMemoryRemote<int>(baseaddress) + offset);
+}
+
+int PVZ::Memory::ReadPointerRemote(int baseaddress, int offset, int offset1)
+{
+	return ReadMemoryRemote<int>(ReadPointerRemote(baseaddress, offset) + offset1);
+}
+
+int PVZ::Memory::ReadPointerRemote(int baseaddress, int offset, int offset1, int offset2)
+{
+	return ReadMemoryRemote<int>(ReadPointerRemote(baseaddress, offset, offset1) + offset2);
 }
 
 BOOL PVZ::Memory::AllAccessLocal(int address)

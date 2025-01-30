@@ -163,9 +163,12 @@ namespace PVZ
 			return WriteProcessMemory(hProcess, (LPVOID)address, value, length, NULL);
 		};
 
-		static int ReadPointer(int baseaddress, int offset);
-		static int ReadPointer(int baseaddress, int offset, int offset1);
-		static int ReadPointer(int baseaddress, int offset, int offset1, int offset2);
+		static int ReadPointerLocal(int baseaddress, int offset);
+		static int ReadPointerLocal(int baseaddress, int offset, int offset1);
+		static int ReadPointerLocal(int baseaddress, int offset, int offset1, int offset2);
+		static int ReadPointerRemote(int baseaddress, int offset);
+		static int ReadPointerRemote(int baseaddress, int offset, int offset1);
+		static int ReadPointerRemote(int baseaddress, int offset, int offset1, int offset2);
 		static BOOL AllAccessLocal(int address);
 		static BOOL AllAccessRemote(int address);
 		static int AllocMemoryLocal(int pages = 1, int size = 0);
@@ -193,6 +196,7 @@ namespace PVZ
 #define ReadArray ReadArrayLocal
 #define WriteMemory WriteMemoryLocal
 #define WriteArray WriteArrayLocal
+#define ReadPointer ReadPointerLocal
 #define AllAccess AllAccessLocal
 #define AllocMemory AllocMemoryLocal
 #define FreeMemory FreeMemoryLocal
@@ -202,6 +206,7 @@ namespace PVZ
 #define ReadArray ReadArrayRemote
 #define WriteMemory WriteMemoryRemote
 #define WriteArray WriteArrayRemote
+#define ReadPointer ReadPointerRemote
 #define AllAccess AllAccessRemote
 #define AllocMemory AllocMemoryRemote
 #define FreeMemory FreeMemoryRemote
