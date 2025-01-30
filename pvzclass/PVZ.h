@@ -180,8 +180,12 @@ namespace PVZ
 		static bool InjectDll(const char* dllname);
 		static int GetProcAddress(const char* procname);
 		static int InvokeDllProc(const char* procname);
-		static void WaitPVZ(); // 等待PVZ到达更新前
-		static void ResumePVZ(); // 恢复PVZ
+		// 等待PVZ到达更新前
+		// 不应在 __PVZCLASS_LOCALEXECUTE 环境下使用。
+		static void WaitPVZ();
+		// 恢复PVZ
+		// 不应在 __PVZCLASS_LOCALEXECUTE 环境下使用。
+		static void ResumePVZ();
 
 // 如果为true，则在当前线程执行代码，在dll中设置为true
 #ifdef __PVZCLASS_LOCALEXECUTE

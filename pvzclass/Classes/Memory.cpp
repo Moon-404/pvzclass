@@ -127,11 +127,11 @@ int PVZ::Memory::ExecuteRemote(const AsmBuilder& builder)
 
 void PVZ::Memory::WaitPVZ()
 {
-	WriteMemory<BYTE>(Variable + 0x530, 1);
-	while (ReadMemory<BYTE>(Variable + 0x540) == 0);
+	WriteMemoryRemote<BYTE>(Variable + 0x530, 1);
+	while (ReadMemoryRemote<BYTE>(Variable + 0x540) == 0);
 }
 
 void PVZ::Memory::ResumePVZ()
 {
-	WriteMemory<BYTE>(Variable + 0x530, 0);
+	WriteMemoryRemote<BYTE>(Variable + 0x530, 0);
 }
