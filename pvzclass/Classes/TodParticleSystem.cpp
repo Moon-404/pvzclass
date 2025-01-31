@@ -20,7 +20,7 @@ void PVZ::TodParticleSystem::Die()
 }
 
 AsmBuilder moveto_builder = AsmBuilder();
-void PVZ::TodParticleSystem::MoveTo(const float X, const float Y)
+void PVZ::TodParticleSystem::MoveTo(float X, float Y)
 {
 	moveto_builder.clear()
 		.push_float(Y)
@@ -33,7 +33,7 @@ void PVZ::TodParticleSystem::MoveTo(const float X, const float Y)
 }
 
 AsmBuilder color_builder = AsmBuilder();
-void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, const Color& color)
+void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, Color& color)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, emitter_name, std::strlen(emitter_name) + 1);
 	color_builder.clear()
@@ -52,7 +52,7 @@ void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, const Color
 }
 
 AsmBuilder additive_builder = AsmBuilder();
-void PVZ::TodParticleSystem::OverrideExtraAdditiveDraw(const boolean isEnable)
+void PVZ::TodParticleSystem::OverrideExtraAdditiveDraw(boolean isEnable)
 {
 	additive_builder.clear()
 		.mov_reg_imm(REG_EDX, isEnable)
@@ -76,7 +76,7 @@ void PVZ::TodParticleSystem::OverrideImage(Image image)
 }
 
 AsmBuilder scale_builder = AsmBuilder();
-void PVZ::TodParticleSystem::OverrideScale(const float scale)
+void PVZ::TodParticleSystem::OverrideScale(float scale)
 {
 	scale_builder.clear()
 		.push_float(scale)
@@ -104,7 +104,7 @@ std::vector<PVZ::TodParticleSystem> PVZ::GetAllParticleSystem()
 }
 
 AsmBuilder creator_builder = AsmBuilder();
-PVZ::TodParticleSystem PVZ::CreateParticleSystem(const float X, const float Y, const int render_order, const EffectType::EffectType type)
+PVZ::TodParticleSystem PVZ::CreateParticleSystem(float X, float Y, int render_order, EffectType::EffectType type)
 {
 	creator_builder.clear()
 		.mov_reg_imm(REG_EAX, type)
