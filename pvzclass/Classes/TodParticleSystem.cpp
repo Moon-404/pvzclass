@@ -16,7 +16,7 @@ void PVZ::TodParticleSystem::Die()
 		.invoke(0x5160C0)
 		.ret();
 
-	PVZ::Memory::Execute(color_builder);
+	PVZ::Memory::Execute(die_builder);
 }
 
 AsmBuilder moveto_builder = AsmBuilder();
