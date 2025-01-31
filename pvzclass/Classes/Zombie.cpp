@@ -266,7 +266,7 @@ void PVZ::Zombie::EquipBucket(int shield)
 {
 	if (this->GetAccessoriesType1().Type)
 		return;
-	this->GetAnimation()->AssignRenderGroupToPrefix(0, "anim_bucket");
+	this->GetAnimation().AssignRenderGroupToPrefix(0, "anim_bucket");
 	this->SetAccessoriesType1({ HelmType::Bucket, shield, shield });
 }
 
@@ -274,7 +274,7 @@ void PVZ::Zombie::EquipCone(int shield)
 {
 	if (this->GetAccessoriesType1().Type)
 		return;
-	this->GetAnimation()->AssignRenderGroupToPrefix(0, "anim_cone");
+	this->GetAnimation().AssignRenderGroupToPrefix(0, "anim_cone");
 	this->SetAccessoriesType1({ HelmType::RoadCone, shield, shield });
 }
 
@@ -369,10 +369,10 @@ bool PVZ::Zombie::EffectedBy(DamageRangeFlags range, bool usepvzfunc)
 			return(false);
 		if (type == ZombieType::DrZomboss)
 		{
-			SPT<Animation> anim = this->GetAnimation();
-			if (state == ZombieState::ZOMBOSS_FALL && anim->CycleRate < 0.5)
+			PVZ::Animation anim = this->GetAnimation();
+			if (state == ZombieState::ZOMBOSS_FALL && anim.CycleRate < 0.5)
 				return(false);
-			if (state == ZombieState::ZOMBOSS_RISE && anim->CycleRate > 0.5)
+			if (state == ZombieState::ZOMBOSS_RISE && anim.CycleRate > 0.5)
 				return(false);
 			if (state != ZombieState::ZOMBOSS_DOWN
 				&& state != ZombieState::ZOMBOSS_PREPARE_RISE
