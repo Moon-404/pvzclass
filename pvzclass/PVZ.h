@@ -124,7 +124,7 @@ namespace PVZ
 		template <class T>
 		inline static BOOL WriteMemoryLocal(DWORD address, T value)
 		{
-			PVZ::Memory::AllAccess(address);
+			PVZ::Memory::AllAccessLocal(address);
 			T* buffer = (T*)address;
 			*buffer = value;
 			return true;

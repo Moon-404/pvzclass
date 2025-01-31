@@ -14,7 +14,7 @@ namespace PVZ
 		void Die();
 		void MoveTo(float X, float Y);
 		void OverrideColor(const char* emitter_name, Color& color);
-		void OverrideExtraAdditiveDraw(boolean isEnable);
+		void OverrideExtraAdditiveDraw(bool isEnable);
 		void OverrideImage(Image image);
 		void OverrideScale(float scale);
 	};

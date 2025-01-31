@@ -52,7 +52,7 @@ void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, Color& colo
 }
 
 AsmBuilder additive_builder = AsmBuilder();
-void PVZ::TodParticleSystem::OverrideExtraAdditiveDraw(boolean isEnable)
+void PVZ::TodParticleSystem::OverrideExtraAdditiveDraw(bool isEnable)
 {
 	additive_builder.clear()
 		.mov_reg_imm(REG_EDX, isEnable)
