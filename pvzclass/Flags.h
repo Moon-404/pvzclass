@@ -30,24 +30,22 @@
 
 #pragma endregion
 
-#pragma region DamageFlags
-	
 	//判定对僵尸伤害是否具有某种特效的标志位，以 DAMAGEF 开头。
-	typedef int DamageFlags;
-
-	//无特效。
-	const DamageFlags DAMAGEF_NONE = 0;
-	//无视II类护甲。
-	const DamageFlags DAMAGEF_SIDE = (1 << 0);
-	//穿透II类护甲。
-	const DamageFlags DAMAGEF_SPUTTER = (1 << 1);
-	//有减速效果。
-	const DamageFlags DAMAGEF_FREEZE = (1 << 2);
-	//不导致僵尸闪烁。
-	const DamageFlags DAMAGEF_NOFLASH = (1 << 3);
-	//不显示击杀粒子效果。
-	const DamageFlags DAMAGEF_NOLEAVEBODY = (1 << 4);
-	//地刺类伤害。
-	const DamageFlags DAMAGEF_SPIKE = (1 << 5);
-#pragma endregion
+	enum DamageFlags
+	{
+		//无特效。
+		DAMAGEF_NONE = 0,
+		//无视盾牌。
+		DAMAGEF_BYPASSES_SHIELD = (1 << 0),
+		//穿透盾牌。
+		DAMAGEF_HITS_SHIELD_AND_BODY = (1 << 1),
+		//有减速效果。
+		DAMAGEF_FREEZE = (1 << 2),
+		//不导致僵尸闪烁。
+		DAMAGEF_NOFLASH = (1 << 3),
+		//不显示击杀粒子效果。
+		DAMAGEF_NOLEAVEBODY = (1 << 4),
+		//地刺类伤害，可以爆胎。
+		DAMAGEF_SPIKE = (1 << 5),
+	};
 }

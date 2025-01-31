@@ -197,7 +197,6 @@
     <ClCompile Include="Enums\ChallengePage.cpp" />
     <ClCompile Include="Enums\CoinMotionType.cpp" />
     <ClCompile Include="Enums\CoinType.cpp" />
-    <ClCompile Include="Enums\DamageType.cpp" />
     <ClCompile Include="Enums\DebugModeType.cpp" />
     <ClCompile Include="Enums\EffectType.cpp" />
     <ClCompile Include="Enums\GardenPlantNeed.cpp" />
@@ -227,7 +226,7 @@
     <ClCompile Include="Enums\VaseContent.cpp" />
     <ClCompile Include="Enums\VaseSkin.cpp" />
     <ClCompile Include="Enums\HelmType.cpp" />
-    <ClCompile Include="Enums\ZombieAccessoriesType2.cpp" />
+    <ClCompile Include="Enums\ShieldType.cpp" />
     <ClCompile Include="Enums\ZombieState.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="Enums\MagnetItemType.cpp" />
@@ -314,7 +313,6 @@
     <ClInclude Include="Enums\ChallengeState.h" />
     <ClInclude Include="Enums\CoinMotionType.h" />
     <ClInclude Include="Enums\CoinType.h" />
-    <ClInclude Include="Enums\DamageType.h" />
     <ClInclude Include="Enums\DebugModeType.h" />
     <ClInclude Include="Enums\EffectType.h" />
     <ClInclude Include="Enums\GardenPlantNeed.h" />
@@ -339,7 +337,7 @@
     <ClInclude Include="Enums\VaseContent.h" />
     <ClInclude Include="Enums\VaseSkin.h" />
     <ClInclude Include="Enums\HelmType.h" />
-    <ClInclude Include="Enums\ZombieAccessoriesType2.h" />
+    <ClInclude Include="Enums\ShieldType.h" />
     <ClInclude Include="Enums\ZombieState.h" />
     <ClInclude Include="Enums\ZombieType.h" />
     <ClInclude Include="Enums\UpperSoundType.h" />
