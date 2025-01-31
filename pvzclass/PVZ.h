@@ -639,12 +639,14 @@ namespace PVZ
 		T_PROPERTY(BOOLEAN, SthinHandOrYetiLeft, __get_SthinHandOrYetiLeft, __set_SthinHandOrYetiLeft, 0xBC);
 		T_PROPERTY(BOOLEAN, InWater, __get_InWater, __set_InWater, 0xBD);
 		T_PROPERTY(BOOLEAN, GarlicBited, __get_GarlicBited, __set_GarlicBited, 0xBF);
-		AccessoriesType1 GetAccessoriesType1();
-		void SetAccessoriesType1(AccessoriesType1 acctype1);
-		AccessoriesType2 GetAccessoriesType2();
-		void SetAccessoriesType2(AccessoriesType2 acctype2);
-		void GetBodyHp(int* hp, int* maxhp);
-		void SetBodyHp(int hp, int maxhp);
+		T_PROPERTY(HelmType::HelmType, HelmType, __get_HelmType, __set_HelmType,		0x0C4);
+		INT_PROPERTY(BodyHealth,		__get_BodyHealth,		__set_BodyHealth,		0x0C8);
+		INT_PROPERTY(BodyMaxHealth,		__get_BodyMaxHealth,	__set_BodyMaxHealth,	0x0CC);
+		INT_PROPERTY(HelmHealth,		__get_HelmHealth,		__set_HelmHealth,		0x0D0);
+		INT_PROPERTY(HelmMaxHealth,		__get_HelmMaxHealth,	__set_HelmMaxHealth,	0x0D4);
+		T_PROPERTY(ShieldType::ShieldType, ShieldType, __get_ShieldType, __set_ShieldType, 0x0D8);
+		INT_PROPERTY(ShieldHealth,		__get_ShieldHealth,		__set_ShieldHealth,		0x0DC);
+		INT_PROPERTY(ShieldMaxHealth,	__get_ShieldMaxHealth,	__set_ShieldMaxHealth,	0x0E0);
 		INT_PROPERTY(FlyingHealth, __get_FlyingHealth, __set_FlyingHealth, 0x0E4);
 		INT_PROPERTY(FlyingMaxHealth, __get_FlyingMaxHealth, __set_FlyingMaxHealth, 0xE8);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
@@ -682,6 +684,19 @@ namespace PVZ
 		//@param usepvzfunc 是否调用 pvz 内部函数。默认为 true。
 		//@return 是否能被搜寻到。
 		bool EffectedBy(DamageRangeFlags range, bool usepvzfunc = true);
+
+		// Deprecated
+		void GetBodyHp(int* hp, int* maxhp);
+		// Deprecated
+		void SetBodyHp(int hp, int maxhp);
+		// Deprecated
+		AccessoriesType1 GetAccessoriesType1();
+		// Deprecated
+		void SetAccessoriesType1(AccessoriesType1 acctype1);
+		// Deprecated
+		AccessoriesType2 GetAccessoriesType2();
+		// Deprecated
+		void SetAccessoriesType2(AccessoriesType2 acctype2);
 	};
 	class Projectile : public GameObject
 	{
