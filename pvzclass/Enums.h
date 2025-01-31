@@ -11,7 +11,7 @@
 #include "Enums/SeedState.h"
 #include "Enums/ThreeState.h"
 #include "Enums/DebugModeType.h"
-#include "Enums/ZombieAccessoriesType2.h"
+#include "Enums/ShieldType.h"
 #include "Enums/PlantEffectType.h"
 #include "Enums/MotionType.h"
 #include "Enums/ProjectileType.h"

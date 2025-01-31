@@ -606,7 +606,7 @@ namespace PVZ
 		};
 		struct AccessoriesType2
 		{
-			ZombieAccessoriesType2::ZombieAccessoriesType2 Type;
+			ShieldType::ShieldType Type;
 			int Hp;
 			int MaxHp;
 		};
