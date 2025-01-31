@@ -648,12 +648,12 @@ namespace PVZ
 		INT_PROPERTY(FlyingHealth, __get_FlyingHealth, __set_FlyingHealth, 0x0E4);
 		INT_PROPERTY(FlyingMaxHealth, __get_FlyingMaxHealth, __set_FlyingMaxHealth, 0xE8);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
-		SPT<PVZ::Animation> GetAnimation();
+		PVZ::Animation GetAnimation();
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
 		//临时变量 
 		INT_PROPERTY(Temp, __get_Temp, __set_Temp, 0x12C);
-		SPT<PVZ::Animation> GetSpecialHeadAnimation();
-		void SetSpecialHeadAnimation(SPT<PVZ::Animation> anim);
+		Animation GetSpecialHeadAnimation();
+		void SetSpecialHeadAnimation(Animation anim);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x158);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Hit(int damage, DamageType::DamageType type = DamageType::Direct);

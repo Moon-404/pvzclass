@@ -162,21 +162,21 @@ void PVZ::Zombie::SetBodyHp(int hp, int maxhp)
 	Memory::WriteMemory<int>(BaseAddress + 0xCC, maxhp);
 }
 
-SPT<PVZ::Animation> PVZ::Zombie::GetAnimation()
+PVZ::Animation PVZ::Zombie::GetAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x118);
-	return ((ID_RANK(ID) == 0) ? nullptr : MKS<PVZ::Animation>(ID_INDEX(ID)));
+	return PVZ::Animation(ID_INDEX(ID));
 }
 
-SPT<PVZ::Animation> PVZ::Zombie::GetSpecialHeadAnimation()
+PVZ::Animation PVZ::Zombie::GetSpecialHeadAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x144);
-	return ((ID_RANK(ID) == 0) ? nullptr : MKS<PVZ::Animation>(ID_INDEX(ID)));
+	return PVZ::Animation(ID_INDEX(ID));
 }
 
-void PVZ::Zombie::SetSpecialHeadAnimation(SPT<PVZ::Animation> anim)
+void PVZ::Zombie::SetSpecialHeadAnimation(PVZ::Animation anim)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x144, anim->Id);
+	Memory::WriteMemory<int>(BaseAddress + 0x144, anim.Id);
 }
 
 void PVZ::Zombie::Hit(int damage, DamageType::DamageType type)
