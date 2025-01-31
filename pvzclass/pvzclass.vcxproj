@@ -197,7 +197,6 @@
     <ClCompile Include="Enums\ChallengePage.cpp" />
     <ClCompile Include="Enums\CoinMotionType.cpp" />
     <ClCompile Include="Enums\CoinType.cpp" />
-    <ClCompile Include="Enums\DamageType.cpp" />
     <ClCompile Include="Enums\DebugModeType.cpp" />
     <ClCompile Include="Enums\EffectType.cpp" />
     <ClCompile Include="Enums\GardenPlantNeed.cpp" />
@@ -314,7 +313,6 @@
     <ClInclude Include="Enums\ChallengeState.h" />
     <ClInclude Include="Enums\CoinMotionType.h" />
     <ClInclude Include="Enums\CoinType.h" />
-    <ClInclude Include="Enums\DamageType.h" />
     <ClInclude Include="Enums\DebugModeType.h" />
     <ClInclude Include="Enums\EffectType.h" />
     <ClInclude Include="Enums\GardenPlantNeed.h" />

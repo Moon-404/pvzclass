@@ -179,22 +179,12 @@ void PVZ::Zombie::SetSpecialHeadAnimation(PVZ::Animation anim)
 	Memory::WriteMemory<int>(BaseAddress + 0x144, anim.Id);
 }
 
-void PVZ::Zombie::Hit(int damage, DamageType::DamageType type)
-{
-	PVZ::Zombie::Hit(damage, (DamageFlags)type);
-}
-
 void PVZ::Zombie::Hit(int damage, DamageFlags flags)
 {
 	SETARG(__asm__Hit, 1) = BaseAddress;
 	SETARG(__asm__Hit, 6) = flags;
 	SETARG(__asm__Hit, 11) = damage;
 	Memory::Execute(STRING(__asm__Hit));
-}
-
-void PVZ::Zombie::HitBody(int damage, DamageType::DamageType type)
-{
-	PVZ::Zombie::HitBody(damage, (DamageFlags)type);
 }
 
 void PVZ::Zombie::HitBody(int damage, DamageFlags flags)

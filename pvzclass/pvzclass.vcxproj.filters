@@ -159,9 +159,6 @@
     <ClCompile Include="Enums\CoinType.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="Enums\DamageType.cpp">
-      <Filter>源文件\Enums</Filter>
-    </ClCompile>
     <ClCompile Include="Enums\DebugModeType.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
@@ -354,9 +351,6 @@
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\CoinType.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\DamageType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\DebugModeType.h">
