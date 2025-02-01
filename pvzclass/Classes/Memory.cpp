@@ -103,6 +103,11 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 	}
 }
 
+int PVZ::Memory::Execute(AsmBuilder& builder)
+{
+	return(builder.get_code(), builder.get_length());
+}
+
 void PVZ::Memory::WaitPVZ()
 {
 	WriteMemory<BYTE>(Variable + 0x530, 1);

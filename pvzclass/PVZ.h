@@ -173,6 +173,7 @@ namespace PVZ
 		static void CreateThread(int address);
 		static void FreeMemory(int address);
 		static int Execute(byte asmcode[], int lengrh);
+		static int Execute(AsmBuilder& builder);
 		static bool InjectDll(const char* dllname);
 		static int GetProcAddress(const char* procname);
 		static int InvokeDllProc(const char* procname);
