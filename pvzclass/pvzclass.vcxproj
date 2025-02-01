@@ -238,7 +238,6 @@
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />
-    <ClCompile Include="pvzclass.cpp" />
     <ClCompile Include="Classes\Wave.cpp" />
     <ClCompile Include="Classes\Zombie.cpp" />
     <ClCompile Include="Classes\GardenPlant.cpp" />
