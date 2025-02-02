@@ -23,3 +23,8 @@ void PVZ::PVZApp::__set_SoundFXVolume(double value)
 	SETARG(__asm__set_MusicVolume, 1) = PVZ_BASE;
 	Memory::Execute(STRING(__asm__set_MusicVolume));
 }
+
+PVZ::PVZApp PVZ::GetPVZApp()
+{
+	return PVZApp(PVZ::Memory::ReadMemory<DWORD>(0x6A9EC0));
+}

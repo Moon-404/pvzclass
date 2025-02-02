@@ -250,7 +250,7 @@ namespace PVZ
 		T_PROPERTY(BOOLEAN,						FreePlantingCheat,	__get_FreePlantingCheat,	__set_FreePlantingCheat,	0x814);
 		T_PROPERTY(BOOLEAN,						FullVersion,		__get_FullVersion,			__set_FullVersion,			0x8C0);
 	};
-	SPT<PVZApp> GetPVZApp();
+	PVZApp GetPVZApp();
 
 	class Image : public BaseClass
 	{

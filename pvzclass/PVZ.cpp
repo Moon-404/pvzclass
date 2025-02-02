@@ -123,11 +123,6 @@ int PVZ::Memory::InvokeDllProc(const char* procname)
 	return PVZ::Memory::Execute(STRING(asmcode));
 }
 
-SPT<PVZ::PVZApp> PVZ::GetPVZApp()
-{
-	return MKS<PVZApp>(PVZ::Memory::ReadMemory<DWORD>(0x6A9EC0));
-}
-
 SPT<PVZ::Mouse> PVZ::GetMouse()
 {
 	return MKS<Mouse>(Memory::ReadPointer(0x6A9EC0, 0x320));
