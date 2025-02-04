@@ -261,9 +261,9 @@ std::vector<PVZ::Griditem> PVZ::Board::GetAllGriditems()
 	return griditems;
 }
 
-SPT<PVZ::Lawn> PVZ::Board::GetLawn()
+PVZ::Lawn PVZ::Board::GetLawn()
 {
-	return MKS<Lawn>(BaseAddress);
+	return Lawn(BaseAddress);
 }
 
 SPT<PVZ::Icetrace> PVZ::Board::GetIcetrace()
