@@ -213,14 +213,14 @@ std::vector<PVZ::Plant> PVZ::Board::GetAllPlants()
 	return plants;
 }
 
-std::vector<SPT<PVZ::Projectile>> PVZ::Board::GetAllProjectile()
+std::vector<PVZ::Projectile> PVZ::Board::GetAllProjectile()
 {
-	std::vector<SPT<Projectile>> projectiles;
+	std::vector<Projectile> projectiles;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xCC);
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0xC8, 0x50 + 0x94 * i))
-			projectiles.push_back(MKS<PVZ::Projectile>(i));
+			projectiles.push_back(PVZ::Projectile(i));
 	}
 	return projectiles;
 }
