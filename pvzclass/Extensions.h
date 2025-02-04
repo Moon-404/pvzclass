@@ -180,7 +180,7 @@ inline void AutoCollect(BOOLEAN b = true)
 	{
 		auto coins = PVZ::GetBoard()->GetAllCoins();
 		for (DWORD i = 0; i < coins.size(); i++)
-			coins[i]->Collect();
+			coins[i].Collect();
 		PVZ::Memory::WriteMemory<byte>(0x40CCDA, 0xE9);
 		PVZ::Memory::WriteMemory<int>(0x40CCDB, PVZ::Memory::Variable + 300 - 4 - 0x40CCDB);
 		PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 300, STRING(__autocollect_set));
