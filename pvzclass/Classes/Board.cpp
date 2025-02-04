@@ -1,9 +1,9 @@
 #include "../PVZ.h"
 #include "../Const.h"
 
-SPT<PVZ::PVZApp> PVZ::Board::GetPVZApp()
+PVZ::PVZApp PVZ::Board::GetPVZApp()
 {
-	return MKS<PVZApp>(Memory::ReadMemory<DWORD>(BaseAddress + 0x8C));
+	return PVZApp(Memory::ReadMemory<DWORD>(BaseAddress + 0x8C));
 }
 
 int PVZ::Board::GetGridFog(int row, int column)
@@ -87,14 +87,14 @@ int PVZ::Board::GridToYPixel(int row, int column)
 
 void PVZ::Board::Lose()
 {
-	SPT<PVZ::PVZApp> pvz = this->GetPVZApp();
-	if (pvz->LevelId == PVZLevel::Zombiguarium || (pvz->LevelId >= 61 && pvz->LevelId <= 70))
+	PVZ::PVZApp pvz = this->GetPVZApp();
+	if (pvz.LevelId == PVZLevel::Zombiguarium || (pvz.LevelId >= 61 && pvz.LevelId <= 70))
 	{
 		SETARG(__asm__Lose, 3) = this->BaseAddress;
 		Memory::Execute(STRING(__asm__Lose));
 	}
 	else
-		pvz->GameState = PVZGameState::Losing;
+		pvz.GameState = PVZGameState::Losing;
 }
 
 byte __asm__Board_TakeSunMoney[] =
@@ -117,10 +117,10 @@ bool PVZ::Board::TakeSunMoney(int amount)
 void PVZ::Board::Win()
 {
 	SETARG(__asm__Win, 1) = this->BaseAddress;
-	SPT<PVZ::PVZApp> pvz = this->GetPVZApp();
-	if (pvz->LevelId > 0 && pvz->LevelId < 16)
+	PVZ::PVZApp pvz = this->GetPVZApp();
+	if (pvz.LevelId > 0 && pvz.LevelId < 16)
 	{
-		if (pvz->GameState == PVZGameState::Playing)
+		if (pvz.GameState == PVZGameState::Playing)
 			Memory::Execute(STRING(__asm__Win));
 	}
 	else Memory::Execute(STRING(__asm__Win));

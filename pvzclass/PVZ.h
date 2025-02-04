@@ -294,7 +294,7 @@ namespace PVZ
 	{
 	public:
 		Board(int address) : Widget(address) {};
-		SPT<PVZApp> GetPVZApp();
+		PVZApp GetPVZApp();
 		INT_READONLY_PROPERTY(ZombiesCount, __get_ZombiesCount, 0xA0);
 		INT_READONLY_PROPERTY(PlantsCount, __get_PlantsCount, 0xBC);
 		INT_READONLY_PROPERTY(ProjectilesCount, __get_ProjectilesCount, 0xD8);
