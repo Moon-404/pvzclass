@@ -380,7 +380,7 @@ namespace PVZ
 		std::vector<Projectile> GetAllProjectile();
 		std::vector<Coin> GetAllCoins();
 		std::vector<Lawnmover> GetAllLawnmovers();
-		std::vector<SPT<Griditem>> GetAllGriditems();
+		std::vector<Griditem> GetAllGriditems();
 		SPT<Lawn> GetLawn();
 		SPT<Icetrace> GetIcetrace();
 		SPT<Wave> GetWave(int index);

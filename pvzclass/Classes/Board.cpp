@@ -249,14 +249,14 @@ std::vector<PVZ::Lawnmover> PVZ::Board::GetAllLawnmovers()
 	return lawnmovers;
 }
 
-std::vector<SPT<PVZ::Griditem>> PVZ::Board::GetAllGriditems()
+std::vector<PVZ::Griditem> PVZ::Board::GetAllGriditems()
 {
-	std::vector<SPT<Griditem>> griditems;
+	std::vector<Griditem> griditems;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x120);
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0x11C, 0x20 + 0xEC * i))
-			griditems.push_back(MKS<PVZ::Griditem>(i));
+			griditems.push_back(PVZ::Griditem(i));
 	}
 	return griditems;
 }
