@@ -203,7 +203,7 @@ namespace PVZ
 		int BaseAddress;
 	public:
 		BaseClass(int address) : BaseAddress(address){};
-		int GetBaseAddress()
+		int GetBaseAddress() const
 		{
 			return(this->BaseAddress);
 		}
