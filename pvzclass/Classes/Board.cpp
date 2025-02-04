@@ -225,14 +225,14 @@ std::vector<PVZ::Projectile> PVZ::Board::GetAllProjectile()
 	return projectiles;
 }
 
-std::vector<SPT<PVZ::Coin>> PVZ::Board::GetAllCoins()
+std::vector<PVZ::Coin> PVZ::Board::GetAllCoins()
 {
-	std::vector<SPT<Coin>> coins;
+	std::vector<Coin> coins;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xE8);
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0xE4, 0x38 + 0xD8 * i))
-			coins.push_back(MKS<PVZ::Coin>(i));
+			coins.push_back(PVZ::Coin(i));
 	}
 	return coins;
 }
