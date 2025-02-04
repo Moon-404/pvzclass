@@ -284,9 +284,9 @@ PVZ::MousePointer PVZ::Board::GetMousePointer()
 	return MousePointer(BaseAddress);
 }
 
-SPT<PVZ::Caption> PVZ::Board::GetCaption()
+PVZ::Caption PVZ::Board::GetCaption()
 {
-	return MKS<Caption>(BaseAddress);
+	return Caption(BaseAddress);
 }
 
 SPT<PVZ::CardSlot> PVZ::Board::GetCardSlot()

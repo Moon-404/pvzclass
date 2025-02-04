@@ -385,7 +385,7 @@ namespace PVZ
 		Icetrace GetIcetrace();
 		Wave GetWave(int index);
 		MousePointer GetMousePointer();
-		SPT<Caption> GetCaption();
+		Caption GetCaption();
 		SPT<CardSlot> GetCardSlot();
 		SPT<Miscellaneous> GetMiscellaneous();
 #pragma endregion
