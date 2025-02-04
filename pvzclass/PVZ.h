@@ -387,7 +387,7 @@ namespace PVZ
 		MousePointer GetMousePointer();
 		Caption GetCaption();
 		CardSlot GetCardSlot();
-		SPT<Miscellaneous> GetMiscellaneous();
+		Miscellaneous GetMiscellaneous();
 #pragma endregion
 	};
 	class SeedChooserScreen : public Widget

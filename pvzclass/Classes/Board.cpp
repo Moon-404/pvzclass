@@ -294,7 +294,7 @@ PVZ::CardSlot PVZ::Board::GetCardSlot()
 	return CardSlot(BaseAddress);
 }
 
-SPT<PVZ::Miscellaneous> PVZ::Board::GetMiscellaneous()
+PVZ::Miscellaneous PVZ::Board::GetMiscellaneous()
 {
-	return MKS<Miscellaneous>(BaseAddress);
+	return Miscellaneous(BaseAddress);
 }
