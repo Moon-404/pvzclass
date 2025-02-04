@@ -201,14 +201,14 @@ std::vector<PVZ::Zombie> PVZ::Board::GetAllZombies()
 	return zombies;
 }
 
-std::vector<SPT<PVZ::Plant>> PVZ::Board::GetAllPlants()
+std::vector<PVZ::Plant> PVZ::Board::GetAllPlants()
 {
-	std::vector<SPT<Plant>> plants;
+	std::vector<Plant> plants;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xB0);
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadMemory<byte>(Memory::ReadMemory<int>(BaseAddress + 0xAC) + 0x141 + 0x14C * i))
-			plants.push_back(MKS<PVZ::Plant>(i));
+			plants.push_back(PVZ::Plant(i));
 	}
 	return plants;
 }
