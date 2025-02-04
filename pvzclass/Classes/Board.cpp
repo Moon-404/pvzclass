@@ -266,9 +266,9 @@ PVZ::Lawn PVZ::Board::GetLawn()
 	return Lawn(BaseAddress);
 }
 
-SPT<PVZ::Icetrace> PVZ::Board::GetIcetrace()
+PVZ::Icetrace PVZ::Board::GetIcetrace()
 {
-	return MKS<Icetrace>(BaseAddress);
+	return Icetrace(BaseAddress);
 }
 
 SPT<PVZ::Wave> PVZ::Board::GetWave(int index)

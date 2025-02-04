@@ -382,7 +382,7 @@ namespace PVZ
 		std::vector<Lawnmover> GetAllLawnmovers();
 		std::vector<Griditem> GetAllGriditems();
 		Lawn GetLawn();
-		SPT<Icetrace> GetIcetrace();
+		Icetrace GetIcetrace();
 		SPT<Wave> GetWave(int index);
 		SPT<MousePointer> GetMousePointer();
 		SPT<Caption> GetCaption();
