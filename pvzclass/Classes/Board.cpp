@@ -189,14 +189,14 @@ void PVZ::Board::Earthquake(int horizontalAmplitude, int verticalAmplitude, int 
 	Memory::WriteMemory<int>(BaseAddress + 0x5548, verticalAmplitude);
 }
 
-std::vector<SPT<PVZ::Zombie>> PVZ::Board::GetAllZombies()
+std::vector<PVZ::Zombie> PVZ::Board::GetAllZombies()
 {
-	std::vector<SPT<Zombie>> zombies;
+	std::vector<Zombie> zombies;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x94);
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0x90, 0xEC + 0x15C * i))
-			zombies.push_back(MKS<PVZ::Zombie>(i));
+			zombies.push_back(PVZ::Zombie(i));
 	}
 	return zombies;
 }

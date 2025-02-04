@@ -375,7 +375,7 @@ namespace PVZ
 #pragma endregion
 
 #pragma region getmethod
-		std::vector<SPT<Zombie>> GetAllZombies();
+		std::vector<Zombie> GetAllZombies();
 		std::vector<SPT<Plant>> GetAllPlants();
 		std::vector<SPT<Projectile>> GetAllProjectile();
 		std::vector<SPT<Coin>> GetAllCoins();
