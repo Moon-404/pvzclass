@@ -271,12 +271,12 @@ PVZ::Icetrace PVZ::Board::GetIcetrace()
 	return Icetrace(BaseAddress);
 }
 
-SPT<PVZ::Wave> PVZ::Board::GetWave(int index)
+PVZ::Wave PVZ::Board::GetWave(int index)
 {
 	if (index >= 0 && index <= this->WaveCount)
-		return MKS<Wave>(BaseAddress + 0x6B4 + index * 200);
+		return Wave(BaseAddress + 0x6B4 + index * 200);
 	else
-		return nullptr;
+		return Wave(0);
 }
 
 SPT<PVZ::MousePointer> PVZ::Board::GetMousePointer()

@@ -383,7 +383,7 @@ namespace PVZ
 		std::vector<Griditem> GetAllGriditems();
 		Lawn GetLawn();
 		Icetrace GetIcetrace();
-		SPT<Wave> GetWave(int index);
+		Wave GetWave(int index);
 		SPT<MousePointer> GetMousePointer();
 		SPT<Caption> GetCaption();
 		SPT<CardSlot> GetCardSlot();
