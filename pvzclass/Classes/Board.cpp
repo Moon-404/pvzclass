@@ -289,9 +289,9 @@ PVZ::Caption PVZ::Board::GetCaption()
 	return Caption(BaseAddress);
 }
 
-SPT<PVZ::CardSlot> PVZ::Board::GetCardSlot()
+PVZ::CardSlot PVZ::Board::GetCardSlot()
 {
-	return MKS<CardSlot>(BaseAddress);
+	return CardSlot(BaseAddress);
 }
 
 SPT<PVZ::Miscellaneous> PVZ::Board::GetMiscellaneous()

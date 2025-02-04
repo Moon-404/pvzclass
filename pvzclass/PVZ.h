@@ -386,7 +386,7 @@ namespace PVZ
 		Wave GetWave(int index);
 		MousePointer GetMousePointer();
 		Caption GetCaption();
-		SPT<CardSlot> GetCardSlot();
+		CardSlot GetCardSlot();
 		SPT<Miscellaneous> GetMiscellaneous();
 #pragma endregion
 	};
