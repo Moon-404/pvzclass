@@ -384,7 +384,7 @@ namespace PVZ
 		Lawn GetLawn();
 		Icetrace GetIcetrace();
 		Wave GetWave(int index);
-		SPT<MousePointer> GetMousePointer();
+		MousePointer GetMousePointer();
 		SPT<Caption> GetCaption();
 		SPT<CardSlot> GetCardSlot();
 		SPT<Miscellaneous> GetMiscellaneous();

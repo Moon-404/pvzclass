@@ -279,9 +279,9 @@ PVZ::Wave PVZ::Board::GetWave(int index)
 		return Wave(0);
 }
 
-SPT<PVZ::MousePointer> PVZ::Board::GetMousePointer()
+PVZ::MousePointer PVZ::Board::GetMousePointer()
 {
-	return MKS<MousePointer>(BaseAddress);
+	return MousePointer(BaseAddress);
 }
 
 SPT<PVZ::Caption> PVZ::Board::GetCaption()
