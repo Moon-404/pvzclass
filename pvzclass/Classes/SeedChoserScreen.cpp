@@ -1,8 +1,8 @@
 #include "../PVZ.h"
 
-SPT<PVZ::Board> PVZ::SeedChooserScreen::GetBoard()
+PVZ::Board PVZ::SeedChooserScreen::GetBoard()
 {
-	return(MKS<PVZ::Board>(Memory::ReadMemory<int>(BaseAddress + 0x0D14)));
+	return(PVZ::Board(Memory::ReadMemory<int>(BaseAddress + 0x0D14)));
 }
 
 SPT<PVZ::SeedChooserScreen::ChosenSeed> PVZ::SeedChooserScreen::GetChosenSeed(int num)

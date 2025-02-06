@@ -46,15 +46,15 @@ inline void xytorc(int* x, int* y)
 #define CLEARZOMBIEPREVIEW INVOKE(0x40DF70)
 #define CREATEZOMBIEINLEVEL INVOKE(0x4092E0)
 
-	SPT<PVZ::Animation> CreateReanimation(AnimationType::AnimationType type, float x, float y, int layer = 0x310000);
+	PVZ::Animation CreateReanimation(AnimationType::AnimationType type, float x, float y, int layer = 0x310000);
 
 	//在指定位置生成一个指定类型的僵尸。
 	//僵王博士将会被强制生成在 0 行 0 列。
-	SPT<PVZ::Zombie> CreateZombie(ZombieType::ZombieType type, int row, byte column);
+	PVZ::Zombie CreateZombie(ZombieType::ZombieType type, int row, byte column);
 
-	SPT<PVZ::Plant> CreatePlant(SeedType::SeedType type, int row, byte column, BOOLEAN imitative = false);
+	PVZ::Plant CreatePlant(SeedType::SeedType type, int row, byte column, BOOLEAN imitative = false);
 
-	SPT<PVZ::Projectile> CreateProjectile(ProjectileType::ProjectileType type, byte row, int x);
+	PVZ::Projectile CreateProjectile(ProjectileType::ProjectileType type, byte row, int x);
 
 	void AsmInit();
 
@@ -62,24 +62,24 @@ inline void xytorc(int* x, int* y)
 	void AsmReset();
 
 	//你需要先调用一次AsmInit后才能使用这个函数
-	SPT<PVZ::Projectile> CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed);
+	PVZ::Projectile CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed);
 
-	SPT<PVZ::Coin> CreateCoin(CoinType::CoinType type,int x,int y,CoinMotionType::CoinMotionType motion);
+	PVZ::Coin CreateCoin(CoinType::CoinType type,int x,int y,CoinMotionType::CoinMotionType motion);
 
 	void ResetLawnmover();
 
 	//just a Bottom implementation
-	SPT<PVZ::Griditem> CreateGriditem();
+	PVZ::Griditem CreateGriditem();
 
 	void CreateGrave(int row, int column);
 
-	SPT<PVZ::Crater> CreateCrater(int row, int column,int duration);
+	PVZ::Crater CreateCrater(int row, int column,int duration);
 
-	SPT<PVZ::Griditem> CreateLadder(int row, byte column);
+	PVZ::Griditem CreateLadder(int row, byte column);
 
-	SPT<PVZ::Vase> CreateVase(int row, int column, VaseContent::VaseContent content, VaseSkin::VaseSkin skin = VaseSkin::VaseSkinUnknow, ZombieType::ZombieType zombie = ZombieType::Zombie, SeedType::SeedType plant = SeedType::Peashooter, int sun = 0);
+	PVZ::Vase CreateVase(int row, int column, VaseContent::VaseContent content, VaseSkin::VaseSkin skin = VaseSkin::VaseSkinUnknow, ZombieType::ZombieType zombie = ZombieType::Zombie, SeedType::SeedType plant = SeedType::Peashooter, int sun = 0);
 
-	SPT<PVZ::Portal> CreatePortal(int row, int column, int isYellow = 0);
+	PVZ::Portal CreatePortal(int row, int column, int isYellow = 0);
 	
 	struct VaseCreateInfo
 	{
@@ -92,7 +92,7 @@ inline void xytorc(int* x, int* y)
 		int sun;
 	};
 
-	SPT<PVZ::Vase> CreateVase(VaseCreateInfo vaseinfo);
+	PVZ::Vase CreateVase(VaseCreateInfo vaseinfo);
 
 	void CreateRake(byte row, byte column);
 

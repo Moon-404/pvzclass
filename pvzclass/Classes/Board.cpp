@@ -1,7 +1,7 @@
 #include "../PVZ.h"
 #include "../Const.h"
 
-SPT<PVZ::PVZApp> PVZ::Board::GetPVZApp()
+PVZ::PVZApp PVZ::Board::GetPVZApp()
 {
 	return MKS<PVZApp>(Memory::ReadMemory<DWORD>(BaseAddress + 0x8C));
 }
@@ -87,7 +87,7 @@ int PVZ::Board::GridToYPixel(int row, int column)
 
 void PVZ::Board::Lose()
 {
-	SPT<PVZ::PVZApp> pvz = this->GetPVZApp();
+	PVZ::PVZApp pvz = this->GetPVZApp();
 	if (pvz->LevelId == PVZLevel::Zombiguarium || (pvz->LevelId >= 61 && pvz->LevelId <= 70))
 	{
 		SETARG(__asm__Lose, 3) = this->BaseAddress;
@@ -117,7 +117,7 @@ bool PVZ::Board::TakeSunMoney(int amount)
 void PVZ::Board::Win()
 {
 	SETARG(__asm__Win, 1) = this->BaseAddress;
-	SPT<PVZ::PVZApp> pvz = this->GetPVZApp();
+	PVZ::PVZApp pvz = this->GetPVZApp();
 	if (pvz->LevelId > 0 && pvz->LevelId < 16)
 	{
 		if (pvz->GameState == PVZGameState::Playing)
@@ -189,89 +189,89 @@ void PVZ::Board::Earthquake(int horizontalAmplitude, int verticalAmplitude, int 
 	Memory::WriteMemory<int>(BaseAddress + 0x5548, verticalAmplitude);
 }
 
-std::vector<SPT<PVZ::Zombie>> PVZ::Board::GetAllZombies()
+std::vector<PVZ::Zombie> PVZ::Board::GetAllZombies()
 {
 	std::vector<SPT<Zombie>> zombies;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x94);
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0x90, 0xEC + 0x15C * i))
-			zombies.push_back(MKS<PVZ::Zombie>(i));
+			zombies.push_back(PVZ::Zombie(i));
 	}
 	return zombies;
 }
 
-std::vector<SPT<PVZ::Plant>> PVZ::Board::GetAllPlants()
+std::vector<PVZ::Plant> PVZ::Board::GetAllPlants()
 {
 	std::vector<SPT<Plant>> plants;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xB0);
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadMemory<byte>(Memory::ReadMemory<int>(BaseAddress + 0xAC) + 0x141 + 0x14C * i))
-			plants.push_back(MKS<PVZ::Plant>(i));
+			plants.push_back(PVZ::Plant(i));
 	}
 	return plants;
 }
 
-std::vector<SPT<PVZ::Projectile>> PVZ::Board::GetAllProjectile()
+std::vector<PVZ::Projectile> PVZ::Board::GetAllProjectile()
 {
 	std::vector<SPT<Projectile>> projectiles;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xCC);
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0xC8, 0x50 + 0x94 * i))
-			projectiles.push_back(MKS<PVZ::Projectile>(i));
+			projectiles.push_back(PVZ::Projectile(i));
 	}
 	return projectiles;
 }
 
-std::vector<SPT<PVZ::Coin>> PVZ::Board::GetAllCoins()
+std::vector<PVZ::Coin> PVZ::Board::GetAllCoins()
 {
 	std::vector<SPT<Coin>> coins;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xE8);
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0xE4, 0x38 + 0xD8 * i))
-			coins.push_back(MKS<PVZ::Coin>(i));
+			coins.push_back(PVZ::Coin(i));
 	}
 	return coins;
 }
 
-std::vector<SPT<PVZ::Lawnmover>> PVZ::Board::GetAllLawnmovers()
+std::vector<PVZ::Lawnmover> PVZ::Board::GetAllLawnmovers()
 {
 	std::vector<SPT<Lawnmover>> lawnmovers;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x104);
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!(Memory::ReadPointer(BaseAddress + 0x100, 0x30 + 0x48 * i) & 0x0FF))
-			lawnmovers.push_back(MKS<PVZ::Lawnmover>(i));
+			lawnmovers.push_back(PVZ::Lawnmover(i));
 	}
 	return lawnmovers;
 }
 
-std::vector<SPT<PVZ::Griditem>> PVZ::Board::GetAllGriditems()
+std::vector<PVZ::Griditem> PVZ::Board::GetAllGriditems()
 {
 	std::vector<SPT<Griditem>> griditems;
 	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x120);
 	for (int i = 0; i < maxnum; i++)
 	{
 		if (!Memory::ReadPointer(BaseAddress + 0x11C, 0x20 + 0xEC * i))
-			griditems.push_back(MKS<PVZ::Griditem>(i));
+			griditems.push_back(PVZ::Griditem(i));
 	}
 	return griditems;
 }
 
-SPT<PVZ::Lawn> PVZ::Board::GetLawn()
+PVZ::Lawn PVZ::Board::GetLawn()
 {
 	return MKS<Lawn>(BaseAddress);
 }
 
-SPT<PVZ::Icetrace> PVZ::Board::GetIcetrace()
+PVZ::Icetrace PVZ::Board::GetIcetrace()
 {
 	return MKS<Icetrace>(BaseAddress);
 }
 
-SPT<PVZ::Wave> PVZ::Board::GetWave(int index)
+PVZ::Wave PVZ::Board::GetWave(int index)
 {
 	if (index >= 0 && index <= this->WaveCount)
 		return MKS<Wave>(BaseAddress + 0x6B4 + index * 200);
@@ -279,22 +279,22 @@ SPT<PVZ::Wave> PVZ::Board::GetWave(int index)
 		return nullptr;
 }
 
-SPT<PVZ::MousePointer> PVZ::Board::GetMousePointer()
+PVZ::MousePointer PVZ::Board::GetMousePointer()
 {
 	return MKS<MousePointer>(BaseAddress);
 }
 
-SPT<PVZ::Caption> PVZ::Board::GetCaption()
+PVZ::Caption PVZ::Board::GetCaption()
 {
 	return MKS<Caption>(BaseAddress);
 }
 
-SPT<PVZ::CardSlot> PVZ::Board::GetCardSlot()
+PVZ::CardSlot PVZ::Board::GetCardSlot()
 {
 	return MKS<CardSlot>(BaseAddress);
 }
 
-SPT<PVZ::Miscellaneous> PVZ::Board::GetMiscellaneous()
+PVZ::Miscellaneous PVZ::Board::GetMiscellaneous()
 {
 	return MKS<Miscellaneous>(BaseAddress);
 }

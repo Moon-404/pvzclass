@@ -123,59 +123,59 @@ int PVZ::Memory::InvokeDllProc(const char* procname)
 	return PVZ::Memory::Execute(STRING(asmcode));
 }
 
-SPT<PVZ::PVZApp> PVZ::GetPVZApp()
+PVZ::PVZApp PVZ::GetPVZApp()
 {
 	return MKS<PVZApp>(PVZ::Memory::ReadMemory<DWORD>(0x6A9EC0));
 }
 
-SPT<PVZ::Mouse> PVZ::GetMouse()
+PVZ::Mouse PVZ::GetMouse()
 {
 	return MKS<Mouse>(Memory::ReadPointer(0x6A9EC0, 0x320));
 }
 
-SPT<PVZ::Board> PVZ::GetBoard()
+PVZ::Board PVZ::GetBoard()
 {
 	int address = PVZBASEADDRESS;
 	return(address == 0 ? nullptr : MKS<Board>(address));
 }
 
-SPT<PVZ::SeedChooserScreen> PVZ::GetSeedChooserScreen()
+PVZ::SeedChooserScreen PVZ::GetSeedChooserScreen()
 {
 	int address = Memory::ReadPointer(0x6A9EC0, 0x774);
 	return(address == 0 ? nullptr : MKS<SeedChooserScreen>(address));
 }
 
-SPT<PVZ::ZenGarden> PVZ::GetZenGarden()
+PVZ::ZenGarden PVZ::GetZenGarden()
 {
 	return MKS<ZenGarden>(Memory::ReadPointer(0x6A9EC0, 0x81C));
 }
 
-SPT<PVZ::PlantDefinition> PVZ::GetPlantDefinition(SeedType::SeedType type)
+PVZ::PlantDefinition PVZ::GetPlantDefinition(SeedType::SeedType type)
 {
 	return MKS<PlantDefinition>(type);
 }
 
-SPT<PVZ::ZombieDefinition> PVZ::GetZombieDefinition(ZombieType::ZombieType type)
+PVZ::ZombieDefinition PVZ::GetZombieDefinition(ZombieType::ZombieType type)
 {
 	return MKS<ZombieDefinition>(type);
 }
 
-SPT<PVZ::ProjectileDefinition> PVZ::GetProjectileDefinition(ProjectileType::ProjectileType type)
+PVZ::ProjectileDefinition PVZ::GetProjectileDefinition(ProjectileType::ProjectileType type)
 {
 	return MKS<ProjectileDefinition>(type);
 }
 
-SPT<PVZ::ChallengeDefinition> PVZ::GetChallengeDefinition(PVZLevel::PVZLevel mode)
+PVZ::ChallengeDefinition PVZ::GetChallengeDefinition(PVZLevel::PVZLevel mode)
 {
 	return MKS<ChallengeDefinition>(mode);
 }
 
-SPT<PVZ::SaveData> PVZ::GetSaveData()
+PVZ::SaveData PVZ::GetSaveData()
 {
 	return MKS<SaveData>(Memory::ReadPointer(0x6A9EC0, 0x82C));
 }
 
-SPT<PVZ::Music> PVZ::GetMusic()
+PVZ::Music PVZ::GetMusic()
 {
 	return MKS<Music>(Memory::ReadPointer(0x6A9EC0, 0x83C));
 }
