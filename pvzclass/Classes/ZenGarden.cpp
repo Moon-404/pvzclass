@@ -26,7 +26,7 @@ bool PVZ::ZenGarden::IsFull(bool consider_items)
 PVZ::Snail PVZ::ZenGarden::GetSnail()
 {
 	if (PVZBASEADDRESS == 0)
-		return(nullptr);
+		return(INVALID_BASEADDRESS);
 	SETARG(__asm__ZenGarder_GetSnail, 1) = BaseAddress;
 	SETARG(__asm__ZenGarder_GetSnail, 19) = PVZ::Memory::Variable;
 	return(PVZ::Snail(Memory::Execute(STRING(__asm__ZenGarder_GetSnail))));

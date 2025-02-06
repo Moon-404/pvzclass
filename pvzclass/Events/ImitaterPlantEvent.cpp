@@ -34,9 +34,9 @@ void ImitaterPlantEvent::handle(CONTEXT& context)
 	else
 	{
 #ifdef _WIN64
-		context.Rsi = plant->GetBaseAddress();
+		context.Rsi = plant.GetBaseAddress();
 #else
-		context.Esi = plant->GetBaseAddress();
+		context.Esi = plant.GetBaseAddress();
 #endif
 
 	}

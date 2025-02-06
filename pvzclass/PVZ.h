@@ -79,6 +79,7 @@
 #define HZC_DIGGER_UNDER 64
 #define HZC_HYPNOTIZED 128
 
+#define INVALID_BASEADDRESS 0x400000
 
 /*Only version 1.0.0.1051 is fully supported*/
 namespace PVZ
@@ -755,7 +756,7 @@ namespace PVZ
 			T_PROPERTY(FLOAT, DestOffsetY, __get_DestOffsetY, __set_DestOffsetY, 0xC);
 			T_PROPERTY(MagnetItemType::MagnetItemType, Type, __get_Type, __set_Type, 0x10);
 		};
-		SPT<MagnetItem> GetMagnetItem(int num);
+		MagnetItem GetMagnetItem(int num);
 	};
 	class GardenPlant
 	{
@@ -970,7 +971,7 @@ namespace PVZ
 			// 该卡槽进入CD，持续时间为-1则为该卡槽的默认时间
 			void EnterCoolDown(int duration = -1);
 		};
-		SPT<PVZ::CardSlot::SeedCard> GetCard(int index);
+		PVZ::CardSlot::SeedCard GetCard(int index);
 	};
 	class Miscellaneous
 	{
@@ -1009,7 +1010,7 @@ namespace PVZ
 		INT_PROPERTY(RainCounter, __get_RainCounter, __set_RainCounter, 0x0B4);
 		INT_READONLY_PROPERTY(TreeOfWisdomTalkIndex, __get_TreeOfWisdomTalkIndex, 0x0B8);
 
-		void IZSquishBrain(SPT<IZBrain> brain);
+		void IZSquishBrain(IZBrain brain);
 	};
 	class SaveData : public BaseClass
 	{
@@ -1055,7 +1056,7 @@ namespace PVZ
 		public:
 			GardenPlant(int address) : PVZ::GardenPlant(address) {};
 		};
-		SPT<GardenPlant> GetGardenPlant(int index);
+		GardenPlant GetGardenPlant(int index);
 	};
 	class Music : public BaseClass
 	{
@@ -1083,7 +1084,7 @@ namespace PVZ
 		PVZ::Board GetBoard();
 		T_PROPERTY(GardenScene::GardenScene, GardenType, __get_GardenType, __set_GardenType, 0x8);
 		bool IsFull(bool consider_items);
-		SPT<Snail> GetSnail();
+		Snail GetSnail();
 	};
 
 	class PlantDefinition
@@ -1141,18 +1142,18 @@ namespace PVZ
 #pragma region methods
 
 	void InitImages();
-	SPT<Mouse> GetMouse();
+	Mouse GetMouse();
 	//若 BaseAddress 为 0，返回空指针
-	SPT<Board> GetBoard();
+	Board GetBoard();
 	//若 BaseAddress 为 0，返回空指针
-	SPT<SeedChooserScreen> GetSeedChooserScreen();
-	SPT<SaveData> GetSaveData();
-	SPT<Music> GetMusic();
-	SPT<ZenGarden> GetZenGarden();
-	SPT<PlantDefinition> GetPlantDefinition(SeedType::SeedType type);
-	SPT<ZombieDefinition> GetZombieDefinition(ZombieType::ZombieType type);
-	SPT<ProjectileDefinition> GetProjectileDefinition(ProjectileType::ProjectileType type);
-	SPT<ChallengeDefinition> GetChallengeDefinition(PVZLevel::PVZLevel mode);
+	SeedChooserScreen GetSeedChooserScreen();
+	SaveData GetSaveData();
+	Music GetMusic();
+	ZenGarden GetZenGarden();
+	PlantDefinition GetPlantDefinition(SeedType::SeedType type);
+	ZombieDefinition GetZombieDefinition(ZombieType::ZombieType type);
+	ProjectileDefinition GetProjectileDefinition(ProjectileType::ProjectileType type);
+	ChallengeDefinition GetChallengeDefinition(PVZLevel::PVZLevel mode);
 
 #pragma endregion
 

@@ -24,7 +24,7 @@ void PVZ::CardSlot::SetCardsCount(int num)
 	Memory::WriteMemory<byte>(0x0041BEE0, 0x56);
 }
 
-SPT<PVZ::CardSlot::SeedCard> PVZ::CardSlot::GetCard(int index)
+PVZ::CardSlot::SeedCard PVZ::CardSlot::GetCard(int index)
 {
 	if (index >= 0 && index < 10)
 		return SeedCard(BaseAddress + 0x28 + index * 0x50);

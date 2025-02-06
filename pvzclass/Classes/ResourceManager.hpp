@@ -10,7 +10,7 @@ namespace PVZ
 	{
 	public:
 		ResourceManager(int address) : BaseClass(address) {};
-		SPT<PVZApp> GetPVZApp();
+		PVZApp GetPVZApp();
 	};
-	SPT<ResourceManager> GetResourceManager();
+	ResourceManager GetResourceManager();
 }

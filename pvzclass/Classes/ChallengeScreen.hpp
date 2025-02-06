@@ -10,8 +10,8 @@ namespace PVZ
 	{
 	public:
 		ChallengeScreen(int address) : Widget(address) {};
-		SPT<PVZApp> GetPVZApp();
+		PVZApp GetPVZApp();
 		PROPERTY(ChallengePage::ChallengePage, __get_Page, __set_Page) Page;
 	};
-	SPT<ChallengeScreen> GetChallengeScreen();
+	ChallengeScreen GetChallengeScreen();
 }
