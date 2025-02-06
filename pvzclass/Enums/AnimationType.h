@@ -77,7 +77,7 @@ namespace AnimationType
 		LadderZombie,
 		UnknownBubble,
 		PlantZZZ,
-		CraveBuster,
+		GraveBuster,
 		TranslucentWhiteScreen,
 		Magnetshroom,
 		ZombossRobot,

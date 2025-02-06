@@ -16,7 +16,7 @@ namespace SeedType
 		Puffshroom,
 		Sunshroom,
 		Fumeshroom,
-		CraveBuster,
+		GraveBuster,
 		Hypnoshroom,
 		Scaredyshroom,
 		Iceshroom,
