@@ -31,7 +31,7 @@ BOOLEAN PVZ::SaveData::HavePurpleCard(SeedType::SeedType purplecard)
 	return false;
 }
 
-SPT<PVZ::SaveData::GardenPlant> PVZ::SaveData::GetGardenPlant(int index)
+PVZ::SaveData::GardenPlant PVZ::SaveData::GetGardenPlant(int index)
 {
 	if (index >= 0 && index < GardenPlantCount)
 		return GardenPlant(BaseAddress + 0x350 + index * 0x58);

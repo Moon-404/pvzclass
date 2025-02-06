@@ -131,13 +131,13 @@ PVZ::Mouse PVZ::GetMouse()
 PVZ::Board PVZ::GetBoard()
 {
 	int address = PVZBASEADDRESS;
-	return(address == 0 ? nullptr : Board(address));
+	return(address == 0 ? INVALID_BASEADDRESS : Board(address));
 }
 
 PVZ::SeedChooserScreen PVZ::GetSeedChooserScreen()
 {
 	int address = Memory::ReadPointer(0x6A9EC0, 0x774);
-	return(address == 0 ? nullptr : SeedChooserScreen(address));
+	return(address == 0 ? INVALID_BASEADDRESS : SeedChooserScreen(address));
 }
 
 PVZ::ZenGarden PVZ::GetZenGarden()

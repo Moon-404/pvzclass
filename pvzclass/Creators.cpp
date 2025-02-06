@@ -201,7 +201,7 @@ void Creator::ResetLawnmover()
 	PVZ::Memory::WriteMemory<short>(0x40BC98, makeshort(JMP(0x60)));
 	PVZ::Memory::WriteMemory<byte>(0x40BD17, 1);
 	SETARG(__asm__ResetLawnmover, 1) = PVZBASEADDRESS;
-	auto lawnmovers = PVZ::GetBoard()->GetAllLawnmovers();
+	auto lawnmovers = PVZ::GetBoard().GetAllLawnmovers();
 	for (DWORD i = 0; i < lawnmovers.size(); i++)
 		lawnmovers[i].Die();
 	PVZ::Memory::Execute(STRING(__asm__ResetLawnmover));
@@ -280,16 +280,16 @@ PVZ::Griditem Creator::CreateLadder(int row, byte column)
 
 PVZ::Vase Creator::CreateVase(int row, int column, VaseContent::VaseContent content, VaseSkin::VaseSkin skin, ZombieType::ZombieType zombie, SeedType::SeedType plant, int sun)
 {
-	PVZ::Vase vase = PVZ::Vase(CreateGriditem()->GetBaseAddress());
-	vase->Row = row;
-	vase->Column = column;
-	vase->Layer = vase->Row * 0x2710 + 0x49BB0;
-	vase->Type = GriditemType::Vase;
-	vase->Skin = skin;
-	vase->ContentZombie = zombie;
-	vase->ContentPlant = plant;
-	vase->Content = content;
-	vase->Sun = sun;
+	PVZ::Vase vase = PVZ::Vase(CreateGriditem().GetBaseAddress());
+	vase.Row = row;
+	vase.Column = column;
+	vase.Layer = row * 0x2710 + 0x49BB0;
+	vase.Type = GriditemType::Vase;
+	vase.Skin = skin;
+	vase.ContentZombie = zombie;
+	vase.ContentPlant = plant;
+	vase.Content = content;
+	vase.Sun = sun;
 	return vase;
 }
 
@@ -558,7 +558,7 @@ byte __asm__CreatePortal[19]
 
 void Creator::__CreatePortal()
 {
-	auto griditems = PVZ::GetBoard()->GetAllGriditems();
+	auto griditems = PVZ::GetBoard().GetAllGriditems();
 	for (DWORD i = 0; i < griditems.size(); i++)
 		if (griditems[i].Type == GriditemType::PortalBlue || griditems[i].Type == GriditemType::PortalYellow)
 			griditems[i].Remove();

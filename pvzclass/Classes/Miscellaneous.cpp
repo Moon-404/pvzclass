@@ -58,9 +58,9 @@ byte __asm__IZSquishBrain[]
 	RET
 };
 
-void PVZ::Miscellaneous::IZSquishBrain(SPT<IZBrain> brain)
+void PVZ::Miscellaneous::IZSquishBrain(IZBrain brain)
 {
-	SETARG(__asm__IZSquishBrain, 1) = brain->GetBaseAddress();
+	SETARG(__asm__IZSquishBrain, 1) = brain.GetBaseAddress();
 	SETARG(__asm__IZSquishBrain, 6) = this->GetBaseAddress();
 	PVZ::Memory::Execute(STRING(__asm__IZSquishBrain));
 }

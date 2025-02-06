@@ -3,11 +3,11 @@
 
 namespace PVZ
 {
-	SPT<ChallengeScreen> GetChallengeScreen()
+	ChallengeScreen GetChallengeScreen()
 	{
 		return ChallengeScreen(Memory::ReadPointer(0x6A9EC0, 0x780));
 	}
-	SPT<PVZApp> ChallengeScreen::GetPVZApp()
+	PVZApp ChallengeScreen::GetPVZApp()
 	{
 		return PVZApp(Memory::ReadMemory<DWORD>(BaseAddress + 0x1C0));
 	}
