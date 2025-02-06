@@ -493,7 +493,7 @@ namespace PVZ
 		int GetBaseAddress();
 		Attachment(int idoraddress);
 		// TODO: check whether this function works properly.
-		SPT<PVZ::Animation> GetAnimation();
+		PVZ::Animation GetAnimation();
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x308);
 	};
 	class AttachmentID : public BaseClass
