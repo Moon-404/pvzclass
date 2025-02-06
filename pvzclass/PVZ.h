@@ -419,11 +419,11 @@ namespace PVZ
 	{
 	public:
 		GameObject() : BaseClass(0) {};
-		SPT<PVZ::PVZApp> GetLawnApp()
-		{ return(MKS<PVZ::PVZApp>(Memory::ReadMemory<DWORD>(BaseAddress))); }
-		SPT<PVZ::Board> GetBoard()
+		PVZApp GetLawnApp()
+		{ return(PVZ::PVZApp(Memory::ReadMemory<DWORD>(BaseAddress))); }
+		PVZ::Board GetBoard()
 		{
-			return(MKS<PVZ::Board>(Memory::ReadMemory<int>(BaseAddress + 4)));
+			return(PVZ::Board(Memory::ReadMemory<int>(BaseAddress + 4)));
 		}
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
