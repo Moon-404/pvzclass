@@ -228,7 +228,7 @@
     <ClCompile Include="Classes\Memory.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Miscellaneous.cpp">
+    <ClCompile Include="Classes\Challenge.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Mouse.cpp">

@@ -177,7 +177,7 @@
     <ClCompile Include="Classes\Lawnmover.cpp" />
     <ClCompile Include="Classes\Matrix3.cpp" />
     <ClCompile Include="Classes\Memory.cpp" />
-    <ClCompile Include="Classes\Miscellaneous.cpp" />
+    <ClCompile Include="Classes\Challenge.cpp" />
     <ClCompile Include="Classes\Mouse.cpp" />
     <ClCompile Include="Classes\MousePointer.cpp" />
     <ClCompile Include="Classes\Music.cpp" />

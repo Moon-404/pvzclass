@@ -270,7 +270,7 @@ namespace PVZ
 	class MousePointer;
 	class Caption;
 	class CardSlot;
-	class Miscellaneous;
+	class Challenge;
 	class Lawn;
 	class Icetrace;
 	class Wave;
@@ -388,7 +388,8 @@ namespace PVZ
 		MousePointer GetMousePointer();
 		Caption GetCaption();
 		CardSlot GetCardSlot();
-		Miscellaneous GetMiscellaneous();
+		Challenge GetMiscellaneous();
+		Challenge GetChallenge();
 #pragma endregion
 	};
 	class SeedChooserScreen : public Widget
@@ -973,12 +974,12 @@ namespace PVZ
 		};
 		PVZ::CardSlot::SeedCard GetCard(int index);
 	};
-	class Miscellaneous
+	class Challenge
 	{
 	protected:
 		int BaseAddress;
 	public:
-		Miscellaneous(int address);
+		Challenge(int address);
 		int GetBaseAddress();
 		static const int MemSize = 0x0BC;
 		/*请在派生类中调用这个函数。
@@ -1012,6 +1013,7 @@ namespace PVZ
 
 		void IZSquishBrain(IZBrain brain);
 	};
+	using Miscellaneous = Challenge;
 	class SaveData : public BaseClass
 	{
 	public:
