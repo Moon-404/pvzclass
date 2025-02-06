@@ -410,8 +410,8 @@ namespace PVZ
 			T_PROPERTY(BOOLEAN, CrazyDavePick, __get_CrazyDavePick, __set_CrazyDavePick, 0x38);
 		};
 
-		SPT<PVZ::Board> GetBoard();
-		SPT<ChosenSeed> GetChosenSeed(int num);
+		Board GetBoard();
+		ChosenSeed GetChosenSeed(int num);
 		T_PROPERTY(BOOLEAN, IsViewingLawn, __get_IsViewingLawn, __set_IsViewingLawn, 0x0D38);
 	};
 	//Do NOT construct this class directly!
@@ -419,11 +419,11 @@ namespace PVZ
 	{
 	public:
 		GameObject() : BaseClass(0) {};
-		SPT<PVZ::PVZApp> GetLawnApp()
-		{ return(MKS<PVZ::PVZApp>(Memory::ReadMemory<DWORD>(BaseAddress))); }
-		SPT<PVZ::Board> GetBoard()
+		PVZApp GetLawnApp()
+		{ return(PVZ::PVZApp(Memory::ReadMemory<DWORD>(BaseAddress))); }
+		PVZ::Board GetBoard()
 		{
-			return(MKS<PVZ::Board>(Memory::ReadMemory<int>(BaseAddress + 4)));
+			return(PVZ::Board(Memory::ReadMemory<int>(BaseAddress + 4)));
 		}
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
@@ -438,7 +438,7 @@ namespace PVZ
 	{
 	public:
 		AttachEffect(int address) : BaseClass(address) {};
-		SPT<Matrix3> GetOffset();
+		Matrix3 GetOffset();
 	};
 	class Animation
 	{
