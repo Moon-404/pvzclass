@@ -505,8 +505,8 @@ namespace PVZ
 	{
 	public:
 		TrackInstance(int idoraddress);
-		SPT<AttachmentID> GetAttachmentID();
-		SPT<Attachment> GetAttachment();
+		AttachmentID GetAttachmentID();
+		Attachment GetAttachment();
 	};
 	class Lawn
 	{
