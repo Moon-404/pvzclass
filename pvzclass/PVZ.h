@@ -438,7 +438,7 @@ namespace PVZ
 	{
 	public:
 		AttachEffect(int address) : BaseClass(address) {};
-		SPT<Matrix3> GetOffset();
+		Matrix3 GetOffset();
 	};
 	class Animation
 	{
