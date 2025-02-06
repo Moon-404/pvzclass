@@ -410,8 +410,8 @@ namespace PVZ
 			T_PROPERTY(BOOLEAN, CrazyDavePick, __get_CrazyDavePick, __set_CrazyDavePick, 0x38);
 		};
 
-		SPT<PVZ::Board> GetBoard();
-		SPT<ChosenSeed> GetChosenSeed(int num);
+		Board GetBoard();
+		ChosenSeed GetChosenSeed(int num);
 		T_PROPERTY(BOOLEAN, IsViewingLawn, __get_IsViewingLawn, __set_IsViewingLawn, 0x0D38);
 	};
 	//Do NOT construct this class directly!
