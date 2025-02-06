@@ -22,15 +22,15 @@ void PVZ::Coin::SetCollision(CollisionBox* collbox)
 	Memory::WriteMemory<int>(BaseAddress + 0x14, collbox->Height);
 }
 
-SPT<PVZ::Attachment> PVZ::Coin::GetAttachment()
+PVZ::Attachment PVZ::Coin::GetAttachment()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x60);
-	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Attachment>(ID & 0x00FFFF));
+	return (((ID & 0xFFFF0000) == 0) ? nullptr : Attachment(ID & 0x00FFFF));
 }
 
-SPT<PVZ::GardenPlant> PVZ::Coin::GetGardenPlant()
+PVZ::GardenPlant PVZ::Coin::GetGardenPlant()
 {
-	return MKS<PVZ::GardenPlant>(this->BaseAddress + 0x68);
+	return PVZ::GardenPlant(this->BaseAddress + 0x68);
 }
 
 void PVZ::Coin::Collect()

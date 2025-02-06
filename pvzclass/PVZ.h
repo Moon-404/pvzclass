@@ -464,7 +464,7 @@ namespace PVZ
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
 		Color GetColor(); // 0x48-0x54，基础颜色
 		void SetColor(Color color);
-		SPT<TrackInstance> GetTrackInstance(const char* trackName);
+		TrackInstance GetTrackInstance(const char* trackName);
 		INT_PROPERTY(CycleCount, __get_CycleCount, __set_CycleCount, 0x5C);
 		Color GetAdditiveColor(); // 0x6C-0x78，加色模式
 		void SetAdditiveColor(Color color);
@@ -475,7 +475,7 @@ namespace PVZ
 		T_PROPERTY(PaintState::PaintState, Paint, __get_Paint, __set_Paint, 0x98);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x9C);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
-		SPT<AttachEffect> AttachTo(AttachmentID* attachmentID, float OffsetX, float OffsetY);
+		AttachEffect AttachTo(AttachmentID attachmentID, float OffsetX, float OffsetY);
 		void Die();
 		void Play(const char* TrackName, int blendType, int loopType, float rate);
 		void AssignRenderGroupToPrefix(byte RenderGroup, const char* TrackName);
@@ -484,7 +484,7 @@ namespace PVZ
 		//@brief 令动画部件执行 trackName 动作。
 		//@param trackName 执行的动作轨道名称。
 		void SetFramesForLayer(const char* theTrackName);
-		void SetImageOverride(const char* theTrackName, Image* theImage);
+		void SetImageOverride(const char* theTrackName, Image theImage);
 	};
 	class Attachment
 	{
@@ -493,7 +493,7 @@ namespace PVZ
 		int GetBaseAddress();
 		Attachment(int idoraddress);
 		// TODO: check whether this function works properly.
-		SPT<PVZ::Animation> GetAnimation();
+		PVZ::Animation GetAnimation();
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x308);
 	};
 	class AttachmentID : public BaseClass
@@ -505,8 +505,8 @@ namespace PVZ
 	{
 	public:
 		TrackInstance(int idoraddress);
-		SPT<AttachmentID> GetAttachmentID();
-		SPT<Attachment> GetAttachment();
+		AttachmentID GetAttachmentID();
+		Attachment GetAttachment();
 	};
 	class Lawn
 	{
@@ -713,13 +713,13 @@ namespace PVZ
 		INT_PROPERTY(mTargetX, __get_mTargetX, __set_mTargetX, 0x88);
 		INT_PROPERTY(mTargetY, __get_mTargetY, __set_mTargetY, 0x8C);
 		INT_PROPERTY(ShootingCountdown, __get_ShootingCountdown, __set_ShootingCountdown, 0x90);
-		SPT<PVZ::Animation> GetAnimationPart1();
-		SPT<PVZ::Animation> GetAnimationPart2();
-		SPT<PVZ::Animation> GetAnimationPart3();
-		SPT<PVZ::Animation> GetAnimationPart4();
-		SPT<PVZ::Animation> GetAnimationEyeBlink();
-		SPT<PVZ::Animation> GetAnimationPotatoGlow();
-		SPT<PVZ::Animation> GetAnimationSleep();
+		PVZ::Animation GetAnimationPart1();
+		PVZ::Animation GetAnimationPart2();
+		PVZ::Animation GetAnimationPart3();
+		PVZ::Animation GetAnimationPart4();
+		PVZ::Animation GetAnimationEyeBlink();
+		PVZ::Animation GetAnimationPotatoGlow();
+		PVZ::Animation GetAnimationSleep();
 		void Light(int cs = 100);
 		void Flash(int cs = 100);
 		T_PROPERTY(FLOAT, ImageXOffset, __get_ImageXOffset, __set_ImageXOffset, 0xC0);
@@ -740,8 +740,8 @@ namespace PVZ
 		int CalcLayer();
 		void MoveTo(int row, int column);
 		void Remove();
-		SPT<PVZ::Projectile> Shoot(int targetid = -1);
-		SPT<PVZ::Projectile> Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
+		PVZ::Projectile Shoot(int targetid = -1);
+		PVZ::Projectile Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, byte animPlayArg, int imagespeed);
 		class MagnetItem
@@ -794,9 +794,9 @@ namespace PVZ
 		INT_PROPERTY(DisappearCounter, __get_DisappearCounter, __set_DisappearCounter, 0x54);
 		T_PROPERTY(CoinType::CoinType, Type, __get_Type, __set_Type, 0x58);
 		T_PROPERTY(CoinMotionType::CoinMotionType, Motion, __get_Motion, __set_Motion, 0x5C);
-		SPT<PVZ::Attachment> GetAttachment();
+		PVZ::Attachment GetAttachment();
 		T_PROPERTY(SeedType::SeedType, ContentCard, __get_ContentCard, __set_ContentCard, 0x68);
-		SPT<PVZ::GardenPlant> GetGardenPlant();
+		PVZ::GardenPlant GetGardenPlant();
 		T_PROPERTY(BOOLEAN, HasHalo, __get_HasHalo, __set_HasHalo, 0xC8);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0xD0);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
@@ -813,7 +813,7 @@ namespace PVZ
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x10);
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
-		SPT<PVZ::Animation> GetAnimation();
+		PVZ::Animation GetAnimation();
 		T_PROPERTY(LawnmoverState::LawnmoverState, State, __get_State, __set_State, 0x2C);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x30);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x31);
@@ -830,7 +830,7 @@ namespace PVZ
 	public:
 		int GetBaseAddress();
 		Griditem(int indexoraddress);
-		SPT<PVZ::Board> GetBoard();
+		PVZ::Board GetBoard();
 		T_PROPERTY(GriditemType::GriditemType, Type, __get_Type, __set_Type, 0x8);
 		T_PROPERTY(GriditemState::GriditemState, State, __get_State, __set_State, 0xC);
 		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
@@ -918,7 +918,7 @@ namespace PVZ
 		INT_PROPERTY(ImitativePlantID, __get_ImitativePlantID, __set_ImitativePlantID, 0x3C);
 		INT_PROPERTY(CobCannonID, __get_CobCannonID, __set_CobCannonID, 0x40);
 		INT_PROPERTY(HammerDownCount, __get_HammerDownCount, __set_HammerDownCount, 0x44);
-		SPT<PVZ::Animation> GetAnimation();
+		PVZ::Animation GetAnimation();
 		READONLY_PROPERTY_BINDING(int, __get_Row, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x28)) Row;
 		READONLY_PROPERTY_BINDING(int, __get_Column, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x24)) Column;
 	};
@@ -1080,7 +1080,7 @@ namespace PVZ
 	public:
 		ZenGarden(int address);
 		int GetBaseAddress();
-		SPT<PVZ::Board> GetBoard();
+		PVZ::Board GetBoard();
 		T_PROPERTY(GardenScene::GardenScene, GardenType, __get_GardenType, __set_GardenType, 0x8);
 		bool IsFull(bool consider_items);
 		SPT<Snail> GetSnail();

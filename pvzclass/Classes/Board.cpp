@@ -118,7 +118,7 @@ void PVZ::Board::Win()
 {
 	SETARG(__asm__Win, 1) = this->BaseAddress;
 	PVZ::PVZApp pvz = this->GetPVZApp();
-	if (pvz.LevelId > 0 && pvz.LevelId < 16)
+  if (pvz.LevelId > 0 && pvz.LevelId < 16)
 	{
 		if (pvz.GameState == PVZGameState::Playing)
 			Memory::Execute(STRING(__asm__Win));

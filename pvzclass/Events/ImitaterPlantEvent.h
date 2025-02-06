@@ -7,7 +7,7 @@
 // @param 触发事件的模仿者（注意：不是即将生成的新植物）、是否取消该事件。
 // @return 更新后触发事件的模仿者。
 class ImitaterPlantEvent : public TemplateEvent<std::function<
-	SPT<PVZ::Plant>(SPT<PVZ::Plant>, bool&)> >
+	PVZ::Plant(PVZ::Plant, bool&)> >
 {
 public:
 	ImitaterPlantEvent();

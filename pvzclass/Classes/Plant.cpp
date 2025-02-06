@@ -62,46 +62,46 @@ void PVZ::Plant::SetMemSize(int NewSize = 0x14C, int NewCount = 1024)
 	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 400, STRING(__asm__Plant_memset));
 }
 
-SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart1()
+PVZ::Animation PVZ::Plant::GetAnimationPart1()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x94);
-	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? nullptr : Animation(ID_INDEX(ID)));
 }
 
-SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart2()
+PVZ::Animation PVZ::Plant::GetAnimationPart2()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x98);
-	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? nullptr : Animation(ID_INDEX(ID)));
 }
 
-SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart3()
+PVZ::Animation PVZ::Plant::GetAnimationPart3()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x9C);
-	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? nullptr : Animation(ID_INDEX(ID)));
 }
 
-SPT<PVZ::Animation> PVZ::Plant::GetAnimationPart4()
+PVZ::Animation PVZ::Plant::GetAnimationPart4()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0xA0);
-	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? nullptr : Animation(ID_INDEX(ID)));
 }
 
-SPT<PVZ::Animation> PVZ::Plant::GetAnimationEyeBlink()
+PVZ::Animation PVZ::Plant::GetAnimationEyeBlink()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0xA4);
-	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? nullptr : Animation(ID_INDEX(ID)));
 }
 
-SPT<PVZ::Animation> PVZ::Plant::GetAnimationPotatoGlow()
+PVZ::Animation PVZ::Plant::GetAnimationPotatoGlow()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0xA8);
-	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? nullptr : Animation(ID_INDEX(ID)));
 }
 
-SPT<PVZ::Animation> PVZ::Plant::GetAnimationSleep()
+PVZ::Animation PVZ::Plant::GetAnimationSleep()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0xAC);
-	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? nullptr : Animation(ID_INDEX(ID)));
 }
 
 void PVZ::Plant::Light(int cs)
@@ -166,19 +166,19 @@ void PVZ::Plant::Remove()
 	return;
 }
 
-SPT<PVZ::Projectile> PVZ::Plant::Shoot(int targetid)
+PVZ::Projectile PVZ::Plant::Shoot(int targetid)
 {
 	return(this->Shoot(targetid == -1 ? MotionType::None : MotionType::Track, targetid, false));
 }
 
-SPT<PVZ::Projectile> PVZ::Plant::Shoot(MotionType::MotionType motiontype, int targetid, bool special)
+PVZ::Projectile PVZ::Plant::Shoot(MotionType::MotionType motiontype, int targetid, bool special)
 {
 	if (special)
 		__asm__Shoot[1] = 1;
 	__asm__Shoot[3] = Row;
 	if (targetid != -1)
 	{
-		SPT<Zombie> tmp = MKS<Zombie>(ID_INDEX(targetid));
+		SPT<Zombie> tmp = Zombie(ID_INDEX(targetid));
 		SETARG(__asm__Shoot, 5) = tmp->GetBaseAddress();
 	}
 	SETARG(__asm__Shoot, 10) = BaseAddress;
@@ -188,7 +188,7 @@ SPT<PVZ::Projectile> PVZ::Plant::Shoot(MotionType::MotionType motiontype, int ta
 		Memory::Execute(STRING(__asm__Shoot));
 		return NULL;
 	};
-	SPT<Projectile> re = MKS<Projectile>(Memory::Execute(STRING(__asm__Shoot)));
+	SPT<Projectile> re = Projectile(Memory::Execute(STRING(__asm__Shoot)));
 	if (motiontype != MotionType::None) 
 	{
 		re->Motion = motiontype;

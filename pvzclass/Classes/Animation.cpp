@@ -91,20 +91,20 @@ void PVZ::Animation::SetOverlayColor(Color color)
 	Memory::WriteMemory<int>(BaseAddress + 0x8C, color.Alpha);
 }
 
-SPT<PVZ::TrackInstance> PVZ::Animation::GetTrackInstance(const char* trackName)
+PVZ::TrackInstance PVZ::Animation::GetTrackInstance(const char* trackName)
 {
 	int address = PVZ::Memory::ReadMemory<int>(BaseAddress + 0x58);
-	return MKS<TrackInstance>(this->FindTrackIndex(trackName) * 0x60 + address);
+	return TrackInstance(this->FindTrackIndex(trackName) * 0x60 + address);
 }
 
-SPT<PVZ::AttachEffect> PVZ::Animation::AttachTo(PVZ::AttachmentID* attachmentID, float OffsetX, float OffsetY)
+PVZ::AttachEffect PVZ::Animation::AttachTo(PVZ::AttachmentID attachmentID, float OffsetX, float OffsetY)
 {
 	SETARG(__asm__Reanimation__AttachTo, 1) = BaseAddress;
-	SETARG(__asm__Reanimation__AttachTo, 6) = attachmentID->GetBaseAddress();
+	SETARG(__asm__Reanimation__AttachTo, 6) = attachmentID.GetBaseAddress();
 	SETARGFLOAT(__asm__Reanimation__AttachTo, 11) = OffsetY;
 	SETARGFLOAT(__asm__Reanimation__AttachTo, 17) = OffsetX;
 	SETARG(__asm__Reanimation__AttachTo, 39) = PVZ::Memory::Variable;
-	return(MKS<PVZ::AttachEffect>(PVZ::Memory::Execute(STRING(__asm__Reanimation__AttachTo))));
+	return(PVZ::AttachEffect(PVZ::Memory::Execute(STRING(__asm__Reanimation__AttachTo))));
 }
 
 void PVZ::Animation::Die()
@@ -167,10 +167,10 @@ byte __asm__Reanimation_SetImageOverride[]
 	RET
 };
 
-void PVZ::Animation::SetImageOverride(const char* theTrackName, Image* theImage)
+void PVZ::Animation::SetImageOverride(const char* theTrackName, Image theImage)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, theTrackName, std::strlen(theTrackName) + 1);
-	SETARG(__asm__Reanimation_SetImageOverride, 1) = theImage->GetBaseAddress();
+	SETARG(__asm__Reanimation_SetImageOverride, 1) = theImage.GetBaseAddress();
 	SETARG(__asm__Reanimation_SetImageOverride, 6) = PVZ::Memory::Variable + 100;
 	SETARG(__asm__Reanimation_SetImageOverride, 11) = this->GetBaseAddress();
 	PVZ::Memory::Execute(STRING(__asm__Reanimation_SetImageOverride));
