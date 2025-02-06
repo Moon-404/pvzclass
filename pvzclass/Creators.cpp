@@ -203,7 +203,7 @@ void Creator::ResetLawnmover()
 	SETARG(__asm__ResetLawnmover, 1) = PVZBASEADDRESS;
 	auto lawnmovers = PVZ::GetBoard()->GetAllLawnmovers();
 	for (DWORD i = 0; i < lawnmovers.size(); i++)
-		lawnmovers[i]->Die();
+		lawnmovers[i].Die();
 	PVZ::Memory::Execute(STRING(__asm__ResetLawnmover));
 	PVZ::Memory::WriteMemory<float>(0x679BF8, -160.0f);
 	PVZ::Memory::WriteMemory<short>(0x40BC98, makeshort(JNZ(9)));
@@ -560,8 +560,8 @@ void Creator::__CreatePortal()
 {
 	auto griditems = PVZ::GetBoard()->GetAllGriditems();
 	for (DWORD i = 0; i < griditems.size(); i++)
-		if (griditems[i]->Type == GriditemType::PortalBlue || griditems[i]->Type == GriditemType::PortalYellow)
-			griditems[i]->Remove();
+		if (griditems[i].Type == GriditemType::PortalBlue || griditems[i].Type == GriditemType::PortalYellow)
+			griditems[i].Remove();
 	SETARG(__asm__CreatePortal, 1) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0x160);
 	PVZ::Memory::Execute(STRING(__asm__CreatePortal));
 }

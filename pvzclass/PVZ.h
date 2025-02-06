@@ -203,7 +203,7 @@ namespace PVZ
 		int BaseAddress;
 	public:
 		BaseClass(int address) : BaseAddress(address){};
-		int GetBaseAddress()
+		int GetBaseAddress() const
 		{
 			return(this->BaseAddress);
 		}
@@ -250,7 +250,7 @@ namespace PVZ
 		T_PROPERTY(BOOLEAN,						FreePlantingCheat,	__get_FreePlantingCheat,	__set_FreePlantingCheat,	0x814);
 		T_PROPERTY(BOOLEAN,						FullVersion,		__get_FullVersion,			__set_FullVersion,			0x8C0);
 	};
-	SPT<PVZApp> GetPVZApp();
+	PVZApp GetPVZApp();
 
 	class Image : public BaseClass
 	{
@@ -294,7 +294,7 @@ namespace PVZ
 	{
 	public:
 		Board(int address) : Widget(address) {};
-		SPT<PVZApp> GetPVZApp();
+		PVZApp GetPVZApp();
 		INT_READONLY_PROPERTY(ZombiesCount, __get_ZombiesCount, 0xA0);
 		INT_READONLY_PROPERTY(PlantsCount, __get_PlantsCount, 0xBC);
 		INT_READONLY_PROPERTY(ProjectilesCount, __get_ProjectilesCount, 0xD8);
@@ -375,19 +375,19 @@ namespace PVZ
 #pragma endregion
 
 #pragma region getmethod
-		std::vector<SPT<Zombie>> GetAllZombies();
-		std::vector<SPT<Plant>> GetAllPlants();
-		std::vector<SPT<Projectile>> GetAllProjectile();
-		std::vector<SPT<Coin>> GetAllCoins();
-		std::vector<SPT<Lawnmover>> GetAllLawnmovers();
-		std::vector<SPT<Griditem>> GetAllGriditems();
-		SPT<Lawn> GetLawn();
-		SPT<Icetrace> GetIcetrace();
-		SPT<Wave> GetWave(int index);
-		SPT<MousePointer> GetMousePointer();
-		SPT<Caption> GetCaption();
-		SPT<CardSlot> GetCardSlot();
-		SPT<Miscellaneous> GetMiscellaneous();
+		std::vector<Zombie> GetAllZombies();
+		std::vector<Plant> GetAllPlants();
+		std::vector<Projectile> GetAllProjectile();
+		std::vector<Coin> GetAllCoins();
+		std::vector<Lawnmover> GetAllLawnmovers();
+		std::vector<Griditem> GetAllGriditems();
+		Lawn GetLawn();
+		Icetrace GetIcetrace();
+		Wave GetWave(int index);
+		MousePointer GetMousePointer();
+		Caption GetCaption();
+		CardSlot GetCardSlot();
+		Miscellaneous GetMiscellaneous();
 #pragma endregion
 	};
 	class SeedChooserScreen : public Widget
@@ -410,8 +410,8 @@ namespace PVZ
 			T_PROPERTY(BOOLEAN, CrazyDavePick, __get_CrazyDavePick, __set_CrazyDavePick, 0x38);
 		};
 
-		SPT<PVZ::Board> GetBoard();
-		SPT<ChosenSeed> GetChosenSeed(int num);
+		Board GetBoard();
+		ChosenSeed GetChosenSeed(int num);
 		T_PROPERTY(BOOLEAN, IsViewingLawn, __get_IsViewingLawn, __set_IsViewingLawn, 0x0D38);
 	};
 	//Do NOT construct this class directly!
@@ -419,11 +419,11 @@ namespace PVZ
 	{
 	public:
 		GameObject() : BaseClass(0) {};
-		SPT<PVZ::PVZApp> GetLawnApp()
-		{ return(MKS<PVZ::PVZApp>(Memory::ReadMemory<DWORD>(BaseAddress))); }
-		SPT<PVZ::Board> GetBoard()
+		PVZApp GetLawnApp()
+		{ return(PVZ::PVZApp(Memory::ReadMemory<DWORD>(BaseAddress))); }
+		PVZ::Board GetBoard()
 		{
-			return(MKS<PVZ::Board>(Memory::ReadMemory<int>(BaseAddress + 4)));
+			return(PVZ::Board(Memory::ReadMemory<int>(BaseAddress + 4)));
 		}
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
@@ -438,7 +438,7 @@ namespace PVZ
 	{
 	public:
 		AttachEffect(int address) : BaseClass(address) {};
-		SPT<Matrix3> GetOffset();
+		Matrix3 GetOffset();
 	};
 	class Animation
 	{

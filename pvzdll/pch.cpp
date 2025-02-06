@@ -59,7 +59,7 @@ int onDrawZombieReanim(DWORD zombieAddress, DWORD animationAddress)
 void onNewGame()
 {
 	auto app = PVZ::GetPVZApp();
-	app->LevelId = PVZLevel::Ice_Level;
+	app.LevelId = PVZLevel::Ice_Level;
 }
 
 void onPlantCreate(DWORD plantAddress)
