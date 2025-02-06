@@ -464,7 +464,7 @@ namespace PVZ
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
 		Color GetColor(); // 0x48-0x54，基础颜色
 		void SetColor(Color color);
-		SPT<TrackInstance> GetTrackInstance(const char* trackName);
+		TrackInstance GetTrackInstance(const char* trackName);
 		INT_PROPERTY(CycleCount, __get_CycleCount, __set_CycleCount, 0x5C);
 		Color GetAdditiveColor(); // 0x6C-0x78，加色模式
 		void SetAdditiveColor(Color color);
@@ -475,7 +475,7 @@ namespace PVZ
 		T_PROPERTY(PaintState::PaintState, Paint, __get_Paint, __set_Paint, 0x98);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x9C);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
-		SPT<AttachEffect> AttachTo(AttachmentID* attachmentID, float OffsetX, float OffsetY);
+		AttachEffect AttachTo(AttachmentID attachmentID, float OffsetX, float OffsetY);
 		void Die();
 		void Play(const char* TrackName, int blendType, int loopType, float rate);
 		void AssignRenderGroupToPrefix(byte RenderGroup, const char* TrackName);
@@ -484,7 +484,7 @@ namespace PVZ
 		//@brief 令动画部件执行 trackName 动作。
 		//@param trackName 执行的动作轨道名称。
 		void SetFramesForLayer(const char* theTrackName);
-		void SetImageOverride(const char* theTrackName, Image* theImage);
+		void SetImageOverride(const char* theTrackName, Image theImage);
 	};
 	class Attachment
 	{
