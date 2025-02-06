@@ -16,5 +16,5 @@ PVZ::Attachment::Attachment(int idoraddress)
 PVZ::Animation PVZ::Attachment::GetAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress);
-	return (((ID & 0xFFFF0000) == 0) ? nullptr : MKS<Animation>(ID & 0x00FFFF));
+	return (((ID & 0xFFFF0000) == 0) ? nullptr : Animation(ID & 0x00FFFF));
 }

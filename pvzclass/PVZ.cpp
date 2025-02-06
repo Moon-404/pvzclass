@@ -125,59 +125,59 @@ int PVZ::Memory::InvokeDllProc(const char* procname)
 
 PVZ::PVZApp PVZ::GetPVZApp()
 {
-	return MKS<PVZApp>(PVZ::Memory::ReadMemory<DWORD>(0x6A9EC0));
+	return PVZApp(PVZ::Memory::ReadMemory<DWORD>(0x6A9EC0));
 }
 
 PVZ::Mouse PVZ::GetMouse()
 {
-	return MKS<Mouse>(Memory::ReadPointer(0x6A9EC0, 0x320));
+	return Mouse(Memory::ReadPointer(0x6A9EC0, 0x320));
 }
 
 PVZ::Board PVZ::GetBoard()
 {
 	int address = PVZBASEADDRESS;
-	return(address == 0 ? nullptr : MKS<Board>(address));
+	return(address == 0 ? nullptr : Board(address));
 }
 
 PVZ::SeedChooserScreen PVZ::GetSeedChooserScreen()
 {
 	int address = Memory::ReadPointer(0x6A9EC0, 0x774);
-	return(address == 0 ? nullptr : MKS<SeedChooserScreen>(address));
+	return(address == 0 ? nullptr : SeedChooserScreen(address));
 }
 
 PVZ::ZenGarden PVZ::GetZenGarden()
 {
-	return MKS<ZenGarden>(Memory::ReadPointer(0x6A9EC0, 0x81C));
+	return ZenGarden(Memory::ReadPointer(0x6A9EC0, 0x81C));
 }
 
 PVZ::PlantDefinition PVZ::GetPlantDefinition(SeedType::SeedType type)
 {
-	return MKS<PlantDefinition>(type);
+	return PlantDefinition(type);
 }
 
 PVZ::ZombieDefinition PVZ::GetZombieDefinition(ZombieType::ZombieType type)
 {
-	return MKS<ZombieDefinition>(type);
+	return ZombieDefinition(type);
 }
 
 PVZ::ProjectileDefinition PVZ::GetProjectileDefinition(ProjectileType::ProjectileType type)
 {
-	return MKS<ProjectileDefinition>(type);
+	return ProjectileDefinition(type);
 }
 
 PVZ::ChallengeDefinition PVZ::GetChallengeDefinition(PVZLevel::PVZLevel mode)
 {
-	return MKS<ChallengeDefinition>(mode);
+	return ChallengeDefinition(mode);
 }
 
 PVZ::SaveData PVZ::GetSaveData()
 {
-	return MKS<SaveData>(Memory::ReadPointer(0x6A9EC0, 0x82C));
+	return SaveData(Memory::ReadPointer(0x6A9EC0, 0x82C));
 }
 
 PVZ::Music PVZ::GetMusic()
 {
-	return MKS<Music>(Memory::ReadPointer(0x6A9EC0, 0x83C));
+	return Music(Memory::ReadPointer(0x6A9EC0, 0x83C));
 }
 
 #pragma endregion

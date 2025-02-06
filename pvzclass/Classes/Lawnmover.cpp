@@ -16,7 +16,7 @@ int PVZ::Lawnmover::GetBaseAddress()
 PVZ::Animation PVZ::Lawnmover::GetAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x1C);
-	return ((ID_RANK(ID) == 0) ? nullptr : MKS<Animation>(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? nullptr : Animation(ID_INDEX(ID)));
 }
 
 void PVZ::Lawnmover::Die()
