@@ -64,6 +64,9 @@
     <Filter Include="头文件\Events\Challenge\Beghouled">
       <UniqueIdentifier>{65db0b32-c981-4a4f-9dda-b600df1b32ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Events\Projectile">
+      <UniqueIdentifier>{c54492cf-5cdf-4771-a1e9-729a0d6472c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PVZ.cpp">
@@ -458,15 +461,6 @@
     <ClInclude Include="Events\BaseEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\CoinCollectEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\CoinCreateEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\CoinRemoveEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
     <ClInclude Include="Events\DialogButtonDepressEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
@@ -491,30 +485,6 @@
     <ClInclude Include="Events\NewGameEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PeaOnFireEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\PlantCreateEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\PlantReloadEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\PlantDieEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\PlantShootEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\ProjectileCreateEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\ProjectileHitZombieEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\ProjectileRemoveEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
     <ClInclude Include="Events\SeedCardClickEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
@@ -527,37 +497,7 @@
     <ClInclude Include="Events\VaseOpenEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieBlastEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\ZombieButterEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\ZombieDecelerateEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\ZombieEatEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\ZombieFrozeEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\ZombieTakeDmgEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\ZombieHypnotizeEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\ZombieRemoveEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
     <ClInclude Include="Events\UpdateAppEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\ProjectileHitPlantEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\ProjectileCollisionEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
     <ClInclude Include="Events\DrawZombieReanimEvent.h">
@@ -628,9 +568,6 @@
     </ClInclude>
     <ClInclude Include="Events\PlantSquishEvent.h">
       <Filter>头文件\Events\Plant</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\GriditemUpdateEvent.hpp">
-      <Filter>头文件\Events</Filter>
     </ClInclude>
     <ClInclude Include="Events\ZombieInitAfterEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
@@ -715,6 +652,72 @@
     </ClInclude>
     <ClInclude Include="Classes\TodParticleSystem.hpp">
       <Filter>头文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\CoinCollectEvent.h">
+      <Filter>头文件\Events\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\CoinCreateEvent.h">
+      <Filter>头文件\Events\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\CoinRemoveEvent.h">
+      <Filter>头文件\Events\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\GriditemUpdateEvent.hpp">
+      <Filter>头文件\Events\Griditem</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PlantShootEvent.h">
+      <Filter>头文件\Events\Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PlantDieEvent.h">
+      <Filter>头文件\Events\Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PlantCreateEvent.h">
+      <Filter>头文件\Events\Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PlantReloadEvent.h">
+      <Filter>头文件\Events\Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieBlastEvent.h">
+      <Filter>头文件\Events\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieEatEvent.h">
+      <Filter>头文件\Events\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieTakeDmgEvent.h">
+      <Filter>头文件\Events\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieRemoveEvent.h">
+      <Filter>头文件\Events\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieHypnotizeEvent.h">
+      <Filter>头文件\Events\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieFrozeEvent.h">
+      <Filter>头文件\Events\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieDecelerateEvent.h">
+      <Filter>头文件\Events\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ZombieButterEvent.h">
+      <Filter>头文件\Events\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ProjectileRemoveEvent.h">
+      <Filter>头文件\Events\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ProjectileHitZombieEvent.h">
+      <Filter>头文件\Events\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ProjectileHitPlantEvent.h">
+      <Filter>头文件\Events\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ProjectileCollisionEvent.h">
+      <Filter>头文件\Events\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ProjectileCreateEvent.h">
+      <Filter>头文件\Events\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\PeaOnFireEvent.h">
+      <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
