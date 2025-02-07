@@ -600,7 +600,11 @@ namespace PVZ
 		T_PROPERTY(FLOAT, Height, __get_Height, __set_Height, 0x84);
 		void GetCollision(CollisionBox* collbox);
 		void SetCollision(CollisionBox* collbox);
+		// @brief 获取僵尸的基础攻击判定范围。
+		// @param collbox 攻击判定范围的存放位置。其中 X 和 Y 为相应坐标的偏移量。
 		void GetAttackCollision(CollisionBox* collbox);
+		// @brief 设置僵尸的基础攻击判定范围。
+		// @param collbox 攻击判定范围的指针。其中 X 和 Y 为相应坐标的偏移量。
 		void SetAttackCollision(CollisionBox* collbox);
 		INT_PROPERTY(DecelerateCountdown, __get_DecelerateCountdown, __set_DecelerateCountdown, 0xAC);
 		INT_PROPERTY(FixedCountdown, __get_FixedCountdown, __set_FixedCountdown, 0xB0);
@@ -657,6 +661,10 @@ namespace PVZ
 		//@param usepvzfunc 是否调用 pvz 内部函数。默认为 true。
 		//@return 是否能被搜寻到。
 		bool EffectedBy(DamageRangeFlags range, bool usepvzfunc = true);
+
+		//@brief 获取僵尸的实际可攻击范围。
+		//@return 僵尸的实际攻击范围
+		Rect GetActualAttackRect();
 
 		//@brief 设置是否显示铁门僵尸的手臂。
 		//@param shown 是否显示，默认为 true
