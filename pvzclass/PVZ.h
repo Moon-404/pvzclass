@@ -443,9 +443,8 @@ namespace PVZ
 		AttachEffect(int address) : BaseClass(address) {};
 		Matrix3 GetOffset();
 	};
-	class Animation
+	class Animation : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Animation(int idoraddress);
 		//support muiti-animprop(AP_XXXXXX)
@@ -482,6 +481,10 @@ namespace PVZ
 		void Die();
 		void Play(const char* TrackName, int blendType, int loopType, float rate);
 		void AssignRenderGroupToPrefix(byte RenderGroup, const char* TrackName);
+		//@brief 设置指定动画轨道在绘制时的分组。通常情况下，分组为 -1 时表示隐藏该轨道。
+		//@param trackName 执行的动作轨道名称。
+		//@param renderGroup 分组大小。
+		void AssignRenderGroupToTrack(const char* trackName, byte renderGroup);
 		int FindTrackIndex(const char* trackName);
 
 		//@brief 令动画部件执行 trackName 动作。
