@@ -491,12 +491,6 @@
     <ClInclude Include="Events\TemplateEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\UpdateGameObjectsEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\VaseOpenEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
     <ClInclude Include="Events\UpdateAppEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
@@ -718,6 +712,12 @@
     </ClInclude>
     <ClInclude Include="Events\PeaOnFireEvent.h">
       <Filter>头文件\Events\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\VaseOpenEvent.h">
+      <Filter>头文件\Events\Griditem</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\UpdateGameObjectsEvent.h">
+      <Filter>头文件\Events\Board</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

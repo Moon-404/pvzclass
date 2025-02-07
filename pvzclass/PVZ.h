@@ -203,11 +203,12 @@ namespace PVZ
 	protected:
 		int BaseAddress;
 	public:
+		BaseClass() : BaseAddress(INVALID_BASEADDRESS) {};
 		BaseClass(int address) : BaseAddress(address){};
 		int GetBaseAddress() const
-		{
-			return(this->BaseAddress);
-		}
+		{ return(this->BaseAddress); }
+		const bool isValid()
+		{ return(this->GetBaseAddress() != INVALID_BASEADDRESS); }
 	};
 
 	class Rect
