@@ -658,6 +658,10 @@ namespace PVZ
 		//@return 是否能被搜寻到。
 		bool EffectedBy(DamageRangeFlags range, bool usepvzfunc = true);
 
+		//@brief 设置是否显示铁门僵尸的手臂。
+		//@param shown 是否显示，默认为 true
+		void ShowDoorArms(bool shown = true);
+
 		// Deprecated
 		void GetBodyHp(int* hp, int* maxhp);
 		// Deprecated

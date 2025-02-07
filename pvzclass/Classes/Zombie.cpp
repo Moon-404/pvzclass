@@ -150,6 +150,18 @@ void PVZ::Zombie::SetAccessoriesType2(AccessoriesType2 acctype2)
 
 }
 
+AsmBuilder ShowDoorArms_builder = AsmBuilder();
+void PVZ::Zombie::ShowDoorArms(bool shown)
+{
+	ShowDoorArms_builder.clear()
+		.push(shown ? 1 : 0)
+		.push_imm32(this->GetBaseAddress())
+		.push_imm32(0x524210)
+		.ret();
+
+	PVZ::Memory::Execute(ShowDoorArms_builder);
+}
+
 void PVZ::Zombie::GetBodyHp(int* hp, int* maxhp)
 {
 	*hp = Memory::ReadMemory<int>(BaseAddress + 0xC8);
