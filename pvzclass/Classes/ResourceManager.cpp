@@ -12,6 +12,24 @@ namespace PVZ
 	}
 }
 
+AsmBuilder AddPAKFile_builder = AsmBuilder(128);
+void PVZ::ResourceManager::AddPAKFile(const char* fileName)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, fileName, std::strlen(fileName) + 1);
+	AddPAKFile_builder.clear()
+		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 100)
+		.push(0)
+		.push_reg(REG_ESP)
+		.invoke(0x404450)
+		.mov_reg_reg(REG_ECX, REG_ESP)
+		.invoke(0x5D7D90)
+		.mov_reg_reg(REG_ECX, REG_ESP)
+		.invoke(0x404420)
+		.ret();
+
+	PVZ::Memory::Execute(AddPAKFile_builder);
+}
+
 AsmBuilder ParseResourcesFile_builder = AsmBuilder(128);
 bool PVZ::ResourceManager::ParseResourcesFile(const char* fileName)
 {
