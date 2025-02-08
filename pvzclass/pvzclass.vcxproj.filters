@@ -64,6 +64,9 @@
     <Filter Include="头文件\Events\Challenge\Beghouled">
       <UniqueIdentifier>{65db0b32-c981-4a4f-9dda-b600df1b32ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Events\Resource">
+      <UniqueIdentifier>{e097e27d-895f-4d97-aaf9-e3461a9e61ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PVZ.cpp">
@@ -715,6 +718,9 @@
     </ClInclude>
     <ClInclude Include="Classes\TodParticleSystem.hpp">
       <Filter>头文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ParseResourceEvent.hpp">
+      <Filter>头文件\Events\Resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
