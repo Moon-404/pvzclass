@@ -722,5 +722,8 @@
     <ClInclude Include="Events\ParseResourceEvent.hpp">
       <Filter>头文件\Events\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="Events\ExtractResourceEvent.hpp">
+      <Filter>头文件\Events\Resource</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

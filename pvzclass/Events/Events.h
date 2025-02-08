@@ -47,6 +47,7 @@
 #include "CoinMouseDownEvent.hpp"
 #include "GriditemDieEvent.hpp"
 
+#include "ExtractResourceEvent.hpp"
 #include "ParseResourceEvent.hpp"
 
 #include "PlantAddProjectileEvent.hpp"
