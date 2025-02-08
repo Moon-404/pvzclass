@@ -15,6 +15,10 @@ namespace PVZ
 		//@param fileName 文件名
 		//@return 是否解析成功。
 		bool ParseResourcesFile(const char* fileName);
+		//@brief 加载指定的资源组。
+		//@param groupName 资源组名称。
+		//@return 是否加载成功。
+		bool TodLoadResources(const char* groupName);
 	};
 	ResourceManager GetResourceManager();
 }

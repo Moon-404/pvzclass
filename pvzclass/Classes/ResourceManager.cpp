@@ -24,7 +24,27 @@ bool PVZ::ResourceManager::ParseResourcesFile(const char* fileName)
 		.mov_reg_reg(REG_ECX, REG_ESP)
 		.push_imm32(this->GetBaseAddress())
 		.invoke(0x5B6A20)
+		.mov_reg_reg(REG_ECX, REG_ESP)
+		.invoke(0x404420)
 		.ret();
 
 	return PVZ::Memory::Execute(ParseResourcesFile_builder);
+}
+
+AsmBuilder TodLoadResources_builder = AsmBuilder(128);
+bool PVZ::ResourceManager::TodLoadResources(const char* groupName)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, groupName, std::strlen(groupName) + 1);
+	TodLoadResources_builder.clear()
+		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 100)
+		.push(0)
+		.push_reg(REG_ESP)
+		.invoke(0x404450)
+		.push_reg(REG_ESP)
+		.invoke(0x513120)
+		.mov_reg_reg(REG_ECX, REG_ESP)
+		.invoke(0x404420)
+		.ret();
+
+	return PVZ::Memory::Execute(TodLoadResources_builder);
 }
