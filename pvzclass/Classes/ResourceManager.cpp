@@ -39,9 +39,13 @@ bool PVZ::ResourceManager::ParseResourcesFile(const char* fileName)
 		.push(0)
 		.push_reg(REG_ESP)
 		.invoke(0x404450)
+
 		.mov_reg_reg(REG_ECX, REG_ESP)
 		.push_imm32(this->GetBaseAddress())
 		.invoke(0x5B6A20)
+		.xor_reg_reg(REG_EAX, REG_EAX)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+
 		.mov_reg_reg(REG_ECX, REG_ESP)
 		.invoke(0x404420)
 		.ret();
@@ -58,11 +62,36 @@ bool PVZ::ResourceManager::TodLoadResources(const char* groupName)
 		.push(0)
 		.push_reg(REG_ESP)
 		.invoke(0x404450)
+
 		.push_reg(REG_ESP)
 		.invoke(0x513120)
+		.xor_reg_reg(REG_EAX, REG_EAX)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+
 		.mov_reg_reg(REG_ECX, REG_ESP)
 		.invoke(0x404420)
 		.ret();
 
 	return PVZ::Memory::Execute(TodLoadResources_builder);
+}
+
+AsmBuilder GetSoundThrow_builder = AsmBuilder(128);
+PVZ::SoundID PVZ::ResourceManager::GetSoundThrow(const char* soundName)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, soundName, std::strlen(soundName) + 1);
+	GetSoundThrow_builder.clear()
+		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 100)
+		.push(0)
+		.push_reg(REG_ESP)
+		.invoke(0x404450)
+
+		.push_reg(REG_ESP)
+		.invoke(0x5B81F0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+
+		.mov_reg_reg(REG_ECX, REG_ESP)
+		.invoke(0x404420)
+		.ret();
+
+	return (PVZ::SoundID)PVZ::Memory::Execute(GetSoundThrow_builder);
 }

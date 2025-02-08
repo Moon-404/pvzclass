@@ -22,6 +22,10 @@ namespace PVZ
 		//@param groupName 资源组名称。
 		//@return 是否加载成功。
 		bool TodLoadResources(const char* groupName);
+		//@brief 获取指定音效的编号。
+		//@param soundName 音效在资源描述文件中的名称。
+		//@return 是否加载成功。
+		SoundID GetSoundThrow(const char* soundName);
 	};
 	ResourceManager GetResourceManager();
 }
