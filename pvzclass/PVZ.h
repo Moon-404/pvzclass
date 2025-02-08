@@ -665,6 +665,9 @@ namespace PVZ
 		//@brief 获取僵尸的实际可攻击范围。
 		//@return 僵尸的实际攻击范围
 		Rect GetActualAttackRect();
+		//@brief 获取僵尸的实际受击范围。
+		//@return 僵尸的实际受击范围
+		Rect GetActualRect();
 
 		//@brief 设置是否显示铁门僵尸的手臂。
 		//@param shown 是否显示，默认为 true

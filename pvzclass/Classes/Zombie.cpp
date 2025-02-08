@@ -445,3 +445,21 @@ PVZ::Rect PVZ::Zombie::GetActualAttackRect()
 
 	return tmp;
 }
+
+AsmBuilder GetActualRect_builder = AsmBuilder();
+PVZ::Rect PVZ::Zombie::GetActualRect()
+{
+	GetActualRect_builder.clear()
+		.mov_reg_imm(REG_EDI, PVZ::Memory::Variable)
+		.mov_reg_imm(REG_EBX, this->GetBaseAddress())
+		.invoke(0x5320B0)
+		.ret();
+
+	Rect tmp = Rect();
+	tmp.X = *((int*)PVZ::Memory::Variable);
+	tmp.Y = *((int*)PVZ::Memory::Variable + 4);
+	tmp.Width = *((int*)PVZ::Memory::Variable + 8);
+	tmp.Height = *((int*)PVZ::Memory::Variable + 0x0C);
+
+	return tmp;
+}
