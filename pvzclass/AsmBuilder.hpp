@@ -104,6 +104,12 @@ public:
 		return *this;
 	}
 
+	// 添加 PUSH 指令，参数强制为 32 位。
+	AsmBuilder& push_imm32(uint32_t value)
+	{
+		return add_byte(0x68).add_dword(value);
+	}
+
 	// 添加 PUSH 指令
 	AsmBuilder& push_reg(uint8_t reg)
 	{
