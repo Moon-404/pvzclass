@@ -19,6 +19,8 @@ ZombieDetachShieldEvent::ZombieDetachShieldEvent()
 	{
 		PUSH_EAX,
 		INVOKE(procAddress),
+		ADD_ESP(4),
+
 		TEST_AL_AL,
 		JNZ(2),
 		POPAD,
