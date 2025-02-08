@@ -175,3 +175,8 @@ namespace UpperSoundType
 	extern const char* ToString(UpperSoundType sound);
 
 }
+
+namespace PVZ
+{
+	using SoundID = UpperSoundType::UpperSoundType;
+}
