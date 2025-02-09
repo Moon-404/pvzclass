@@ -46,6 +46,10 @@
 #include "ChallengeUpdateEvent.hpp"
 #include "CoinMouseDownEvent.hpp"
 #include "GriditemDieEvent.hpp"
+
+#include "ExtractResourceEvent.hpp"
+#include "ParseResourceEvent.hpp"
+
 #include "PlantAddProjectileEvent.hpp"
 #include "PlantDieLowHealthEvent.hpp"
 #include "PlantDoSpecialEvent.hpp"
