@@ -226,7 +226,7 @@ namespace PVZ
 	// 若横向无重叠部分，返回两矩形横向间距的相反数。
 	// @param rect 计算重叠的另一个矩形。
 	// @return 矩形横向重叠的长度，或矩形横向间距的相反数。
-	int GetXOverlap(const Rect* rect1, const Rect* rect2);
+	int GetXOverlap(const Rect& rect1, const Rect& rect2);
 
 	typedef Rect CollisionBox;
 
