@@ -301,6 +301,7 @@
     <ClInclude Include="Events\ZombieBurntEvent.hpp" />
     <ClInclude Include="Events\ZombieDetachShieldEvent.hpp" />
     <ClInclude Include="Events\ZombieDropHeadEvent.hpp" />
+    <ClInclude Include="Events\ZombieDropHeadParticleEvent.hpp" />
     <ClInclude Include="Events\ZombieDropLootEvent.hpp" />
     <ClInclude Include="Events\ZombieEatEvent.h" />
     <ClInclude Include="Events\ZombieEatSoundEvent.hpp" />
