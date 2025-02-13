@@ -6,7 +6,7 @@
 class AsmBuilder {
 private:
 	byte *code;
-	int ptr;  // æŒ‡å‘æœ€åä¸€æ¡æŒ‡ä»¤çš„ä¸‹ä¸€å­—èŠ‚
+	int ptr;  // Ö¸Ïò×îºóÒ»ÌõÖ¸ÁîµÄÏÂÒ»×Ö½Ú
 
 public:
 	AsmBuilder() : ptr(0)
@@ -24,7 +24,7 @@ public:
 		delete[](code);
 	}
 
-	// è¿”å›å½“å‰ç”Ÿæˆçš„æœºå™¨ç 
+	// ·µ»Øµ±Ç°Éú³ÉµÄ»úÆ÷Âë
 	byte* get_code() const
 	{
 		return code;
@@ -35,7 +35,7 @@ public:
 		return ptr;
 	}
 
-	// æµ®ç‚¹å¯„å­˜å™¨å¸¸é‡
+	// ¸¡µã¼Ä´æÆ÷³£Á¿
 	static const uint8_t F_ST0 = 0;
 	static const uint8_t F_ST1 = 1;
 	static const uint8_t F_ST2 = 2;
@@ -57,13 +57,13 @@ public:
 		REG_BH,
 	};
 
-	// æ·»åŠ ä¸€ä¸ªå­—èŠ‚åˆ°æœºå™¨ç ä¸­
+	// Ìí¼ÓÒ»¸ö×Ö½Úµ½»úÆ÷ÂëÖĞ
 	inline AsmBuilder& add_byte(uint8_t byte) {
 		code[ptr++] = byte;
 		return *this;
 	}
 
-	// æ·»åŠ å¤šä¸ªå­—èŠ‚åˆ°æœºå™¨ç ä¸­ï¼ˆbyte æ•°ç»„å½¢å¼ï¼‰
+	// Ìí¼Ó¶à¸ö×Ö½Úµ½»úÆ÷ÂëÖĞ£¨byte Êı×éĞÎÊ½£©
 	AsmBuilder& add_bytes(const uint8_t bytes[], const uint32_t length)
 	{
 		memcpy(code + ptr, bytes, length);
@@ -71,14 +71,14 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ ä¸€ä¸ª DWORD (4 å­—èŠ‚) åˆ°æœºå™¨ç ä¸­
+	// Ìí¼ÓÒ»¸ö DWORD (4 ×Ö½Ú) µ½»úÆ÷ÂëÖĞ
 	inline AsmBuilder& add_dword(uint32_t dword) {
 		*(int*)(code + ptr) = dword;
 		ptr += 4;
 		return *this;
 	}
 
-	// æ·»åŠ ä¸€ä¸ª float (4 å­—èŠ‚) åˆ°æœºå™¨ç ä¸­
+	// Ìí¼ÓÒ»¸ö float (4 ×Ö½Ú) µ½»úÆ÷ÂëÖĞ
 	inline AsmBuilder& add_float(float dword)
 	{
 		*(float*)(code + ptr) = dword;
@@ -86,12 +86,12 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  NOP æŒ‡ä»¤
+	// Ìí¼Ó NOP Ö¸Áî
 	AsmBuilder& nop() {
 		return add_byte(0x90);
 	}
 
-	// æ·»åŠ  PUSH æŒ‡ä»¤
+	// Ìí¼Ó PUSH Ö¸Áî
 	AsmBuilder& push(uint32_t value) {
 		if (value <= 0x7F) {
 			add_byte(0x6A);
@@ -104,11 +104,11 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  PUSH æŒ‡ä»¤ï¼Œæ“ä½œæ•°å¼ºåˆ¶ä¸º 32 ä½
+	// Ìí¼Ó PUSH Ö¸Áî£¬²Ù×÷ÊıÇ¿ÖÆÎª 32 Î»
 	AsmBuilder& push_imm32(uint32_t value)
 	{ return add_byte(0x68).add_dword(value); }
 
-	// æ·»åŠ  PUSH æŒ‡ä»¤
+	// Ìí¼Ó PUSH Ö¸Áî
 	AsmBuilder& push_reg(uint8_t reg)
 	{
 		if (reg > 7)
@@ -122,15 +122,15 @@ public:
 		return add_byte(0x68).add_float(value);
 	}
 
-	// æ·»åŠ  PUSH æŒ‡ä»¤(åœ°å€)
+	// Ìí¼Ó PUSH Ö¸Áî(µØÖ·)
 	AsmBuilder& push_ptr(uint32_t address) {
 		add_byte(0xFF);
 		add_byte(0x35);
-		add_dword(address);  // æ·»åŠ  4 å­—èŠ‚çš„å†…å­˜åœ°å€
+		add_dword(address);  // Ìí¼Ó 4 ×Ö½ÚµÄÄÚ´æµØÖ·
 		return *this;
 	}
 
-	// æ·»åŠ  POP æŒ‡ä»¤
+	// Ìí¼Ó POP Ö¸Áî
 	AsmBuilder& pop(uint8_t reg) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for POP");
@@ -139,15 +139,15 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  POP PTR æŒ‡ä»¤ï¼ˆåœ°å€ï¼‰
+	// Ìí¼Ó POP PTR Ö¸Áî£¨µØÖ·£©
 	AsmBuilder& pop_ptr(uint32_t address) {
 		add_byte(0x8F);
 		add_byte(0x05);
-		add_dword(address);  // æ·»åŠ ç›®æ ‡å†…å­˜åœ°å€
+		add_dword(address);  // Ìí¼ÓÄ¿±êÄÚ´æµØÖ·
 		return *this;
 	}
 
-	// æ·»åŠ  MOV æŒ‡ä»¤ï¼ˆå¯„å­˜å™¨åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó MOV Ö¸Áî£¨¼Ä´æÆ÷µ½¼Ä´æÆ÷£©
 	AsmBuilder& mov_reg_reg(uint8_t dest_reg, uint8_t src_reg) {
 		if (dest_reg > 7 || src_reg > 7) {
 			throw std::invalid_argument("Invalid register for MOV");
@@ -157,7 +157,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  MOV æŒ‡ä»¤
+	// Ìí¼Ó MOV Ö¸Áî
 	AsmBuilder& mov_reg_imm(uint8_t reg, uint32_t value) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for MOV");
@@ -167,7 +167,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  MOV æŒ‡ä»¤ï¼ˆå†…å­˜åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó MOV Ö¸Áî£¨ÄÚ´æµ½¼Ä´æÆ÷£©
 	AsmBuilder& mov_reg_mem(uint8_t reg, uint32_t address) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for MOV");
@@ -178,7 +178,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  MOV æŒ‡ä»¤ï¼ˆå¯„å­˜å™¨åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó MOV Ö¸Áî£¨¼Ä´æÆ÷µ½ÄÚ´æ£©
 	AsmBuilder& mov_mem_reg(uint32_t address, uint8_t reg) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for MOV");
@@ -190,7 +190,7 @@ public:
 	}
 
 
-	// æ·»åŠ  ADD æŒ‡ä»¤
+	// Ìí¼Ó ADD Ö¸Áî
 	AsmBuilder& add_reg_reg(uint8_t dest_reg, uint8_t src_reg) {
 		if (dest_reg > 7 || src_reg > 7) {
 			throw std::invalid_argument("Invalid register for ADD");
@@ -200,7 +200,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  ADD æŒ‡ä»¤ï¼ˆå†…å­˜åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó ADD Ö¸Áî£¨ÄÚ´æµ½¼Ä´æÆ÷£©
 	AsmBuilder& add_mem_reg(uint32_t address, uint8_t reg) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for ADD");
@@ -211,7 +211,7 @@ public:
 		return *this;
 	}
 
-	//æ·»åŠ  ADD æŒ‡ä»¤ï¼ˆå¯„å­˜å™¨åˆ°å†…å­˜ï¼‰
+	//Ìí¼Ó ADD Ö¸Áî£¨¼Ä´æÆ÷µ½ÄÚ´æ£©
 	AsmBuilder& add_reg_mem(uint8_t reg, uint32_t address) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for ADD");
@@ -222,7 +222,7 @@ public:
 		return *this;
 	}
 
-	//æ·»åŠ  ADD æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å¯„å­˜å™¨ï¼‰
+	//Ìí¼Ó ADD Ö¸Áî £¨ÊıÖµµ½¼Ä´æÆ÷£©
 	AsmBuilder& add_reg_imm(uint8_t reg, uint32_t value) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for ADD");
@@ -240,7 +240,7 @@ public:
 		return *this;
 	}
 
-	//æ·»åŠ  ADD æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å†…å­˜ï¼‰
+	//Ìí¼Ó ADD Ö¸Áî £¨ÊıÖµµ½ÄÚ´æ£©
 	AsmBuilder& add_mem_imm(uint32_t address, uint32_t value) {
 		if (value <= 0x7F) {
 			add_byte(0xC6);
@@ -257,7 +257,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  SUB æŒ‡ä»¤
+	// Ìí¼Ó SUB Ö¸Áî
 	AsmBuilder& sub_reg_reg(uint8_t dest_reg, uint8_t src_reg) {
 		if (dest_reg > 7 || src_reg > 7) {
 			throw std::invalid_argument("Invalid register for SUB");
@@ -267,7 +267,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  SUB æŒ‡ä»¤ï¼ˆå†…å­˜åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó SUB Ö¸Áî£¨ÄÚ´æµ½¼Ä´æÆ÷£©
 	AsmBuilder& sub_mem_reg(uint32_t address, uint8_t reg) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for SUB");
@@ -278,7 +278,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  SUB æŒ‡ä»¤ï¼ˆå¯„å­˜å™¨åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó SUB Ö¸Áî£¨¼Ä´æÆ÷µ½ÄÚ´æ£©
 	AsmBuilder& sub_reg_mem(uint8_t reg, uint32_t address) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for SUB");
@@ -289,7 +289,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  SUB æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó SUB Ö¸Áî £¨ÊıÖµµ½¼Ä´æÆ÷£©
 	AsmBuilder& sub_reg_imm(uint8_t reg, uint32_t value) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for SUB");
@@ -307,7 +307,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  SUB æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó SUB Ö¸Áî £¨ÊıÖµµ½ÄÚ´æ£©
 	AsmBuilder& sub_mem_imm(uint32_t address, uint32_t value) {
 		if (value <= 0x7F) {
 			add_byte(0x80);
@@ -324,7 +324,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  AND æŒ‡ä»¤
+	// Ìí¼Ó AND Ö¸Áî
 	AsmBuilder& and_reg_reg(uint8_t dest_reg, uint8_t src_reg) {
 		if (dest_reg > 7 || src_reg > 7) {
 			throw std::invalid_argument("Invalid register for AND");
@@ -334,7 +334,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  AND æŒ‡ä»¤ï¼ˆå†…å­˜åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó AND Ö¸Áî£¨ÄÚ´æµ½¼Ä´æÆ÷£©
 	AsmBuilder& and_mem_reg(uint32_t address, uint8_t reg) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for AND");
@@ -345,7 +345,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  AND æŒ‡ä»¤ï¼ˆå¯„å­˜å™¨åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó AND Ö¸Áî£¨¼Ä´æÆ÷µ½ÄÚ´æ£©
 	AsmBuilder& and_reg_mem(uint8_t reg, uint32_t address) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for AND");
@@ -356,7 +356,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  AND æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó AND Ö¸Áî £¨ÊıÖµµ½¼Ä´æÆ÷£©
 	AsmBuilder& and_reg_imm(uint8_t reg, uint32_t value) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for AND");
@@ -374,7 +374,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  AND æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó AND Ö¸Áî £¨ÊıÖµµ½ÄÚ´æ£©
 	AsmBuilder& and_mem_imm(uint32_t address, uint32_t value) {
 		if (value <= 0x7F) {
 			add_byte(0x80);
@@ -391,7 +391,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  OR æŒ‡ä»¤
+	// Ìí¼Ó OR Ö¸Áî
 	AsmBuilder& or_reg_reg(uint8_t dest_reg, uint8_t src_reg) {
 		if (dest_reg > 7 || src_reg > 7) {
 			throw std::invalid_argument("Invalid register for OR");
@@ -401,7 +401,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  OR æŒ‡ä»¤ï¼ˆå†…å­˜åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó OR Ö¸Áî£¨ÄÚ´æµ½¼Ä´æÆ÷£©
 	AsmBuilder& or_mem_reg(uint32_t address, uint8_t reg) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for OR");
@@ -412,7 +412,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  OR æŒ‡ä»¤ï¼ˆå¯„å­˜å™¨åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó OR Ö¸Áî£¨¼Ä´æÆ÷µ½ÄÚ´æ£©
 	AsmBuilder& or_reg_mem(uint8_t reg, uint32_t address) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for OR");
@@ -423,7 +423,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  OR æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó OR Ö¸Áî £¨ÊıÖµµ½¼Ä´æÆ÷£©
 	AsmBuilder& or_reg_imm(uint8_t reg, uint32_t value) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for OR");
@@ -441,7 +441,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  OR æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó OR Ö¸Áî £¨ÊıÖµµ½ÄÚ´æ£©
 	AsmBuilder& or_mem_imm(uint32_t address, uint32_t value) {
 		if (value <= 0x7F) {
 			add_byte(0x80);
@@ -458,7 +458,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  XOR æŒ‡ä»¤
+	// Ìí¼Ó XOR Ö¸Áî
 	AsmBuilder& xor_reg_reg(uint8_t dest_reg, uint8_t src_reg) {
 		if (dest_reg > 7 || src_reg > 7) {
 			throw std::invalid_argument("Invalid register for XOR");
@@ -468,7 +468,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  XOR æŒ‡ä»¤ï¼ˆå†…å­˜åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó XOR Ö¸Áî£¨ÄÚ´æµ½¼Ä´æÆ÷£©
 	AsmBuilder& xor_mem_reg(uint32_t address, uint8_t reg) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for XOR");
@@ -479,7 +479,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  XOR æŒ‡ä»¤ï¼ˆå¯„å­˜å™¨åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó XOR Ö¸Áî£¨¼Ä´æÆ÷µ½ÄÚ´æ£©
 	AsmBuilder& xor_reg_mem(uint8_t reg, uint32_t address) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for XOR");
@@ -490,7 +490,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  XOR æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó XOR Ö¸Áî £¨ÊıÖµµ½¼Ä´æÆ÷£©
 	AsmBuilder& xor_reg_imm(uint8_t reg, uint32_t value) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for XOR");
@@ -508,7 +508,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  XOR æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó XOR Ö¸Áî £¨ÊıÖµµ½ÄÚ´æ£©
 	AsmBuilder& xor_mem_imm(uint32_t address, uint32_t value) {
 		if (value <= 0x7F) {
 			add_byte(0x80);
@@ -525,7 +525,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  CMP æŒ‡ä»¤
+	// Ìí¼Ó CMP Ö¸Áî
 	AsmBuilder& cmp_reg_reg(uint8_t reg1, uint8_t reg2) {
 		if (reg1 > 7 || reg2 > 7) {
 			throw std::invalid_argument("Invalid register for CMP");
@@ -535,7 +535,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  CMP æŒ‡ä»¤ï¼ˆå†…å­˜åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó CMP Ö¸Áî£¨ÄÚ´æµ½¼Ä´æÆ÷£©
 	AsmBuilder& cmp_mem_reg(uint32_t address, uint8_t reg) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for CMP");
@@ -546,7 +546,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  CMP æŒ‡ä»¤ï¼ˆå¯„å­˜å™¨åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó CMP Ö¸Áî£¨¼Ä´æÆ÷µ½ÄÚ´æ£©
 	AsmBuilder& cmp_reg_mem(uint8_t reg, uint32_t address) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for CMP");
@@ -557,7 +557,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  CMP æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó CMP Ö¸Áî £¨ÊıÖµµ½¼Ä´æÆ÷£©
 	AsmBuilder& cmp_reg_imm(uint8_t reg, uint32_t value) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for CMP");
@@ -575,7 +575,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  CMP æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó CMP Ö¸Áî £¨ÊıÖµµ½ÄÚ´æ£©
 	AsmBuilder& cmp_mem_imm(uint32_t address, uint32_t value) {
 		if (value <= 0x7F) {
 			add_byte(0x80);
@@ -592,7 +592,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  TEST æŒ‡ä»¤
+	// Ìí¼Ó TEST Ö¸Áî
 	AsmBuilder& test_reg_reg(uint8_t reg1, uint8_t reg2) {
 		if (reg1 > 7 || reg2 > 7) {
 			throw std::invalid_argument("Invalid register for TEST");
@@ -602,7 +602,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  TEST æŒ‡ä»¤ï¼ˆå†…å­˜åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó TEST Ö¸Áî£¨ÄÚ´æµ½¼Ä´æÆ÷£©
 	AsmBuilder& test_mem_reg(uint32_t address, uint8_t reg) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for TEST");
@@ -613,7 +613,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  TEST æŒ‡ä»¤ï¼ˆå¯„å­˜å™¨åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó TEST Ö¸Áî£¨¼Ä´æÆ÷µ½ÄÚ´æ£©
 	AsmBuilder& test_reg_mem(uint8_t reg, uint32_t address) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for TEST");
@@ -624,7 +624,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  TEST æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å¯„å­˜å™¨ï¼‰
+	// Ìí¼Ó TEST Ö¸Áî £¨ÊıÖµµ½¼Ä´æÆ÷£©
 	AsmBuilder& test_reg_imm(uint8_t reg, uint32_t value) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for TEST");
@@ -642,7 +642,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  TEST æŒ‡ä»¤ ï¼ˆæ•°å€¼åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó TEST Ö¸Áî £¨ÊıÖµµ½ÄÚ´æ£©
 	AsmBuilder& test_mem_imm(uint32_t address, uint32_t value) {
 		if (value <= 0x7F) {
 			add_byte(0xF7);
@@ -659,7 +659,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  NOT æŒ‡ä»¤
+	// Ìí¼Ó NOT Ö¸Áî
 	AsmBuilder& not_reg(Reg8 reg) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for NOT");
@@ -669,7 +669,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  NOT æŒ‡ä»¤ï¼ˆå†…å­˜ï¼‰
+	// Ìí¼Ó NOT Ö¸Áî£¨ÄÚ´æ£©
 	AsmBuilder& not_mem(uint32_t address) {
 		add_byte(0xF7);
 		add_byte(0x15);
@@ -677,7 +677,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  NEG æŒ‡ä»¤
+	// Ìí¼Ó NEG Ö¸Áî
 	AsmBuilder& neg_reg(Reg8 reg) {
 		if (reg > 7) {
 			throw std::invalid_argument("Invalid register for NEG");
@@ -687,21 +687,26 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JMP æŒ‡ä»¤
+	// Ìí¼Ó JMP Ö¸Áî
 	AsmBuilder& jmp(uint32_t address) {
 		add_byte(0xE9);
 		add_dword(address - (ptr + 4));
 		return *this;
 	}
 
-	// æ·»åŠ  JMP æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JMP Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jmp_rel(int32_t offset) {
 		add_byte(0xE9);
 		add_dword(offset);
 		return *this;
 	}
 
-	// æ·»åŠ  JZ æŒ‡ä»¤
+	// Ìí¼Ó JMP Ö¸Áî£¨Ïà¶ÔµØÖ·£©£¬²ÎÊıÇ¿ÖÆÎª 8 Î»
+	AsmBuilder& jmp_rel8(int8_t offset) {
+		return add_byte(0xEB).add_byte(offset);
+	}
+
+	// Ìí¼Ó JZ Ö¸Áî
 	AsmBuilder& jz(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x84);
@@ -709,7 +714,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JZ æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JZ Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jz_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x84);
@@ -717,7 +722,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JNZ æŒ‡ä»¤
+	// Ìí¼Ó JNZ Ö¸Áî
 	AsmBuilder& jnz(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x85);
@@ -725,7 +730,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JNZ æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JNZ Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jnz_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x85);
@@ -733,27 +738,27 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JE æŒ‡ä»¤
+	// Ìí¼Ó JE Ö¸Áî
 	AsmBuilder& je(uint32_t address) {
 		return jz(address);
 	}
 
-	// æ·»åŠ  JE æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JE Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& je_rel(int32_t offset) {
 		return jz_rel(offset);
 	}
 
-	// æ·»åŠ  JNE æŒ‡ä»¤
+	// Ìí¼Ó JNE Ö¸Áî
 	AsmBuilder& jne(uint32_t address) {
 		return jnz(address);
 	}
 
-	// æ·»åŠ  JNE æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JNE Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jne_rel(int32_t offset) {
 		return jnz_rel(offset);
 	}
 
-	// æ·»åŠ  JB æŒ‡ä»¤
+	// Ìí¼Ó JB Ö¸Áî
 	AsmBuilder& jb(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x82);
@@ -761,7 +766,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JB æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JB Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jb_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x82);
@@ -769,7 +774,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JBE æŒ‡ä»¤
+	// Ìí¼Ó JBE Ö¸Áî
 	AsmBuilder& jbe(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x86);
@@ -777,7 +782,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JBE æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JBE Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jbe_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x86);
@@ -785,7 +790,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JA æŒ‡ä»¤
+	// Ìí¼Ó JA Ö¸Áî
 	AsmBuilder& ja(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x87);
@@ -793,7 +798,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JA æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JA Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& ja_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x87);
@@ -801,7 +806,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JAE æŒ‡ä»¤
+	// Ìí¼Ó JAE Ö¸Áî
 	AsmBuilder& jae(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x83);
@@ -809,7 +814,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JAE æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JAE Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jae_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x83);
@@ -817,27 +822,27 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JC æŒ‡ä»¤
+	// Ìí¼Ó JC Ö¸Áî
 	AsmBuilder& jc(uint32_t address) {
 		return jb(address);
 	}
 
-	// æ·»åŠ  JC æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JC Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jc_rel(int32_t offset) {
 		return jb_rel(offset);
 	}
 
-	// æ·»åŠ  JNC æŒ‡ä»¤
+	// Ìí¼Ó JNC Ö¸Áî
 	AsmBuilder& jnc(uint32_t address) {
 		return jae(address);
 	}
 
-	// æ·»åŠ  JNC æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JNC Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jnc_rel(int32_t offset) {
 		return jae_rel(offset);
 	}
 
-	// æ·»åŠ  JS æŒ‡ä»¤
+	// Ìí¼Ó JS Ö¸Áî
 	AsmBuilder& js(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x88);
@@ -845,7 +850,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JS æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JS Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& js_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x88);
@@ -853,7 +858,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JNS æŒ‡ä»¤
+	// Ìí¼Ó JNS Ö¸Áî
 	AsmBuilder& jns(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x89);
@@ -861,7 +866,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JNS æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JNS Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jns_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x89);
@@ -869,7 +874,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JP æŒ‡ä»¤
+	// Ìí¼Ó JP Ö¸Áî
 	AsmBuilder& jp(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x8A);
@@ -877,7 +882,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JP æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JP Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jp_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x8A);
@@ -885,7 +890,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JNP æŒ‡ä»¤
+	// Ìí¼Ó JNP Ö¸Áî
 	AsmBuilder& jnp(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x8B);
@@ -893,7 +898,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JNP æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JNP Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jnp_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x8B);
@@ -901,7 +906,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JO æŒ‡ä»¤
+	// Ìí¼Ó JO Ö¸Áî
 	AsmBuilder& jo(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x80);
@@ -909,7 +914,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JO æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JO Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jo_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x80);
@@ -917,7 +922,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JNO æŒ‡ä»¤
+	// Ìí¼Ó JNO Ö¸Áî
 	AsmBuilder& jno(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x81);
@@ -925,7 +930,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JNO æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JNO Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jno_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x81);
@@ -933,7 +938,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JG æŒ‡ä»¤
+	// Ìí¼Ó JG Ö¸Áî
 	AsmBuilder& jg(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x8F);
@@ -941,7 +946,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JG æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JG Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jg_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x8F);
@@ -949,7 +954,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JGE æŒ‡ä»¤
+	// Ìí¼Ó JGE Ö¸Áî
 	AsmBuilder& jge(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x8D);
@@ -957,7 +962,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JGE æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JGE Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jge_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x8D);
@@ -965,7 +970,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JL æŒ‡ä»¤
+	// Ìí¼Ó JL Ö¸Áî
 	AsmBuilder& jl(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x8C);
@@ -973,7 +978,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JL æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JL Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jl_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x8C);
@@ -981,7 +986,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JLE æŒ‡ä»¤
+	// Ìí¼Ó JLE Ö¸Áî
 	AsmBuilder& jle(uint32_t address) {
 		add_byte(0x0F);
 		add_byte(0x8E);
@@ -989,7 +994,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  JLE æŒ‡ä»¤ï¼ˆç›¸å¯¹åœ°å€ï¼‰
+	// Ìí¼Ó JLE Ö¸Áî£¨Ïà¶ÔµØÖ·£©
 	AsmBuilder& jle_rel(int32_t offset) {
 		add_byte(0x0F);
 		add_byte(0x8E);
@@ -997,7 +1002,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  LOOP æŒ‡ä»¤
+	// Ìí¼Ó LOOP Ö¸Áî
 	AsmBuilder& loop(uint8_t count, uint32_t address) {
 		if (count > 127) {
 			throw std::invalid_argument("Invalid loop count for LOOP");
@@ -1008,7 +1013,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  LOOPZ æŒ‡ä»¤
+	// Ìí¼Ó LOOPZ Ö¸Áî
 	AsmBuilder& loopz(uint8_t count, uint32_t address) {
 		if (count > 127) {
 			throw std::invalid_argument("Invalid loop count for LOOPZ");
@@ -1019,7 +1024,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  LOOPNZ æŒ‡ä»¤
+	// Ìí¼Ó LOOPNZ Ö¸Áî
 	AsmBuilder& loopnz(uint8_t count, uint32_t address) {
 		if (count > 127) {
 			throw std::invalid_argument("Invalid loop count for LOOPNZ");
@@ -1030,13 +1035,13 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  RET æŒ‡ä»¤
+	// Ìí¼Ó RET Ö¸Áî
 	AsmBuilder& ret() {
 		add_byte(0xC3);
 		return *this;
 	}
 
-	// æ·»åŠ  RETN æŒ‡ä»¤
+	// Ìí¼Ó RETN Ö¸Áî
 	AsmBuilder& retn(uint16_t count) {
 		add_byte(0xC2);
 		add_byte(static_cast<uint8_t>(count & 0xFF));
@@ -1044,61 +1049,61 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  INT3 æŒ‡ä»¤
+	// Ìí¼Ó INT3 Ö¸Áî
 	AsmBuilder& int3() {
 		add_byte(0xCC);
 		return *this;
 	}
 
-	// æ·»åŠ  CDQ æŒ‡ä»¤
+	// Ìí¼Ó CDQ Ö¸Áî
 	AsmBuilder& cdq() {
 		add_byte(0x99);
 		return *this;
 	}
 
-	// æ·»åŠ  CLC æŒ‡ä»¤
+	// Ìí¼Ó CLC Ö¸Áî
 	AsmBuilder& clc() {
 		add_byte(0xF8);
 		return *this;
 	}
 
-	// æ·»åŠ  CLD æŒ‡ä»¤
+	// Ìí¼Ó CLD Ö¸Áî
 	AsmBuilder& cld() {
 		add_byte(0xFC);
 		return *this;
 	}
 
-	// æ·»åŠ  CMC æŒ‡ä»¤
+	// Ìí¼Ó CMC Ö¸Áî
 	AsmBuilder& cmc() {
 		add_byte(0xF5);
 		return *this;
 	}
 
-	// æ·»åŠ  STC æŒ‡ä»¤
+	// Ìí¼Ó STC Ö¸Áî
 	AsmBuilder& stc() {
 		add_byte(0xF9);
 		return *this;
 	}
 
-	// æ·»åŠ  STD æŒ‡ä»¤
+	// Ìí¼Ó STD Ö¸Áî
 	AsmBuilder& std() {
 		add_byte(0xFD);
 		return *this;
 	}
 
-	// æ·»åŠ  LAHF æŒ‡ä»¤
+	// Ìí¼Ó LAHF Ö¸Áî
 	AsmBuilder& lahf() {
 		add_byte(0x9F);
 		return *this;
 	}
 
-	// æ·»åŠ  SAHF æŒ‡ä»¤
+	// Ìí¼Ó SAHF Ö¸Áî
 	AsmBuilder& sahf() {
 		add_byte(0x9E);
 		return *this;
 	}
 
-	// æ·»åŠ  MOVZX æŒ‡ä»¤
+	// Ìí¼Ó MOVZX Ö¸Áî
 	AsmBuilder& movzx_reg_mem(uint8_t dest_reg, uint8_t src_reg) {
 		if (dest_reg > 7 || src_reg > 7) {
 			throw std::invalid_argument("Invalid register for MOVZX");
@@ -1109,7 +1114,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  MOVSX æŒ‡ä»¤
+	// Ìí¼Ó MOVSX Ö¸Áî
 	AsmBuilder& movsx_reg_mem(uint8_t dest_reg, uint8_t src_reg) {
 		if (dest_reg > 7 || src_reg > 7) {
 			throw std::invalid_argument("Invalid register for MOVSX");
@@ -1120,7 +1125,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  MOVSXD æŒ‡ä»¤
+	// Ìí¼Ó MOVSXD Ö¸Áî
 	AsmBuilder& movsxd_reg_mem(uint8_t dest_reg, uint8_t src_reg) {
 		if (dest_reg > 7 || src_reg > 7) {
 			throw std::invalid_argument("Invalid register for MOVSXD");
@@ -1131,27 +1136,27 @@ public:
 	}
 
 
-	// æ·»åŠ  CALL æŒ‡ä»¤
+	// Ìí¼Ó CALL Ö¸Áî
 	AsmBuilder& call(uint32_t address) {
 		add_byte(0xE8);
 		add_dword(address - (ptr + 4));
 		return *this;
 	}
 
-	// æ·»åŠ  CALL æŒ‡ä»¤
+	// Ìí¼Ó CALL Ö¸Áî
 	AsmBuilder& call_rel(uint32_t address) {
 		add_byte(0xE8);
 		add_dword(address);
 		return *this;
 	}
 
-	// æ·»åŠ  INVOKE æŒ‡ä»¤ï¼ˆç»å¯¹è·³è½¬ï¼‰
+	// Ìí¼Ó INVOKE Ö¸Áî£¨¾ø¶ÔÌø×ª£©
 	AsmBuilder& invoke(uint32_t address)
 	{
-		return this->call_rel(2).jmp_rel(6).push(address).ret();
+		return this->call_rel(2).jmp_rel8(6).push(address).ret();
 	}
 
-	// æ·»åŠ  INT æŒ‡ä»¤
+	// Ìí¼Ó INT Ö¸Áî
 	AsmBuilder& int_(uint8_t interrupt_number) {
 		if (interrupt_number == 0x80) {
 			add_byte(0xCD);
@@ -1163,7 +1168,7 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  LEA æŒ‡ä»¤
+	// Ìí¼Ó LEA Ö¸Áî
 	AsmBuilder& lea_reg_mem(uint8_t dest_reg, uint32_t address) {
 		if (dest_reg > 7) {
 			throw std::invalid_argument("Invalid register for LEA");
@@ -1174,139 +1179,139 @@ public:
 		return *this;
 	}
 
-	// æ·»åŠ  FNOP æŒ‡ä»¤
+	// Ìí¼Ó FNOP Ö¸Áî
 	AsmBuilder& fnop() {
 		add_byte(0xD9);
 		add_byte(0xD0);
 		return *this;
 	}
-	// æ·»åŠ  FLD æŒ‡ä»¤ï¼ˆåŠ è½½æµ®ç‚¹æ•°åˆ° ST0ï¼‰
+	// Ìí¼Ó FLD Ö¸Áî£¨¼ÓÔØ¸¡µãÊıµ½ ST0£©
 	AsmBuilder& fld(uint32_t address) {
 		add_byte(0xD9);
 		add_byte(0x05);
 		add_dword(address);
 		return *this;
 	}
-	// æ·»åŠ  FST æŒ‡ä»¤ï¼ˆå­˜å‚¨ ST0 åˆ°å†…å­˜ï¼‰
+	// Ìí¼Ó FST Ö¸Áî£¨´æ´¢ ST0 µ½ÄÚ´æ£©
 	AsmBuilder& fst(uint32_t address) {
 		add_byte(0xD9);
 		add_byte(0x15);
 		add_dword(address);
 		return *this;
 	}
-	// æ·»åŠ  FSTP æŒ‡ä»¤ï¼ˆå­˜å‚¨ ST0 åˆ°å†…å­˜å¹¶å¼¹å‡ºæ ˆï¼‰
+	// Ìí¼Ó FSTP Ö¸Áî£¨´æ´¢ ST0 µ½ÄÚ´æ²¢µ¯³öÕ»£©
 	AsmBuilder& fstp(uint32_t address) {
 		add_byte(0xD9);
 		add_byte(0x1D);
 		add_dword(address);
 		return *this;
 	}
-	// æ·»åŠ  FILD æŒ‡ä»¤ï¼ˆåŠ è½½æ•´æ•°åˆ° ST0ï¼‰
+	// Ìí¼Ó FILD Ö¸Áî£¨¼ÓÔØÕûÊıµ½ ST0£©
 	AsmBuilder& fild(uint32_t address) {
 		add_byte(0xDB);
 		add_byte(0x05);
 		add_dword(address);
 		return *this;
 	}
-	// æ·»åŠ  FIST æŒ‡ä»¤ï¼ˆå­˜å‚¨ ST0 åˆ°æ•´æ•°å†…å­˜ï¼‰
+	// Ìí¼Ó FIST Ö¸Áî£¨´æ´¢ ST0 µ½ÕûÊıÄÚ´æ£©
 	AsmBuilder& fist(uint32_t address) {
 		add_byte(0xDB);
 		add_byte(0x15);
 		add_dword(address);
 		return *this;
 	}
-	// æ·»åŠ  FISTP æŒ‡ä»¤ï¼ˆå­˜å‚¨ ST0 åˆ°æ•´æ•°å†…å­˜å¹¶å¼¹å‡ºæ ˆï¼‰
+	// Ìí¼Ó FISTP Ö¸Áî£¨´æ´¢ ST0 µ½ÕûÊıÄÚ´æ²¢µ¯³öÕ»£©
 	AsmBuilder& fistp(uint32_t address) {
 		add_byte(0xDB);
 		add_byte(0x1D);
 		add_dword(address);
 		return *this;
 	}
-	// æ·»åŠ  FADD æŒ‡ä»¤ï¼ˆæµ®ç‚¹åŠ æ³•ï¼‰
+	// Ìí¼Ó FADD Ö¸Áî£¨¸¡µã¼Ó·¨£©
 	AsmBuilder& fadd(uint32_t address) {
 		add_byte(0xD8);
 		add_byte(0x05);
 		add_dword(address);
 		return *this;
 	}
-	// æ·»åŠ  FSUB æŒ‡ä»¤ï¼ˆæµ®ç‚¹å‡æ³•ï¼‰
+	// Ìí¼Ó FSUB Ö¸Áî£¨¸¡µã¼õ·¨£©
 	AsmBuilder& fsub(uint32_t address) {
 		add_byte(0xD8);
 		add_byte(0x25);
 		add_dword(address);
 		return *this;
 	}
-	// æ·»åŠ  FMUL æŒ‡ä»¤ï¼ˆæµ®ç‚¹ä¹˜æ³•ï¼‰
+	// Ìí¼Ó FMUL Ö¸Áî£¨¸¡µã³Ë·¨£©
 	AsmBuilder& fmul(uint32_t address) {
 		add_byte(0xD8);
 		add_byte(0x0D);
 		add_dword(address);
 		return *this;
 	}
-	// æ·»åŠ  FDIV æŒ‡ä»¤ï¼ˆæµ®ç‚¹é™¤æ³•ï¼‰
+	// Ìí¼Ó FDIV Ö¸Áî£¨¸¡µã³ı·¨£©
 	AsmBuilder& fdiv(uint32_t address) {
 		add_byte(0xD8);
 		add_byte(0x35);
 		add_dword(address);
 		return *this;
 	}
-	// æ·»åŠ  FCOM æŒ‡ä»¤ï¼ˆæµ®ç‚¹æ¯”è¾ƒï¼‰
+	// Ìí¼Ó FCOM Ö¸Áî£¨¸¡µã±È½Ï£©
 	AsmBuilder& fcom(uint32_t address) {
 		add_byte(0xD8);
 		add_byte(0x15);
 		add_dword(address);
 		return *this;
 	}
-	// æ·»åŠ  FCOMP æŒ‡ä»¤ï¼ˆæµ®ç‚¹æ¯”è¾ƒå¹¶å¼¹å‡ºæ ˆï¼‰
+	// Ìí¼Ó FCOMP Ö¸Áî£¨¸¡µã±È½Ï²¢µ¯³öÕ»£©
 	AsmBuilder& fcomp(uint32_t address) {
 		add_byte(0xD8);
 		add_byte(0x1D);
 		add_dword(address);
 		return *this;
 	}
-	// æ·»åŠ  FLD1 æŒ‡ä»¤ï¼ˆåŠ è½½å¸¸æ•° 1.0 åˆ° ST0ï¼‰
+	// Ìí¼Ó FLD1 Ö¸Áî£¨¼ÓÔØ³£Êı 1.0 µ½ ST0£©
 	AsmBuilder& fld1() {
 		add_byte(0xD9);
 		add_byte(0xE8);
 		return *this;
 	}
-	// æ·»åŠ  FLDL2T æŒ‡ä»¤ï¼ˆåŠ è½½å¸¸æ•° log2(10) åˆ° ST0ï¼‰
+	// Ìí¼Ó FLDL2T Ö¸Áî£¨¼ÓÔØ³£Êı log2(10) µ½ ST0£©
 	AsmBuilder& fldl2t() {
 		add_byte(0xD9);
 		add_byte(0xE9);
 		return *this;
 	}
-	// æ·»åŠ  FLDL2E æŒ‡ä»¤ï¼ˆåŠ è½½å¸¸æ•° log2(e) åˆ° ST0ï¼‰
+	// Ìí¼Ó FLDL2E Ö¸Áî£¨¼ÓÔØ³£Êı log2(e) µ½ ST0£©
 	AsmBuilder& fldl2e() {
 		add_byte(0xD9);
 		add_byte(0xEA);
 		return *this;
 	}
-	// æ·»åŠ  FLDPI æŒ‡ä»¤ï¼ˆåŠ è½½å¸¸æ•° Ï€ åˆ° ST0ï¼‰
+	// Ìí¼Ó FLDPI Ö¸Áî£¨¼ÓÔØ³£Êı ¦Ğ µ½ ST0£©
 	AsmBuilder& fldpi() {
 		add_byte(0xD9);
 		add_byte(0xEB);
 		return *this;
 	}
-	// æ·»åŠ  FLDLG2 æŒ‡ä»¤ï¼ˆåŠ è½½å¸¸æ•° log10(2) åˆ° ST0ï¼‰
+	// Ìí¼Ó FLDLG2 Ö¸Áî£¨¼ÓÔØ³£Êı log10(2) µ½ ST0£©
 	AsmBuilder& fldlg2() {
 		add_byte(0xD9);
 		add_byte(0xEC);
 		return *this;
 	}
-	// æ·»åŠ  FLDLN2 æŒ‡ä»¤ï¼ˆåŠ è½½å¸¸æ•° ln(2) åˆ° ST0ï¼‰
+	// Ìí¼Ó FLDLN2 Ö¸Áî£¨¼ÓÔØ³£Êı ln(2) µ½ ST0£©
 	AsmBuilder& fldln2() {
 		add_byte(0xD9);
 		add_byte(0xED);
 		return *this;
 	}
-	// æ·»åŠ  FLDZ æŒ‡ä»¤ï¼ˆåŠ è½½å¸¸æ•° 0.0 åˆ° ST0ï¼‰
+	// Ìí¼Ó FLDZ Ö¸Áî£¨¼ÓÔØ³£Êı 0.0 µ½ ST0£©
 	AsmBuilder& fldz() {
 		add_byte(0xD9);
 		add_byte(0xEE);
 		return *this;
 	}
-	// æ·»åŠ  FXCH æŒ‡ä»¤ï¼ˆäº¤æ¢ ST0 å’Œ ST(i)ï¼‰
+	// Ìí¼Ó FXCH Ö¸Áî£¨½»»» ST0 ºÍ ST(i)£©
 	AsmBuilder& fxch(uint8_t st_reg) {
 		if (st_reg > 7) {
 			throw std::invalid_argument("Invalid floating-point register for FXCH");
@@ -1315,84 +1320,84 @@ public:
 		add_byte(0xC8 + st_reg);
 		return *this;
 	}
-	// æ·»åŠ  FCHS æŒ‡ä»¤ï¼ˆæ”¹å˜ ST0 çš„ç¬¦å·ï¼‰
+	// Ìí¼Ó FCHS Ö¸Áî£¨¸Ä±ä ST0 µÄ·ûºÅ£©
 	AsmBuilder& fchs() {
 		add_byte(0xD9);
 		add_byte(0xE0);
 		return *this;
 	}
-	// æ·»åŠ  FABS æŒ‡ä»¤ï¼ˆå– ST0 çš„ç»å¯¹å€¼ï¼‰
+	// Ìí¼Ó FABS Ö¸Áî£¨È¡ ST0 µÄ¾ø¶ÔÖµ£©
 	AsmBuilder& fabs() {
 		add_byte(0xD9);
 		add_byte(0xE1);
 		return *this;
 	}
-	// æ·»åŠ  FSQRT æŒ‡ä»¤ï¼ˆè®¡ç®— ST0 çš„å¹³æ–¹æ ¹ï¼‰
+	// Ìí¼Ó FSQRT Ö¸Áî£¨¼ÆËã ST0 µÄÆ½·½¸ù£©
 	AsmBuilder& fsqrt() {
 		add_byte(0xD9);
 		add_byte(0xFA);
 		return *this;
 	}
-	// æ·»åŠ  FSIN æŒ‡ä»¤ï¼ˆè®¡ç®— ST0 çš„æ­£å¼¦å€¼ï¼‰
+	// Ìí¼Ó FSIN Ö¸Áî£¨¼ÆËã ST0 µÄÕıÏÒÖµ£©
 	AsmBuilder& fsin() {
 		add_byte(0xD9);
 		add_byte(0xFE);
 		return *this;
 	}
-	// æ·»åŠ  FCOS æŒ‡ä»¤ï¼ˆè®¡ç®— ST0 çš„ä½™å¼¦å€¼ï¼‰
+	// Ìí¼Ó FCOS Ö¸Áî£¨¼ÆËã ST0 µÄÓàÏÒÖµ£©
 	AsmBuilder& fcos() {
 		add_byte(0xD9);
 		add_byte(0xFF);
 		return *this;
 	}
-	// æ·»åŠ  FPTAN æŒ‡ä»¤ï¼ˆè®¡ç®— ST0 çš„æ­£åˆ‡å€¼ï¼‰
+	// Ìí¼Ó FPTAN Ö¸Áî£¨¼ÆËã ST0 µÄÕıÇĞÖµ£©
 	AsmBuilder& fptan() {
 		add_byte(0xD9);
 		add_byte(0xF2);
 		return *this;
 	}
-	// æ·»åŠ  FPATAN æŒ‡ä»¤ï¼ˆè®¡ç®— ST1 / ST0 çš„åæ­£åˆ‡å€¼ï¼‰
+	// Ìí¼Ó FPATAN Ö¸Áî£¨¼ÆËã ST1 / ST0 µÄ·´ÕıÇĞÖµ£©
 	AsmBuilder& fpatan() {
 		add_byte(0xD9);
 		add_byte(0xF3);
 		return *this;
 	}
-	// æ·»åŠ  FRNDINT æŒ‡ä»¤ï¼ˆå°† ST0 èˆå…¥ä¸ºæ•´æ•°ï¼‰
+	// Ìí¼Ó FRNDINT Ö¸Áî£¨½« ST0 ÉáÈëÎªÕûÊı£©
 	AsmBuilder& frndint() {
 		add_byte(0xD9);
 		add_byte(0xFC);
 		return *this;
 	}
-	// æ·»åŠ  F2XM1 æŒ‡ä»¤ï¼ˆè®¡ç®— 2^ST0 - 1ï¼‰
+	// Ìí¼Ó F2XM1 Ö¸Áî£¨¼ÆËã 2^ST0 - 1£©
 	AsmBuilder& f2xm1() {
 		add_byte(0xD9);
 		add_byte(0xF0);
 		return *this;
 	}
-	// æ·»åŠ  FYL2X æŒ‡ä»¤ï¼ˆè®¡ç®— ST1 * log2(ST0)ï¼‰
+	// Ìí¼Ó FYL2X Ö¸Áî£¨¼ÆËã ST1 * log2(ST0)£©
 	AsmBuilder& fyl2x() {
 		add_byte(0xD9);
 		add_byte(0xF1);
 		return *this;
 	}
-	// æ·»åŠ  FYL2XP1 æŒ‡ä»¤ï¼ˆè®¡ç®— ST1 * log2(ST0 + 1)ï¼‰
+	// Ìí¼Ó FYL2XP1 Ö¸Áî£¨¼ÆËã ST1 * log2(ST0 + 1)£©
 	AsmBuilder& fyl2xp1() {
 		add_byte(0xD9);
 		add_byte(0xF9);
 		return *this;
 	}
 
-	// æ·»åŠ  PUSHAD æŒ‡ä»¤
+	// Ìí¼Ó PUSHAD Ö¸Áî
 	AsmBuilder& pushad()
 	{
 		return add_byte(PUSHAD);
 	}
-	// æ·»åŠ  POPAD æŒ‡ä»¤
+	// Ìí¼Ó POPAD Ö¸Áî
 	AsmBuilder& popad()
 	{
 		return add_byte(POPAD);
 	}
-	// é€€å› 1 ä½æˆ–å¤šä½æœºå™¨ç 
+	// ÍË»Ø 1 Î»»ò¶àÎ»»úÆ÷Âë
 	AsmBuilder& back(const uint32_t count)
 	{
 		ptr -= count;

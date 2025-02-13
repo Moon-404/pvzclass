@@ -844,12 +844,9 @@ namespace PVZ
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Die();
 	};
-	class Griditem
+	class Griditem : public BaseClass
 	{
-	protected:
-		int BaseAddress;
 	public:
-		int GetBaseAddress();
 		Griditem(int indexoraddress);
 		PVZ::Board GetBoard();
 		T_PROPERTY(GriditemType::GriditemType, Type, __get_Type, __set_Type, 0x8);
