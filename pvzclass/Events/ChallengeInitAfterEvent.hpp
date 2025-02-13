@@ -3,7 +3,7 @@
 
 // 关卡初始化后的事件。
 // 无返回值
-// @param 触发事件的 Miscellaneous
+// @param 触发事件的 Challenge
 class ChallengeInitAfterEvent : public DLLEvent
 {
 public:

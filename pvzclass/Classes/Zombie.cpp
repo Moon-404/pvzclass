@@ -150,6 +150,18 @@ void PVZ::Zombie::SetAccessoriesType2(AccessoriesType2 acctype2)
 
 }
 
+AsmBuilder ShowDoorArms_builder = AsmBuilder();
+void PVZ::Zombie::ShowDoorArms(bool shown)
+{
+	ShowDoorArms_builder.clear()
+		.push(shown ? 1 : 0)
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x524210)
+		.ret();
+
+	PVZ::Memory::Execute(ShowDoorArms_builder);
+}
+
 void PVZ::Zombie::GetBodyHp(int* hp, int* maxhp)
 {
 	*hp = Memory::ReadMemory<int>(BaseAddress + 0xC8);
@@ -414,4 +426,40 @@ bool PVZ::Zombie::EffectedBy(DamageRangeFlags range, bool usepvzfunc)
 
 		return(false);
 	}
+}
+
+AsmBuilder GetActualAttackRect_builder = AsmBuilder();
+PVZ::Rect PVZ::Zombie::GetActualAttackRect()
+{
+	GetActualAttackRect_builder.clear()
+		.mov_reg_imm(REG_EDI, PVZ::Memory::Variable)
+		.mov_reg_imm(REG_EBX, this->GetBaseAddress())
+		.invoke(0x532140)
+		.ret();
+
+	Rect tmp = Rect();
+	tmp.X = *((int*)PVZ::Memory::Variable);
+	tmp.Y = *((int*)PVZ::Memory::Variable + 4);
+	tmp.Width = *((int*)PVZ::Memory::Variable + 8);
+	tmp.Height = *((int*)PVZ::Memory::Variable + 0x0C);
+
+	return tmp;
+}
+
+AsmBuilder GetActualRect_builder = AsmBuilder();
+PVZ::Rect PVZ::Zombie::GetActualRect()
+{
+	GetActualRect_builder.clear()
+		.mov_reg_imm(REG_EDI, PVZ::Memory::Variable)
+		.mov_reg_imm(REG_EBX, this->GetBaseAddress())
+		.invoke(0x5320B0)
+		.ret();
+
+	Rect tmp = Rect();
+	tmp.X = *((int*)PVZ::Memory::Variable);
+	tmp.Y = *((int*)PVZ::Memory::Variable + 4);
+	tmp.Width = *((int*)PVZ::Memory::Variable + 8);
+	tmp.Height = *((int*)PVZ::Memory::Variable + 0x0C);
+
+	return tmp;
 }

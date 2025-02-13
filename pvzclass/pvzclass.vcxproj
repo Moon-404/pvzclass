@@ -177,7 +177,7 @@
     <ClCompile Include="Classes\Lawnmover.cpp" />
     <ClCompile Include="Classes\Matrix3.cpp" />
     <ClCompile Include="Classes\Memory.cpp" />
-    <ClCompile Include="Classes\Miscellaneous.cpp" />
+    <ClCompile Include="Classes\Challenge.cpp" />
     <ClCompile Include="Classes\Mouse.cpp" />
     <ClCompile Include="Classes\MousePointer.cpp" />
     <ClCompile Include="Classes\Music.cpp" />
@@ -301,7 +301,9 @@
     <ClInclude Include="Events\UpdateAppEvent.h" />
     <ClInclude Include="Events\VaseBreakerPopulateEvent.hpp" />
     <ClInclude Include="Events\ZombieBurntEvent.hpp" />
+    <ClInclude Include="Events\ZombieDetachShieldEvent.hpp" />
     <ClInclude Include="Events\ZombieDropHeadEvent.hpp" />
+    <ClInclude Include="Events\ZombieDropHeadParticleEvent.hpp" />
     <ClInclude Include="Events\ZombieDropLootEvent.hpp" />
     <ClInclude Include="Events\ZombieEatEvent.h" />
     <ClInclude Include="Events\ZombieEatSoundEvent.hpp" />

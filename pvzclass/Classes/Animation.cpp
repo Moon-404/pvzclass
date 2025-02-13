@@ -133,6 +133,21 @@ void PVZ::Animation::AssignRenderGroupToPrefix(byte RenderGroup, const char* tra
 	PVZ::Memory::Execute(STRING(__asm__Reanimation__AssignGroupToPrefix));
 }
 
+
+AsmBuilder AssignRenderGroupToTrack_builder = AsmBuilder();
+void PVZ::Animation::AssignRenderGroupToTrack(const char* trackName, byte renderGroup)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, trackName, std::strlen(trackName) + 1);
+	AssignRenderGroupToTrack_builder.clear()
+		.push(renderGroup)
+		.push_imm32(PVZ::Memory::Variable + 100)
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x473A40)
+		.ret();
+
+	PVZ::Memory::Execute(AssignRenderGroupToTrack_builder);
+}
+
 int PVZ::Animation::FindTrackIndex(const char* trackName)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, trackName, std::strlen(trackName) + 1);

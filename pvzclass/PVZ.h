@@ -203,11 +203,12 @@ namespace PVZ
 	protected:
 		int BaseAddress;
 	public:
+		BaseClass() : BaseAddress(INVALID_BASEADDRESS) {};
 		BaseClass(int address) : BaseAddress(address){};
 		int GetBaseAddress() const
-		{
-			return(this->BaseAddress);
-		}
+		{ return(this->BaseAddress); }
+		const bool isValid()
+		{ return(this->GetBaseAddress() != INVALID_BASEADDRESS); }
 	};
 
 	class Rect
@@ -225,7 +226,7 @@ namespace PVZ
 	// 若横向无重叠部分，返回两矩形横向间距的相反数。
 	// @param rect 计算重叠的另一个矩形。
 	// @return 矩形横向重叠的长度，或矩形横向间距的相反数。
-	int GetXOverlap(const Rect* rect1, const Rect* rect2);
+	int GetXOverlap(const Rect& rect1, const Rect& rect2);
 
 	typedef Rect CollisionBox;
 
@@ -270,7 +271,7 @@ namespace PVZ
 	class MousePointer;
 	class Caption;
 	class CardSlot;
-	class Miscellaneous;
+	class Challenge;
 	class Lawn;
 	class Icetrace;
 	class Wave;
@@ -388,7 +389,8 @@ namespace PVZ
 		MousePointer GetMousePointer();
 		Caption GetCaption();
 		CardSlot GetCardSlot();
-		Miscellaneous GetMiscellaneous();
+		Challenge GetMiscellaneous();
+		Challenge GetChallenge();
 #pragma endregion
 	};
 	class SeedChooserScreen : public Widget
@@ -441,9 +443,8 @@ namespace PVZ
 		AttachEffect(int address) : BaseClass(address) {};
 		Matrix3 GetOffset();
 	};
-	class Animation
+	class Animation : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Animation(int idoraddress);
 		//support muiti-animprop(AP_XXXXXX)
@@ -480,6 +481,10 @@ namespace PVZ
 		void Die();
 		void Play(const char* TrackName, int blendType, int loopType, float rate);
 		void AssignRenderGroupToPrefix(byte RenderGroup, const char* TrackName);
+		//@brief 设置指定动画轨道在绘制时的分组。通常情况下，分组为 -1 时表示隐藏该轨道。
+		//@param trackName 执行的动作轨道名称。
+		//@param renderGroup 分组大小。
+		void AssignRenderGroupToTrack(const char* trackName, byte renderGroup);
 		int FindTrackIndex(const char* trackName);
 
 		//@brief 令动画部件执行 trackName 动作。
@@ -595,7 +600,11 @@ namespace PVZ
 		T_PROPERTY(FLOAT, Height, __get_Height, __set_Height, 0x84);
 		void GetCollision(CollisionBox* collbox);
 		void SetCollision(CollisionBox* collbox);
+		// @brief 获取僵尸的基础攻击判定范围。
+		// @param collbox 攻击判定范围的存放位置。其中 X 和 Y 为相应坐标的偏移量。
 		void GetAttackCollision(CollisionBox* collbox);
+		// @brief 设置僵尸的基础攻击判定范围。
+		// @param collbox 攻击判定范围的指针。其中 X 和 Y 为相应坐标的偏移量。
 		void SetAttackCollision(CollisionBox* collbox);
 		INT_PROPERTY(DecelerateCountdown, __get_DecelerateCountdown, __set_DecelerateCountdown, 0xAC);
 		INT_PROPERTY(FixedCountdown, __get_FixedCountdown, __set_FixedCountdown, 0xB0);
@@ -652,6 +661,17 @@ namespace PVZ
 		//@param usepvzfunc 是否调用 pvz 内部函数。默认为 true。
 		//@return 是否能被搜寻到。
 		bool EffectedBy(DamageRangeFlags range, bool usepvzfunc = true);
+
+		//@brief 获取僵尸的实际可攻击范围。
+		//@return 僵尸的实际攻击范围
+		Rect GetActualAttackRect();
+		//@brief 获取僵尸的实际受击范围。
+		//@return 僵尸的实际受击范围
+		Rect GetActualRect();
+
+		//@brief 设置是否显示铁门僵尸的手臂。
+		//@param shown 是否显示，默认为 true
+		void ShowDoorArms(bool shown = true);
 
 		// Deprecated
 		void GetBodyHp(int* hp, int* maxhp);
@@ -973,12 +993,12 @@ namespace PVZ
 		};
 		PVZ::CardSlot::SeedCard GetCard(int index);
 	};
-	class Miscellaneous
+	class Challenge
 	{
 	protected:
 		int BaseAddress;
 	public:
-		Miscellaneous(int address);
+		Challenge(int address);
 		int GetBaseAddress();
 		static const int MemSize = 0x0BC;
 		/*请在派生类中调用这个函数。
@@ -1012,6 +1032,7 @@ namespace PVZ
 
 		void IZSquishBrain(IZBrain brain);
 	};
+	using Miscellaneous = Challenge;
 	class SaveData : public BaseClass
 	{
 	public:
