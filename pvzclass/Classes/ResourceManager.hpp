@@ -10,6 +10,7 @@ namespace PVZ
 	{
 	public:
 		ResourceManager(int address) : BaseClass(address) {};
+		T_PROPERTY(BOOLEAN, AllowAlreadyDefinedResources, __get_AllowAlreadyDefinedResources, __set_AllowAlreadyDefinedResources, 0x0B1);
 		PVZApp GetPVZApp();
 		//@brief 加载指定资源包文件。
 		//@param fileName 文件名
