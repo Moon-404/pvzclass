@@ -1,10 +1,5 @@
 ﻿#include "../PVZ.h"
 
-int PVZ::Griditem::GetBaseAddress()
-{
-	return BaseAddress;
-}
-
 PVZ::Griditem::Griditem(int indexoraddress)
 {
 	if (indexoraddress > 1024)
