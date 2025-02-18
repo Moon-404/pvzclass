@@ -934,9 +934,8 @@ namespace PVZ
 		READONLY_PROPERTY_BINDING(int, __get_Row, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x28)) Row;
 		READONLY_PROPERTY_BINDING(int, __get_Column, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x24)) Column;
 	};
-	class Caption
+	class Caption : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Caption(int address);
 		int GetBaseAddress();
@@ -945,6 +944,7 @@ namespace PVZ
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x88);
 		T_PROPERTY(CaptionStyle::CaptionStyle, Style, __get_CaptionStyle, __set_CaptionStyle, 0x8C);
 	};
+	using Advice = Caption;
 	class CardSlot
 	{
 		int BaseAddress;
