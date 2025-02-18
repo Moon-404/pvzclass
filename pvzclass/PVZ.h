@@ -984,13 +984,10 @@ namespace PVZ
 		using SeedPacket = SeedCard;
 	};
 	using SeedBank = CardSlot;
-	class Challenge
+	class Challenge : public BaseClass
 	{
-	protected:
-		int BaseAddress;
 	public:
 		Challenge(int address);
-		int GetBaseAddress();
 		static const int MemSize = 0x0BC;
 		/*请在派生类中调用这个函数。
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。
