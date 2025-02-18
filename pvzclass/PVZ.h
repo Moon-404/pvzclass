@@ -492,11 +492,9 @@ namespace PVZ
 		void SetFramesForLayer(const char* theTrackName);
 		void SetImageOverride(const char* theTrackName, Image theImage);
 	};
-	class Attachment
+	class Attachment : public BaseClass
 	{
-		int BaseAddress;
 	public:
-		int GetBaseAddress();
 		Attachment(int idoraddress);
 		// TODO: check whether this function works properly.
 		PVZ::Animation GetAnimation();
