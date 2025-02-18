@@ -945,9 +945,8 @@ namespace PVZ
 		T_PROPERTY(CaptionStyle::CaptionStyle, Style, __get_CaptionStyle, __set_CaptionStyle, 0x8C);
 	};
 	using Advice = Caption;
-	class CardSlot
+	class CardSlot : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		CardSlot(int address);
 		int GetBaseAddress();
@@ -984,6 +983,7 @@ namespace PVZ
 		};
 		PVZ::CardSlot::SeedCard GetCard(int index);
 	};
+	using SeedBank = CardSlot;
 	class Challenge
 	{
 	protected:
