@@ -512,9 +512,8 @@ namespace PVZ
 		AttachmentID GetAttachmentID();
 		Attachment GetAttachment();
 	};
-	class Lawn
+	class Lawn : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Lawn(int baseaddress);
 		LawnType::LawnType GetGridType(int row, int column);
