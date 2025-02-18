@@ -522,9 +522,8 @@ namespace PVZ
 		void SetRouteType(int route, RouteType::RouteType type);
 		bool Plantable(int row, int column, SeedType::SeedType type);
 	};
-	class Icetrace
+	class Icetrace : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Icetrace(int baseaddress);
 		int GetX(int route);
