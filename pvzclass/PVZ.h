@@ -773,9 +773,8 @@ namespace PVZ
 		};
 		MagnetItem GetMagnetItem(int num);
 	};
-	class GardenPlant
+	class GardenPlant : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		GardenPlant(int address);
 		T_PROPERTY(SeedType::SeedType, Type, __get_Type, __set_Type, 8);
