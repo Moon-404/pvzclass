@@ -1094,9 +1094,8 @@ namespace PVZ
 		Snail GetSnail();
 	};
 
-	class PlantDefinition
+	class PlantDefinition : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		PlantDefinition(SeedType::SeedType type);
 		T_READONLY_PROPERTY(SeedType::SeedType, Type, __get_Type, 0);
@@ -1108,9 +1107,8 @@ namespace PVZ
 		INT_PROPERTY(AttackCooldown, __get_AttackCooldown, __set_AttackCooldown, 0x1C);
 	};
 
-	class ZombieDefinition
+	class ZombieDefinition : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		ZombieDefinition(ZombieType::ZombieType type);
 		T_READONLY_PROPERTY(ZombieType::ZombieType, Type, __get_Type, 0);
@@ -1121,9 +1119,8 @@ namespace PVZ
 		INT_PROPERTY(PickWeight, __get_PickWeight, __set_PickWeight, 0x14);
 	};
 
-	class ProjectileDefinition
+	class ProjectileDefinition : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		ProjectileDefinition(ProjectileType::ProjectileType type);
 		T_READONLY_PROPERTY(ProjectileType::ProjectileType, Type, __get_Type, 0);
@@ -1131,9 +1128,8 @@ namespace PVZ
 		INT_PROPERTY(Damage, __get_Damage, __set_Damage, 8);
 	};
 
-	class ChallengeDefinition
+	class ChallengeDefinition : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		ChallengeDefinition(PVZLevel::PVZLevel mode);
 		T_READONLY_PROPERTY(PVZLevel::PVZLevel, Mode, __get_Mode, 0);
