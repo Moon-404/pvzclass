@@ -531,9 +531,8 @@ namespace PVZ
 		int GetDisappearCountdown(int route);
 		void SetDisappearCountdown(int route, int cs);
 	};
-	class Wave
+	class Wave : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Wave(int baseaddress);
 		READONLY_PROPERTY(int, __get_Count) Count;
