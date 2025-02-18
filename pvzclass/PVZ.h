@@ -818,9 +818,8 @@ namespace PVZ
 		void Collect();
 		void Die();
 	};
-	class Lawnmover
+	class Lawnmover : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Lawnmover(int indexoraddress);
 		int GetBaseAddress();
@@ -838,6 +837,7 @@ namespace PVZ
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Die();
 	};
+	using LawnMower = Lawnmover;
 	class Griditem : public BaseClass
 	{
 	public:
