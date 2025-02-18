@@ -955,9 +955,8 @@ namespace PVZ
 		INT_PROPERTY(CollisionLength, __get_CollisionLength, __set_CollisionLength, 0x10);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
 		PROPERTY(int, __get_CardsCount, SetCardsCount) CardsCount;
-		class SeedCard
+		class SeedCard : BaseClass
 		{
-			int BaseAddress;
 		public:
 			SeedCard(int address);
 			int GetBaseAddress();
@@ -982,6 +981,7 @@ namespace PVZ
 			void EnterCoolDown(int duration = -1);
 		};
 		PVZ::CardSlot::SeedCard GetCard(int index);
+		using SeedPacket = SeedCard;
 	};
 	using SeedBank = CardSlot;
 	class Challenge
