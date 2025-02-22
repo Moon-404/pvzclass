@@ -121,6 +121,8 @@ PVZ::Memory::InjectDll("yourdll.dll");
 - 可以用于各种需要指针的场景
 - `MKS` 宏对应 `std::make_shared`，可用于构造 `SPT`
 
+- 2.0 版本起，pvzclass 的各种参数**排斥使用 `SPT` 宏**。若要继续使用，请注意适配。
+
 ### 关于基础类
 
 - 是命名空间 `PVZ` 下的类
@@ -186,6 +188,7 @@ SPT<PVZ::Animation> anim = MKS<PVZ::Animation>(0);//获得第1个对象
 12. ProjectileDefinition（需要参数指定是哪种子弹）
 13. ChallengeDefinition（需要参数指定是哪一个模式）
 14. ChallengeScreen
+14. ResourceManager
 
 ### 关于游戏内的对象实体类
 

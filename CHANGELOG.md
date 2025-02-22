@@ -1,5 +1,6 @@
-# TOC
-- [2.0 (TBD)](#2.0)
+# 目录
+- [2.0.1 (TBD)](#2.0.1)
+- [2.0](#2.0)
 - [1.17.2](#1.17.2（2025/1/25）)
 - [1.17.1](#1.17.1（2025/1/4）)
 - [1.17](#1.17（2024/12/23）)
@@ -11,6 +12,70 @@
 - [1.15.1](#1.15.1（2023/11/22）)
 - [1.15.0](#1.15.0（2023/10/27）)
 - [1.14.3](#1.14.3（2023/10/22）)
+
+## 2.0.1
+
+### 改动内容
+
+待定。
+
+### 兼容性
+
+兼容 2.0 。
+
+## 2.0
+
+### 新增内容
+
+- `AsmBuilder` 类，用于构建注入的机器码。
+  - `Memory::Execute()` 已适配 `AsmBuilder`。
+- `TodParticleSystem` 类，对应 PVZ 本体的粒子效果。
+- `Zombie::ShowDoorArms()` 方法，设置是否显示铁门僵尸的手臂。
+- `Zombie::GetActualAttackRect()` 与 `Zombie::GetActualRect()`，分别获取僵尸的攻击和受击判定范围。
+- `Animation::AssignRenderGroupToTrack()`，设置指定动画轨道在绘制时的分组。
+- `ZombieDetachShieldEvent` ，僵尸因各种原因失去盾牌事件。
+- `ZombieDropHeadParticleEvent`，僵尸生成掉头粒子效果事件。
+- `ResourceManager` 大幅翻新，获得了导入 pak、解析 xml 资源文件、导入资源、 获取音效 ID 和图片的功能。
+- 将大部分对接 PVZ 本体对象的类变为 `BaseClass` 的派生类。
+
+### 改动
+
+- `pvzclass `现在**只生成** `.lib` 静态链接库。生成可执行文件的项目现在是 `pvzmain`。
+
+- `pvzdll` 现在只在 release Win32 条件下构建。
+
+- `ZombieAccessoriesType2` 被重命名为 `ShieldType`，旧名称作为别名存在。
+
+- 以下代码规范已应用到代码当中：
+  - `BaseClass` 派生类写在 `Classes/*.hpp` 和 `Class/*.cpp`  内；
+  - `hpp` 完成构造函数、`GetAll()` 和 `Create()` 的声明，取缔 `Creator`；
+  - 函数的 `char*` 参数均带 const 标注。
+  - 对于 `Struct / Class` 参数，`BaseClass` 派生类用值传递，其余用引用传递。
+  * `Execute()` 代码用 `AsmBuilder` 实现，在执行前调用构造函数，执行时先 `clear()` 再补齐代码。
+  
+- `BaseClass::GetBaseAddress()` 现在保证是 `const` 方法。
+
+- `Miscellaneous` 被重命名为 `Challenge`。
+
+- 大部分 `Events` 现在已经完成分类。
+
+- 现在 `BaseClass` 添加了默认构造函数和 `isValid()` 方法，虽然这个方法并没有有效适配。
+
+- `Memory::AllocMemory()` 现在不再调用 `Memory::AllAccess()`。
+
+### 漏洞修复
+
+- 修复了本地模式的 `Memory::Execute()` 导致内存泄露的漏洞。
+- 修复了 `GraveBuster` 长期被命名为 `CraveBuster` 的漏洞。
+
+### 移除内容
+
+- `AsmFunctions.h` 中的 `F_ST` 系列宏。它们已变为 `AsmBuilder` 的静态常量。
+- `DamageType::DamageType`。它已经合并到 `PVZ::DamageFlags`。
+
+### 兼容性
+
+与 1.x 版本**大部分不兼容**。
 
 ## 1.17.2
 
