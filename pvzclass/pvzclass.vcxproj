@@ -27,26 +27,26 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -78,6 +78,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -132,12 +133,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreLinkEvent>
-      <Command>@ECHO ON
-@ECHO "$(VC_ExecutablePath_x86)\lib.exe" /out:"$(OutDir)$(ProjectName).lib" "$(IntermediateOutputPath)*.obj"
-"$(VC_ExecutablePath_x86)\lib.exe" /out:"$(OutDir)$(ProjectName).lib" "$(IntermediateOutputPath)*.obj"</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
     <PreLinkEvent>
-      <Message>在生成exe文件的同时生成lib文件供链接</Message>
+      <Message>
+      </Message>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -176,7 +177,7 @@
     <ClCompile Include="Classes\Lawnmover.cpp" />
     <ClCompile Include="Classes\Matrix3.cpp" />
     <ClCompile Include="Classes\Memory.cpp" />
-    <ClCompile Include="Classes\Miscellaneous.cpp" />
+    <ClCompile Include="Classes\Challenge.cpp" />
     <ClCompile Include="Classes\Mouse.cpp" />
     <ClCompile Include="Classes\MousePointer.cpp" />
     <ClCompile Include="Classes\Music.cpp" />
@@ -187,6 +188,7 @@
     <ClCompile Include="Classes\SaveData.cpp" />
     <ClCompile Include="Classes\SeedCard.cpp" />
     <ClCompile Include="Classes\SeedChoserScreen.cpp" />
+    <ClCompile Include="Classes\TodParticleSystem.cpp" />
     <ClCompile Include="Classes\TrackInstance.cpp" />
     <ClCompile Include="Classes\ZenGarden.cpp" />
     <ClCompile Include="Creators.cpp" />
@@ -196,7 +198,6 @@
     <ClCompile Include="Enums\ChallengePage.cpp" />
     <ClCompile Include="Enums\CoinMotionType.cpp" />
     <ClCompile Include="Enums\CoinType.cpp" />
-    <ClCompile Include="Enums\DamageType.cpp" />
     <ClCompile Include="Enums\DebugModeType.cpp" />
     <ClCompile Include="Enums\EffectType.cpp" />
     <ClCompile Include="Enums\GardenPlantNeed.cpp" />
@@ -226,7 +227,7 @@
     <ClCompile Include="Enums\VaseContent.cpp" />
     <ClCompile Include="Enums\VaseSkin.cpp" />
     <ClCompile Include="Enums\HelmType.cpp" />
-    <ClCompile Include="Enums\ZombieAccessoriesType2.cpp" />
+    <ClCompile Include="Enums\ShieldType.cpp" />
     <ClCompile Include="Enums\ZombieState.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="Enums\MagnetItemType.cpp" />
@@ -236,7 +237,6 @@
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />
-    <ClCompile Include="pvzclass.cpp" />
     <ClCompile Include="Classes\Wave.cpp" />
     <ClCompile Include="Classes\Zombie.cpp" />
     <ClCompile Include="Classes\GardenPlant.cpp" />
@@ -244,9 +244,11 @@
     <ClCompile Include="Sexy.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AsmBuilder.hpp" />
     <ClInclude Include="Classes\ChallengeScreen.hpp" />
     <ClInclude Include="Classes.hpp" />
     <ClInclude Include="Classes\ResourceManager.hpp" />
+    <ClInclude Include="Classes\TodParticleSystem.hpp" />
     <ClInclude Include="Draw.h" />
     <ClInclude Include="Enums\KeyCode.hpp" />
     <ClInclude Include="Enums\StoreItem.hpp" />
@@ -270,6 +272,7 @@
     <ClInclude Include="Events\DialogDrawEvent.h" />
     <ClInclude Include="Events\DLLEvent.h" />
     <ClInclude Include="Events\Events.h" />
+    <ClInclude Include="Events\ExtractResourceEvent.hpp" />
     <ClInclude Include="Events\GriditemDieEvent.hpp" />
     <ClInclude Include="Events\GriditemUpdateEvent.hpp" />
     <ClInclude Include="Events\IZInitAfterBrainEvent.hpp" />
@@ -279,6 +282,7 @@
     <ClInclude Include="Events\LawnmowerStartEvent.hpp" />
     <ClInclude Include="Events\LawnmowerUpdateEvent.hpp" />
     <ClInclude Include="Events\NewGameEvent.h" />
+    <ClInclude Include="Events\ParseResourceEvent.hpp" />
     <ClInclude Include="Events\PlantAddProjectileEvent.hpp" />
     <ClInclude Include="Events\PlantDieLowHealthEvent.hpp" />
     <ClInclude Include="Events\PlantDoSpecialEvent.hpp" />
@@ -297,7 +301,9 @@
     <ClInclude Include="Events\UpdateAppEvent.h" />
     <ClInclude Include="Events\VaseBreakerPopulateEvent.hpp" />
     <ClInclude Include="Events\ZombieBurntEvent.hpp" />
+    <ClInclude Include="Events\ZombieDetachShieldEvent.hpp" />
     <ClInclude Include="Events\ZombieDropHeadEvent.hpp" />
+    <ClInclude Include="Events\ZombieDropHeadParticleEvent.hpp" />
     <ClInclude Include="Events\ZombieDropLootEvent.hpp" />
     <ClInclude Include="Events\ZombieEatEvent.h" />
     <ClInclude Include="Events\ZombieEatSoundEvent.hpp" />
@@ -311,7 +317,6 @@
     <ClInclude Include="Enums\ChallengeState.h" />
     <ClInclude Include="Enums\CoinMotionType.h" />
     <ClInclude Include="Enums\CoinType.h" />
-    <ClInclude Include="Enums\DamageType.h" />
     <ClInclude Include="Enums\DebugModeType.h" />
     <ClInclude Include="Enums\EffectType.h" />
     <ClInclude Include="Enums\GardenPlantNeed.h" />
@@ -336,7 +341,7 @@
     <ClInclude Include="Enums\VaseContent.h" />
     <ClInclude Include="Enums\VaseSkin.h" />
     <ClInclude Include="Enums\HelmType.h" />
-    <ClInclude Include="Enums\ZombieAccessoriesType2.h" />
+    <ClInclude Include="Enums\ShieldType.h" />
     <ClInclude Include="Enums\ZombieState.h" />
     <ClInclude Include="Enums\ZombieType.h" />
     <ClInclude Include="Enums\UpperSoundType.h" />

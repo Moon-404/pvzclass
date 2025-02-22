@@ -1,19 +1,19 @@
 #include "../PVZ.h"
 
-int PVZ::GetXOverlap(const PVZ::Rect* rect1, const PVZ::Rect* rect2)
+int PVZ::GetXOverlap(const PVZ::Rect& rect1, const PVZ::Rect& rect2)
 {
 	int LeftR, RightR, RightL;
-	if (rect1->X >= rect2->X)
+	if (rect1.X >= rect2.X)
 	{
-		LeftR = rect2->Width + rect2->X;
-		RightL = rect1->X;
-		RightR = rect1->Width + rect1->X;
+		LeftR = rect2.Width + rect2.X;
+		RightL = rect1.X;
+		RightR = rect1.Width + rect1.X;
 	}
 	else
 	{
-		LeftR = rect1->Width + rect1->X;
-		RightL = rect2->X;
-		RightR = rect2->Width + rect2->X;
+		LeftR = rect1.Width + rect1.X;
+		RightL = rect2.X;
+		RightR = rect2.Width + rect2.X;
 	}
 	if (LeftR > RightL && LeftR > RightR)
 		LeftR = RightR;

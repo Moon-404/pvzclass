@@ -1,20 +1,20 @@
 ﻿#include "..\PVZ.h"
 
-PVZ::Miscellaneous::Miscellaneous(int address)
+PVZ::Challenge::Challenge(int address)
 {
 	BaseAddress = Memory::ReadMemory<int>(address + 0x160);
 }
 
-int PVZ::Miscellaneous::GetBaseAddress()
+int PVZ::Challenge::GetBaseAddress()
 {
 	return BaseAddress;
 }
 
 namespace PVZ
 {
-	bool Miscellaneous::SetMemSize(int NewSize)
+	bool Challenge::SetMemSize(int NewSize)
 	{
-		if(NewSize < Miscellaneous::MemSize)
+		if(NewSize < Challenge::MemSize)
 			return(false);
 		Memory::WriteMemory<int>(0x00408232, NewSize);
 		Memory::WriteMemory<int>(0x00481C39, NewSize);
@@ -37,14 +37,14 @@ namespace PVZ
 	}
 }
 
-BOOLEAN PVZ::Miscellaneous::HaveCrater(int row, int column)
+BOOLEAN PVZ::Challenge::HaveCrater(int row, int column)
 {
 	if (row >= 0 && row < 6 && column >= 0 && column < 9)
 		return Memory::ReadMemory<byte>(BaseAddress + 0x14 + 6 * column + row);
 	return false;
 }
 
-void PVZ::Miscellaneous::SetCrater(int row, int column, BOOLEAN b)
+void PVZ::Challenge::SetCrater(int row, int column, BOOLEAN b)
 {
 	if (row >= 0 && row < 6 && column >= 0 && column < 9)
 		Memory::WriteMemory<byte>(BaseAddress + 0x14 + 6 * column + row, b);
@@ -58,9 +58,9 @@ byte __asm__IZSquishBrain[]
 	RET
 };
 
-void PVZ::Miscellaneous::IZSquishBrain(SPT<IZBrain> brain)
+void PVZ::Challenge::IZSquishBrain(IZBrain brain)
 {
-	SETARG(__asm__IZSquishBrain, 1) = brain->GetBaseAddress();
+	SETARG(__asm__IZSquishBrain, 1) = brain.GetBaseAddress();
 	SETARG(__asm__IZSquishBrain, 6) = this->GetBaseAddress();
 	PVZ::Memory::Execute(STRING(__asm__IZSquishBrain));
 }

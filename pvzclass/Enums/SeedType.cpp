@@ -28,8 +28,8 @@ const char* SeedType::ToString(SeedType cardt)
 		return "Sunshroom";
 	case SeedType::Fumeshroom:
 		return "Fumeshroom";
-	case SeedType::CraveBuster:
-		return "CraveBuster";
+	case SeedType::GraveBuster:
+		return "GraveBuster";
 	case SeedType::Hypnoshroom:
 		return "Hypnoshroom";
 	case SeedType::Scaredyshroom:

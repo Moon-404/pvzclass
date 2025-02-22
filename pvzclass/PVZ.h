@@ -2,6 +2,7 @@
 #include "Enums.h"
 #include "Flags.h"
 #include "AsmFunctions.h"
+#include "AsmBuilder.hpp"
 #include <ctime>
 #include <memory>
 #include <vector>
@@ -78,6 +79,7 @@
 #define HZC_DIGGER_UNDER 64
 #define HZC_HYPNOTIZED 128
 
+#define INVALID_BASEADDRESS 0x400000
 
 /*Only version 1.0.0.1051 is fully supported*/
 namespace PVZ
@@ -172,6 +174,7 @@ namespace PVZ
 		static void CreateThread(int address);
 		static void FreeMemory(int address);
 		static int Execute(byte asmcode[], int lengrh);
+		static int Execute(AsmBuilder& builder);
 		static bool InjectDll(const char* dllname);
 		static int GetProcAddress(const char* procname);
 		static int InvokeDllProc(const char* procname);
@@ -200,11 +203,12 @@ namespace PVZ
 	protected:
 		int BaseAddress;
 	public:
+		BaseClass() : BaseAddress(INVALID_BASEADDRESS) {};
 		BaseClass(int address) : BaseAddress(address){};
-		int GetBaseAddress()
-		{
-			return(this->BaseAddress);
-		}
+		int GetBaseAddress() const
+		{ return(this->BaseAddress); }
+		const bool isValid()
+		{ return(this->GetBaseAddress() != INVALID_BASEADDRESS); }
 	};
 
 	class Rect
@@ -222,7 +226,7 @@ namespace PVZ
 	// 若横向无重叠部分，返回两矩形横向间距的相反数。
 	// @param rect 计算重叠的另一个矩形。
 	// @return 矩形横向重叠的长度，或矩形横向间距的相反数。
-	int GetXOverlap(const Rect* rect1, const Rect* rect2);
+	int GetXOverlap(const Rect& rect1, const Rect& rect2);
 
 	typedef Rect CollisionBox;
 
@@ -248,7 +252,7 @@ namespace PVZ
 		T_PROPERTY(BOOLEAN,						FreePlantingCheat,	__get_FreePlantingCheat,	__set_FreePlantingCheat,	0x814);
 		T_PROPERTY(BOOLEAN,						FullVersion,		__get_FullVersion,			__set_FullVersion,			0x8C0);
 	};
-	SPT<PVZApp> GetPVZApp();
+	PVZApp GetPVZApp();
 
 	class Image : public BaseClass
 	{
@@ -267,7 +271,7 @@ namespace PVZ
 	class MousePointer;
 	class Caption;
 	class CardSlot;
-	class Miscellaneous;
+	class Challenge;
 	class Lawn;
 	class Icetrace;
 	class Wave;
@@ -292,7 +296,7 @@ namespace PVZ
 	{
 	public:
 		Board(int address) : Widget(address) {};
-		SPT<PVZApp> GetPVZApp();
+		PVZApp GetPVZApp();
 		INT_READONLY_PROPERTY(ZombiesCount, __get_ZombiesCount, 0xA0);
 		INT_READONLY_PROPERTY(PlantsCount, __get_PlantsCount, 0xBC);
 		INT_READONLY_PROPERTY(ProjectilesCount, __get_ProjectilesCount, 0xD8);
@@ -373,19 +377,20 @@ namespace PVZ
 #pragma endregion
 
 #pragma region getmethod
-		std::vector<SPT<Zombie>> GetAllZombies();
-		std::vector<SPT<Plant>> GetAllPlants();
-		std::vector<SPT<Projectile>> GetAllProjectile();
-		std::vector<SPT<Coin>> GetAllCoins();
-		std::vector<SPT<Lawnmover>> GetAllLawnmovers();
-		std::vector<SPT<Griditem>> GetAllGriditems();
-		SPT<Lawn> GetLawn();
-		SPT<Icetrace> GetIcetrace();
-		SPT<Wave> GetWave(int index);
-		SPT<MousePointer> GetMousePointer();
-		SPT<Caption> GetCaption();
-		SPT<CardSlot> GetCardSlot();
-		SPT<Miscellaneous> GetMiscellaneous();
+		std::vector<Zombie> GetAllZombies();
+		std::vector<Plant> GetAllPlants();
+		std::vector<Projectile> GetAllProjectile();
+		std::vector<Coin> GetAllCoins();
+		std::vector<Lawnmover> GetAllLawnmovers();
+		std::vector<Griditem> GetAllGriditems();
+		Lawn GetLawn();
+		Icetrace GetIcetrace();
+		Wave GetWave(int index);
+		MousePointer GetMousePointer();
+		Caption GetCaption();
+		CardSlot GetCardSlot();
+		Challenge GetMiscellaneous();
+		Challenge GetChallenge();
 #pragma endregion
 	};
 	class SeedChooserScreen : public Widget
@@ -408,8 +413,8 @@ namespace PVZ
 			T_PROPERTY(BOOLEAN, CrazyDavePick, __get_CrazyDavePick, __set_CrazyDavePick, 0x38);
 		};
 
-		SPT<PVZ::Board> GetBoard();
-		SPT<ChosenSeed> GetChosenSeed(int num);
+		Board GetBoard();
+		ChosenSeed GetChosenSeed(int num);
 		T_PROPERTY(BOOLEAN, IsViewingLawn, __get_IsViewingLawn, __set_IsViewingLawn, 0x0D38);
 	};
 	//Do NOT construct this class directly!
@@ -417,11 +422,11 @@ namespace PVZ
 	{
 	public:
 		GameObject() : BaseClass(0) {};
-		SPT<PVZ::PVZApp> GetLawnApp()
-		{ return(MKS<PVZ::PVZApp>(Memory::ReadMemory<DWORD>(BaseAddress))); }
-		SPT<PVZ::Board> GetBoard()
+		PVZApp GetLawnApp()
+		{ return(PVZ::PVZApp(Memory::ReadMemory<DWORD>(BaseAddress))); }
+		PVZ::Board GetBoard()
 		{
-			return(MKS<PVZ::Board>(Memory::ReadMemory<int>(BaseAddress + 4)));
+			return(PVZ::Board(Memory::ReadMemory<int>(BaseAddress + 4)));
 		}
 		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
 		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
@@ -436,11 +441,10 @@ namespace PVZ
 	{
 	public:
 		AttachEffect(int address) : BaseClass(address) {};
-		SPT<Matrix3> GetOffset();
+		Matrix3 GetOffset();
 	};
-	class Animation
+	class Animation : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Animation(int idoraddress);
 		//support muiti-animprop(AP_XXXXXX)
@@ -462,7 +466,7 @@ namespace PVZ
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
 		Color GetColor(); // 0x48-0x54，基础颜色
 		void SetColor(Color color);
-		SPT<TrackInstance> GetTrackInstance(const char* trackName);
+		TrackInstance GetTrackInstance(const char* trackName);
 		INT_PROPERTY(CycleCount, __get_CycleCount, __set_CycleCount, 0x5C);
 		Color GetAdditiveColor(); // 0x6C-0x78，加色模式
 		void SetAdditiveColor(Color color);
@@ -473,25 +477,27 @@ namespace PVZ
 		T_PROPERTY(PaintState::PaintState, Paint, __get_Paint, __set_Paint, 0x98);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x9C);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
-		SPT<AttachEffect> AttachTo(AttachmentID* attachmentID, float OffsetX, float OffsetY);
+		AttachEffect AttachTo(AttachmentID attachmentID, float OffsetX, float OffsetY);
 		void Die();
 		void Play(const char* TrackName, int blendType, int loopType, float rate);
 		void AssignRenderGroupToPrefix(byte RenderGroup, const char* TrackName);
+		//@brief 设置指定动画轨道在绘制时的分组。通常情况下，分组为 -1 时表示隐藏该轨道。
+		//@param trackName 执行的动作轨道名称。
+		//@param renderGroup 分组大小。
+		void AssignRenderGroupToTrack(const char* trackName, byte renderGroup);
 		int FindTrackIndex(const char* trackName);
 
 		//@brief 令动画部件执行 trackName 动作。
 		//@param trackName 执行的动作轨道名称。
 		void SetFramesForLayer(const char* theTrackName);
-		void SetImageOverride(const char* theTrackName, Image* theImage);
+		void SetImageOverride(const char* theTrackName, Image theImage);
 	};
-	class Attachment
+	class Attachment : public BaseClass
 	{
-		int BaseAddress;
 	public:
-		int GetBaseAddress();
 		Attachment(int idoraddress);
 		// TODO: check whether this function works properly.
-		SPT<PVZ::Animation> GetAnimation();
+		PVZ::Animation GetAnimation();
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x308);
 	};
 	class AttachmentID : public BaseClass
@@ -503,12 +509,11 @@ namespace PVZ
 	{
 	public:
 		TrackInstance(int idoraddress);
-		SPT<AttachmentID> GetAttachmentID();
-		SPT<Attachment> GetAttachment();
+		AttachmentID GetAttachmentID();
+		Attachment GetAttachment();
 	};
-	class Lawn
+	class Lawn : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Lawn(int baseaddress);
 		LawnType::LawnType GetGridType(int row, int column);
@@ -517,9 +522,8 @@ namespace PVZ
 		void SetRouteType(int route, RouteType::RouteType type);
 		bool Plantable(int row, int column, SeedType::SeedType type);
 	};
-	class Icetrace
+	class Icetrace : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Icetrace(int baseaddress);
 		int GetX(int route);
@@ -527,9 +531,8 @@ namespace PVZ
 		int GetDisappearCountdown(int route);
 		void SetDisappearCountdown(int route, int cs);
 	};
-	class Wave
+	class Wave : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Wave(int baseaddress);
 		READONLY_PROPERTY(int, __get_Count) Count;
@@ -571,7 +574,7 @@ namespace PVZ
 		};
 		struct AccessoriesType2
 		{
-			ZombieAccessoriesType2::ZombieAccessoriesType2 Type;
+			ShieldType::ShieldType Type;
 			int Hp;
 			int MaxHp;
 		};
@@ -592,7 +595,11 @@ namespace PVZ
 		T_PROPERTY(FLOAT, Height, __get_Height, __set_Height, 0x84);
 		void GetCollision(CollisionBox* collbox);
 		void SetCollision(CollisionBox* collbox);
+		// @brief 获取僵尸的基础攻击判定范围。
+		// @param collbox 攻击判定范围的存放位置。其中 X 和 Y 为相应坐标的偏移量。
 		void GetAttackCollision(CollisionBox* collbox);
+		// @brief 设置僵尸的基础攻击判定范围。
+		// @param collbox 攻击判定范围的指针。其中 X 和 Y 为相应坐标的偏移量。
 		void SetAttackCollision(CollisionBox* collbox);
 		INT_PROPERTY(DecelerateCountdown, __get_DecelerateCountdown, __set_DecelerateCountdown, 0xAC);
 		INT_PROPERTY(FixedCountdown, __get_FixedCountdown, __set_FixedCountdown, 0xB0);
@@ -604,27 +611,27 @@ namespace PVZ
 		T_PROPERTY(BOOLEAN, SthinHandOrYetiLeft, __get_SthinHandOrYetiLeft, __set_SthinHandOrYetiLeft, 0xBC);
 		T_PROPERTY(BOOLEAN, InWater, __get_InWater, __set_InWater, 0xBD);
 		T_PROPERTY(BOOLEAN, GarlicBited, __get_GarlicBited, __set_GarlicBited, 0xBF);
-		AccessoriesType1 GetAccessoriesType1();
-		void SetAccessoriesType1(AccessoriesType1 acctype1);
-		AccessoriesType2 GetAccessoriesType2();
-		void SetAccessoriesType2(AccessoriesType2 acctype2);
-		void GetBodyHp(int* hp, int* maxhp);
-		void SetBodyHp(int hp, int maxhp);
+		T_PROPERTY(HelmType::HelmType, HelmType, __get_HelmType, __set_HelmType,		0x0C4);
+		INT_PROPERTY(BodyHealth,		__get_BodyHealth,		__set_BodyHealth,		0x0C8);
+		INT_PROPERTY(BodyMaxHealth,		__get_BodyMaxHealth,	__set_BodyMaxHealth,	0x0CC);
+		INT_PROPERTY(HelmHealth,		__get_HelmHealth,		__set_HelmHealth,		0x0D0);
+		INT_PROPERTY(HelmMaxHealth,		__get_HelmMaxHealth,	__set_HelmMaxHealth,	0x0D4);
+		T_PROPERTY(ShieldType::ShieldType, ShieldType, __get_ShieldType, __set_ShieldType, 0x0D8);
+		INT_PROPERTY(ShieldHealth,		__get_ShieldHealth,		__set_ShieldHealth,		0x0DC);
+		INT_PROPERTY(ShieldMaxHealth,	__get_ShieldMaxHealth,	__set_ShieldMaxHealth,	0x0E0);
 		INT_PROPERTY(FlyingHealth, __get_FlyingHealth, __set_FlyingHealth, 0x0E4);
 		INT_PROPERTY(FlyingMaxHealth, __get_FlyingMaxHealth, __set_FlyingMaxHealth, 0xE8);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
-		SPT<PVZ::Animation> GetAnimation();
+		PVZ::Animation GetAnimation();
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
 		//临时变量 
 		INT_PROPERTY(Temp, __get_Temp, __set_Temp, 0x12C);
-		SPT<PVZ::Animation> GetSpecialHeadAnimation();
-		void SetSpecialHeadAnimation(SPT<PVZ::Animation> anim);
+		Animation GetSpecialHeadAnimation();
+		void SetSpecialHeadAnimation(Animation anim);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x158);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
-		void Hit(int damage, DamageType::DamageType type = DamageType::Direct);
 		void Hit(int damage, DamageFlags flags = DAMAGEF_NONE);
 		// 忽略所有护甲只命中本体
-		void HitBody(int damage, DamageType::DamageType type = DamageType::Direct);
 		void HitBody(int damage, DamageFlags flags = DAMAGEF_NONE);
 		void Blast();
 		void Butter(int countdown);
@@ -649,6 +656,30 @@ namespace PVZ
 		//@param usepvzfunc 是否调用 pvz 内部函数。默认为 true。
 		//@return 是否能被搜寻到。
 		bool EffectedBy(DamageRangeFlags range, bool usepvzfunc = true);
+
+		//@brief 获取僵尸的实际可攻击范围。
+		//@return 僵尸的实际攻击范围
+		Rect GetActualAttackRect();
+		//@brief 获取僵尸的实际受击范围。
+		//@return 僵尸的实际受击范围
+		Rect GetActualRect();
+
+		//@brief 设置是否显示铁门僵尸的手臂。
+		//@param shown 是否显示，默认为 true
+		void ShowDoorArms(bool shown = true);
+
+		// Deprecated
+		void GetBodyHp(int* hp, int* maxhp);
+		// Deprecated
+		void SetBodyHp(int hp, int maxhp);
+		// Deprecated
+		AccessoriesType1 GetAccessoriesType1();
+		// Deprecated
+		void SetAccessoriesType1(AccessoriesType1 acctype1);
+		// Deprecated
+		AccessoriesType2 GetAccessoriesType2();
+		// Deprecated
+		void SetAccessoriesType2(AccessoriesType2 acctype2);
 	};
 	class Projectile : public GameObject
 	{
@@ -698,13 +729,13 @@ namespace PVZ
 		INT_PROPERTY(mTargetX, __get_mTargetX, __set_mTargetX, 0x88);
 		INT_PROPERTY(mTargetY, __get_mTargetY, __set_mTargetY, 0x8C);
 		INT_PROPERTY(ShootingCountdown, __get_ShootingCountdown, __set_ShootingCountdown, 0x90);
-		SPT<PVZ::Animation> GetAnimationPart1();
-		SPT<PVZ::Animation> GetAnimationPart2();
-		SPT<PVZ::Animation> GetAnimationPart3();
-		SPT<PVZ::Animation> GetAnimationPart4();
-		SPT<PVZ::Animation> GetAnimationEyeBlink();
-		SPT<PVZ::Animation> GetAnimationPotatoGlow();
-		SPT<PVZ::Animation> GetAnimationSleep();
+		PVZ::Animation GetAnimationPart1();
+		PVZ::Animation GetAnimationPart2();
+		PVZ::Animation GetAnimationPart3();
+		PVZ::Animation GetAnimationPart4();
+		PVZ::Animation GetAnimationEyeBlink();
+		PVZ::Animation GetAnimationPotatoGlow();
+		PVZ::Animation GetAnimationSleep();
 		void Light(int cs = 100);
 		void Flash(int cs = 100);
 		T_PROPERTY(FLOAT, ImageXOffset, __get_ImageXOffset, __set_ImageXOffset, 0xC0);
@@ -725,8 +756,8 @@ namespace PVZ
 		int CalcLayer();
 		void MoveTo(int row, int column);
 		void Remove();
-		SPT<PVZ::Projectile> Shoot(int targetid = -1);
-		SPT<PVZ::Projectile> Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
+		PVZ::Projectile Shoot(int targetid = -1);
+		PVZ::Projectile Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, byte animPlayArg, int imagespeed);
 		class MagnetItem
@@ -740,11 +771,10 @@ namespace PVZ
 			T_PROPERTY(FLOAT, DestOffsetY, __get_DestOffsetY, __set_DestOffsetY, 0xC);
 			T_PROPERTY(MagnetItemType::MagnetItemType, Type, __get_Type, __set_Type, 0x10);
 		};
-		SPT<MagnetItem> GetMagnetItem(int num);
+		MagnetItem GetMagnetItem(int num);
 	};
-	class GardenPlant
+	class GardenPlant : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		GardenPlant(int address);
 		T_PROPERTY(SeedType::SeedType, Type, __get_Type, __set_Type, 8);
@@ -779,18 +809,17 @@ namespace PVZ
 		INT_PROPERTY(DisappearCounter, __get_DisappearCounter, __set_DisappearCounter, 0x54);
 		T_PROPERTY(CoinType::CoinType, Type, __get_Type, __set_Type, 0x58);
 		T_PROPERTY(CoinMotionType::CoinMotionType, Motion, __get_Motion, __set_Motion, 0x5C);
-		SPT<PVZ::Attachment> GetAttachment();
+		PVZ::Attachment GetAttachment();
 		T_PROPERTY(SeedType::SeedType, ContentCard, __get_ContentCard, __set_ContentCard, 0x68);
-		SPT<PVZ::GardenPlant> GetGardenPlant();
+		PVZ::GardenPlant GetGardenPlant();
 		T_PROPERTY(BOOLEAN, HasHalo, __get_HasHalo, __set_HasHalo, 0xC8);
 		INT_READONLY_PROPERTY(Id, __get_Id, 0xD0);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Collect();
 		void Die();
 	};
-	class Lawnmover
+	class Lawnmover : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Lawnmover(int indexoraddress);
 		int GetBaseAddress();
@@ -798,7 +827,7 @@ namespace PVZ
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x10);
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
-		SPT<PVZ::Animation> GetAnimation();
+		PVZ::Animation GetAnimation();
 		T_PROPERTY(LawnmoverState::LawnmoverState, State, __get_State, __set_State, 0x2C);
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x30);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x31);
@@ -808,14 +837,12 @@ namespace PVZ
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Die();
 	};
-	class Griditem
+	using LawnMower = Lawnmover;
+	class Griditem : public BaseClass
 	{
-	protected:
-		int BaseAddress;
 	public:
-		int GetBaseAddress();
 		Griditem(int indexoraddress);
-		SPT<PVZ::Board> GetBoard();
+		PVZ::Board GetBoard();
 		T_PROPERTY(GriditemType::GriditemType, Type, __get_Type, __set_Type, 0x8);
 		T_PROPERTY(GriditemState::GriditemState, State, __get_State, __set_State, 0xC);
 		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
@@ -903,13 +930,12 @@ namespace PVZ
 		INT_PROPERTY(ImitativePlantID, __get_ImitativePlantID, __set_ImitativePlantID, 0x3C);
 		INT_PROPERTY(CobCannonID, __get_CobCannonID, __set_CobCannonID, 0x40);
 		INT_PROPERTY(HammerDownCount, __get_HammerDownCount, __set_HammerDownCount, 0x44);
-		SPT<PVZ::Animation> GetAnimation();
+		PVZ::Animation GetAnimation();
 		READONLY_PROPERTY_BINDING(int, __get_Row, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x28)) Row;
 		READONLY_PROPERTY_BINDING(int, __get_Column, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x24)) Column;
 	};
-	class Caption
+	class Caption : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Caption(int address);
 		int GetBaseAddress();
@@ -918,9 +944,9 @@ namespace PVZ
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x88);
 		T_PROPERTY(CaptionStyle::CaptionStyle, Style, __get_CaptionStyle, __set_CaptionStyle, 0x8C);
 	};
-	class CardSlot
+	using Advice = Caption;
+	class CardSlot : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		CardSlot(int address);
 		int GetBaseAddress();
@@ -929,9 +955,8 @@ namespace PVZ
 		INT_PROPERTY(CollisionLength, __get_CollisionLength, __set_CollisionLength, 0x10);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
 		PROPERTY(int, __get_CardsCount, SetCardsCount) CardsCount;
-		class SeedCard
+		class SeedCard : BaseClass
 		{
-			int BaseAddress;
 		public:
 			SeedCard(int address);
 			int GetBaseAddress();
@@ -955,15 +980,14 @@ namespace PVZ
 			// 该卡槽进入CD，持续时间为-1则为该卡槽的默认时间
 			void EnterCoolDown(int duration = -1);
 		};
-		SPT<PVZ::CardSlot::SeedCard> GetCard(int index);
+		PVZ::CardSlot::SeedCard GetCard(int index);
+		using SeedPacket = SeedCard;
 	};
-	class Miscellaneous
+	using SeedBank = CardSlot;
+	class Challenge : public BaseClass
 	{
-	protected:
-		int BaseAddress;
 	public:
-		Miscellaneous(int address);
-		int GetBaseAddress();
+		Challenge(int address);
 		static const int MemSize = 0x0BC;
 		/*请在派生类中调用这个函数。
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。
@@ -994,8 +1018,9 @@ namespace PVZ
 		INT_PROPERTY(RainCounter, __get_RainCounter, __set_RainCounter, 0x0B4);
 		INT_READONLY_PROPERTY(TreeOfWisdomTalkIndex, __get_TreeOfWisdomTalkIndex, 0x0B8);
 
-		void IZSquishBrain(SPT<IZBrain> brain);
+		void IZSquishBrain(IZBrain brain);
 	};
+	using Miscellaneous = Challenge;
 	class SaveData : public BaseClass
 	{
 	public:
@@ -1040,7 +1065,7 @@ namespace PVZ
 		public:
 			GardenPlant(int address) : PVZ::GardenPlant(address) {};
 		};
-		SPT<GardenPlant> GetGardenPlant(int index);
+		GardenPlant GetGardenPlant(int index);
 	};
 	class Music : public BaseClass
 	{
@@ -1059,21 +1084,18 @@ namespace PVZ
 	};
 	//if anyone want a class for calling functions in bass.dll to totally control the music in game,just tell me
 
-	class ZenGarden
+	class ZenGarden : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		ZenGarden(int address);
-		int GetBaseAddress();
-		SPT<PVZ::Board> GetBoard();
+		PVZ::Board GetBoard();
 		T_PROPERTY(GardenScene::GardenScene, GardenType, __get_GardenType, __set_GardenType, 0x8);
 		bool IsFull(bool consider_items);
-		SPT<Snail> GetSnail();
+		Snail GetSnail();
 	};
 
-	class PlantDefinition
+	class PlantDefinition : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		PlantDefinition(SeedType::SeedType type);
 		T_READONLY_PROPERTY(SeedType::SeedType, Type, __get_Type, 0);
@@ -1085,9 +1107,8 @@ namespace PVZ
 		INT_PROPERTY(AttackCooldown, __get_AttackCooldown, __set_AttackCooldown, 0x1C);
 	};
 
-	class ZombieDefinition
+	class ZombieDefinition : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		ZombieDefinition(ZombieType::ZombieType type);
 		T_READONLY_PROPERTY(ZombieType::ZombieType, Type, __get_Type, 0);
@@ -1098,9 +1119,8 @@ namespace PVZ
 		INT_PROPERTY(PickWeight, __get_PickWeight, __set_PickWeight, 0x14);
 	};
 
-	class ProjectileDefinition
+	class ProjectileDefinition : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		ProjectileDefinition(ProjectileType::ProjectileType type);
 		T_READONLY_PROPERTY(ProjectileType::ProjectileType, Type, __get_Type, 0);
@@ -1108,9 +1128,8 @@ namespace PVZ
 		INT_PROPERTY(Damage, __get_Damage, __set_Damage, 8);
 	};
 
-	class ChallengeDefinition
+	class ChallengeDefinition : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		ChallengeDefinition(PVZLevel::PVZLevel mode);
 		T_READONLY_PROPERTY(PVZLevel::PVZLevel, Mode, __get_Mode, 0);
@@ -1126,18 +1145,18 @@ namespace PVZ
 #pragma region methods
 
 	void InitImages();
-	SPT<Mouse> GetMouse();
+	Mouse GetMouse();
 	//若 BaseAddress 为 0，返回空指针
-	SPT<Board> GetBoard();
+	Board GetBoard();
 	//若 BaseAddress 为 0，返回空指针
-	SPT<SeedChooserScreen> GetSeedChooserScreen();
-	SPT<SaveData> GetSaveData();
-	SPT<Music> GetMusic();
-	SPT<ZenGarden> GetZenGarden();
-	SPT<PlantDefinition> GetPlantDefinition(SeedType::SeedType type);
-	SPT<ZombieDefinition> GetZombieDefinition(ZombieType::ZombieType type);
-	SPT<ProjectileDefinition> GetProjectileDefinition(ProjectileType::ProjectileType type);
-	SPT<ChallengeDefinition> GetChallengeDefinition(PVZLevel::PVZLevel mode);
+	SeedChooserScreen GetSeedChooserScreen();
+	SaveData GetSaveData();
+	Music GetMusic();
+	ZenGarden GetZenGarden();
+	PlantDefinition GetPlantDefinition(SeedType::SeedType type);
+	ZombieDefinition GetZombieDefinition(ZombieType::ZombieType type);
+	ProjectileDefinition GetProjectileDefinition(ProjectileType::ProjectileType type);
+	ChallengeDefinition GetChallengeDefinition(PVZLevel::PVZLevel mode);
 
 #pragma endregion
 

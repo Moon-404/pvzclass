@@ -11,9 +11,9 @@ void ImitaterPlantEvent::handle(CONTEXT& context)
 {
 	bool cancelled = false;
 #ifdef _WIN64
-	auto plant = MKS<PVZ::Plant>(context.Rsi);
+	auto plant = PVZ::Plant(context.Rsi);
 #else
-	auto plant = MKS<PVZ::Plant>(context.Esi);
+	auto plant = PVZ::Plant(context.Esi);
 #endif
 
 	for (int i = 0; i < listeners.size(); i++)
@@ -34,9 +34,9 @@ void ImitaterPlantEvent::handle(CONTEXT& context)
 	else
 	{
 #ifdef _WIN64
-		context.Rsi = plant->GetBaseAddress();
+		context.Rsi = plant.GetBaseAddress();
 #else
-		context.Esi = plant->GetBaseAddress();
+		context.Esi = plant.GetBaseAddress();
 #endif
 
 	}

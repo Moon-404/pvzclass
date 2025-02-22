@@ -136,7 +136,7 @@ void PVZ::Zombie::SetAccessoriesType1(AccessoriesType1 acctype1)
 PVZ::Zombie::AccessoriesType2 PVZ::Zombie::GetAccessoriesType2()
 {
 	AccessoriesType2 acctype2;
-	acctype2.Type = Memory::ReadMemory<ZombieAccessoriesType2::ZombieAccessoriesType2>(BaseAddress + 0xD8);
+	acctype2.Type = Memory::ReadMemory<ShieldType::ShieldType>(BaseAddress + 0xD8);
 	acctype2.Hp = Memory::ReadMemory<int>(BaseAddress + 0xDC);
 	acctype2.MaxHp = Memory::ReadMemory<int>(BaseAddress + 0xE0);
 	return acctype2;
@@ -144,10 +144,22 @@ PVZ::Zombie::AccessoriesType2 PVZ::Zombie::GetAccessoriesType2()
 
 void PVZ::Zombie::SetAccessoriesType2(AccessoriesType2 acctype2)
 {
-	Memory::WriteMemory<ZombieAccessoriesType2::ZombieAccessoriesType2>(BaseAddress + 0xD8, acctype2.Type);
+	Memory::WriteMemory<ShieldType::ShieldType>(BaseAddress + 0xD8, acctype2.Type);
 	Memory::WriteMemory<int>(BaseAddress + 0xDC, acctype2.Hp);
 	Memory::WriteMemory<int>(BaseAddress + 0xE0, acctype2.MaxHp);
 
+}
+
+AsmBuilder ShowDoorArms_builder = AsmBuilder();
+void PVZ::Zombie::ShowDoorArms(bool shown)
+{
+	ShowDoorArms_builder.clear()
+		.push(shown ? 1 : 0)
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x524210)
+		.ret();
+
+	PVZ::Memory::Execute(ShowDoorArms_builder);
 }
 
 void PVZ::Zombie::GetBodyHp(int* hp, int* maxhp)
@@ -162,26 +174,21 @@ void PVZ::Zombie::SetBodyHp(int hp, int maxhp)
 	Memory::WriteMemory<int>(BaseAddress + 0xCC, maxhp);
 }
 
-SPT<PVZ::Animation> PVZ::Zombie::GetAnimation()
+PVZ::Animation PVZ::Zombie::GetAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x118);
-	return ((ID_RANK(ID) == 0) ? nullptr : MKS<PVZ::Animation>(ID_INDEX(ID)));
+	return PVZ::Animation(ID_INDEX(ID));
 }
 
-SPT<PVZ::Animation> PVZ::Zombie::GetSpecialHeadAnimation()
+PVZ::Animation PVZ::Zombie::GetSpecialHeadAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x144);
-	return ((ID_RANK(ID) == 0) ? nullptr : MKS<PVZ::Animation>(ID_INDEX(ID)));
+	return PVZ::Animation(ID_INDEX(ID));
 }
 
-void PVZ::Zombie::SetSpecialHeadAnimation(SPT<PVZ::Animation> anim)
+void PVZ::Zombie::SetSpecialHeadAnimation(PVZ::Animation anim)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x144, anim->Id);
-}
-
-void PVZ::Zombie::Hit(int damage, DamageType::DamageType type)
-{
-	PVZ::Zombie::Hit(damage, (DamageFlags)type);
+	Memory::WriteMemory<int>(BaseAddress + 0x144, anim.Id);
 }
 
 void PVZ::Zombie::Hit(int damage, DamageFlags flags)
@@ -190,11 +197,6 @@ void PVZ::Zombie::Hit(int damage, DamageFlags flags)
 	SETARG(__asm__Hit, 6) = flags;
 	SETARG(__asm__Hit, 11) = damage;
 	Memory::Execute(STRING(__asm__Hit));
-}
-
-void PVZ::Zombie::HitBody(int damage, DamageType::DamageType type)
-{
-	PVZ::Zombie::HitBody(damage, (DamageFlags)type);
 }
 
 void PVZ::Zombie::HitBody(int damage, DamageFlags flags)
@@ -276,7 +278,7 @@ void PVZ::Zombie::EquipBucket(int shield)
 {
 	if (this->GetAccessoriesType1().Type)
 		return;
-	this->GetAnimation()->AssignRenderGroupToPrefix(0, "anim_bucket");
+	this->GetAnimation().AssignRenderGroupToPrefix(0, "anim_bucket");
 	this->SetAccessoriesType1({ HelmType::Bucket, shield, shield });
 }
 
@@ -284,7 +286,7 @@ void PVZ::Zombie::EquipCone(int shield)
 {
 	if (this->GetAccessoriesType1().Type)
 		return;
-	this->GetAnimation()->AssignRenderGroupToPrefix(0, "anim_cone");
+	this->GetAnimation().AssignRenderGroupToPrefix(0, "anim_cone");
 	this->SetAccessoriesType1({ HelmType::RoadCone, shield, shield });
 }
 
@@ -379,10 +381,10 @@ bool PVZ::Zombie::EffectedBy(DamageRangeFlags range, bool usepvzfunc)
 			return(false);
 		if (type == ZombieType::DrZomboss)
 		{
-			SPT<Animation> anim = this->GetAnimation();
-			if (state == ZombieState::ZOMBOSS_FALL && anim->CycleRate < 0.5)
+			PVZ::Animation anim = this->GetAnimation();
+			if (state == ZombieState::ZOMBOSS_FALL && anim.CycleRate < 0.5)
 				return(false);
-			if (state == ZombieState::ZOMBOSS_RISE && anim->CycleRate > 0.5)
+			if (state == ZombieState::ZOMBOSS_RISE && anim.CycleRate > 0.5)
 				return(false);
 			if (state != ZombieState::ZOMBOSS_DOWN
 				&& state != ZombieState::ZOMBOSS_PREPARE_RISE
@@ -424,4 +426,40 @@ bool PVZ::Zombie::EffectedBy(DamageRangeFlags range, bool usepvzfunc)
 
 		return(false);
 	}
+}
+
+AsmBuilder GetActualAttackRect_builder = AsmBuilder();
+PVZ::Rect PVZ::Zombie::GetActualAttackRect()
+{
+	GetActualAttackRect_builder.clear()
+		.mov_reg_imm(REG_EDI, PVZ::Memory::Variable)
+		.mov_reg_imm(REG_EBX, this->GetBaseAddress())
+		.invoke(0x532140)
+		.ret();
+
+	Rect tmp = Rect();
+	tmp.X = *((int*)PVZ::Memory::Variable);
+	tmp.Y = *((int*)PVZ::Memory::Variable + 4);
+	tmp.Width = *((int*)PVZ::Memory::Variable + 8);
+	tmp.Height = *((int*)PVZ::Memory::Variable + 0x0C);
+
+	return tmp;
+}
+
+AsmBuilder GetActualRect_builder = AsmBuilder();
+PVZ::Rect PVZ::Zombie::GetActualRect()
+{
+	GetActualRect_builder.clear()
+		.mov_reg_imm(REG_EDI, PVZ::Memory::Variable)
+		.mov_reg_imm(REG_EBX, this->GetBaseAddress())
+		.invoke(0x5320B0)
+		.ret();
+
+	Rect tmp = Rect();
+	tmp.X = *((int*)PVZ::Memory::Variable);
+	tmp.Y = *((int*)PVZ::Memory::Variable + 4);
+	tmp.Width = *((int*)PVZ::Memory::Variable + 8);
+	tmp.Height = *((int*)PVZ::Memory::Variable + 0x0C);
+
+	return tmp;
 }

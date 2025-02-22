@@ -6,10 +6,8 @@
 
 void init()
 {
-	PVZ::Memory::localExecute = true;
 	PVZ::Memory::mainwindowhandle = PVZ::Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
 	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
-	PVZ::Memory::immediateExecute = true;
 }
 
 void onAppUpdate(DWORD appAddress)
@@ -61,7 +59,7 @@ int onDrawZombieReanim(DWORD zombieAddress, DWORD animationAddress)
 void onNewGame()
 {
 	auto app = PVZ::GetPVZApp();
-	app->LevelId = PVZLevel::Ice_Level;
+	app.LevelId = PVZLevel::Ice_Level;
 }
 
 void onPlantCreate(DWORD plantAddress)
@@ -159,10 +157,9 @@ void onZombieFroze(DWORD zombieAddress)
 	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
 }
 
-int onZombieHit(DWORD zombieAddress, DWORD typeCode, DWORD amount)
+int onZombieHit(DWORD zombieAddress, PVZ::DamageFlags type, DWORD amount)
 {
 	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
-	auto type = (DamageType::DamageType)typeCode;
 	return amount;
 }
 

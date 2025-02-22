@@ -7,7 +7,7 @@ DWORD PVZ::Memory::mainThreadId = 0;
 int PVZ::Memory::Variable = 0;
 HWND PVZ::Memory::mainwindowhandle = NULL;
 bool PVZ::Memory::immediateExecute = false;
-bool PVZ::Memory::localExecute = false;
+bool PVZ::Memory::localExecute = true;
 int PVZ::Memory::DLLAddress = 0;
 
 int PVZ::Memory::ReadPointer(int baseaddress, int offset)
@@ -43,7 +43,7 @@ int PVZ::Memory::AllocMemory(int pages, int size)
 	if (localExecute)
 	{
 		BYTE* page = new BYTE[PAGE_SIZE * pages + size];
-		AllAccess((int)page);
+		//AllAccess((int)page);
 		return (int)page;
 	}
 	else
@@ -101,6 +101,11 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 		FreeMemory(Address);
 		return ReadMemory<int>(Variable);
 	}
+}
+
+int PVZ::Memory::Execute(AsmBuilder& builder)
+{
+	return PVZ::Memory::Execute(builder.get_code(), builder.get_length());
 }
 
 void PVZ::Memory::WaitPVZ()

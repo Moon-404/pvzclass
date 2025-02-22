@@ -3,13 +3,13 @@
 
 namespace PVZ
 {
-	SPT<ChallengeScreen> GetChallengeScreen()
+	ChallengeScreen GetChallengeScreen()
 	{
-		return MKS<ChallengeScreen>(Memory::ReadPointer(0x6A9EC0, 0x780));
+		return ChallengeScreen(Memory::ReadPointer(0x6A9EC0, 0x780));
 	}
-	SPT<PVZApp> ChallengeScreen::GetPVZApp()
+	PVZApp ChallengeScreen::GetPVZApp()
 	{
-		return MKS<PVZApp>(Memory::ReadMemory<DWORD>(BaseAddress + 0x1C0));
+		return PVZApp(Memory::ReadMemory<DWORD>(BaseAddress + 0x1C0));
 	}
 	ChallengePage::ChallengePage ChallengeScreen::__get_Page()
 	{

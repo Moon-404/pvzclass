@@ -91,20 +91,20 @@ void PVZ::Animation::SetOverlayColor(Color color)
 	Memory::WriteMemory<int>(BaseAddress + 0x8C, color.Alpha);
 }
 
-SPT<PVZ::TrackInstance> PVZ::Animation::GetTrackInstance(const char* trackName)
+PVZ::TrackInstance PVZ::Animation::GetTrackInstance(const char* trackName)
 {
 	int address = PVZ::Memory::ReadMemory<int>(BaseAddress + 0x58);
-	return MKS<TrackInstance>(this->FindTrackIndex(trackName) * 0x60 + address);
+	return TrackInstance(this->FindTrackIndex(trackName) * 0x60 + address);
 }
 
-SPT<PVZ::AttachEffect> PVZ::Animation::AttachTo(PVZ::AttachmentID* attachmentID, float OffsetX, float OffsetY)
+PVZ::AttachEffect PVZ::Animation::AttachTo(PVZ::AttachmentID attachmentID, float OffsetX, float OffsetY)
 {
 	SETARG(__asm__Reanimation__AttachTo, 1) = BaseAddress;
-	SETARG(__asm__Reanimation__AttachTo, 6) = attachmentID->GetBaseAddress();
+	SETARG(__asm__Reanimation__AttachTo, 6) = attachmentID.GetBaseAddress();
 	SETARGFLOAT(__asm__Reanimation__AttachTo, 11) = OffsetY;
 	SETARGFLOAT(__asm__Reanimation__AttachTo, 17) = OffsetX;
 	SETARG(__asm__Reanimation__AttachTo, 39) = PVZ::Memory::Variable;
-	return(MKS<PVZ::AttachEffect>(PVZ::Memory::Execute(STRING(__asm__Reanimation__AttachTo))));
+	return(PVZ::AttachEffect(PVZ::Memory::Execute(STRING(__asm__Reanimation__AttachTo))));
 }
 
 void PVZ::Animation::Die()
@@ -131,6 +131,21 @@ void PVZ::Animation::AssignRenderGroupToPrefix(byte RenderGroup, const char* tra
 	SETARG(__asm__Reanimation__AssignGroupToPrefix, 3) = PVZ::Memory::Variable + 100;
 	SETARG(__asm__Reanimation__AssignGroupToPrefix, 8) = this->BaseAddress;
 	PVZ::Memory::Execute(STRING(__asm__Reanimation__AssignGroupToPrefix));
+}
+
+
+AsmBuilder AssignRenderGroupToTrack_builder = AsmBuilder();
+void PVZ::Animation::AssignRenderGroupToTrack(const char* trackName, byte renderGroup)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, trackName, std::strlen(trackName) + 1);
+	AssignRenderGroupToTrack_builder.clear()
+		.push(renderGroup)
+		.push_imm32(PVZ::Memory::Variable + 100)
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x473A40)
+		.ret();
+
+	PVZ::Memory::Execute(AssignRenderGroupToTrack_builder);
 }
 
 int PVZ::Animation::FindTrackIndex(const char* trackName)
@@ -167,10 +182,10 @@ byte __asm__Reanimation_SetImageOverride[]
 	RET
 };
 
-void PVZ::Animation::SetImageOverride(const char* theTrackName, Image* theImage)
+void PVZ::Animation::SetImageOverride(const char* theTrackName, Image theImage)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, theTrackName, std::strlen(theTrackName) + 1);
-	SETARG(__asm__Reanimation_SetImageOverride, 1) = theImage->GetBaseAddress();
+	SETARG(__asm__Reanimation_SetImageOverride, 1) = theImage.GetBaseAddress();
 	SETARG(__asm__Reanimation_SetImageOverride, 6) = PVZ::Memory::Variable + 100;
 	SETARG(__asm__Reanimation_SetImageOverride, 11) = this->GetBaseAddress();
 	PVZ::Memory::Execute(STRING(__asm__Reanimation_SetImageOverride));

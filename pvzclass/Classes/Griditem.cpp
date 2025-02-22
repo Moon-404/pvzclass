@@ -1,10 +1,5 @@
 ﻿#include "../PVZ.h"
 
-int PVZ::Griditem::GetBaseAddress()
-{
-	return BaseAddress;
-}
-
 PVZ::Griditem::Griditem(int indexoraddress)
 {
 	if (indexoraddress > 1024)
@@ -13,9 +8,9 @@ PVZ::Griditem::Griditem(int indexoraddress)
 		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x11C) + indexoraddress * 0xEC;
 }
 
-SPT<PVZ::Board> PVZ::Griditem::GetBoard()
+PVZ::Board PVZ::Griditem::GetBoard()
 {
-	return(MKS<PVZ::Board>(Memory::ReadMemory<int>(BaseAddress + 4)));
+	return(PVZ::Board(Memory::ReadMemory<int>(BaseAddress + 4)));
 }
 
 void PVZ::Griditem::Remove()

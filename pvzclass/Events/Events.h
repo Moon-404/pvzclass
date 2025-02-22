@@ -46,6 +46,10 @@
 #include "ChallengeUpdateEvent.hpp"
 #include "CoinMouseDownEvent.hpp"
 #include "GriditemDieEvent.hpp"
+
+#include "ExtractResourceEvent.hpp"
+#include "ParseResourceEvent.hpp"
+
 #include "PlantAddProjectileEvent.hpp"
 #include "PlantDieLowHealthEvent.hpp"
 #include "PlantDoSpecialEvent.hpp"
@@ -62,6 +66,8 @@
 #include "ZombieInitAfterEvent.hpp"
 #include "IZInitAfterBrainEvent.hpp"
 #include "ZombieBurntEvent.hpp"
+#include "ZombieDetachShieldEvent.hpp"
 #include "ZombieDropHeadEvent.hpp"
+#include "ZombieDropHeadParticleEvent.hpp"
 #include "ZombieDropLootEvent.hpp"
 #include "ZombieEatSoundEvent.hpp"

@@ -10,9 +10,9 @@ int PVZ::ZenGarden::GetBaseAddress()
 	return BaseAddress;
 }
 
-SPT<PVZ::Board> PVZ::ZenGarden::GetBoard()
+PVZ::Board PVZ::ZenGarden::GetBoard()
 {
-	return(MKS<PVZ::Board>(Memory::ReadMemory<int>(BaseAddress + 4)));
+	return(PVZ::Board(Memory::ReadMemory<int>(BaseAddress + 4)));
 }
 
 bool PVZ::ZenGarden::IsFull(bool consider_items)
@@ -23,11 +23,11 @@ bool PVZ::ZenGarden::IsFull(bool consider_items)
 	return(Memory::Execute(STRING(__asm__ZenGarder_IsFull)) == 1);
 }
 
-SPT<PVZ::Snail> PVZ::ZenGarden::GetSnail()
+PVZ::Snail PVZ::ZenGarden::GetSnail()
 {
 	if (PVZBASEADDRESS == 0)
-		return(nullptr);
+		return(INVALID_BASEADDRESS);
 	SETARG(__asm__ZenGarder_GetSnail, 1) = BaseAddress;
 	SETARG(__asm__ZenGarder_GetSnail, 19) = PVZ::Memory::Variable;
-	return(MKS<PVZ::Snail>(Memory::Execute(STRING(__asm__ZenGarder_GetSnail))));
+	return(PVZ::Snail(Memory::Execute(STRING(__asm__ZenGarder_GetSnail))));
 }
