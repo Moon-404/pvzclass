@@ -492,11 +492,9 @@ namespace PVZ
 		void SetFramesForLayer(const char* theTrackName);
 		void SetImageOverride(const char* theTrackName, Image theImage);
 	};
-	class Attachment
+	class Attachment : public BaseClass
 	{
-		int BaseAddress;
 	public:
-		int GetBaseAddress();
 		Attachment(int idoraddress);
 		// TODO: check whether this function works properly.
 		PVZ::Animation GetAnimation();
@@ -514,9 +512,8 @@ namespace PVZ
 		AttachmentID GetAttachmentID();
 		Attachment GetAttachment();
 	};
-	class Lawn
+	class Lawn : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Lawn(int baseaddress);
 		LawnType::LawnType GetGridType(int row, int column);
@@ -525,9 +522,8 @@ namespace PVZ
 		void SetRouteType(int route, RouteType::RouteType type);
 		bool Plantable(int row, int column, SeedType::SeedType type);
 	};
-	class Icetrace
+	class Icetrace : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Icetrace(int baseaddress);
 		int GetX(int route);
@@ -535,9 +531,8 @@ namespace PVZ
 		int GetDisappearCountdown(int route);
 		void SetDisappearCountdown(int route, int cs);
 	};
-	class Wave
+	class Wave : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Wave(int baseaddress);
 		READONLY_PROPERTY(int, __get_Count) Count;
@@ -778,9 +773,8 @@ namespace PVZ
 		};
 		MagnetItem GetMagnetItem(int num);
 	};
-	class GardenPlant
+	class GardenPlant : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		GardenPlant(int address);
 		T_PROPERTY(SeedType::SeedType, Type, __get_Type, __set_Type, 8);
@@ -824,9 +818,8 @@ namespace PVZ
 		void Collect();
 		void Die();
 	};
-	class Lawnmover
+	class Lawnmover : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Lawnmover(int indexoraddress);
 		int GetBaseAddress();
@@ -844,6 +837,7 @@ namespace PVZ
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Die();
 	};
+	using LawnMower = Lawnmover;
 	class Griditem : public BaseClass
 	{
 	public:
@@ -940,9 +934,8 @@ namespace PVZ
 		READONLY_PROPERTY_BINDING(int, __get_Row, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x28)) Row;
 		READONLY_PROPERTY_BINDING(int, __get_Column, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x24)) Column;
 	};
-	class Caption
+	class Caption : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		Caption(int address);
 		int GetBaseAddress();
@@ -951,9 +944,9 @@ namespace PVZ
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x88);
 		T_PROPERTY(CaptionStyle::CaptionStyle, Style, __get_CaptionStyle, __set_CaptionStyle, 0x8C);
 	};
-	class CardSlot
+	using Advice = Caption;
+	class CardSlot : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		CardSlot(int address);
 		int GetBaseAddress();
@@ -962,9 +955,8 @@ namespace PVZ
 		INT_PROPERTY(CollisionLength, __get_CollisionLength, __set_CollisionLength, 0x10);
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
 		PROPERTY(int, __get_CardsCount, SetCardsCount) CardsCount;
-		class SeedCard
+		class SeedCard : BaseClass
 		{
-			int BaseAddress;
 		public:
 			SeedCard(int address);
 			int GetBaseAddress();
@@ -989,14 +981,13 @@ namespace PVZ
 			void EnterCoolDown(int duration = -1);
 		};
 		PVZ::CardSlot::SeedCard GetCard(int index);
+		using SeedPacket = SeedCard;
 	};
-	class Challenge
+	using SeedBank = CardSlot;
+	class Challenge : public BaseClass
 	{
-	protected:
-		int BaseAddress;
 	public:
 		Challenge(int address);
-		int GetBaseAddress();
 		static const int MemSize = 0x0BC;
 		/*请在派生类中调用这个函数。
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。
@@ -1093,21 +1084,18 @@ namespace PVZ
 	};
 	//if anyone want a class for calling functions in bass.dll to totally control the music in game,just tell me
 
-	class ZenGarden
+	class ZenGarden : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		ZenGarden(int address);
-		int GetBaseAddress();
 		PVZ::Board GetBoard();
 		T_PROPERTY(GardenScene::GardenScene, GardenType, __get_GardenType, __set_GardenType, 0x8);
 		bool IsFull(bool consider_items);
 		Snail GetSnail();
 	};
 
-	class PlantDefinition
+	class PlantDefinition : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		PlantDefinition(SeedType::SeedType type);
 		T_READONLY_PROPERTY(SeedType::SeedType, Type, __get_Type, 0);
@@ -1119,9 +1107,8 @@ namespace PVZ
 		INT_PROPERTY(AttackCooldown, __get_AttackCooldown, __set_AttackCooldown, 0x1C);
 	};
 
-	class ZombieDefinition
+	class ZombieDefinition : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		ZombieDefinition(ZombieType::ZombieType type);
 		T_READONLY_PROPERTY(ZombieType::ZombieType, Type, __get_Type, 0);
@@ -1132,9 +1119,8 @@ namespace PVZ
 		INT_PROPERTY(PickWeight, __get_PickWeight, __set_PickWeight, 0x14);
 	};
 
-	class ProjectileDefinition
+	class ProjectileDefinition : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		ProjectileDefinition(ProjectileType::ProjectileType type);
 		T_READONLY_PROPERTY(ProjectileType::ProjectileType, Type, __get_Type, 0);
@@ -1142,9 +1128,8 @@ namespace PVZ
 		INT_PROPERTY(Damage, __get_Damage, __set_Damage, 8);
 	};
 
-	class ChallengeDefinition
+	class ChallengeDefinition : public BaseClass
 	{
-		int BaseAddress;
 	public:
 		ChallengeDefinition(PVZLevel::PVZLevel mode);
 		T_READONLY_PROPERTY(PVZLevel::PVZLevel, Mode, __get_Mode, 0);

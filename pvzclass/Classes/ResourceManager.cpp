@@ -63,6 +63,7 @@ bool PVZ::ResourceManager::TodLoadResources(const char* groupName)
 
 		.push_reg(REG_EAX)
 		.invoke(0x513120)
+		.add_reg_imm(REG_ESP, 4)
 		.and_reg_imm(REG_EAX, 0x0F)
 		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
 
@@ -83,6 +84,7 @@ PVZ::SoundID PVZ::ResourceManager::GetSoundThrow(const char* soundName)
 		.invoke(0x404450)
 
 		.push_reg(REG_EAX)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
 		.invoke(0x5B81F0)
 		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
 
