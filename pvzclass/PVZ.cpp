@@ -37,6 +37,7 @@ namespace PVZ
 
 	void InitPVZ(DWORD pid)
 	{
+		Memory::localExecute = false;
 		Memory::processId = pid;
 		Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
 		Memory::mainwindowhandle = Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
