@@ -23,7 +23,7 @@ PlantEatenEvent::PlantEatenEvent()
 		ADD_ESP(8),
 
 		TEST_AL_AL,
-		JNZ(6),
+		JNZ(7),
 		POPAD,
 		PUSHDWORD(0x52FDEE),
 		RET
