@@ -5,11 +5,6 @@ PVZ::Challenge::Challenge(int address)
 	BaseAddress = Memory::ReadMemory<int>(address + 0x160);
 }
 
-int PVZ::Challenge::GetBaseAddress()
-{
-	return BaseAddress;
-}
-
 namespace PVZ
 {
 	bool Challenge::SetMemSize(int NewSize)

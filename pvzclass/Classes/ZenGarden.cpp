@@ -5,11 +5,6 @@ PVZ::ZenGarden::ZenGarden(int address)
 	BaseAddress = address;
 }
 
-int PVZ::ZenGarden::GetBaseAddress()
-{
-	return BaseAddress;
-}
-
 PVZ::Board PVZ::ZenGarden::GetBoard()
 {
 	return(PVZ::Board(Memory::ReadMemory<int>(BaseAddress + 4)));

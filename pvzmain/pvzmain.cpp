@@ -3,7 +3,6 @@
 
 int main()
 {
-	PVZ::Memory::localExecute = false;
 	DWORD pid = ProcessOpener::Open();
 	if (!pid) return 1;
 	PVZ::InitPVZ(pid);

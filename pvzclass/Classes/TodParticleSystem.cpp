@@ -93,7 +93,7 @@ std::vector<PVZ::TodParticleSystem> PVZ::GetAllParticleSystem()
 	DWORD holder = PVZ::Memory::ReadPointer(0x6A9EC0, 0x820, 0);
 	DWORD maxnum = Memory::ReadMemory<DWORD>(holder + 4), address = Memory::ReadMemory<DWORD>(holder);
 
-	for (int i = 0; i < maxnum; i++)
+	for (unsigned int i = 0; i < maxnum; i++)
 	{
 		PVZ::TodParticleSystem sys = PVZ::TodParticleSystem(address + i * 0x2C);
 		if (!sys.Dead)
