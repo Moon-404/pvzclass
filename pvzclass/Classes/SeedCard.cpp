@@ -37,3 +37,16 @@ void PVZ::CardSlot::SeedCard::EnterCoolDown(int duration)
 	CoolDown = 0;
 	Active = true;
 }
+
+AsmBuilder SetPacketType_builder = AsmBuilder();
+void PVZ::CardSlot::SeedCard::SetPacketType(SeedType::SeedType type, SeedType::SeedType imitater_type)
+{
+	SetPacketType_builder.clear()
+		.mov_reg_imm(REG_EDX, imitater_type)
+		.mov_reg_imm(REG_EDI, type)
+		.mov_reg_imm(REG_ESI, this->GetBaseAddress())
+		.invoke(0x489B50)
+		.ret();
+
+	Memory::Execute(SetPacketType_builder);
+}
