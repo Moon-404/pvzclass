@@ -1,35 +1,35 @@
-#pragma once
+ï»¿#pragma once
 #include "../PVZ.h"
 
 namespace PVZ
 {
 	class BaseClass;
 	class PVZApp;
-	//Ñ¡¹Ø½çÃæ¡£
+	//é€‰å…³ç•Œé¢ã€‚
 	class ResourceManager : public BaseClass
 	{
 	public:
 		ResourceManager(int address) : BaseClass(address) {};
 		T_PROPERTY(BOOLEAN, AllowAlreadyDefinedResources, __get_AllowAlreadyDefinedResources, __set_AllowAlreadyDefinedResources, 0x0B1);
 		PVZApp GetPVZApp();
-		//@brief ¼ÓÔØÖ¸¶¨×ÊÔ´°üÎÄ¼ş¡£
-		//@param fileName ÎÄ¼şÃû
+		//@brief åŠ è½½æŒ‡å®šèµ„æºåŒ…æ–‡ä»¶ã€‚
+		//@param fileName æ–‡ä»¶å
 		void AddPAKFile(const char* fileName);
-		//@brief ³¢ÊÔ½âÎöÖ¸¶¨µÄ×ÊÔ´ÃèÊöÎÄ¼ş¡£
-		//@param fileName ÎÄ¼şÃû
-		//@return ÊÇ·ñ½âÎö³É¹¦¡£
+		//@brief å°è¯•è§£ææŒ‡å®šçš„èµ„æºæè¿°æ–‡ä»¶ã€‚
+		//@param fileName æ–‡ä»¶å
+		//@return æ˜¯å¦è§£ææˆåŠŸã€‚
 		bool ParseResourcesFile(const char* fileName);
-		//@brief ¼ÓÔØÖ¸¶¨µÄ×ÊÔ´×é¡£
-		//@param groupName ×ÊÔ´×éÃû³Æ¡£
-		//@return ÊÇ·ñ¼ÓÔØ³É¹¦¡£
+		//@brief åŠ è½½æŒ‡å®šçš„èµ„æºç»„ã€‚
+		//@param groupName èµ„æºç»„åç§°ã€‚
+		//@return æ˜¯å¦åŠ è½½æˆåŠŸã€‚
 		bool TodLoadResources(const char* groupName);
-		//@brief »ñÈ¡Ö¸¶¨ÒôĞ§µÄ±àºÅ¡£
-		//@param soundName ÒôĞ§ÔÚ×ÊÔ´ÃèÊöÎÄ¼şÖĞµÄÃû³Æ¡£
-		//@return ÒôĞ§±àºÅ¡£
+		//@brief è·å–æŒ‡å®šéŸ³æ•ˆçš„ç¼–å·ã€‚
+		//@param soundName éŸ³æ•ˆåœ¨èµ„æºæè¿°æ–‡ä»¶ä¸­çš„åç§°ã€‚
+		//@return éŸ³æ•ˆç¼–å·ã€‚
 		SoundID GetSoundThrow(const char* soundName);
-		//@brief »ñÈ¡Ö¸¶¨µÄÍ¼Æ¬¡£
-		//@param imageName Í¼Æ¬ÔÚ×ÊÔ´ÃèÊöÎÄ¼şÖĞµÄÃû³Æ¡£
-		//@return ¶ÔÓ¦µÄÍ¼Æ¬¡£
+		//@brief è·å–æŒ‡å®šçš„å›¾ç‰‡ã€‚
+		//@param imageName å›¾ç‰‡åœ¨èµ„æºæè¿°æ–‡ä»¶ä¸­çš„åç§°ã€‚
+		//@return å¯¹åº”çš„å›¾ç‰‡ã€‚
 		Image GetImage(const char* imageName);
 	};
 	ResourceManager GetResourceManager();
