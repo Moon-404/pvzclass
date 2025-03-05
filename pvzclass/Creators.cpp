@@ -470,7 +470,7 @@ void Creator::CreateLowerSound(LowerSoundType::LowerSoundType sound)
 	Creator::CreateSound((int)sound);
 }
 
-byte __asm__CreateUpperSound[24]
+byte __asm__CreateSampleSound[24]
 {
 	MOV_ECX(0),
 	CREATEUPPERSOUND,
@@ -479,9 +479,9 @@ byte __asm__CreateUpperSound[24]
 
 void Creator::CreateUpperSound(UpperSoundType::UpperSoundType sound)
 {
-	SETARG(__asm__CreateSound, 1) = PVZ_BASE;
-	SETARG(__asm__CreateSound, 6) = sound;
-	PVZ::Memory::Execute(STRING(__asm__CreateUpperSound));
+	SETARG(__asm__CreateSampleSound, 1) = PVZ_BASE;
+	SETARG(__asm__CreateSampleSound, 6) = sound;
+	PVZ::Memory::Execute(STRING(__asm__CreateSampleSound));
 }
 
 byte __asm__FrozeAll[19]
