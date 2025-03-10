@@ -164,7 +164,12 @@ PVZ::Projectile Creator::CreateProjectile(ProjectileType::ProjectileType type, i
 	PVZ::Memory::WriteMemory<byte>(PVZ::Memory::Variable + 24, x);
 	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 17, PVZBASEADDRESS);
 	PVZ::Memory::WriteMemory<byte>(0x552014, 0xFE);
-	PVZ::Memory::CreateThread(PVZ::Memory::Variable + 16);
+
+	if (PVZ::Memory::localExecute)
+		PVZ::Memory::Execute((byte*)(PVZ::Memory::Variable + 16), 84);
+	else
+		PVZ::Memory::CreateThread(PVZ::Memory::Variable + 16);
+	
 	PVZ::Memory::WriteMemory<byte>(0x552014, 0xDB);
 	return PVZ::Projectile(PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable));
 }
@@ -470,7 +475,7 @@ void Creator::CreateLowerSound(LowerSoundType::LowerSoundType sound)
 	Creator::CreateSound((int)sound);
 }
 
-byte __asm__CreateUpperSound[24]
+byte __asm__CreateSampleSound[24]
 {
 	MOV_ECX(0),
 	CREATEUPPERSOUND,
@@ -479,9 +484,9 @@ byte __asm__CreateUpperSound[24]
 
 void Creator::CreateUpperSound(UpperSoundType::UpperSoundType sound)
 {
-	SETARG(__asm__CreateSound, 1) = PVZ_BASE;
-	SETARG(__asm__CreateSound, 6) = sound;
-	PVZ::Memory::Execute(STRING(__asm__CreateUpperSound));
+	SETARG(__asm__CreateSampleSound, 1) = PVZ_BASE;
+	SETARG(__asm__CreateSampleSound, 6) = sound;
+	PVZ::Memory::Execute(STRING(__asm__CreateSampleSound));
 }
 
 byte __asm__FrozeAll[19]

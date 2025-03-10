@@ -1,16 +1,16 @@
-#pragma once
+ï»¿#pragma once
 #include "../PVZ.h"
 
 namespace PVZ
 {
 	class BaseClass;
-	//Á£×ÓÏµÍ³¡£
+	//ç²’å­ç³»ç»Ÿã€‚
 	class TodParticleSystem : public BaseClass
 	{
 	public:
 		TodParticleSystem(DWORD indexoraddress);
 		T_PROPERTY(BOOLEAN, Dead, __get_Dead, __set_Dead, 0x1C);
-		// @brief ÒÆ³ı´ËÁ£×ÓÏµÍ³¡£
+		// @brief ç§»é™¤æ­¤ç²’å­ç³»ç»Ÿã€‚
 		void Die();
 		void MoveTo(float X, float Y);
 		void OverrideColor(const char* emitter_name, Color& color);

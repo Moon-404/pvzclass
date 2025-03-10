@@ -979,6 +979,7 @@ namespace PVZ
 			INT_PROPERTY(UsageCount, __get_UsageCount, __set_UsageCount, 0x4C);
 			// 该卡槽进入CD，持续时间为-1则为该卡槽的默认时间
 			void EnterCoolDown(int duration = -1);
+			void SetPacketType(SeedType::SeedType type, SeedType::SeedType imitater_type = SeedType::None);
 		};
 		PVZ::CardSlot::SeedCard GetCard(int index);
 		using SeedPacket = SeedCard;
