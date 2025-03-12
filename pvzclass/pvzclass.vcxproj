@@ -287,6 +287,7 @@
     <ClInclude Include="Events\PlantDieLowHealthEvent.hpp" />
     <ClInclude Include="Events\PlantDoSpecialEvent.hpp" />
     <ClInclude Include="Events\PlantEatenEvent.hpp" />
+    <ClInclude Include="Events\PlantInitAfterEvent.hpp" />
     <ClInclude Include="Events\PlantMouseDownEvent.hpp" />
     <ClInclude Include="Events\PlantProduceEvent.hpp" />
     <ClInclude Include="Events\PlantShoveledEvent.hpp" />

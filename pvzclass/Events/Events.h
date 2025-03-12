@@ -54,6 +54,7 @@
 #include "PlantDieLowHealthEvent.hpp"
 #include "PlantDoSpecialEvent.hpp"
 #include "PlantEatenEvent.hpp"
+#include "PlantInitAfterEvent.hpp"
 #include "PlantMouseDownEvent.hpp"
 #include "PlantProduceEvent.hpp"
 #include "PlantShoveledEvent.hpp"
