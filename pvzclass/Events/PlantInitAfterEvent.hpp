@@ -13,7 +13,7 @@ public:
 PlantInitAfterEvent::PlantInitAfterEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onPlantInitAfter");
-	hookAddress = 0x45E7A3;
+	hookAddress = 0x45E7AF;
 	rawlen = 7;
 	BYTE code[] =
 	{
