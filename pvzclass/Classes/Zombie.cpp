@@ -369,7 +369,7 @@ bool PVZ::Zombie::EffectedBy(DamageRangeFlags range, bool usepvzfunc)
 				|| state == ZombieState::DYING_FROM_LAWNMOWER)
 				return(false);
 		}
-		bool intendHypnotized = range & DRF_HYPNOTIZED;
+		BOOLEAN intendHypnotized = range & DRF_HYPNOTIZED;
 		if (this->Hypnotized ^ intendHypnotized)
 			return(false);
 		if (type == ZombieType::BungeeZombie)

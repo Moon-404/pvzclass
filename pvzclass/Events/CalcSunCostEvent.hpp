@@ -16,7 +16,7 @@ CalcSunCostEvent::CalcSunCostEvent()
 		PUSH_EAX,
 		INVOKE(procAddress),
 		ADD_ESP(4),
-		CMP_EUX(REG_EAX, -1),
+		CMP_EUX_DWORD(REG_EAX, -1),
 		JE(6),
 		MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 0x1C),
 		POPAD,
