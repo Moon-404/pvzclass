@@ -43,5 +43,6 @@
 #include "Enums/ChallengeState.h"
 
 #include "Enums/ChallengePage.hpp"
+#include "Enums/GameObjectType.hpp"
 #include "Enums/KeyCode.hpp"
 #include "Enums/StoreItem.hpp"

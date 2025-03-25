@@ -737,5 +737,8 @@
     <ClInclude Include="Events\PlantInitAfterEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\GameObjectType.hpp">
+      <Filter>头文件\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

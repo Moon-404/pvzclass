@@ -250,6 +250,7 @@
     <ClInclude Include="Classes\ResourceManager.hpp" />
     <ClInclude Include="Classes\TodParticleSystem.hpp" />
     <ClInclude Include="Draw.h" />
+    <ClInclude Include="Enums\GameObjectType.hpp" />
     <ClInclude Include="Enums\KeyCode.hpp" />
     <ClInclude Include="Enums\StoreItem.hpp" />
     <ClInclude Include="Events\BegTwistFailMoveEvent.hpp" />
