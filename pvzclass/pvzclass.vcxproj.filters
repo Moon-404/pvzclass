@@ -186,9 +186,6 @@
     <ClCompile Include="Events\EventHandler.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Events\ImitaterPlantEvent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Sexy.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
