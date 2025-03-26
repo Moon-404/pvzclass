@@ -97,6 +97,6 @@ namespace Utils
 		ptr += tmp;
 		return(ptr);
 	}
-#undef Read(x)
-#undef Write(x,y)
+#undef Read
+#undef Write
 }

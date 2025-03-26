@@ -1,16 +1,21 @@
 ﻿#pragma once
-#include "TemplateEvent.h"
+#include "DLLEvent.h"
 
 // 模仿者即将生成新植物的事件。
-// 多个事件之间植物会串联修改。
-// 该事件需要测试。
-// @param 触发事件的模仿者（注意：不是即将生成的新植物）、是否取消该事件。
-// @return 更新后触发事件的模仿者。
-class ImitaterPlantEvent : public TemplateEvent<std::function<
-	PVZ::Plant(PVZ::Plant, bool&)> >
+// @param 触发事件的模仿者（注意：不是即将生成的新植物）。
+// @return 是否继续结算该事件。
+class ImitaterPlantEvent : public DLLEvent
 {
 public:
 	ImitaterPlantEvent();
-	void handle(CONTEXT& context) override;
 };
+
+ImitaterPlantEvent::ImitaterPlantEvent()
+{
+	int procAddress = PVZ::Memory::GetProcAddress("onImitaterPlant");
+	hookAddress = 0x466B89;
+	rawlen = 6;
+	BYTE code[] = { PUSH_ESI, INVOKE(procAddress), ADD_ESP(4) };
+	start(STRING(code));
+}
 

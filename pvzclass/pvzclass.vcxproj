@@ -231,9 +231,6 @@
     <ClCompile Include="Enums\ZombieState.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="Enums\MagnetItemType.cpp" />
-    <ClCompile Include="Events\BaseEvent.cpp" />
-    <ClCompile Include="Events\EventHandler.cpp" />
-    <ClCompile Include="Events\ImitaterPlantEvent.cpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />
@@ -263,7 +260,6 @@
     <ClInclude Include="Events\DrawZombieReanimEvent.h" />
     <ClInclude Include="Enums\ChallengePage.hpp" />
     <ClInclude Include="Enums\ThreeState.h" />
-    <ClInclude Include="Events\BaseEvent.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Enums\GriditemState.h" />
     <ClInclude Include="Events\CoinRemoveEvent.h" />
@@ -294,8 +290,6 @@
     <ClInclude Include="Events\PlantStolenEvent.hpp" />
     <ClInclude Include="Events\PlantUpdateAbilityEvent.hpp" />
     <ClInclude Include="Events\SeedPacketMouseDownEvent.hpp" />
-    <ClInclude Include="Events\TemplateEvent.h" />
-    <ClInclude Include="Events\EventHandler.h" />
     <ClInclude Include="Events\ProjectileCreateEvent.h" />
     <ClInclude Include="Events\PuzzlePhaseCompleteEvent.hpp" />
     <ClInclude Include="Events\UpdateAppEvent.h" />
