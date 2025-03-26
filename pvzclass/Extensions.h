@@ -2,7 +2,6 @@
 #include "PVZ.h"
 #include "Creators.h"
 
-
 #define MEMMOD_BYTE(address,v,rv) PVZ::Memory::WriteMemory<byte>(address,b?v:rv)
 #define MEMMOD_INT(address,v,rv) PVZ::Memory::WriteMemory<int>(address,b?v:rv)
 #define MEMMOD_SHORT(address,v,rv) PVZ::Memory::WriteMemory<short>(address,b?v:rv)
@@ -150,8 +149,8 @@ inline void BlockZombie(BOOLEAN b = true)
 
 inline void VasePerspect(BOOLEAN b = true)
 {
-	byte __vaseperspect_set[10]{ 0xC7, 0x47, 0x4C,0x64, 0, 0, 0, 0x5E, 0x59,0xC3 };
-	byte __vaseperspect_reset[10]{ 0x85, 0xC0, 0x7E, 6, 0x83, 0xC0, 0xFF, 0x89, 0x47, 0x4C };
+	byte __vaseperspect_set[10] { 0xC7, 0x47, 0x4C, 0x64, 0, 0, 0, 0x5E, 0x59, 0xC3 };
+	byte __vaseperspect_reset[10] { 0x85, 0xC0, 0x7E, 6, 0x83, 0xC0, 0xFF, 0x89, 0x47, 0x4C };
 	if (b)PVZ::Memory::WriteArray<byte>(0x44E5CC, STRING(__vaseperspect_set));
 	else PVZ::Memory::WriteArray<byte>(0x44E5CC, STRING(__vaseperspect_reset));
 }
@@ -167,15 +166,15 @@ inline void AutoCollect(BOOLEAN b = true)
 	byte __autocollect_set[26]
 	{
 		PUSHAD,
-		0x8B,0xC8,
-		0x83,0x79,0x58,0x10,
+		0x8B, 0xC8,
+		0x83, 0x79, 0x58, 0x10,
 		0x74, 5,
 		INVOKE(0x432060),
 		POPAD,
 		RETN(0x10),
 	};
 
-	byte __autocollect_reset[3]{ 0xC2, 0x10, 0 };
+	byte __autocollect_reset[3] { 0xC2, 0x10, 0 };
 	if (b)
 	{
 		auto coins = PVZ::GetBoard().GetAllCoins();
@@ -223,4 +222,19 @@ inline void DisableAllSounds(BOOLEAN b = true)
 	MEMMOD_BYTE(0x554C27, JUMP, JZ);
 	MEMMOD_BYTE(0x554C57, JUMP, JZ);
 	MEMMOD_SHORT(0x515055, 0x4D71, 0x0A74);
+}
+
+// 设置吸金磁吸取物品数的上限。最小为 1，最大为 5 。
+// 会影响绘制过程。
+inline void SetGoldMagnetLimit(int num)
+{
+	if (num > 5)
+		num = 5;
+	else if (num < 1)
+		num = 1;
+
+	PVZ::Memory::WriteMemory<byte>(0x461D01, num);
+	PVZ::Memory::WriteMemory<byte>(0x4615ED, num);
+	PVZ::Memory::WriteMemory<int>(0x46549C, num);
+	PVZ::Memory::WriteMemory<int>(0x4626BF, num);
 }
