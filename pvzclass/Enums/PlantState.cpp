@@ -1,7 +1,9 @@
 ﻿#include "PlantState.h"
 
-std::string PlantState::ToString(PlantState state) {
-	switch (state) {
+std::string PlantState::ToString(PlantState state)
+{
+	switch (state)
+	{
 	case IDLE:
 		return "IDLE";
 	case WAIT:

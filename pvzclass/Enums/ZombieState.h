@@ -2,8 +2,10 @@
 
 #include <string>
 
-namespace ZombieState {
-	enum ZombieState {
+namespace ZombieState
+{
+	enum ZombieState
+	{
 		WALKING = 0x0,
 		DYING = 0x1,
 		DYING_FROM_INSTANT_KILL = 0x2,

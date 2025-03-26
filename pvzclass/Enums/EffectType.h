@@ -1,7 +1,9 @@
 ﻿#pragma once
 
-namespace EffectType {
-	enum EffectType {
+namespace EffectType
+{
+	enum EffectType
+	{
 		MELON_BROKEN = 0x0,
 		WINTER_MELON_BROKEN = 0x1,
 		FUMESHROOM_PUFFING = 0x2,
