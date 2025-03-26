@@ -77,3 +77,49 @@ PlantTakeProjectileDamageEvent::PlantTakeProjectileDamageEvent(const char* name)
 	};
 	start(STRING(code));
 }
+
+// 钢地刺因车辆、碾压等受伤事件。
+// @param 依次为：植物地址、0、GameObjectType::None、伤害数值（非引用）
+// @return 调整后的伤害数值，负数会取消伤害，
+class SpikeRockTakeDamageEvent : public DLLEvent
+{
+public:
+	SpikeRockTakeDamageEvent();
+	SpikeRockTakeDamageEvent(const char* name);
+};
+
+SpikeRockTakeDamageEvent::SpikeRockTakeDamageEvent()
+{
+	SpikeRockTakeDamageEvent::SpikeRockTakeDamageEvent("onSpikeRockTakeDamage");
+}
+
+SpikeRockTakeDamageEvent::SpikeRockTakeDamageEvent(const char* name)
+{
+	DWORD procAddress = PVZ::Memory::GetProcAddress(name);
+	hookAddress = 0x45EC63;
+	rawlen = 7;
+	BYTE code[] =
+	{
+		PUSH(50),
+		PUSHDWORD(GameObjectType::OBJECT_TYPE_PROJECTILE),
+		PUSH(0),
+		PUSH_EAX,
+		INVOKE(procAddress),
+		ADD_ESP(16),
+		TEST_EUX_EVX(REG_EAX, REG_EAX),
+		JNS(8),
+
+		POPAD,
+		MOV_ECX(0x46CFFE),
+		JMP_REG32(REG_ECX),
+
+		0xF7, 0xD8,
+		ADD_PTR_EUX_ADD_V_EVX(REG_ESI, 0x40, REG_EAX),
+		
+		POPAD,
+		MOV_EUX_PTR_EVX_ADD(REG_EAX, REG_ESI, 0x40),
+		MOV_ECX(0x45EC6A),
+		JMP_REG32(REG_ECX)
+	};
+	start(STRING(code));
+}
