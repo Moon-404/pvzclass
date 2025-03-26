@@ -290,6 +290,7 @@
     <ClInclude Include="Events\PlantShoveledEvent.hpp" />
     <ClInclude Include="Events\PlantSquishEvent.h" />
     <ClInclude Include="Events\PlantStolenEvent.hpp" />
+    <ClInclude Include="Events\PlantTakeDamageEvent.hpp" />
     <ClInclude Include="Events\PlantUpdateAbilityEvent.hpp" />
     <ClInclude Include="Events\SeedPacketMouseDownEvent.hpp" />
     <ClInclude Include="Events\ProjectileCreateEvent.h" />
