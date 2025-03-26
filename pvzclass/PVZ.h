@@ -42,7 +42,7 @@
 
 #define LOGICALINCLUDE(c,v) (c&v)==v
 
-#define SPT std::shared_ptr 
+#define SPT std::shared_ptr
 #define UPT std::unique_ptr
 #define MKU std::make_unique
 #define MKS std::make_shared
@@ -84,6 +84,10 @@
 /*Only version 1.0.0.1051 is fully supported*/
 namespace PVZ
 {
+	// @brief 初始化 PVZ 命名空间，且不在程序内附加钩子。Memory::immediateExecute 会设置为 true 。
+	// @param pid 进程 id
+	void InitPVZNoLock(DWORD pid);
+
 	void InitPVZ(DWORD pid);
 	void QuitPVZ();
 
@@ -624,7 +628,7 @@ namespace PVZ
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
 		PVZ::Animation GetAnimation();
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
-		//临时变量 
+		//临时变量
 		INT_PROPERTY(Temp, __get_Temp, __set_Temp, 0x12C);
 		Animation GetSpecialHeadAnimation();
 		void SetSpecialHeadAnimation(Animation anim);
@@ -635,10 +639,10 @@ namespace PVZ
 		void HitBody(int damage, DamageFlags flags = DAMAGEF_NONE);
 		void Blast();
 		void Butter(int countdown);
-		//减速僵尸，无法减速默认免疫减速的僵尸。 
+		//减速僵尸，无法减速默认免疫减速的僵尸。
 		void Decelerate(int countdown);
-		//冻结僵尸，无法冻结默认免疫冻结的僵尸。 
-		//不造成冻结伤害，不影响减速时长。 
+		//冻结僵尸，无法冻结默认免疫冻结的僵尸。
+		//不造成冻结伤害，不影响减速时长。
 		void Froze(int countdown);
 		void Hypnotize();
 		void Remove();
