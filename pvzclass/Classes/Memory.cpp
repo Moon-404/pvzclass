@@ -59,7 +59,7 @@ void PVZ::Memory::CreateThread(int address)
 	hThread = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)address, NULL, 0, NULL);
 	if (hThread)
 	{
-		do 
+		do
 			ret = WaitForSingleObject(hThread, 100);
 		while (ret == WAIT_TIMEOUT);
 		CloseHandle(hThread);

@@ -69,7 +69,7 @@ bool PVZ::ResourceManager::TodLoadResources(const char* groupName)
 
 		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 600)
 		.invoke(0x404420)
-		.ret();		
+		.ret();
 
 	return PVZ::Memory::Execute(TodLoadResources_builder);
 }
