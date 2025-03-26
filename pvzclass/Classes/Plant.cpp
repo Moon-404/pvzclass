@@ -148,7 +148,6 @@ int PVZ::Plant::CalcLayer()
 	return(Memory::Execute(STRING(__asm__Plant_CalcLayer)));
 }
 
-
 void PVZ::Plant::MoveTo(int row, int column)
 {
 	Board tmp_board = this->GetBoard();
@@ -189,7 +188,7 @@ PVZ::Projectile PVZ::Plant::Shoot(MotionType::MotionType motiontype, int targeti
 		return NULL;
 	};
 	Projectile re = Projectile(Memory::Execute(STRING(__asm__Shoot)));
-	if (motiontype != MotionType::None) 
+	if (motiontype != MotionType::None)
 	{
 		re.Motion = motiontype;
 		if (motiontype == MotionType::Track && targetid != -1)

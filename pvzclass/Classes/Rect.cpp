@@ -20,12 +20,11 @@ int PVZ::GetXOverlap(const PVZ::Rect& rect1, const PVZ::Rect& rect2)
 	return(LeftR - RightL);
 }
 
-
 bool PVZ::Rect::IsCircleOverlap(const int X, const int Y, const int radius)
 {
 	bool Xout = false;
 	int Xdist = 0;
-	
+
 	if (X < this->X)
 		Xout = true, Xdist = this->X - X;
 	else if (X > this->X + this->Width)

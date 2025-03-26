@@ -10,7 +10,6 @@ int PVZ::Caption::GetBaseAddress()
 	return BaseAddress;
 }
 
-
 void PVZ::Caption::GetText(char str[])
 {
 	Memory::ReadArray<char>(BaseAddress + 4, str, 0x80);

@@ -133,7 +133,6 @@ void PVZ::Animation::AssignRenderGroupToPrefix(byte RenderGroup, const char* tra
 	PVZ::Memory::Execute(STRING(__asm__Reanimation__AssignGroupToPrefix));
 }
 
-
 AsmBuilder AssignRenderGroupToTrack_builder = AsmBuilder();
 void PVZ::Animation::AssignRenderGroupToTrack(const char* trackName, byte renderGroup)
 {

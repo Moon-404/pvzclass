@@ -11,7 +11,7 @@ void PVZ::Mouse::GameClick(int x, int y)
 {
 	SETARG(__asm__GameClick, 1) = Memory::ReadPointer(0x6A9EC0, 0x320);
 	SETARG(__asm__GameClick, 6) = y;
-	SETARG(__asm__GameClick,16) = x;
+	SETARG(__asm__GameClick, 16) = x;
 	Memory::Execute(STRING(__asm__GameClick));
 }
 
