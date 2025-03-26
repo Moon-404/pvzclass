@@ -1,8 +1,8 @@
-#pragma once
+﻿#pragma once
 
-namespace EffectType
+namespace GameObjectType
 {
-	enum EffectType
+	enum GameObjectType
 	{
 		OBJECT_TYPE_NONE,
 		OBJECT_TYPE_PLANT,

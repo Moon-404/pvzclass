@@ -2,8 +2,10 @@
 
 #include <string>
 
-namespace PlantState {
-	enum PlantState {
+namespace PlantState
+{
+	enum PlantState
+	{
 		IDLE = 0x0,
 		WAIT = 0x1,
 		WORK = 0x2,
