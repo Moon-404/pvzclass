@@ -61,7 +61,11 @@ PlantTakeEatDamageEvent::PlantTakeEatDamageEvent(const char* name)
 
 		POPAD,
 		MOV_ECX(0x52FD2E),
-		JMP_REG32(REG_ECX)
+		JMP_REG32(REG_ECX),
+
+		0xF7, 0xD8,
+		ADD_PTR_EUX_ADD_V_EVX(REG_ESI, 0x40, REG_EAX),
+		ADD_PTR_EUX_ADD_V_V(REG_ESI, 0x40, 4),
 	};
 	start(STRING(code));
 }
@@ -88,18 +92,25 @@ PlantTakeProjectileDamageEvent::PlantTakeProjectileDamageEvent(const char* name)
 	rawlen = 6;
 	BYTE code[] =
 	{
+		PUSH_EAX,
+
 		PUSH_EDX,
 		PUSHDWORD(GameObjectType::OBJECT_TYPE_PROJECTILE),
 		PUSH_EBP,
 		PUSH_EAX,
 		INVOKE(procAddress),
+
 		ADD_ESP(16),
 		TEST_EUX_EVX(REG_EAX, REG_EAX),
-		JNS(8),
+		POP_EUX(REG_ECX),
+		JS(5),
+
+		0xF7, 0xD8,
+		ADD_PTR_EUX_ADD_V_EVX(REG_ECX, 0x40, REG_EAX),
 
 		POPAD,
 		MOV_ECX(0x46CFFE),
-		JMP_REG32(REG_ECX)
+		JMP_REG32(REG_ECX),
 	};
 	start(STRING(code));
 }
