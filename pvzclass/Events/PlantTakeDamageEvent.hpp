@@ -19,11 +19,11 @@ public:
 		ptej_event = new PlantTakeProjectileDamageEvent("onPlantTakeDamage");
 		srtd_event = new SpikeRockTakeDamageEvent("onPlantTakeDamage");
 	}
-	~PlantTakeDamageEvent()
+	void end()
 	{
-		delete(pted_event);
-		delete(ptej_event);
-		delete(srtd_event);
+		pted_event->end();
+		ptej_event->end();
+		srtd_event->end();
 	}
 };
 
