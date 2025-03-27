@@ -17,7 +17,7 @@ PlantInitAfterEvent::PlantInitAfterEvent()
 	rawlen = 7;
 	BYTE code[] =
 	{
-		PUSH_ESI,
+		PUSH_PTR_ESP_ADD_V(0x28),
 		INVOKE(procAddress),
 		ADD_ESP(4),
 	};
