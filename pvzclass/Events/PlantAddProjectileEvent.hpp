@@ -9,11 +9,17 @@ class NormalPlantAddProjectileEvent : public DLLEvent
 {
 public:
 	NormalPlantAddProjectileEvent();
+	NormalPlantAddProjectileEvent(const char* str);
 };
 
 NormalPlantAddProjectileEvent::NormalPlantAddProjectileEvent()
 {
-	int procAddress = PVZ::Memory::GetProcAddress("onPlantAddProjectile");
+	NormalPlantAddProjectileEvent::NormalPlantAddProjectileEvent("onPlantAddProjectile");
+}
+
+NormalPlantAddProjectileEvent::NormalPlantAddProjectileEvent(const char* str)
+{
+	int procAddress = PVZ::Memory::GetProcAddress(str);
 	hookAddress = 0x4672B5;
 	rawlen = 6;
 	BYTE code[] =
