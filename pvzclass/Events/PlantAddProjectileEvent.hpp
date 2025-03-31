@@ -1,17 +1,17 @@
-#pragma once
+ï»¿#pragma once
 #include "DLLEvent.h"
 
-// Ö²Îï·¢Éä×Óµ¯ÊÂ¼ş¡£
-// Ê±»úÉÏÏÈÓÚ×Óµ¯Ë÷µĞÀàĞÍÉè¶¨ºÍÌØÊâ×Óµ¯ËÙ¶È¸Ä¶¯¡£
-// @param ÒÀ´ÎÎª£º´¥·¢ÊÂ¼şµÄÖ²Îï¡¢Éú³ÉµÄ×Óµ¯¡¢×Óµ¯Ä¿±ê½©Ê¬µÄ»ùÖ·¡£
-// @return ÊÇ·ñ¼ÌĞø½áËãÔ­°æµÄµ÷Õû¡£
-class PlantAddProjectileEvent : public DLLEvent
+// æ¤ç‰©å‘å°„å­å¼¹äº‹ä»¶ã€‚
+// æ—¶æœºä¸Šå…ˆäºå­å¼¹ç´¢æ•Œç±»å‹è®¾å®šå’Œç‰¹æ®Šå­å¼¹é€Ÿåº¦æ”¹åŠ¨ã€‚
+// @param ä¾æ¬¡ä¸ºï¼šè§¦å‘äº‹ä»¶çš„æ¤ç‰©ã€ç”Ÿæˆçš„å­å¼¹ã€å­å¼¹ç›®æ ‡åƒµå°¸çš„åŸºå€ã€‚
+// @return æ˜¯å¦ç»§ç»­ç»“ç®—åŸç‰ˆçš„è°ƒæ•´ã€‚
+class NormalPlantAddProjectileEvent : public DLLEvent
 {
 public:
-	PlantAddProjectileEvent();
+	NormalPlantAddProjectileEvent();
 };
 
-PlantAddProjectileEvent::PlantAddProjectileEvent()
+NormalPlantAddProjectileEvent::NormalPlantAddProjectileEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onPlantAddProjectile");
 	hookAddress = 0x4672B5;
