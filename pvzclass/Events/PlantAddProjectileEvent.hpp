@@ -32,3 +32,37 @@ PlantAddProjectileEvent::PlantAddProjectileEvent()
 	};
 	start(STRING(code));
 }
+
+class StarFruitAddProjectileEvent : public DLLEvent
+{
+public:
+	StarFruitAddProjectileEvent();
+	StarFruitAddProjectileEvent(const char* str);
+};
+
+StarFruitAddProjectileEvent::StarFruitAddProjectileEvent()
+{
+	StarFruitAddProjectileEvent::StarFruitAddProjectileEvent("onPlantTakeEatDamage");
+}
+
+StarFruitAddProjectileEvent::StarFruitAddProjectileEvent(const char* str)
+{
+	int procAddress = PVZ::Memory::GetProcAddress(str);
+	hookAddress = 0x45F816;
+	rawlen = 7;
+	BYTE code[] =
+	{
+		PUSH(0),
+		PUSH_EDI,
+		PUSH_ESI,
+		INVOKE(procAddress),
+		ADD_ESP(0x0C),
+
+		TEST_AL_AL,
+		JNZ(6),
+		POPAD,
+		PUSHDWORD(0x45F874),
+		RET
+	};
+	start(STRING(code));
+}
