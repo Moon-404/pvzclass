@@ -46,3 +46,4 @@
 #include "Enums/GameObjectType.hpp"
 #include "Enums/KeyCode.hpp"
 #include "Enums/StoreItem.hpp"
+#include "Enums/ZombieAttackType.hpp"

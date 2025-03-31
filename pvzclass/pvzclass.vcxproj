@@ -250,6 +250,7 @@
     <ClInclude Include="Enums\GameObjectType.hpp" />
     <ClInclude Include="Enums\KeyCode.hpp" />
     <ClInclude Include="Enums\StoreItem.hpp" />
+    <ClInclude Include="Enums\ZombieAttackType.hpp" />
     <ClInclude Include="Events\BegTwistFailMoveEvent.hpp" />
     <ClInclude Include="Events\BoardKeyDownEvent.hpp" />
     <ClInclude Include="Events\BoardUpdateGameEvent.hpp" />
