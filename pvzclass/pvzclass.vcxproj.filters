@@ -467,9 +467,6 @@
     <ClInclude Include="Events\Events.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ImitaterPlantEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
     <ClInclude Include="Events\NewGameEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
@@ -727,6 +724,9 @@
     </ClInclude>
     <ClInclude Include="Events\SeedPacketUpdateEvent.hpp">
       <Filter>头文件\Events\SeedPacket</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\ImitaterPlantEvent.h">
+      <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
