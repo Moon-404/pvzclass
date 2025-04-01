@@ -2,8 +2,8 @@
 #include "DLLEvent.h"
 
 // 植物被铲除事件。
-// @param 触发事件的植物
-// @return 实际被产出的植物的基址。若为空指针，则该事件被取消。
+/// @param 触发事件的植物
+/// @return 实际被产出的植物的基址。若为空指针，则该事件被取消。
 class PlantShoveledEvent : public DLLEvent
 {
 public:

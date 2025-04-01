@@ -3,8 +3,8 @@
 
 // 卡槽卡牌被点选事件。
 // 时机上先于原版的指令。
-// @param 触发事件的卡槽卡牌。
-// @return 是否继续结算原版的指令。
+/// @param 触发事件的卡槽卡牌。
+/// @return 是否继续结算原版的指令。
 class SeedPacketMouseDownEvent : public DLLEvent
 {
 public:

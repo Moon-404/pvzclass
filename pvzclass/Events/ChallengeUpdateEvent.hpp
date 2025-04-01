@@ -2,8 +2,8 @@
 #include "DLLEvent.h"
 
 // 游戏模式特性更新事件。
-// @param 触发事件的 Challenge
-// @return 是否按原版模式更新事件。
+/// @param 触发事件的 Challenge
+/// @return 是否按原版模式更新事件。
 class ChallengeUpdateEvent : public DLLEvent
 {
 public:

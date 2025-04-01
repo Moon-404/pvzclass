@@ -61,9 +61,9 @@ inline void xytorc(int* x, int* y)
 	//如果调用过 AsmInit()，程序结束之前一定要调用此函数
 	void AsmReset();
 
-	// @brief 快速创建一个子弹。你需要先调用一次AsmInit后才能使用这个函数。
-	// @param type 子弹类型
-	// @param x	X坐标
+	/// @brief 快速创建一个子弹。你需要先调用一次AsmInit后才能使用这个函数。
+	/// @param type 子弹类型
+	/// @param x	X坐标
 	PVZ::Projectile CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed);
 
 	PVZ::Coin CreateCoin(CoinType::CoinType type,int x,int y,CoinMotionType::CoinMotionType motion);

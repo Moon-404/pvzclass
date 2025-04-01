@@ -3,8 +3,8 @@
 
 // 植物特性更新事件。
 // 时机上先于保龄球特性。
-// @param 触发事件的植物。
-// @return 是否结算大部分原版特性。若为“否”，则只结算射手和一次性植物的特性。
+/// @param 触发事件的植物。
+/// @return 是否结算大部分原版特性。若为“否”，则只结算射手和一次性植物的特性。
 class PlantUpdateAbilityEvent : public DLLEvent
 {
 public:

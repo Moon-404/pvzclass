@@ -2,8 +2,8 @@
 #include "DLLEvent.h"
 
 // 植物因生命值小于 0 被移除事件。
-// @param 触发事件的植物。
-// @return 该植物是否被移除。
+/// @param 触发事件的植物。
+/// @return 该植物是否被移除。
 class PlantDieLowHealthEvent : public DLLEvent
 {
 public:

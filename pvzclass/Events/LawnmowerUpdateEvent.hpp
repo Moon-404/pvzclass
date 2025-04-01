@@ -3,8 +3,8 @@
 
 // 小推车更新事件。
 // 时机上先于原版更新所有操作。
-// @param 触发事件的小推车的基址。
-// @return 是否继续结算原版更新。
+/// @param 触发事件的小推车的基址。
+/// @return 是否继续结算原版更新。
 class LawnmowerUpdateEvent : public DLLEvent
 {
 public:

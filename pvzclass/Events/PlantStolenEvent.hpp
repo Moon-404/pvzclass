@@ -3,7 +3,7 @@
 
 // 植物被偷走事件。
 // 无返回值
-// @param 依次为：触发事件的植物。
+/// @param 依次为：触发事件的植物。
 class PlantStolenEvent : public DLLEvent
 {
 public:

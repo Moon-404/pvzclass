@@ -18,7 +18,7 @@ using Memory = PVZ::Memory;
 
 //启用/禁用砸罐子功能。
 //包括罐子高亮、罐子可砸、小丑炸罐子、巨人砸罐子。
-//@param state 功能的启用状态，缺省值为 Enable。
+/// @param state 功能的启用状态，缺省值为 Enable。
 inline void EnableVaseBreak(ThreeState::ThreeState state = Enable)
 {
 	switch (state)

@@ -2,8 +2,8 @@
 #include "DLLEvent.h"
 
 // 植物产出物品事件。
-// @param 触发事件的植物
-// @return 是否继续产出原版物品。
+/// @param 触发事件的植物
+/// @return 是否继续产出原版物品。
 class PlantProduceEvent : public DLLEvent
 {
 public:
