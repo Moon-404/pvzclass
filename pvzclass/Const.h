@@ -94,9 +94,9 @@ namespace Const
 		return(MEMREAD_INT(baseaddress + row * 0x80 + column * 0x10 + 4));
 	}
 
-	//@brief 获取指定关卡的初始场景类型。不支持冒险模式。
-	//@param mode 关卡类型。
-	//@return 该关卡的初始场景类型。
+	/// @brief 获取指定关卡的初始场景类型。不支持冒险模式。
+	/// @param mode 关卡类型。
+	/// @return 该关卡的初始场景类型。
 	inline SceneType::SceneType GetLevelScene(PVZLevel::PVZLevel mode)
 	{
 		byte num = MEMREAD_BYTE(0x40AAC0) - 1;
@@ -115,10 +115,10 @@ namespace Const
 		return((SceneType::SceneType)num);
 	}
 
-	//@brief 设置指定关卡的初始场景类型。不支持冒险模式，无法设定为蘑菇园场景。
-	//@param mode 关卡类型。
-	//@param type 设定的场景类型。
-	//@return 是否设置成功。
+	/// @brief 设置指定关卡的初始场景类型。不支持冒险模式，无法设定为蘑菇园场景。
+	/// @param mode 关卡类型。
+	/// @param type 设定的场景类型。
+	/// @return 是否设置成功。
 	inline bool SetLevelScene(PVZLevel::PVZLevel mode, SceneType::SceneType type)
 	{
 		if (mode == PVZLevel::Adventure || type == SceneType::MushroomGarden)

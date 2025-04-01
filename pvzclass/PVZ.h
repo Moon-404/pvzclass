@@ -241,7 +241,7 @@ namespace PVZ
 		READONLY_PROPERTY(PVZVersion::PVZVersion,	__get_GameVersion)	GameVersion;
 	};
 
-	//@brief 游戏程序主类（原 LawnApp）。
+	/// @brief 游戏程序主类（原 LawnApp）。
 	class PVZApp : public BaseClass
 	{
 	public:
@@ -485,14 +485,14 @@ namespace PVZ
 		void Die();
 		void Play(const char* TrackName, int blendType, int loopType, float rate);
 		void AssignRenderGroupToPrefix(byte RenderGroup, const char* TrackName);
-		//@brief 设置指定动画轨道在绘制时的分组。通常情况下，分组为 -1 时表示隐藏该轨道。
-		//@param trackName 执行的动作轨道名称。
-		//@param renderGroup 分组大小。
+		/// @brief 设置指定动画轨道在绘制时的分组。通常情况下，分组为 -1 时表示隐藏该轨道。
+		/// @param trackName 执行的动作轨道名称。
+		/// @param renderGroup 分组大小。
 		void AssignRenderGroupToTrack(const char* trackName, byte renderGroup);
 		int FindTrackIndex(const char* trackName);
 
-		//@brief 令动画部件执行 trackName 动作。
-		//@param trackName 执行的动作轨道名称。
+		/// @brief 令动画部件执行 trackName 动作。
+		/// @param trackName 执行的动作轨道名称。
 		void SetFramesForLayer(const char* theTrackName);
 		void SetImageOverride(const char* theTrackName, Image theImage);
 	};
@@ -655,21 +655,21 @@ namespace PVZ
 
 		bool canDecelerate();
 		bool canFroze();
-		//@brief 判定僵尸是否能被指定索敌类型搜寻到。
-		//@param range 索敌类型。
-		//@param usepvzfunc 是否调用 pvz 内部函数。默认为 true。
-		//@return 是否能被搜寻到。
+		/// @brief 判定僵尸是否能被指定索敌类型搜寻到。
+		/// @param range 索敌类型。
+		/// @param usepvzfunc 是否调用 pvz 内部函数。默认为 true。
+		/// @return 是否能被搜寻到。
 		bool EffectedBy(DamageRangeFlags range, bool usepvzfunc = true);
 
-		//@brief 获取僵尸的实际可攻击范围。
-		//@return 僵尸的实际攻击范围
+		/// @brief 获取僵尸的实际可攻击范围。
+		/// @return 僵尸的实际攻击范围
 		Rect GetActualAttackRect();
-		//@brief 获取僵尸的实际受击范围。
-		//@return 僵尸的实际受击范围
+		/// @brief 获取僵尸的实际受击范围。
+		/// @return 僵尸的实际受击范围
 		Rect GetActualRect();
 
-		//@brief 设置是否显示铁门僵尸的手臂。
-		//@param shown 是否显示，默认为 true
+		/// @brief 设置是否显示铁门僵尸的手臂。
+		/// @param shown 是否显示，默认为 true
 		void ShowDoorArms(bool shown = true);
 
 		// Deprecated
