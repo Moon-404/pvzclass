@@ -1,19 +1,43 @@
-#pragma once
+ï»¿#pragma once
 #include "DLLEvent.h"
 
-// Ö²Îï·¢Éä×Óµ¯ÊÂ¼þ¡£
-// Ê±»úÉÏÏÈÓÚ×Óµ¯Ë÷µÐÀàÐÍÉè¶¨ºÍÌØÊâ×Óµ¯ËÙ¶È¸Ä¶¯¡£
-// @param ÒÀ´ÎÎª£º´¥·¢ÊÂ¼þµÄÖ²Îï¡¢Éú³ÉµÄ×Óµ¯¡¢×Óµ¯Ä¿±ê½©Ê¬µÄ»ùÖ·¡£
-// @return ÊÇ·ñ¼ÌÐø½áËãÔ­°æµÄµ÷Õû¡£
-class PlantAddProjectileEvent : public DLLEvent
+// æ¤ç‰©å‘å°„å­å¼¹äº‹ä»¶ã€‚
+// æ—¶æœºä¸Šå…ˆäºŽå­å¼¹ç´¢æ•Œç±»åž‹è®¾å®šå’Œç‰¹æ®Šå­å¼¹é€Ÿåº¦æ”¹åŠ¨ã€‚
+// @param ä¾æ¬¡ä¸ºï¼šè§¦å‘äº‹ä»¶çš„æ¤ç‰©ã€ç”Ÿæˆçš„å­å¼¹ã€å­å¼¹ç›®æ ‡åƒµå°¸çš„åŸºå€ã€‚
+// @return æ˜¯å¦ç»§ç»­ç»“ç®—åŽŸç‰ˆçš„è°ƒæ•´ã€‚
+class PlantAddProjectileEvent
 {
+private:
+	NormalPlantAddProjectileEvent* normal_event;
+	StarFruitAddProjectileEvent* star_event;
 public:
-	PlantAddProjectileEvent();
+	PlantAddProjectileEvent()
+	{
+		normal_event = new NormalPlantAddProjectileEvent("onPlantAddProjectile");
+		star_event = new StarFruitAddProjectileEvent("onPlantAddProjectile");
+	}
+	void end()
+	{
+		normal_event->end();
+		star_event->end();
+	}
 };
 
-PlantAddProjectileEvent::PlantAddProjectileEvent()
+class NormalPlantAddProjectileEvent : public DLLEvent
 {
-	int procAddress = PVZ::Memory::GetProcAddress("onPlantAddProjectile");
+public:
+	NormalPlantAddProjectileEvent();
+	NormalPlantAddProjectileEvent(const char* str);
+};
+
+NormalPlantAddProjectileEvent::NormalPlantAddProjectileEvent()
+{
+	NormalPlantAddProjectileEvent::NormalPlantAddProjectileEvent("onPlantAddProjectile");
+}
+
+NormalPlantAddProjectileEvent::NormalPlantAddProjectileEvent(const char* str)
+{
+	int procAddress = PVZ::Memory::GetProcAddress(str);
 	hookAddress = 0x4672B5;
 	rawlen = 6;
 	BYTE code[] =
@@ -28,6 +52,40 @@ PlantAddProjectileEvent::PlantAddProjectileEvent()
 		JNZ(6),
 		POPAD,
 		PUSHDWORD(0x52FDEE),
+		RET
+	};
+	start(STRING(code));
+}
+
+class StarFruitAddProjectileEvent : public DLLEvent
+{
+public:
+	StarFruitAddProjectileEvent();
+	StarFruitAddProjectileEvent(const char* str);
+};
+
+StarFruitAddProjectileEvent::StarFruitAddProjectileEvent()
+{
+	StarFruitAddProjectileEvent::StarFruitAddProjectileEvent("onPlantTakeEatDamage");
+}
+
+StarFruitAddProjectileEvent::StarFruitAddProjectileEvent(const char* str)
+{
+	int procAddress = PVZ::Memory::GetProcAddress(str);
+	hookAddress = 0x45F816;
+	rawlen = 7;
+	BYTE code[] =
+	{
+		PUSH(0),
+		PUSH_EDI,
+		PUSH_ESI,
+		INVOKE(procAddress),
+		ADD_ESP(0x0C),
+
+		TEST_AL_AL,
+		JNZ(6),
+		POPAD,
+		PUSHDWORD(0x45F874),
 		RET
 	};
 	start(STRING(code));

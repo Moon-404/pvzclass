@@ -250,6 +250,7 @@
     <ClInclude Include="Enums\GameObjectType.hpp" />
     <ClInclude Include="Enums\KeyCode.hpp" />
     <ClInclude Include="Enums\StoreItem.hpp" />
+    <ClInclude Include="Enums\ZombieAttackType.hpp" />
     <ClInclude Include="Events\BegTwistFailMoveEvent.hpp" />
     <ClInclude Include="Events\BoardKeyDownEvent.hpp" />
     <ClInclude Include="Events\BoardUpdateGameEvent.hpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="Events\SeedPacketMouseDownEvent.hpp" />
     <ClInclude Include="Events\ProjectileCreateEvent.h" />
     <ClInclude Include="Events\PuzzlePhaseCompleteEvent.hpp" />
+    <ClInclude Include="Events\SeedPacketUpdateEvent.hpp" />
     <ClInclude Include="Events\UpdateAppEvent.h" />
     <ClInclude Include="Events\VaseBreakerPopulateEvent.hpp" />
     <ClInclude Include="Events\ZombieBurntEvent.hpp" />
@@ -344,6 +346,7 @@
     <ClInclude Include="Enums\UpperSoundType.h" />
     <ClInclude Include="Enums\AnimationType.h" />
     <ClInclude Include="Events\ZombieInitAfterEvent.hpp" />
+    <ClInclude Include="Events\ZombieTargetPlantEvent.hpp" />
     <ClInclude Include="Events\ZombieUpdateActionEvent.hpp" />
     <ClInclude Include="Events\ZombieUpdatePlayingEvent.hpp" />
     <ClInclude Include="Flags.h" />

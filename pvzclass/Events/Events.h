@@ -62,6 +62,7 @@
 #include "PlantStolenEvent.hpp"
 #include "LawnmowerUpdateEvent.hpp"
 #include "SeedPacketMouseDownEvent.hpp"
+#include "SeedPacketUpdateEvent.hpp"
 #include "VaseBreakerPopulateEvent.hpp"
 #include "GriditemUpdateEvent.hpp"
 #include "ZombieInitAfterEvent.hpp"
@@ -71,4 +72,5 @@
 #include "ZombieDropHeadEvent.hpp"
 #include "ZombieDropHeadParticleEvent.hpp"
 #include "ZombieDropLootEvent.hpp"
+#include "ZombieTargetPlantEvent.hpp"
 #include "ZombieEatSoundEvent.hpp"
