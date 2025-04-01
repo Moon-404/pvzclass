@@ -3,8 +3,8 @@
 
 // 开罐事件。
 // 时机上优先级高于开罐的其他操作。
-// @param 依次为：触发事件的 Challenge、触发该事件的罐子基址。
-// @return 是否继续结算罐子被砸开的事件。返回“否”会阻止罐子被敲开。
+/// @param 依次为：触发事件的 Challenge、触发该事件的罐子基址。
+/// @return 是否继续结算罐子被砸开的事件。返回“否”会阻止罐子被敲开。
 class VaseOpenEvent : public DLLEvent
 {
 public:

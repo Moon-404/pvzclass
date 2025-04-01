@@ -2,8 +2,8 @@
 #include "DLLEvent.h"
 
 // 场地物品移除事件。
-// @param 触发事件的场地物品。
-// @return 是否移除此物品。
+/// @param 触发事件的场地物品。
+/// @return 是否移除此物品。
 class GriditemDieEvent : public DLLEvent
 {
 public:

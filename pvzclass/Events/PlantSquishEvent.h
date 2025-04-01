@@ -3,8 +3,8 @@
 
 // 植物被碾压事件。
 // 已被碾压的植物依然可以触发此事件，务必注意提防。
-// @param 触发事件的植物。
-// @return 更新后被碾压的植物。返回空指针时该事件被取消。
+/// @param 触发事件的植物。
+/// @return 更新后被碾压的植物。返回空指针时该事件被取消。
 class PlantSquishEvent : public DLLEvent
 {
 public:

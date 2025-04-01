@@ -3,8 +3,8 @@
 
 // 物品被点击事件。
 // 已收集的物品可以再次触发此事件，注意过滤。
-// @param 依次为：触发事件的物品、点击次数。
-// @return 是否继续结算原版过程。
+/// @param 依次为：触发事件的物品、点击次数。
+/// @return 是否继续结算原版过程。
 class CoinMouseDownEvent : public DLLEvent
 {
 public:

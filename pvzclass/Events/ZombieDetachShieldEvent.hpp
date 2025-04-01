@@ -2,8 +2,8 @@
 #include "DLLEvent.h"
 
 // 僵尸失去盾类防具事件。
-// @param 触发事件的僵尸
-// @return 是否继续结算原版的处理过程。若为“否”，则跳过这些过程。
+/// @param 触发事件的僵尸
+/// @return 是否继续结算原版的处理过程。若为“否”，则跳过这些过程。
 class ZombieDetachShieldEvent : public DLLEvent
 {
 public:

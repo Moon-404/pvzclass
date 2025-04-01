@@ -3,7 +3,7 @@
 
 // 僵尸掉头的粒子效果处理事件。
 // 无返回值
-// @param 触发事件的僵尸、触发事件的粒子效果。
+/// @param 触发事件的僵尸、触发事件的粒子效果。
 class ZombieDropHeadParticleEvent : public DLLEvent
 {
 public:

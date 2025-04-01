@@ -3,8 +3,8 @@
 
 // 砸罐模式生成罐子事件。
 // 事件触发时罐子尚未生成。
-// @param 触发事件的 Challenge。
-// @return 是否继续生成原版罐子。
+/// @param 触发事件的 Challenge。
+/// @return 是否继续生成原版罐子。
 class VaseBreakerPopulateEvent : public DLLEvent
 {
 public:

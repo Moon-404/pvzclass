@@ -84,8 +84,8 @@
 /*Only version 1.0.0.1051 is fully supported*/
 namespace PVZ
 {
-	// @brief 初始化 PVZ 命名空间，且不在程序内附加钩子。Memory::immediateExecute 会设置为 true 。
-	// @param pid 进程 id
+	/// @brief 初始化 PVZ 命名空间，且不在程序内附加钩子。Memory::immediateExecute 会设置为 true 。
+	/// @param pid 进程 id
 	void InitPVZNoLock(DWORD pid);
 
 	void InitPVZ(DWORD pid);
@@ -228,8 +228,8 @@ namespace PVZ
 	};
 	// 取得两个矩形横向重叠部分的长度。
 	// 若横向无重叠部分，返回两矩形横向间距的相反数。
-	// @param rect 计算重叠的另一个矩形。
-	// @return 矩形横向重叠的长度，或矩形横向间距的相反数。
+	/// @param rect 计算重叠的另一个矩形。
+	/// @return 矩形横向重叠的长度，或矩形横向间距的相反数。
 	int GetXOverlap(const Rect& rect1, const Rect& rect2);
 
 	typedef Rect CollisionBox;
@@ -293,7 +293,7 @@ namespace PVZ
 	public:
 		Matrix3(DWORD address) : BaseClass(address) {};
 
-		// @brief 根据指定的平移坐标、旋转弧度和拉伸比例，设定矩阵每个项的数值。
+		/// @brief 根据指定的平移坐标、旋转弧度和拉伸比例，设定矩阵每个项的数值。
 		void ScaleRotateTransformMatrix(float x, float y, float rad, float ScaleX, float ScaleY);
 	};
 	class Board : public Widget
@@ -369,10 +369,10 @@ namespace PVZ
 		void Bell(int countdown = 1);
 		void Earthquake(int horizontalAmplitude = 2, int verticalAmplitude = 4, int duration = 20);
 		void Lose();
-		// @brief 若当前可以承担 amount 点阳光的支出，则消耗 theAmount 阳光，
+		/// @brief 若当前可以承担 amount 点阳光的支出，则消耗 theAmount 阳光，
 		//	否则触发阳光数量不足的的音效和闪红特效。
-		// @param amount 阳光消耗数值。
-		// @return 是否可以承担支出。
+		/// @param amount 阳光消耗数值。
+		/// @return 是否可以承担支出。
 		bool TakeSunMoney(int amount);
 		void Win();
 		bool Save(const char* path, int pathlen);
@@ -599,11 +599,11 @@ namespace PVZ
 		T_PROPERTY(FLOAT, Height, __get_Height, __set_Height, 0x84);
 		void GetCollision(CollisionBox* collbox);
 		void SetCollision(CollisionBox* collbox);
-		// @brief 获取僵尸的基础攻击判定范围。
-		// @param collbox 攻击判定范围的存放位置。其中 X 和 Y 为相应坐标的偏移量。
+		/// @brief 获取僵尸的基础攻击判定范围。
+		/// @param collbox 攻击判定范围的存放位置。其中 X 和 Y 为相应坐标的偏移量。
 		void GetAttackCollision(CollisionBox* collbox);
-		// @brief 设置僵尸的基础攻击判定范围。
-		// @param collbox 攻击判定范围的指针。其中 X 和 Y 为相应坐标的偏移量。
+		/// @brief 设置僵尸的基础攻击判定范围。
+		/// @param collbox 攻击判定范围的指针。其中 X 和 Y 为相应坐标的偏移量。
 		void SetAttackCollision(CollisionBox* collbox);
 		INT_PROPERTY(DecelerateCountdown, __get_DecelerateCountdown, __set_DecelerateCountdown, 0xAC);
 		INT_PROPERTY(FixedCountdown, __get_FixedCountdown, __set_FixedCountdown, 0xB0);

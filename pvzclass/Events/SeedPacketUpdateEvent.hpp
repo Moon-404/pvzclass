@@ -3,8 +3,8 @@
 
 // 卡槽卡牌更新事件。
 // 时机上先于原版的更新。
-// @param 触发事件的卡槽卡牌。
-// @return 是否继续结算原版的过程。
+/// @param 触发事件的卡槽卡牌。
+/// @return 是否继续结算原版的过程。
 class SeedPacketUpdateEvent : public DLLEvent
 {
 public:

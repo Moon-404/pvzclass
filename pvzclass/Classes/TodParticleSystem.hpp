@@ -10,7 +10,7 @@ namespace PVZ
 	public:
 		TodParticleSystem(DWORD indexoraddress);
 		T_PROPERTY(BOOLEAN, Dead, __get_Dead, __set_Dead, 0x1C);
-		// @brief 移除此粒子系统。
+		/// @brief 移除此粒子系统。
 		void Die();
 		void MoveTo(float X, float Y);
 		void OverrideColor(const char* emitter_name, Color& color);

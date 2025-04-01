@@ -2,8 +2,8 @@
 #include "DLLEvent.h"
 
 // 僵尸受到灰烬伤害事件。
-// @param 触发事件的僵尸
-// @return 实际结算灰烬伤害的僵尸的基址。若为空指针，则该事件被取消。
+/// @param 触发事件的僵尸
+/// @return 实际结算灰烬伤害的僵尸的基址。若为空指针，则该事件被取消。
 class ZombieBurntEvent : public DLLEvent
 {
 public:

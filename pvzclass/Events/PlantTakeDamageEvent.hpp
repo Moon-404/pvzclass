@@ -4,8 +4,8 @@
 // 植物受伤事件。
 // 复合事件。
 // 此事件不考虑 IZ 模式下的双倍伤害。若要手动避免，请另行结算后取消伤害，
-// @param 依次为：植物地址、伤害来源地址（可能为空）、伤害来源的 GameObjectType、伤害数值（非引用）
-// @return 调整后的伤害数值，负数会取消伤害。
+/// @param 依次为：植物地址、伤害来源地址（可能为空）、伤害来源的 GameObjectType、伤害数值（非引用）
+/// @return 调整后的伤害数值，负数会取消伤害。
 class PlantTakeDamageEvent
 {
 private:
@@ -29,8 +29,8 @@ public:
 
 // 植物受到啃食伤害事件。
 // 此事件不考虑 IZ 模式下的双倍伤害。若要手动避免，请另行结算后取消伤害，
-// @param 依次为：植物地址、僵尸地址、GameObjectType::OBJECT_TYPE_NONE、伤害数值（非引用）
-// @return 调整后的伤害数值，负数会取消伤害。
+/// @param 依次为：植物地址、僵尸地址、GameObjectType::OBJECT_TYPE_NONE、伤害数值（非引用）
+/// @return 调整后的伤害数值，负数会取消伤害。
 class PlantTakeEatDamageEvent : public DLLEvent
 {
 public:
@@ -71,8 +71,8 @@ PlantTakeEatDamageEvent::PlantTakeEatDamageEvent(const char* name)
 }
 
 // 植物受到子弹伤害事件。
-// @param 依次为：植物地址、子弹地址、子弹的 GameObjectType、伤害数值（非引用）
-// @return 调整后的伤害数值，负数会取消伤害。
+/// @param 依次为：植物地址、子弹地址、子弹的 GameObjectType、伤害数值（非引用）
+/// @return 调整后的伤害数值，负数会取消伤害。
 class PlantTakeProjectileDamageEvent : public DLLEvent
 {
 public:
@@ -116,8 +116,8 @@ PlantTakeProjectileDamageEvent::PlantTakeProjectileDamageEvent(const char* name)
 }
 
 // 钢地刺因车辆、碾压等受伤事件。
-// @param 依次为：植物地址、0、GameObjectType::None、伤害数值（非引用）
-// @return 调整后的伤害数值，负数会取消伤害。
+/// @param 依次为：植物地址、0、GameObjectType::None、伤害数值（非引用）
+/// @return 调整后的伤害数值，负数会取消伤害。
 class SpikeRockTakeDamageEvent : public DLLEvent
 {
 public:

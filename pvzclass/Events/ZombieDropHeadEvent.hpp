@@ -2,8 +2,8 @@
 #include "DLLEvent.h"
 
 // 僵尸掉头事件。
-// @param 受掉头伤害的僵尸的基址、伤害标签
-// @return 是否继续结算致命伤害
+/// @param 受掉头伤害的僵尸的基址、伤害标签
+/// @return 是否继续结算致命伤害
 class ZombieDropHeadEvent : public DLLEvent
 {
 public:
