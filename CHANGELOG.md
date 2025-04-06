@@ -1,5 +1,6 @@
 # 目录
-- [2.1 (TBD)](#2.1)
+- [2.2 (TBD)](#2.2)
+- [2.1](#2.1)
 - [2.0.1](#2.0.1)
 - [2.0](#2.0)
 - [1.17.2](#1.17.2（2025/1/25）)
@@ -14,12 +15,45 @@
 - [1.15.0](#1.15.0（2023/10/27）)
 - [1.14.3](#1.14.3（2023/10/22）)
 
-## 2.1
+## 2.2
 
 ### 改动内容
 
 待定。
 
+### 兼容性
+
+兼容 2.1.x 。
+
+## 2.1
+
+### 新增内容
+
+- `SeedCard` 新增 `SetPacketType()`，用于初始化卡槽卡片。
+- `Doxyfile`，doxygen 配置文件，可用于生成 API 文档。
+- `AStyle.bat`，用于调用 astyle 实现代码风格调整。
+  - 目前已有部分文件接受调整，后续所有代码文件都应当遵从此脚本指定的码风。
+- `SetGoldMagnetLimit()`，用于设置吸金磁的吸取目标数上限。
+- `GameObjectType` 枚举，用于表示 `GameObject` 类型。
+- `ZombieAttackType` 枚举，用于表示僵尸攻击植物的类型。
+- `PVZ::InitPVZNoLock()`，用于实现非互斥的初始化。
+- `PlantInitAfterEvent` 事件。
+- `SeedPacketUpdateEvent` 事件。
+- 复合事件 `PlantTakeDamageEvent` 和它的附属事件。
+- 复合事件 `PlantAddProjectileEvent` 和它的附属事件。
+
+### 改动内容
+
+- 部分文件现在使用 `UTF-8 BOM` 编码。
+  - 后续所有代码文件都会使用此编码，请注意调整。
+- `ImitaterPlantEvent` 现在是 `DLLEvent` 的派生类。
+- 移除了 `DebugEvents` 相关的所有代码文件和描述。
+
+### 漏洞修复
+
+- 修复 `Creator::CreateUpperSound()` 不能正常生效的漏洞。
+- 修复 `Creator::CreateProjectile()` 在 dll 中结算异常的漏洞。
+ 
 ### 兼容性
 
 兼容 2.0.x 。
