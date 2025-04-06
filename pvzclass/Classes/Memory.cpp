@@ -105,7 +105,19 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 
 int PVZ::Memory::Execute(AsmBuilder& builder)
 {
-	return PVZ::Memory::Execute(builder.get_code(), builder.get_length());
+	if (localExecute)
+	{
+		byte* code = builder.get_code();
+		DWORD length = builder.get_length();
+		code[0] = PUSHAD;
+		code[length] = POPAD;
+		code[length + 1] = RET;
+		void (*func)() = (void (*)())code;
+		func();
+		return ReadMemory<int>(Variable);
+	}
+	else
+		return PVZ::Memory::Execute(builder.get_code(), builder.get_length());	
 }
 
 void PVZ::Memory::WaitPVZ()
