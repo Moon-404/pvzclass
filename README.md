@@ -6,7 +6,7 @@
 * 默认情况下，项目使用 **Visual Studio 2022 (v143平台工具集)**
 * 建议使用 **x86 Release** 方式构建框架
 * 框架仅能完全适用于**1.0.0.1051版本**的游戏
-* 程序从pvzclass.cpp的main函数开始运行，你可以直接在里面修改，编写你的程序，也可以用如下的格式构建
+* 程序从 `pvzmain/pvzmain.cpp` 的main函数开始运行，你可以直接在里面修改，编写你的程序，也可以用如下的格式构建
 
 ```cpp
 #include "pvzclass.h"
@@ -39,7 +39,7 @@ int main()
 
 ### 关于 PVZ 命名空间
 
-* 必须调用 `PVZ::InitPVZ(pid)` 后（参数是**进程标识符**），才可以使用 ` PVZ` 命名空间中的属性和方法：
+* 必须调用 `PVZ::InitPVZ(pid)` 或 `PVZ::InitPVZNoLock(pid)` 后（参数是**进程标识符**），才可以使用 ` PVZ` 命名空间中的属性和方法：
 
 ```cpp
 PVZ::InitPVZ(pid);
@@ -47,7 +47,7 @@ PVZ::GetBoard()->Sun = 9990;//修改阳光
 PVZ::GetBoard()->Win();//直接获胜
 ```
 
-* 当已经调用 `PVZ::InitPVZ(pid)` 时，才可以使用PVZ类中的静态成员类，如 `Memory`
+* 当已经调用 `PVZ::InitPVZ(pid)` 或 `PVZ::InitPVZNoLock(pid)` 时，才可以使用PVZ类中的静态成员类，如 `Memory`
 
 ```cpp
 int address = PVZ::Memory::AllocMemory();//申请内存空间
