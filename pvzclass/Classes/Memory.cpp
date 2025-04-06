@@ -110,8 +110,8 @@ int PVZ::Memory::Execute(AsmBuilder& builder)
 		byte* code = builder.get_code();
 		DWORD length = builder.get_length();
 		code[0] = PUSHAD;
-		code[length] = POPAD;
-		code[length + 1] = RET;
+		code[length - 1] = POPAD;
+		code[length] = RET;
 		void (*func)() = (void (*)())code;
 		func();
 		return ReadMemory<int>(Variable);
