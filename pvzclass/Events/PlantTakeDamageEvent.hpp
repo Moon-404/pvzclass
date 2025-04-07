@@ -1,32 +1,6 @@
 ﻿#pragma once
 #include "DLLEvent.h"
 
-// 植物受伤事件。
-// 复合事件。
-// 此事件不考虑 IZ 模式下的双倍伤害。若要手动避免，请另行结算后取消伤害，
-/// @param 依次为：植物地址、伤害来源地址（可能为空）、伤害来源的 GameObjectType、伤害数值（非引用）
-/// @return 调整后的伤害数值，负数会取消伤害。
-class PlantTakeDamageEvent
-{
-private:
-	PlantTakeEatDamageEvent* pted_event;
-	PlantTakeProjectileDamageEvent* ptej_event;
-	SpikeRockTakeDamageEvent* srtd_event;
-public:
-	PlantTakeDamageEvent()
-	{
-		pted_event = new PlantTakeEatDamageEvent("onPlantTakeDamage");
-		ptej_event = new PlantTakeProjectileDamageEvent("onPlantTakeDamage");
-		srtd_event = new SpikeRockTakeDamageEvent("onPlantTakeDamage");
-	}
-	void end()
-	{
-		pted_event->end();
-		ptej_event->end();
-		srtd_event->end();
-	}
-};
-
 // 植物受到啃食伤害事件。
 // 此事件不考虑 IZ 模式下的双倍伤害。若要手动避免，请另行结算后取消伤害，
 /// @param 依次为：植物地址、僵尸地址、GameObjectType::OBJECT_TYPE_NONE、伤害数值（非引用）
@@ -160,3 +134,29 @@ SpikeRockTakeDamageEvent::SpikeRockTakeDamageEvent(const char* name)
 	};
 	start(STRING(code));
 }
+
+// 植物受伤事件。
+// 复合事件。
+// 此事件不考虑 IZ 模式下的双倍伤害。若要手动避免，请另行结算后取消伤害，
+/// @param 依次为：植物地址、伤害来源地址（可能为空）、伤害来源的 GameObjectType、伤害数值（非引用）
+/// @return 调整后的伤害数值，负数会取消伤害。
+class PlantTakeDamageEvent
+{
+private:
+	PlantTakeEatDamageEvent* pted_event;
+	PlantTakeProjectileDamageEvent* ptej_event;
+	SpikeRockTakeDamageEvent* srtd_event;
+public:
+	PlantTakeDamageEvent()
+	{
+		pted_event = new PlantTakeEatDamageEvent("onPlantTakeDamage");
+		ptej_event = new PlantTakeProjectileDamageEvent("onPlantTakeDamage");
+		srtd_event = new SpikeRockTakeDamageEvent("onPlantTakeDamage");
+	}
+	void end()
+	{
+		pted_event->end();
+		ptej_event->end();
+		srtd_event->end();
+	}
+};

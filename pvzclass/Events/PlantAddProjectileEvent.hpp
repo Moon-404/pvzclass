@@ -1,28 +1,6 @@
 ﻿#pragma once
 #include "DLLEvent.h"
 
-// 植物发射子弹事件。
-// 时机上先于子弹索敌类型设定和特殊子弹速度改动。
-/// @param 依次为：触发事件的植物、生成的子弹、子弹目标僵尸的基址。
-/// @return 是否继续结算原版的调整。
-class PlantAddProjectileEvent
-{
-private:
-	NormalPlantAddProjectileEvent* normal_event;
-	StarFruitAddProjectileEvent* star_event;
-public:
-	PlantAddProjectileEvent()
-	{
-		normal_event = new NormalPlantAddProjectileEvent("onPlantAddProjectile");
-		star_event = new StarFruitAddProjectileEvent("onPlantAddProjectile");
-	}
-	void end()
-	{
-		normal_event->end();
-		star_event->end();
-	}
-};
-
 class NormalPlantAddProjectileEvent : public DLLEvent
 {
 public:
@@ -90,3 +68,25 @@ StarFruitAddProjectileEvent::StarFruitAddProjectileEvent(const char* str)
 	};
 	start(STRING(code));
 }
+
+// 植物发射子弹事件。
+// 时机上先于子弹索敌类型设定和特殊子弹速度改动。
+/// @param 依次为：触发事件的植物、生成的子弹、子弹目标僵尸的基址。
+/// @return 是否继续结算原版的调整。
+class PlantAddProjectileEvent
+{
+private:
+	NormalPlantAddProjectileEvent* normal_event;
+	StarFruitAddProjectileEvent* star_event;
+public:
+	PlantAddProjectileEvent()
+	{
+		normal_event = new NormalPlantAddProjectileEvent("onPlantAddProjectile");
+		star_event = new StarFruitAddProjectileEvent("onPlantAddProjectile");
+	}
+	void end()
+	{
+		normal_event->end();
+		star_event->end();
+	}
+};
