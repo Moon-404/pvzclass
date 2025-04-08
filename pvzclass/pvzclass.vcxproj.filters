@@ -734,5 +734,8 @@
     <ClInclude Include="Events\ZombieTargetPlantEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\SeedChooserScreen.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
