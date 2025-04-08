@@ -212,7 +212,7 @@ namespace PVZ
 		int GetBaseAddress() const
 		{ return(this->BaseAddress); }
 		const bool isValid()
-		{ return(this->GetBaseAddress() != INVALID_BASEADDRESS); }
+		{ return(this->BaseAddress != INVALID_BASEADDRESS && this->BaseAddress != 0); }
 	};
 
 	class Rect
