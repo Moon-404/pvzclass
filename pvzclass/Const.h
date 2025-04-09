@@ -4,8 +4,13 @@
 
 #define MEMREAD_BYTE(address) PVZ::Memory::ReadMemory<byte>(address)
 #define MEMREAD_INT(address) PVZ::Memory::ReadMemory<int>(address)
+
+/// @brief 包含读写部分常量数值的函数。目前不包含 Definition 类的内容。
 namespace Const
 {
+	/// @brief 获取阳光或货币物品的价值。
+	/// @param type 物品类型
+	/// @return 该物品的价值。若不为阳光或货币，返回 0 。
 	inline int ReadCoinValue(CoinType::CoinType type)
 	{
 		switch (type)
@@ -26,7 +31,9 @@ namespace Const
 			return(0);
 		}
 	}
-
+	/// @brief 修改阳光或货币物品的价值。
+	/// @param type 物品类型 
+	/// @param val 修改后的物品价值
 	inline void WriteCoinValue(CoinType::CoinType type, byte val)
 	{
 		bool b = true;
@@ -59,7 +66,11 @@ namespace Const
 			return;
 		}
 	}
-
+	/// @brief 获取指定场景下，禅境花园中指定位置的 X 坐标。
+	/// @param row 行数
+	/// @param column 列数
+	/// @param scene 场景类型
+	/// @return 指定位置的 X 坐标。
 	inline int GetZenGardenXPixel(int row, int column, SceneType::SceneType scene)
 	{
 		int baseaddress = 0;
@@ -76,7 +87,11 @@ namespace Const
 		}
 		return(MEMREAD_INT(baseaddress + row * 0x80 + column * 0x10));
 	}
-
+	/// @brief 获取指定场景下，禅境花园中指定位置的 Y 坐标。
+	/// @param row 行数
+	/// @param column 列数
+	/// @param scene 场景类型
+	/// @return 指定位置的 Y 坐标。 
 	inline int GetZenGardenYPixel(int row, int column, SceneType::SceneType scene)
 	{
 		int baseaddress = 0;
