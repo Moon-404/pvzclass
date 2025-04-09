@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace PVZ
 {
@@ -7,21 +7,21 @@ namespace PVZ
 	class Memory
 	{
 	public:
-		/*	000-100´æ·Å´´½¨×Óµ¯µÄº¯Êı
-			100-200´æ·Å×Ö·û´®»òÕßPlantEffectµÄÎ±ÔìÖ²Îï¶ÔÏó
-			300-400´æ·Å__autocollect_set
-			400-500´æ·Å__asm__Plant_memset
-			500-600´æ·ÅExecuteµÄÍ¬²½´úÂë */
+		/*	000-100å­˜æ”¾åˆ›å»ºå­å¼¹çš„å‡½æ•°
+			100-200å­˜æ”¾å­—ç¬¦ä¸²æˆ–è€…PlantEffectçš„ä¼ªé€ æ¤ç‰©å¯¹è±¡
+			300-400å­˜æ”¾__autocollect_set
+			400-500å­˜æ”¾__asm__Plant_memset
+			500-600å­˜æ”¾Executeçš„åŒæ­¥ä»£ç  */
 		static int Variable;
 		static HANDLE hProcess;
 		static DWORD processId;
-		// Ö÷Ïß³Ì£¨µÚÒ»¸öÏß³Ì£©£¬ÔÚ³õÊ¼»¯EventHandlerºó¸³Öµ
+		// ä¸»çº¿ç¨‹ï¼ˆç¬¬ä¸€ä¸ªçº¿ç¨‹ï¼‰ï¼Œåœ¨åˆå§‹åŒ–EventHandleråèµ‹å€¼
 		static HANDLE hThread;
 		static DWORD mainThreadId;
 		static HWND mainwindowhandle;
-		// Èç¹ûÎªtrue£¬Ôò²»»áµÈ´ıPVZ½ø³Ì£¬Á¢¼´Ö´ĞĞÔ¶³Ì´úÂë
+		// å¦‚æœä¸ºtrueï¼Œåˆ™ä¸ä¼šç­‰å¾…PVZè¿›ç¨‹ï¼Œç«‹å³æ‰§è¡Œè¿œç¨‹ä»£ç 
 		static bool immediateExecute;
-		// Èç¹ûÎªtrue£¬ÔòÔÚµ±Ç°Ïß³ÌÖ´ĞĞ´úÂë£¬ÔÚdllÖĞÉèÖÃÎªtrue
+		// å¦‚æœä¸ºtrueï¼Œåˆ™åœ¨å½“å‰çº¿ç¨‹æ‰§è¡Œä»£ç ï¼Œåœ¨dllä¸­è®¾ç½®ä¸ºtrue
 		static bool localExecute;
 		static int DLLAddress;
 		template <class T>
@@ -93,8 +93,8 @@ namespace PVZ
 		static bool InjectDll(const char* dllname);
 		static int GetProcAddress(const char* procname);
 		static int InvokeDllProc(const char* procname);
-		static void WaitPVZ(); // µÈ´ıPVZµ½´ï¸üĞÂÇ°
-		static void ResumePVZ(); // »Ö¸´PVZ
+		static void WaitPVZ(); // ç­‰å¾…PVZåˆ°è¾¾æ›´æ–°å‰
+		static void ResumePVZ(); // æ¢å¤PVZ
 	};
 
 #pragma endregion
