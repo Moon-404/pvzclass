@@ -1,4 +1,4 @@
-#include "TodParticleSystem.hpp"
+﻿#include "TodParticleSystem.hpp"
 
 PVZ::TodParticleSystem::TodParticleSystem(DWORD indexoraddress) : BaseClass(0)
 {
@@ -35,9 +35,19 @@ void PVZ::TodParticleSystem::MoveTo(float X, float Y)
 AsmBuilder color_builder = AsmBuilder();
 void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, Color& color)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, emitter_name, std::strlen(emitter_name) + 1);
+	DWORD tmp_ptr;
+	if (emitter_name == nullptr)
+	{
+		tmp_ptr = 0;
+	}
+	else
+	{
+		tmp_ptr = PVZ::Memory::Variable + 100;
+		PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, emitter_name, std::strlen(emitter_name) + 1);
+	}
+
 	color_builder.clear()
-		.mov_reg_imm(REG_EBX, PVZ::Memory::Variable + 100)
+		.mov_reg_imm(REG_EBX, tmp_ptr)
 		.push(color.Alpha)
 		.push(color.Blue)
 		.push(color.Green)
