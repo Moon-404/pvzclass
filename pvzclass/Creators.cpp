@@ -298,6 +298,19 @@ PVZ::Vase Creator::CreateVase(int row, int column, VaseContent::VaseContent cont
 	return vase;
 }
 
+PVZ::IZBrain Creator::CreateIZBrain(int row)
+{
+	PVZ::IZBrain iz_brain = PVZ::IZBrain(CreateGriditem().GetBaseAddress());
+	iz_brain.Row = row;
+	iz_brain.Column = 0;
+	iz_brain.Layer = row * 0x2710 + 0x49BB0;
+	iz_brain.Type = GriditemType::IZBrain;
+	iz_brain.NotExist = false;
+	iz_brain.Hp = 70;
+	iz_brain.Y = 120 + row * 100;
+	return iz_brain;
+}
+
 byte __asm__CreatePortal2[]
 {
 	MOV_ESI(0),
