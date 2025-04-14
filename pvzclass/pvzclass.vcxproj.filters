@@ -428,9 +428,6 @@
     <ClInclude Include="Enums\PlantEffectType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\ChallengeState.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Const.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -733,6 +730,15 @@
     </ClInclude>
     <ClInclude Include="Events\ZombieTargetPlantEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\SeedChooserScreen.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ChallengeState.h">
+      <Filter>头文件\Enums</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

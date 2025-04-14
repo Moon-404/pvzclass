@@ -3,6 +3,7 @@
 #include "Flags.h"
 #include "AsmFunctions.h"
 #include "AsmBuilder.hpp"
+#include "Memory.hpp"
 #include <ctime>
 #include <memory>
 #include <vector>
@@ -91,103 +92,6 @@ namespace PVZ
 	void InitPVZ(DWORD pid);
 	void QuitPVZ();
 
-#pragma region Memory Class
-
-	class Memory
-	{
-	public:
-		/*	000-100存放创建子弹的函数
-			100-200存放字符串或者PlantEffect的伪造植物对象
-			300-400存放__autocollect_set
-			400-500存放__asm__Plant_memset
-			500-600存放Execute的同步代码 */
-		static int Variable;
-		static HANDLE hProcess;
-		static DWORD processId;
-		// 主线程（第一个线程），在初始化EventHandler后赋值
-		static HANDLE hThread;
-		static DWORD mainThreadId;
-		static HWND mainwindowhandle;
-		// 如果为true，则不会等待PVZ进程，立即执行远程代码
-		static bool immediateExecute;
-		// 如果为true，则在当前线程执行代码，在dll中设置为true
-		static bool localExecute;
-		static int DLLAddress;
-		template <class T>
-		inline static T ReadMemory(DWORD address)
-		{
-			if (localExecute)
-			{
-				T* buffer = (T*)address;
-				return *buffer;
-			}
-			else
-			{
-				T buffer = (T)NULL;
-				ReadProcessMemory(hProcess, (LPCVOID)address, &buffer, sizeof(T), NULL);
-				return buffer;
-			}
-		};
-		template <class T>
-		inline static BOOL WriteMemory(DWORD address, T value)
-		{
-			if (localExecute)
-			{
-				AllAccess(address);
-				T* buffer = (T*)address;
-				*buffer = value;
-				return true;
-			}
-			else
-			{
-				return WriteProcessMemory(hProcess, (LPVOID)address, &value, sizeof(T), NULL);
-			}
-		};
-		template <class T>
-		inline static BOOL ReadArray(DWORD address, T* result, size_t length)
-		{
-			if (localExecute)
-			{
-				memcpy(result, (const void*)address, length);
-				return true;
-			}
-			else
-			{
-				return ReadProcessMemory(hProcess, (LPCVOID)address, (LPVOID)result, length, NULL);
-			}
-		};
-		template <class T>
-		inline static BOOL WriteArray(DWORD address, T* value, size_t length)
-		{
-			if (localExecute)
-			{
-				AllAccess(address);
-				memcpy((void*)address, value, length);
-				return true;
-			}
-			else
-			{
-				return WriteProcessMemory(hProcess, (LPVOID)address, value, length, NULL);
-			}
-		};
-		static int ReadPointer(int baseaddress, int offset);
-		static int ReadPointer(int baseaddress, int offset, int offset1);
-		static int ReadPointer(int baseaddress, int offset, int offset1, int offset2);
-		static BOOL AllAccess(int address);
-		static int AllocMemory(int pages = 1, int size = 0);
-		static void CreateThread(int address);
-		static void FreeMemory(int address);
-		static int Execute(byte asmcode[], int lengrh);
-		static int Execute(AsmBuilder& builder);
-		static bool InjectDll(const char* dllname);
-		static int GetProcAddress(const char* procname);
-		static int InvokeDllProc(const char* procname);
-		static void WaitPVZ(); // 等待PVZ到达更新前
-		static void ResumePVZ(); // 恢复PVZ
-	};
-
-#pragma endregion
-
 #pragma region structs
 
 	struct Color
@@ -212,7 +116,7 @@ namespace PVZ
 		int GetBaseAddress() const
 		{ return(this->BaseAddress); }
 		const bool isValid()
-		{ return(this->GetBaseAddress() != INVALID_BASEADDRESS); }
+		{ return(this->BaseAddress != INVALID_BASEADDRESS && this->BaseAddress != 0); }
 	};
 
 	class Rect
@@ -396,30 +300,6 @@ namespace PVZ
 		Challenge GetMiscellaneous();
 		Challenge GetChallenge();
 #pragma endregion
-	};
-	class SeedChooserScreen : public Widget
-	{
-	public:
-		SeedChooserScreen(int address) : Widget(address) {};
-
-		class ChosenSeed : public BaseClass
-		{
-		public:
-			ChosenSeed(int address) : BaseClass(address) {};
-			INT_PROPERTY(X, __get_X, __set_X, 0);
-			INT_PROPERTY(Y, __get_Y, __set_Y, 4);
-			T_PROPERTY(SeedType::SeedType, Type, __get_Type, __set_Type, 0x20);
-			T_PROPERTY(SeedState::SeedState, State, __get_State, __set_State, 0x24);
-			INT_PROPERTY(IndexInSlot, __get_IndexInSlot, __set_IndexInSlot, 0x28);
-			T_PROPERTY(BOOLEAN, Refreshing, __get_Refreshing, __set_Refreshing, 0x2C);
-			INT_PROPERTY(RefreshCounter, __get_RefreshCounter, __set_RefreshCounter, 0x30);
-			T_PROPERTY(SeedType::SeedType, ImitaterType, __get_ImitaterType, __set_ImitaterType, 0x34);
-			T_PROPERTY(BOOLEAN, CrazyDavePick, __get_CrazyDavePick, __set_CrazyDavePick, 0x38);
-		};
-
-		Board GetBoard();
-		ChosenSeed GetChosenSeed(int num);
-		T_PROPERTY(BOOLEAN, IsViewingLawn, __get_IsViewingLawn, __set_IsViewingLawn, 0x0D38);
 	};
 	//Do NOT construct this class directly!
 	class GameObject : public BaseClass
@@ -1154,8 +1034,6 @@ namespace PVZ
 	Mouse GetMouse();
 	//若 BaseAddress 为 0，返回空指针
 	Board GetBoard();
-	//若 BaseAddress 为 0，返回空指针
-	SeedChooserScreen GetSeedChooserScreen();
 	SaveData GetSaveData();
 	Music GetMusic();
 	ZenGarden GetZenGarden();

@@ -146,12 +146,6 @@ PVZ::Board PVZ::GetBoard()
 	return(address == 0 ? INVALID_BASEADDRESS : Board(address));
 }
 
-PVZ::SeedChooserScreen PVZ::GetSeedChooserScreen()
-{
-	int address = Memory::ReadPointer(0x6A9EC0, 0x774);
-	return(address == 0 ? INVALID_BASEADDRESS : SeedChooserScreen(address));
-}
-
 PVZ::ZenGarden PVZ::GetZenGarden()
 {
 	return ZenGarden(Memory::ReadPointer(0x6A9EC0, 0x81C));
