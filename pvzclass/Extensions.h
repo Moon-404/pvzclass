@@ -73,13 +73,29 @@ inline void ShowHiddenLevel(BOOLEAN b = true)
 	MEMMOD_BYTE(b ? 0x42DF5D : 0x54EBA8, 56, 136);
 }
 
-//是否启动传送门。若为“是”，则该方法会自动创建默认的传送门
-inline void EnablePortal(BOOLEAN b = true)
+//启动传送门。
+/// @param state 功能的启用状态，缺省值为 None, 表示创建默认位置传送门及启动传送门。
+inline void EnablePortal(ThreeState::ThreeState state = None)
 {
-	if (b && PVZ::GetBoard().GetBaseAddress() != 0)Creator::__CreatePortal();
-	MEMMOD_BYTE(0x467665, JO, JNE);
-	MEMMOD_BYTE(0x41FFB4, JO, JNE);
-	MEMMOD_BYTE(0x4248CE, JO, JNE);
+	switch (state)
+	{
+	case None:
+		Creator::__CreatePortal();
+	case Enable:
+		PVZ::Memory::WriteMemory<byte>(0x467665, JO);
+		PVZ::Memory::WriteMemory<byte>(0x41FFB4, JO);
+		PVZ::Memory::WriteMemory<byte>(0x4248CE, JO);
+		break;
+	case Disable:
+		PVZ::Memory::WriteMemory<byte>(0x467665, JNE);
+		PVZ::Memory::WriteMemory<byte>(0x41FFB4, JNE);
+		PVZ::Memory::WriteMemory<byte>(0x4248CE, JNE);
+
+		auto griditems = PVZ::GetBoard().GetAllGriditems();
+		for (DWORD i = 0; i < griditems.size(); i++)
+			if (griditems[i].Type == GriditemType::PortalBlue || griditems[i].Type == GriditemType::PortalYellow)
+				griditems[i].Remove();
+	}
 }
 
 //是否固定传送门
