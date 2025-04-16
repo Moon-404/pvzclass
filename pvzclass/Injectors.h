@@ -1,17 +1,22 @@
 ﻿#pragma once
 #include "PVZ.h"
 
+/// @brief 代码注入类，可以注入 byte 数组形式的汇编码
 class Injector
 {
 	private:
 		DWORD ReplaceRange, ReplacePos;
 	public:
 		DWORD InjectPos, InjLen;
-		Injector()
-		{
-			ReplacePos = ReplaceRange = InjectPos = InjLen = 0;
-			return;
-		}
+		/// @brief 构造一个注入器，并且在指定位置注入代码。
+		/// @note 注入的代码依然需要以 RET 宏结尾。
+		/// @note 跳转后的代码默认不保护现场，需要手动保护。
+		/// @note 可以使用 RET 宏提前结束注入代码的运行。
+		/// @param OriPTR 注入的地址
+		/// @param OriLen 被替换的原始代码的长度
+		/// @param ASMCode 注入的汇编码
+		/// @param CodeLen 汇编码长度
+		/// @param dropOri 是否弃掉原始代码。若为 false（默认值），则会在执行完注入代码后再执行被替换的代码。
 		Injector(unsigned int OriPTR, int OriLen, byte* ASMCode, int CodeLen, bool dropOri = false)
 		{
 			ReplacePos = OriPTR;
@@ -50,11 +55,14 @@ class Injector
 			
 			return;
 		}
+		/// @brief 析构函数。会自动调用 Remove() 方法。
+		/// @see Remove()
 		~Injector()
 		{
 			this->Remove();
 			return;
 		}
+		/// @brief 消除该 Injector 产生的效应。
 		inline void Remove()
 		{
 			if (InjectPos == -1)
