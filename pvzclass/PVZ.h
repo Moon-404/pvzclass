@@ -7,6 +7,10 @@
 #include <ctime>
 #include <memory>
 #include <vector>
+#include <type_traits>
+
+using std::enable_if_t;
+using std::is_base_of;
 
 #pragma region definitions
 
@@ -298,8 +302,18 @@ namespace PVZ
 		MousePointer GetMousePointer();
 		Caption GetCaption();
 		CardSlot GetCardSlot();
+		/// @brief 获取 Challenge 类型的成员。
+		/// @tparam T 返回值的参数，必须为 Challenge 或它的派生类。
+		/// @return Challenge （或者其派生类）成员对象 
+		template<typename T, typename = enable_if_t<is_base_of<Challenge, T>::value>>
+		T GetChallenge()
+		{
+			return T(BaseAddress);
+		}
+		/// @brief 获取 Challenge 类型的成员。
+		/// @attention 与 GetChallenge() 不同，此方法只能获得 Challenge 类型的对象。
+		/// @return Challenge 成员对象 
 		Challenge GetMiscellaneous();
-		Challenge GetChallenge();
 #pragma endregion
 	};
 	//Do NOT construct this class directly!
