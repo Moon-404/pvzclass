@@ -12,7 +12,8 @@ ZombieInitAfterEvent::ZombieInitAfterEvent()
 	int procAddress = PVZ::Memory::GetProcAddress("onZombieInitAfter");
 	hookAddress = 0x524035;
 	rawlen = 5;
-	BYTE code[] = {
+	BYTE code[] =
+	{
 		PUSH_EDI,
 		INVOKE(procAddress),
 		ADD_ESP(4)

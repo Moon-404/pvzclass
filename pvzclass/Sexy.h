@@ -9,7 +9,7 @@ namespace Sexy
 		监听器函数设置方式：
 		void __stdcall 监听器函数名(参数列表)
 		例如用于 DepressListener 的监听器函数：
-		void __stdcall listenerFunc(int id) 
+		void __stdcall listenerFunc(int id)
 		用以下方式设置监听器：
 		Sexy::ButtonListener listener;
 		listener.DepressListener = (int)listenerFunc;

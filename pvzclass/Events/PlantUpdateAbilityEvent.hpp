@@ -31,7 +31,7 @@ PlantUpdateAbilityEvent::PlantUpdateAbilityEvent()
 		POPAD,
 		INVOKE(0x453840),
 		MOV_ECX(0x463259),
-		JMP_REG32(REG_ECX),		
+		JMP_REG32(REG_ECX),
 	};
 	start(STRING(code));
 }

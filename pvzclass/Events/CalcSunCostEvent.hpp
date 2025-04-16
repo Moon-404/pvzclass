@@ -12,7 +12,8 @@ CalcSunCostEvent::CalcSunCostEvent()
 	int procAddress = PVZ::Memory::GetProcAddress("getCardCost");
 	hookAddress = 0x467B06;
 	rawlen = 6;
-	BYTE code[] = {
+	BYTE code[] =
+	{
 		PUSH_EAX,
 		INVOKE(procAddress),
 		ADD_ESP(4),

@@ -15,7 +15,8 @@ ZombieDropHeadEvent::ZombieDropHeadEvent()
 	int procAddress = PVZ::Memory::GetProcAddress("onZombieDropHead");
 	hookAddress = 0x529A30;
 	rawlen = 6;
-	BYTE code[] = {
+	BYTE code[] =
+	{
 		PUSH_PTR_ESP_ADD_V(0x28),
 		PUSH_PTR_ESP_ADD_V(0x28),
 		INVOKE(procAddress),
