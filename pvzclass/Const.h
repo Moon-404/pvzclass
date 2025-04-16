@@ -32,7 +32,7 @@ namespace Const
 		}
 	}
 	/// @brief 修改阳光或货币物品的价值。
-	/// @param type 物品类型 
+	/// @param type 物品类型
 	/// @param val 修改后的物品价值
 	inline void WriteCoinValue(CoinType::CoinType type, byte val)
 	{
@@ -91,7 +91,7 @@ namespace Const
 	/// @param row 行数
 	/// @param column 列数
 	/// @param scene 场景类型
-	/// @return 指定位置的 Y 坐标。 
+	/// @return 指定位置的 Y 坐标。
 	inline int GetZenGardenYPixel(int row, int column, SceneType::SceneType scene)
 	{
 		int baseaddress = 0;

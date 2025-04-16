@@ -117,7 +117,7 @@ int PVZ::Memory::Execute(AsmBuilder& builder)
 		return ReadMemory<int>(Variable);
 	}
 	else
-		return PVZ::Memory::Execute(builder.get_code(), builder.get_length());	
+		return PVZ::Memory::Execute(builder.get_code(), builder.get_length());
 }
 
 void PVZ::Memory::WaitPVZ()
