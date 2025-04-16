@@ -296,5 +296,5 @@ PVZ::CardSlot PVZ::Board::GetCardSlot()
 
 PVZ::Challenge PVZ::Board::GetMiscellaneous()
 {
-	return this->GetChallenge();
+	return this->GetChallenge<PVZ::Challenge>();
 }
