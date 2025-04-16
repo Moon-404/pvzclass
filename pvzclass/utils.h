@@ -4,6 +4,8 @@
 #include <vector>
 #include <stack>
 
+/// @author YouTheB
+/// @deprecated
 namespace Utils
 {
 	typedef PVZ::Memory Memory;

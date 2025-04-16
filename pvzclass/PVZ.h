@@ -552,17 +552,17 @@ namespace PVZ
 		/// @param shown 是否显示，默认为 true
 		void ShowDoorArms(bool shown = true);
 
-		// Deprecated
+		/// @deprecated
 		void GetBodyHp(int* hp, int* maxhp);
-		// Deprecated
+		/// @deprecated
 		void SetBodyHp(int hp, int maxhp);
-		// Deprecated
+		/// @deprecated
 		AccessoriesType1 GetAccessoriesType1();
-		// Deprecated
+		/// @deprecated
 		void SetAccessoriesType1(AccessoriesType1 acctype1);
-		// Deprecated
+		/// @deprecated
 		AccessoriesType2 GetAccessoriesType2();
-		// Deprecated
+		/// @deprecated
 		void SetAccessoriesType2(AccessoriesType2 acctype2);
 	};
 	class Projectile : public GameObject

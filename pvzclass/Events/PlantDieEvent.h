@@ -22,7 +22,7 @@ PlantDieEvent::PlantDieEvent()
 	start(STRING(code));
 }
 
-// Deprecated
+/// @deprecated
 class PlantRemoveEvent : public PlantDieEvent
 {
 protected:

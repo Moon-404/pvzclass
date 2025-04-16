@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "PVZ.h"
 
+/// @brief 包含创建多种 PVZ 内部对象的函数
 namespace Creator
 {
 
@@ -46,37 +47,86 @@ inline void xytorc(int* x, int* y)
 #define CLEARZOMBIEPREVIEW INVOKE(0x40DF70)
 #define CREATEZOMBIEINLEVEL INVOKE(0x4092E0)
 
+	/// @brief 在指定位置创建一个动画模型。
+	/// @param type 动画类型
+	/// @param x X 坐标
+	/// @param y Y 坐标
+	/// @param layer 图层大小
+	/// @return 动画模型
 	PVZ::Animation CreateReanimation(AnimationType::AnimationType type, float x, float y, int layer = 0x310000);
 
-	//在指定位置生成一个指定类型的僵尸。
-	//僵王博士将会被强制生成在 0 行 0 列。
+	/// @brief 在指定位置生成一个指定类型的僵尸。
+	/// @note 僵王博士将会被强制生成在 0 行 0 列。
+	/// @param type 僵尸类型
+	/// @param row 行
+	/// @param column 列
+	/// @return 生成的僵尸
 	PVZ::Zombie CreateZombie(ZombieType::ZombieType type, int row, byte column);
 
+	/// @brief 在指定位置生成一个指定类型的植物。
+	/// @param type 植物类型
+	/// @param row 行
+	/// @param column 列
+	/// @param imitative 是否是模仿者生成的植物。若为 true，会产生一个模仿指定植物的模仿者。
+	/// @return 生成的植物
 	PVZ::Plant CreatePlant(SeedType::SeedType type, int row, byte column, BOOLEAN imitative = false);
 
+	/// @brief 在指定位置生成一个指定类型的子弹。
+	/// @note 索敌类型默认为 0x0B
+	/// @param type 子弹类型
+	/// @param row 行
+	/// @param x X 坐标
+	/// @return 生成的子弹
 	PVZ::Projectile CreateProjectile(ProjectileType::ProjectileType type, byte row, int x);
 
+	/// @brief 为部分函数建立基础。
 	void AsmInit();
 
-	//如果调用过 AsmInit()，程序结束之前一定要调用此函数
+	/// @brief 消除 AsmInit() 产生的效应。
 	void AsmReset();
 
-	/// @brief 快速创建一个子弹。你需要先调用一次AsmInit后才能使用这个函数。
+	/// @brief 快速创建一个子弹。
+	/// @attention 你需要先调用一次 AsmInit() 后才能使用这个函数。
+	/// @see AsmInit()
 	/// @param type 子弹类型
 	/// @param x	X坐标
 	PVZ::Projectile CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed);
 
+	/// @brief 在指定位置生成一个指定类型的物品。
+	/// @param type 物品类型
+	/// @param x X 坐标
+	/// @param y Y 坐标
+	/// @param motion 物品的位移类型
+	/// @return 生成的物品
 	PVZ::Coin CreateCoin(CoinType::CoinType type,int x,int y,CoinMotionType::CoinMotionType motion);
 
+	/// @brief 移除场上已有的除草机，然后初始化本关的除草机。
 	void ResetLawnmover();
 
-	//just a Bottom implementation
+	/// @brief 生成一个空的场地物件
+	/// @note 此物件的各项属性都需要自行设定。
+	/// @return 生成的场地物件
 	PVZ::Griditem CreateGriditem();
 
+	/// @brief 在指定位置生成一个墓碑
+	/// @note 此函数没有返回值。
+	/// @todo 尝试实现一个可捕获返回值的版本。
+	/// @param row 行
+	/// @param column 列 
 	void CreateGrave(int row, int column);
 
+	/// @brief 在指定位置生成一个弹坑
+	/// @param row 行
+	/// @param column 列
+	/// @param duration 持续时间
+	/// @return 生成的弹坑
 	PVZ::Crater CreateCrater(int row, int column,int duration);
 
+	/// @brief 在指定位置生成一个梯子
+	/// @note 返回值为 PVZ::Griditem 类型，而不是梯子类型
+	/// @param row 行
+	/// @param column 列 
+	/// @return 生成的梯子
 	PVZ::Griditem CreateLadder(int row, byte column);
 
 	PVZ::Vase CreateVase(int row, int column, VaseContent::VaseContent content, VaseSkin::VaseSkin skin = VaseSkin::VaseSkinUnknow, ZombieType::ZombieType zombie = ZombieType::Zombie, SeedType::SeedType plant = SeedType::Peashooter, int sun = 0);
@@ -85,6 +135,7 @@ inline void xytorc(int* x, int* y)
 
 	PVZ::Portal CreatePortal(int row, int column, int isYellow = 0);
 	
+	/// @brief 待创建罐子的详细信息
 	struct VaseCreateInfo
 	{
 		int row;
@@ -117,7 +168,8 @@ inline void xytorc(int* x, int* y)
 
 	void CreateUpperSound(UpperSoundType::UpperSoundType sound);
 
-	//当前关卡必须至少存在过一个植物，此函数才有效
+	/// @brief 将第一个植物视为寒冰菇，然后令其冻结全场僵尸。
+	/// @attention 当前关卡必须至少存在过一个植物，此函数才有效。
 	void FrozeAll();
 
 	void StopSound(int soundid);
@@ -126,10 +178,12 @@ inline void xytorc(int* x, int* y)
 
 	void CreateVaseFormation(PVZLevel::PVZLevel vblevel);
 
-	//你需要先调用一次AsmInit后才能使用这个函数
+	/// @attention 你需要先调用一次 AsmInit() 后才能使用这个函数。
+	/// @see AsmInit()
 	void __CreatePortal();
 
-	//你需要先调用一次AsmInit后才能使用这个函数
+	/// @attention 你需要先调用一次 AsmInit() 后才能使用这个函数。
+	/// @see AsmInit()
 	void CreatePortal(int yellow1Row, int yellow1Column, int yellow2Row, int yellow2Column, int blue1Row, int blue1Column, int blue2Row, int blue2Column);
 
 	void __ClearZombiePreview();
