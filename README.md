@@ -9,17 +9,19 @@
 * 程序从 `pvzmain/pvzmain.cpp` 的main函数开始运行，你可以直接在里面修改，编写你的程序，也可以用如下的格式构建
 
 ```cpp
-#include "pvzclass.h"
+#include "../pvzclass/pvzclass.h"
+#include "../pvzclass/Events/Events.h"
 
 int main()
 {
     DWORD pid = ProcessOpener::Open();
-    if (pid) {
+    if (pid)
+    {
         PVZ::InitPVZ(pid);
         /*在这里编写你的代码*/
 
         PVZ::QuitPVZ();
-        }
+    }
     return 0;
 }
 ```
