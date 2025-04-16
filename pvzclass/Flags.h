@@ -11,7 +11,7 @@
 	const DamageRangeFlags DRF_FLYING = (1 << 1);
 	/// @brief 是否潜水。
 	const DamageRangeFlags DRF_SUBMERGED = (1 << 2);
-	/// @brief Deprecated
+	/// @brief 内测版中用于判断是否为僵尸狗。正式版 PVZ 中被废弃。
 	const DamageRangeFlags DRF_DOG = (1 << 3);
 	/// @brief 是否正在落地（或出土）。
 	const DamageRangeFlags DRF_OFF_GROUND = (1 << 4);

@@ -26,7 +26,7 @@ namespace AnimationType
 		Hypnoshroom,
 		Chomper,
 		Zombie,
-		// Deprecated
+		/// @deprecated
 		ZombieAccessory = 21,
 		Sun,
 		PotatoMine,
