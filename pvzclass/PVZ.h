@@ -82,7 +82,8 @@
 
 #define INVALID_BASEADDRESS 0x400000
 
-/*Only version 1.0.0.1051 is fully supported*/
+/// @brief 包含大部分用于控制 PVZ 内部对象的类和方法。
+/// @note Only version 1.0.0.1051 is fully supported
 namespace PVZ
 {
 	/// @brief 初始化 PVZ 命名空间，且不在程序内附加钩子。Memory::immediateExecute 会设置为 true 。
