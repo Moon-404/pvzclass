@@ -1,6 +1,9 @@
 ﻿#pragma once
+/// @brief 通过 ResourceManager 直接载入形成的音效。
 namespace UpperSoundType
 {
+	/// @brief 通过 ResourceManager 直接载入形成的音效的类型。
+	/// @todo 将它们移到 Resources 中。这玩意要多难用有多难用，而且会受到资源包的影响。
 	enum UpperSoundType
 	{
 		Click1,
