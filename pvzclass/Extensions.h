@@ -73,28 +73,33 @@ inline void ShowHiddenLevel(BOOLEAN b = true)
 	MEMMOD_BYTE(b ? 0x42DF5D : 0x54EBA8, 56, 136);
 }
 
-//启动传送门。
-/// @param state 功能的启用状态，缺省值为 None, 表示创建默认位置传送门及启动传送门。
-inline void EnablePortal(ThreeState::ThreeState state = None)
+/// @brief 启用或禁用传送门功能。
+/// @param b 是否启用传送功能。默认为 `true`。
+/// @param adjust_existed 是否调整现有的传送门。默认为 `false`。
+///        - 当 `b` 为 `true` 且 `adjust_existed` 为 `false` 时，将创建默认位置的传送门。
+///        - 当 `b` 为 `false` 且 `adjust_existed` 为 `true` 时，将移除现有的传送门
+inline void EnablePortal(BOOLEAN b = true, BOOLEAN adjust_existed = false)
 {
-	switch (state)
-	{
-	case None:
-		Creator::__CreatePortal();
-	case Enable:
+	if (b) {
 		PVZ::Memory::WriteMemory<byte>(0x467665, JO);
-		PVZ::Memory::WriteMemory<byte>(0x41FFB4, JO);
+		PVZ::Memory::WriteMemory<byte>(0x41FFB4, JO); 
 		PVZ::Memory::WriteMemory<byte>(0x4248CE, JO);
-		break;
-	case Disable:
+
+		if (!adjust_existed && PVZ::GetBoard().GetBaseAddress() != 0) {
+			Creator::__CreatePortal();
+		}
+	}
+	else {
 		PVZ::Memory::WriteMemory<byte>(0x467665, JNE);
 		PVZ::Memory::WriteMemory<byte>(0x41FFB4, JNE);
 		PVZ::Memory::WriteMemory<byte>(0x4248CE, JNE);
 
-		auto griditems = PVZ::GetBoard().GetAllGriditems();
-		for (DWORD i = 0; i < griditems.size(); i++)
-			if (griditems[i].Type == GriditemType::PortalBlue || griditems[i].Type == GriditemType::PortalYellow)
-				griditems[i].Remove();
+		if (adjust_existed && PVZ::GetBoard().GetBaseAddress() != 0) {
+			auto griditems = PVZ::GetBoard().GetAllGriditems();
+			for (DWORD i = 0; i < griditems.size(); i++)
+				if (griditems[i].Type == GriditemType::PortalBlue || griditems[i].Type == GriditemType::PortalYellow)
+					griditems[i].Remove();
+		}
 	}
 }
 
