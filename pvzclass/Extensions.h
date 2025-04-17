@@ -80,21 +80,25 @@ inline void ShowHiddenLevel(BOOLEAN b = true)
 ///        - 当 `b` 为 `false` 且 `adjust_existed` 为 `true` 时，将移除现有的传送门
 inline void EnablePortal(BOOLEAN b = true, BOOLEAN adjust_existed = false)
 {
-	if (b) {
+	if (b)
+	{
 		PVZ::Memory::WriteMemory<byte>(0x467665, JO);
-		PVZ::Memory::WriteMemory<byte>(0x41FFB4, JO); 
+		PVZ::Memory::WriteMemory<byte>(0x41FFB4, JO);
 		PVZ::Memory::WriteMemory<byte>(0x4248CE, JO);
 
-		if (!adjust_existed && PVZ::GetBoard().GetBaseAddress() != 0) {
+		if (!adjust_existed && PVZ::GetBoard().GetBaseAddress() != 0)
+		{
 			Creator::__CreatePortal();
 		}
 	}
-	else {
+	else
+	{
 		PVZ::Memory::WriteMemory<byte>(0x467665, JNE);
 		PVZ::Memory::WriteMemory<byte>(0x41FFB4, JNE);
 		PVZ::Memory::WriteMemory<byte>(0x4248CE, JNE);
 
-		if (adjust_existed && PVZ::GetBoard().GetBaseAddress() != 0) {
+		if (adjust_existed && PVZ::GetBoard().GetBaseAddress() != 0)
+		{
 			auto griditems = PVZ::GetBoard().GetAllGriditems();
 			for (DWORD i = 0; i < griditems.size(); i++)
 				if (griditems[i].Type == GriditemType::PortalBlue || griditems[i].Type == GriditemType::PortalYellow)
