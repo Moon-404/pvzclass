@@ -75,7 +75,7 @@ byte __asm__CreateProjectile[47]
 {
 	MOV_EAX(0),
 	CREATEPROJECTILE,
-	MOV_PTR_EAX_ADD(0x74,0xB),
+	MOV_PTR_EAX_ADD(0x74, 0xB),
 	MOV_PTR_ADDR_EAX(0),
 	RET,
 };
@@ -98,8 +98,8 @@ byte __asm__CreateProjectile2[84]
 {
 	MOV_EAX(0),
 	CREATEPROJECTILE,
-	MOV_PTR_EAX_ADD(0x58,7),
-	MOV_PTR_EAX_ADD(0x74,0xB),
+	MOV_PTR_EAX_ADD(0x58, 7),
+	MOV_PTR_EAX_ADD(0x74, 0xB),
 	FILD_PTR(0),
 	FDIV_PTR(0),
 	FSTP_PTR_EAX_ADD(0x3C),
@@ -119,7 +119,7 @@ byte __asm__CreatePortalpieces1[10]
 byte __asm__CreatePortalpieces2[15]
 {
 	MOV_PTR_EAX_ADD_V_ECX(0x14),
-	MOV_PTR_EAX_ADD_V_V(0x1C,0x54B78),
+	MOV_PTR_EAX_ADD_V_V(0x1C, 0x54B78),
 	JMPFAR(0),
 };
 
@@ -169,7 +169,7 @@ PVZ::Projectile Creator::CreateProjectile(ProjectileType::ProjectileType type, i
 		PVZ::Memory::Execute((byte*)(PVZ::Memory::Variable + 16), 84);
 	else
 		PVZ::Memory::CreateThread(PVZ::Memory::Variable + 16);
-	
+
 	PVZ::Memory::WriteMemory<byte>(0x552014, 0xDB);
 	return PVZ::Projectile(PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable));
 }
@@ -243,7 +243,7 @@ void Creator::CreateGrave(int row, int column)
 {
 	SETARG(__asm__CreateGrave, 2) = PVZBASEADDRESS + 0x160;
 	SETARG(__asm__CreateGrave, 7) = row;
-	SETARG(__asm__CreateGrave,12) = column;
+	SETARG(__asm__CreateGrave, 12) = column;
 	PVZ::Memory::Execute(STRING(__asm__CreateGrave));
 }
 
@@ -375,8 +375,8 @@ byte __asm__CreateCaption[]
 	MOV_ECX(6),
 	MOV_EDX(0),
 	INVOKE(0x459010),
-	MOV_PTR_ESI_ADD(0x88,0),
-	MOV_PTR_ESI_ADD(0x8C,0),
+	MOV_PTR_ESI_ADD(0x88, 0),
+	MOV_PTR_ESI_ADD(0x8C, 0),
 	RET,
 };
 
@@ -425,7 +425,7 @@ void Creator::CreatePlantEffect(PlantEffectType::PlantEffectType type, int x, in
 	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 100 + 0x24, type);
 	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 108, x + 50);
 	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 100 + 0xC, y + 50);
-	xytorc(&x,&y);
+	xytorc(&x, &y);
 	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 100 + 0x1C, x);
 	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 100 + 0x28, y);
 	SETARG(__asm__CreatePlantEffect, 1) = PVZ::Memory::Variable + 100;
@@ -653,5 +653,3 @@ void Creator::CreateZombieInLevel(ZombieType::ZombieType* ztypes, int length, in
 	PVZ::Memory::WriteMemory<int>(0x40948A, 10);
 	PVZ::Memory::WriteMemory<int>(0x409499, 10);
 }
-
-

@@ -204,7 +204,7 @@ void Draw::DrawRect(int x, int y, int width, int height, DWORD graphics)
 	SETARG(__asm__DrawRect, 11) = y;
 	SETARG(__asm__DrawRect, 16) = x;
 	SETARG(__asm__DrawRect, 21) = graphics;
-	PVZ::Memory::Execute(STRING(__asm__DrawRect));	
+	PVZ::Memory::Execute(STRING(__asm__DrawRect));
 }
 
 BYTE __asm__FillRect[]

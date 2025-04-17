@@ -1,7 +1,9 @@
 ﻿#include "ZombieState.h"
 
-std::string ZombieState::ToString(ZombieState state) {
-	switch (state) {
+std::string ZombieState::ToString(ZombieState state)
+{
+	switch (state)
+	{
 	case WALKING:
 		return "WALKING";
 	case DYING:

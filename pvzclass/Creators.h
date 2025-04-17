@@ -5,19 +5,18 @@
 namespace Creator
 {
 
-inline short makeshort(byte b1, byte b2)
-{
-	return (b2 << 8) + b1;
-}
-inline void xytorc(int* x, int* y)
-{
-	int temp = *y;
-	*y = (*x - 40) / 80;
-	SceneType::SceneType scene = PVZ::Memory::ReadMemory<SceneType::SceneType>(PVZBASEADDRESS + 0x554C);
-	bool sixroute = (scene == SceneType::Pool) || (scene == SceneType::Fog);
-	*x = sixroute ? (temp - 80) / 85 : (temp - 80) / 100;
-}
-
+	inline short makeshort(byte b1, byte b2)
+	{
+		return (b2 << 8) + b1;
+	}
+	inline void xytorc(int* x, int* y)
+	{
+		int temp = *y;
+		*y = (*x - 40) / 80;
+		SceneType::SceneType scene = PVZ::Memory::ReadMemory<SceneType::SceneType>(PVZBASEADDRESS + 0x554C);
+		bool sixroute = (scene == SceneType::Pool) || (scene == SceneType::Fog);
+		*x = sixroute ? (temp - 80) / 85 : (temp - 80) / 100;
+	}
 
 #define PI 3.1415926f
 #define CREATEREANIMATION INVOKE_DWORD_DWORD_DWORD(0x453C30,0,0,0)
@@ -98,7 +97,7 @@ inline void xytorc(int* x, int* y)
 	/// @param y Y 坐标
 	/// @param motion 物品的位移类型
 	/// @return 生成的物品
-	PVZ::Coin CreateCoin(CoinType::CoinType type,int x,int y,CoinMotionType::CoinMotionType motion);
+	PVZ::Coin CreateCoin(CoinType::CoinType type, int x, int y, CoinMotionType::CoinMotionType motion);
 
 	/// @brief 移除场上已有的除草机，然后初始化本关的除草机。
 	void ResetLawnmover();
@@ -112,7 +111,7 @@ inline void xytorc(int* x, int* y)
 	/// @note 此函数没有返回值。
 	/// @todo 尝试实现一个可捕获返回值的版本。
 	/// @param row 行
-	/// @param column 列 
+	/// @param column 列
 	void CreateGrave(int row, int column);
 
 	/// @brief 在指定位置生成一个弹坑
@@ -120,12 +119,12 @@ inline void xytorc(int* x, int* y)
 	/// @param column 列
 	/// @param duration 持续时间
 	/// @return 生成的弹坑
-	PVZ::Crater CreateCrater(int row, int column,int duration);
+	PVZ::Crater CreateCrater(int row, int column, int duration);
 
 	/// @brief 在指定位置生成一个梯子
 	/// @note 返回值为 PVZ::Griditem 类型，而不是梯子类型
 	/// @param row 行
-	/// @param column 列 
+	/// @param column 列
 	/// @return 生成的梯子
 	PVZ::Griditem CreateLadder(int row, byte column);
 
@@ -134,7 +133,7 @@ inline void xytorc(int* x, int* y)
 	PVZ::IZBrain CreateIZBrain(int row, int column = 0);
 
 	PVZ::Portal CreatePortal(int row, int column, int isYellow = 0);
-	
+
 	/// @brief 待创建罐子的详细信息
 	struct VaseCreateInfo
 	{

@@ -12,7 +12,8 @@ LawnmowerStartEvent::LawnmowerStartEvent()
 	int procAddress = PVZ::Memory::GetProcAddress("onLawnmowerStart");
 	hookAddress = 0x458DB0;
 	rawlen = 6;
-	BYTE code[] = {
+	BYTE code[] =
+	{
 		PUSH_ESI,
 		INVOKE(procAddress),
 		ADD_ESP(4)

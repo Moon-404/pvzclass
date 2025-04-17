@@ -47,7 +47,7 @@ byte __asm__Reanimation__Play[]
 	MOV_EUX(REG_EAX, 0),
 	PUSH_EUX(REG_EAX),
 	MOV_EAX(0),
-	MOV_ESI(0),	
+	MOV_ESI(0),
 	REANIM_PLAY,
 	RET
 };
@@ -133,7 +133,6 @@ byte __asm__Froze[]
 	RET
 };
 
-
 byte __asm__Hypnotize[]
 {
 	MOV_ESI(0),
@@ -143,7 +142,7 @@ byte __asm__Hypnotize[]
 
 byte __asm__Zombie_ReanimShowPrefix[]
 {
-	MOV_EUX(REG_EAX,0),
+	MOV_EUX(REG_EAX, 0),
 	ZOMBIE_REANIMSHOWPREFIX,
 	RET
 };

@@ -20,7 +20,7 @@ SeedPacketUpdateEvent::SeedPacketUpdateEvent()
 	{
 		PUSH_EDI,
 		INVOKE(procAddress),
-		ADD_ESP(4),	
+		ADD_ESP(4),
 
 		TEST_AL_AL,
 		JNZ(8),

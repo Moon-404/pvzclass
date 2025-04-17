@@ -16,7 +16,8 @@ BoardUpdateGameEvent::BoardUpdateGameEvent()
 	int procAddress = PVZ::Memory::GetProcAddress("onBoardUpdateGame");
 	hookAddress = 0x415926;
 	rawlen = 6;
-	BYTE code[] = {
+	BYTE code[] =
+	{
 		PUSH_EUX(REG_ECX),
 		INVOKE(procAddress),
 		ADD_ESP(4)

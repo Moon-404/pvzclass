@@ -34,10 +34,10 @@ namespace PVZ
 			/// @brief 是否是疯狂戴夫的选择
 			T_PROPERTY(BOOLEAN, CrazyDavePick, __get_CrazyDavePick, __set_CrazyDavePick, 0x38);
 		};
-		/// @brief 获取选卡界面所在的 Board 
+		/// @brief 获取选卡界面所在的 Board
 		/// @return 选卡界面所在的 Board
 		Board GetBoard();
-		/// @brief 获取界面中指定的卡牌 
+		/// @brief 获取界面中指定的卡牌
 		/// @param num 卡牌 ID
 		/// @return 指定 ID 的卡牌
 		ChosenSeed GetChosenSeed(int num);
