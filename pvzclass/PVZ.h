@@ -840,18 +840,21 @@ namespace PVZ
 	class Grave :public PVZ::Griditem
 	{
 	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::Grave;
 		Grave(int indexoraddress) :Griditem(indexoraddress) {};
 		INT_PROPERTY(AppearedValue, __get_AppearedValue, __set_AppearedValue, 0x18);
 	};
 	class Crater :public PVZ::Griditem
 	{
 	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::Crater;
 		Crater(int indexoraddress) :Griditem(indexoraddress) {};
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x18);
 	};
 	class AquariumBrain :public PVZ::Griditem
 	{
 	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::AquariumBrain;
 		AquariumBrain(int indexoraddress) :Griditem(indexoraddress) {};
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
@@ -859,6 +862,7 @@ namespace PVZ
 	class Snail :public PVZ::Griditem
 	{
 	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::Snail;
 		Snail(int indexoraddress) :Griditem(indexoraddress) {};
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
@@ -868,6 +872,7 @@ namespace PVZ
 	class Vase :public PVZ::Griditem
 	{
 	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::Vase;
 		Vase(int indexoraddress) :Griditem(indexoraddress) {};
 		T_PROPERTY(VaseSkin::VaseSkin, Skin, __get_Skin, __set_Skin, 0xC);
 		T_PROPERTY(ZombieType::ZombieType, ContentZombie, __get_ContentZombie, __set_ContentZombie, 0x3C);
@@ -881,6 +886,7 @@ namespace PVZ
 	class IZBrain :public PVZ::Griditem
 	{
 	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::IZBrain;
 		IZBrain(int indexoraddress) :Griditem(indexoraddress) {};
 		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x18);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
