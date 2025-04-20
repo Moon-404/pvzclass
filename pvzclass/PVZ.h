@@ -291,7 +291,22 @@ namespace PVZ
 
 #pragma region getmethod
 		std::vector<Zombie> GetAllZombies();
-		std::vector<Plant> GetAllPlants();
+		/// @brief 获取所有 Plant 类型的成员。
+		/// @tparam T 返回值的类型，必须为 Plant 或它的派生类。
+		/// @return 装有全体 Plant （或者其派生类）成员对象的 std::vector
+		template<typename T = Plant, typename = enable_if_t<is_base_of<Plant, T>::value>>
+		std::vector<T> GetAllPlants()
+		{
+			std::vector<T> plants;
+			int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xB0);
+			DWORD base_addr = Memory::ReadMemory<DWORD>(BaseAddress + 0xAC);
+			for (int i = 0; i < maxnum; i++)
+			{
+				if (!Memory::ReadMemory<byte>(base_addr + 0x141 + T::MemSize * i))
+					plants.push_back(T(i));
+			}
+			return plants;
+		}
 		std::vector<Projectile> GetAllProjectile();
 		std::vector<Coin> GetAllCoins();
 		std::vector<Lawnmover> GetAllLawnmovers();
