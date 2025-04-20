@@ -341,7 +341,14 @@ namespace PVZ
 		{
 			return __prototype_GetAll<T, 0x0C8, 0x0CC, 0x50>();
 		}
-		std::vector<Coin> GetAllCoins();
+		/// @brief 获取 DataArray\<Coin\> 中的全体对象。
+		/// @tparam T 成员值的类型，必须为 Coin 或它的派生类。
+		/// @return 装有全体 Coin （或者其派生类）对象的 std::vector
+		template<typename T = Coin, typename = enable_if_t<is_base_of<Coin, T>::value>>
+		std::vector<T> GetAllCoins()
+		{
+			return __prototype_GetAll<T, 0x0E4, 0x0E8, 0x38>();
+		}
 		std::vector<Lawnmover> GetAllLawnmovers();
 		std::vector<Griditem> GetAllGriditems();
 		Lawn GetLawn();

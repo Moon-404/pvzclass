@@ -189,18 +189,6 @@ void PVZ::Board::Earthquake(int horizontalAmplitude, int verticalAmplitude, int 
 	Memory::WriteMemory<int>(BaseAddress + 0x5548, verticalAmplitude);
 }
 
-std::vector<PVZ::Coin> PVZ::Board::GetAllCoins()
-{
-	std::vector<Coin> coins;
-	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xE8);
-	for (int i = 0; i < maxnum; i++)
-	{
-		if (!Memory::ReadPointer(BaseAddress + 0xE4, 0x38 + 0xD8 * i))
-			coins.push_back(PVZ::Coin(i));
-	}
-	return coins;
-}
-
 std::vector<PVZ::Lawnmover> PVZ::Board::GetAllLawnmovers()
 {
 	std::vector<Lawnmover> lawnmovers;
