@@ -290,8 +290,22 @@ namespace PVZ
 #pragma endregion
 
 #pragma region getmethod
-		std::vector<Zombie> GetAllZombies();
-		/// @brief 获取所有 Plant 类型的成员。
+		/// @brief 获取 DataArray\<Zombie\> 中的全体成员。
+		/// @tparam T 返回值的类型，必须为 Zombie 或它的派生类。
+		/// @return 装有全体 Zombie （或者其派生类）成员对象的 std::vector
+		template<typename T = Zombie, typename = enable_if_t<is_base_of<Zombie, T>::value>>
+		std::vector<T> GetAllZombies()
+		{
+			std::vector<T> zombies;
+			int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x94);
+			for (int i = 0; i < maxnum; i++)
+			{
+				if (!Memory::ReadPointer(BaseAddress + 0x90, 0xEC + T::Memsize * i))
+					zombies.push_back(T(i));
+			}
+			return zombies;
+		}
+		/// @brief 获取 DataArray\<Plant\> 中的全体成员。
 		/// @tparam T 返回值的类型，必须为 Plant 或它的派生类。
 		/// @return 装有全体 Plant （或者其派生类）成员对象的 std::vector
 		template<typename T = Plant, typename = enable_if_t<is_base_of<Plant, T>::value>>
@@ -475,6 +489,7 @@ namespace PVZ
 	{
 	public:
 		Zombie(int indexoraddress);
+		static const DWORD MemSize = 0x15C;
 		/*调用该函数后，对应的 GetAll()、基类的构造函数都会失效。
 		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。 */
