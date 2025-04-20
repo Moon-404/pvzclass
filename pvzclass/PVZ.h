@@ -109,17 +109,23 @@ namespace PVZ
 
 #pragma endregion
 
-#pragma region classes
-	//Do NOT construct this class directly!
+#pragma region classes	
+	/// @brief 所有对应 PVZ 内部对象的类的基类。
+	/// @attention 你不应该直接构造 BaseClass！
 	class BaseClass
 	{
 	protected:
+		/// @brief 对应对象的基地址
 		int BaseAddress;
 	public:
 		BaseClass() : BaseAddress(INVALID_BASEADDRESS) {};
 		BaseClass(int address) : BaseAddress(address){};
+		/// @brief 返回基址
+		/// @return 基址
 		int GetBaseAddress() const
 		{ return(this->BaseAddress); }
+		/// @brief 对应的对象是否已经失效，或者构造不良。
+		/// @return 是否已经失效或构造不良。
 		const bool isValid()
 		{ return(this->BaseAddress != INVALID_BASEADDRESS && this->BaseAddress != 0); }
 	};
