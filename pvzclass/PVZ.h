@@ -311,36 +311,21 @@ namespace PVZ
 #pragma endregion
 
 #pragma region getmethod
-		/// @brief 获取 DataArray\<Zombie\> 中的全体成员。
-		/// @tparam T 返回值的类型，必须为 Zombie 或它的派生类。
-		/// @return 装有全体 Zombie （或者其派生类）成员对象的 std::vector
+		/// @brief 获取 DataArray\<Zombie\> 中的全体对象。
+		/// @tparam T 成员的类型，必须为 Zombie 或它的派生类。
+		/// @return 装有全体 Zombie （或者其派生类）对象的 std::vector
 		template<typename T = Zombie, typename = enable_if_t<is_base_of<Zombie, T>::value>>
 		std::vector<T> GetAllZombies()
 		{
-			std::vector<T> zombies;
-			int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x94);
-			for (int i = 0; i < maxnum; i++)
-			{
-				if (!Memory::ReadPointer(BaseAddress + 0x90, 0xEC + T::Memsize * i))
-					zombies.push_back(T(i));
-			}
-			return zombies;
+			return __prototype_GetAll<T, 0x90, 0x94, 0x0EC>();
 		}
-		/// @brief 获取 DataArray\<Plant\> 中的全体成员。
-		/// @tparam T 返回值的类型，必须为 Plant 或它的派生类。
-		/// @return 装有全体 Plant （或者其派生类）成员对象的 std::vector
+		/// @brief 获取 DataArray\<Plant\> 中的全体对象。
+		/// @tparam T 成员值的类型，必须为 Plant 或它的派生类。
+		/// @return 装有全体 Plant （或者其派生类）对象的 std::vector
 		template<typename T = Plant, typename = enable_if_t<is_base_of<Plant, T>::value>>
 		std::vector<T> GetAllPlants()
 		{
-			std::vector<T> plants;
-			int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xB0);
-			DWORD base_addr = Memory::ReadMemory<DWORD>(BaseAddress + 0xAC);
-			for (int i = 0; i < maxnum; i++)
-			{
-				if (!Memory::ReadMemory<byte>(base_addr + 0x141 + T::MemSize * i))
-					plants.push_back(T(i));
-			}
-			return plants;
+			return __prototype_GetAll<T, 0x0AC, 0x0B0, 0x141>();
 		}
 		std::vector<Projectile> GetAllProjectile();
 		std::vector<Coin> GetAllCoins();
