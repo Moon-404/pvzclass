@@ -357,7 +357,23 @@ namespace PVZ
 		{
 			return __prototype_GetAll<T, 0x100, 0x104, 0x30>();
 		}
-		std::vector<Griditem> GetAllGriditems();
+		/// @brief 获取 DataArray\<Griditem\> 中的全体对象。
+		/// @note 与其他 GetAll() 不同，此函数不依赖于 __prototype_GetAll() 。
+		/// @tparam T 成员值的类型，必须为 Griditem 或它的派生类。
+		/// @return 装有全体 Griditem （或者其派生类）对象的 std::vector
+		template<typename T = Griditem, typename = enable_if_t<is_base_of<Griditem, T>::value>>
+		std::vector<T> GetAllGriditems()
+		{
+			std::vector<T> griditems;
+			int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x120);
+			DWORD base_addr = Memory::ReadMemory<DWORD>(BaseAddress + 0x11C);
+			for (int i = 0; i < maxnum; i++)
+			{
+				if (!Memory::ReadMemory<byte>(base_addr + 0x20 + T::MemSize * i))
+					griditems.push_back(T(i));
+			}
+			return griditems;
+		}
 		Lawn GetLawn();
 		Icetrace GetIcetrace();
 		Wave GetWave(int index);
