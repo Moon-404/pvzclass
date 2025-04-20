@@ -207,6 +207,27 @@ namespace PVZ
 	};
 	class Board : public Widget
 	{
+	protected:
+		/// @brief 所有 GetAll() 形式函数的原型，获取 获取 DataArray\<T\> 中的全体成员。
+		/// @tparam T 成员类型
+		/// @note T 必须具有 MemSize 静态常量，且类型为整数
+		/// @tparam _Base_offset 基址的偏移量
+		/// @tparam _Max_offset 最大数量的偏移量
+		/// @tparam _T_Dead_offset 在 T 中，表示该成员已被移除变量的偏移量。此变量视为用 byte 存储。
+		/// @return 装有全体 T 成员对象的 std::vector
+		template<typename T, size_t _Base_offset, size_t _Max_offset, size_t _T_Dead_offset>
+		std::vector<T> __prototype_GetAll()
+		{
+			std::vector<T> container;
+			int maxnum = Memory::ReadMemory<int>(BaseAddress + _Max_offset);
+			DWORD base_addr = Memory::ReadMemory<DWORD>(BaseAddress + _Base_offset);
+			for (int i = 0; i < maxnum; i++)
+			{
+				if (!Memory::ReadMemory<byte>(base_addr + _T_Dead_offset + T::MemSize * i))
+					container.push_back(T(i));
+			}
+			return container;
+		}
 	public:
 		Board(int address) : Widget(address) {};
 		PVZApp GetPVZApp();
