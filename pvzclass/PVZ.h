@@ -369,8 +369,9 @@ namespace PVZ
 			DWORD base_addr = Memory::ReadMemory<DWORD>(BaseAddress + 0x11C);
 			for (int i = 0; i < maxnum; i++)
 			{
-				if (!Memory::ReadMemory<byte>(base_addr + 0x20 + T::MemSize * i))
-					griditems.push_back(T(i));
+				if (!Memory::ReadMemory<byte>(base_addr + 0x20 + T::MemSize * i)
+					&& (T::ItemType == 0 || Memory::ReadMemory<byte>(base_addr + 8 + T::MemSize * i) == T::ItemType))
+						griditems.push_back(T(i));
 			}
 			return griditems;
 		}
@@ -662,6 +663,7 @@ namespace PVZ
 	class Projectile : public GameObject
 	{
 	public:
+		static const DWORD MemSize = 0x94;
 		Projectile(int indexoraddress);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x30);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x34);
@@ -773,6 +775,7 @@ namespace PVZ
 	class Coin : public GameObject //Item
 	{
 	public:
+		static const DWORD MemSize = 0x0D8;
 		Coin(int indexoraddress);
 		INT_READONLY_PROPERTY(ImageXVariation, __get_ImageXVariation, 8);
 		INT_READONLY_PROPERTY(ImageYVariation, __get_ImageYVariation, 0xC);
@@ -799,6 +802,7 @@ namespace PVZ
 	class Lawnmover : public BaseClass
 	{
 	public:
+		static const DWORD MemSize = 0x48;
 		Lawnmover(int indexoraddress);
 		int GetBaseAddress();
 		INT_PROPERTY(X, __get_X, __set_X, 8);
@@ -819,6 +823,8 @@ namespace PVZ
 	class Griditem : public BaseClass
 	{
 	public:
+		static const DWORD MemSize = 0x0EC;
+		static const GriditemType::GriditemType ItemType = GriditemType::None;
 		Griditem(int indexoraddress);
 		PVZ::Board GetBoard();
 		T_PROPERTY(GriditemType::GriditemType, Type, __get_Type, __set_Type, 0x8);
