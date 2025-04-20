@@ -908,6 +908,18 @@ namespace PVZ
 		// 获取子弹从这个传送门射出时的X坐标
 		int getProjectileOutX();
 	};
+	class CirclePortal : public Portal
+	{
+	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::PortalBlue;
+		CirclePortal(int indexoraddress) : Portal(indexoraddress) {};
+	};
+	class SquarePortal : public Portal
+	{
+	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::PortalYellow;
+		SquarePortal(int indexoraddress) : Portal(indexoraddress) {};
+	};
 	class MousePointer : public GameObject//+138
 	{
 	public:
