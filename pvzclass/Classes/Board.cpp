@@ -189,18 +189,6 @@ void PVZ::Board::Earthquake(int horizontalAmplitude, int verticalAmplitude, int 
 	Memory::WriteMemory<int>(BaseAddress + 0x5548, verticalAmplitude);
 }
 
-std::vector<PVZ::Lawnmover> PVZ::Board::GetAllLawnmovers()
-{
-	std::vector<Lawnmover> lawnmovers;
-	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x104);
-	for (int i = 0; i < maxnum; i++)
-	{
-		if (!(Memory::ReadPointer(BaseAddress + 0x100, 0x30 + 0x48 * i) & 0x0FF))
-			lawnmovers.push_back(PVZ::Lawnmover(i));
-	}
-	return lawnmovers;
-}
-
 std::vector<PVZ::Griditem> PVZ::Board::GetAllGriditems()
 {
 	std::vector<Griditem> griditems;
