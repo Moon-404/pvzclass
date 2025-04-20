@@ -189,18 +189,6 @@ void PVZ::Board::Earthquake(int horizontalAmplitude, int verticalAmplitude, int 
 	Memory::WriteMemory<int>(BaseAddress + 0x5548, verticalAmplitude);
 }
 
-std::vector<PVZ::Projectile> PVZ::Board::GetAllProjectile()
-{
-	std::vector<Projectile> projectiles;
-	int maxnum = Memory::ReadMemory<int>(BaseAddress + 0xCC);
-	for (int i = 0; i < maxnum; i++)
-	{
-		if (!Memory::ReadPointer(BaseAddress + 0xC8, 0x50 + 0x94 * i))
-			projectiles.push_back(PVZ::Projectile(i));
-	}
-	return projectiles;
-}
-
 std::vector<PVZ::Coin> PVZ::Board::GetAllCoins()
 {
 	std::vector<Coin> coins;

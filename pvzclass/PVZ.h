@@ -333,7 +333,14 @@ namespace PVZ
 		{
 			return __prototype_GetAll<T, 0x0AC, 0x0B0, 0x141>();
 		}
-		std::vector<Projectile> GetAllProjectile();
+		/// @brief 获取 DataArray\<Projectile\> 中的全体对象。
+		/// @tparam T 成员值的类型，必须为 Projectile 或它的派生类。
+		/// @return 装有全体 Projectile （或者其派生类）对象的 std::vector
+		template<typename T = Projectile, typename = enable_if_t<is_base_of<Projectile, T>::value>>
+		std::vector<T> GetAllProjectile()
+		{
+			return __prototype_GetAll<T, 0x0C8, 0x0CC, 0x50>();
+		}
 		std::vector<Coin> GetAllCoins();
 		std::vector<Lawnmover> GetAllLawnmovers();
 		std::vector<Griditem> GetAllGriditems();
