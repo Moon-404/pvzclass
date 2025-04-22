@@ -61,6 +61,7 @@
 #include "PlantSquishEvent.h"
 #include "PlantStolenEvent.hpp"
 #include "PlantTakeDamageEvent.hpp"
+#include "PlantUpdateEvent.hpp"
 #include "LawnmowerUpdateEvent.hpp"
 #include "SeedPacketMouseDownEvent.hpp"
 #include "SeedPacketUpdateEvent.hpp"
