@@ -4,7 +4,8 @@ namespace GriditemType
 
 	enum GriditemType
 	{
-		Grave = 1,
+		None = 0,
+		Grave,
 		Crater,
 		GriditemLadder,
 		PortalBlue,

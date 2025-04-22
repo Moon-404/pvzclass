@@ -109,17 +109,23 @@ namespace PVZ
 
 #pragma endregion
 
-#pragma region classes
-	//Do NOT construct this class directly!
+#pragma region classes	
+	/// @brief 所有对应 PVZ 内部对象的类的基类。
+	/// @attention 你不应该直接构造 BaseClass！
 	class BaseClass
 	{
 	protected:
+		/// @brief 对应对象的基地址
 		int BaseAddress;
 	public:
 		BaseClass() : BaseAddress(INVALID_BASEADDRESS) {};
 		BaseClass(int address) : BaseAddress(address){};
+		/// @brief 返回基址
+		/// @return 基址
 		int GetBaseAddress() const
 		{ return(this->BaseAddress); }
+		/// @brief 对应的对象是否已经失效，或者构造不良。
+		/// @return 是否已经失效或构造不良。
 		const bool isValid()
 		{ return(this->BaseAddress != INVALID_BASEADDRESS && this->BaseAddress != 0); }
 	};
@@ -207,6 +213,27 @@ namespace PVZ
 	};
 	class Board : public Widget
 	{
+	protected:
+		/// @brief 所有 GetAll() 形式函数的原型，获取 获取 DataArray\<T\> 中的全体成员。
+		/// @tparam T 成员类型
+		/// @note T 必须具有 MemSize 静态常量，且类型为整数
+		/// @tparam _Base_offset 基址的偏移量
+		/// @tparam _Max_offset 最大数量的偏移量
+		/// @tparam _T_Dead_offset 在 T 中，表示该成员已被移除变量的偏移量。此变量视为用 byte 存储。
+		/// @return 装有全体 T 成员对象的 std::vector
+		template<typename T, size_t _Base_offset, size_t _Max_offset, size_t _T_Dead_offset>
+		std::vector<T> __prototype_GetAll()
+		{
+			std::vector<T> container;
+			int maxnum = Memory::ReadMemory<int>(BaseAddress + _Max_offset);
+			DWORD base_addr = Memory::ReadMemory<DWORD>(BaseAddress + _Base_offset);
+			for (int i = 0; i < maxnum; i++)
+			{
+				if (!Memory::ReadMemory<byte>(base_addr + _T_Dead_offset + T::MemSize * i))
+					container.push_back(T(i));
+			}
+			return container;
+		}
 	public:
 		Board(int address) : Widget(address) {};
 		PVZApp GetPVZApp();
@@ -290,12 +317,64 @@ namespace PVZ
 #pragma endregion
 
 #pragma region getmethod
-		std::vector<Zombie> GetAllZombies();
-		std::vector<Plant> GetAllPlants();
-		std::vector<Projectile> GetAllProjectile();
-		std::vector<Coin> GetAllCoins();
-		std::vector<Lawnmover> GetAllLawnmovers();
-		std::vector<Griditem> GetAllGriditems();
+		/// @brief 获取 DataArray\<Zombie\> 中的全体对象。
+		/// @tparam T 成员的类型，必须为 Zombie 或它的派生类。
+		/// @return 装有全体 Zombie （或者其派生类）对象的 std::vector
+		template<typename T = Zombie, typename = enable_if_t<is_base_of<Zombie, T>::value>>
+		std::vector<T> GetAllZombies()
+		{
+			return __prototype_GetAll<T, 0x90, 0x94, 0x0EC>();
+		}
+		/// @brief 获取 DataArray\<Plant\> 中的全体对象。
+		/// @tparam T 成员值的类型，必须为 Plant 或它的派生类。
+		/// @return 装有全体 Plant （或者其派生类）对象的 std::vector
+		template<typename T = Plant, typename = enable_if_t<is_base_of<Plant, T>::value>>
+		std::vector<T> GetAllPlants()
+		{
+			return __prototype_GetAll<T, 0x0AC, 0x0B0, 0x141>();
+		}
+		/// @brief 获取 DataArray\<Projectile\> 中的全体对象。
+		/// @tparam T 成员值的类型，必须为 Projectile 或它的派生类。
+		/// @return 装有全体 Projectile （或者其派生类）对象的 std::vector
+		template<typename T = Projectile, typename = enable_if_t<is_base_of<Projectile, T>::value>>
+		std::vector<T> GetAllProjectile()
+		{
+			return __prototype_GetAll<T, 0x0C8, 0x0CC, 0x50>();
+		}
+		/// @brief 获取 DataArray\<Coin\> 中的全体对象。
+		/// @tparam T 成员值的类型，必须为 Coin 或它的派生类。
+		/// @return 装有全体 Coin （或者其派生类）对象的 std::vector
+		template<typename T = Coin, typename = enable_if_t<is_base_of<Coin, T>::value>>
+		std::vector<T> GetAllCoins()
+		{
+			return __prototype_GetAll<T, 0x0E4, 0x0E8, 0x38>();
+		}
+		/// @brief 获取 DataArray\<LawnMower\> 中的全体对象。
+		/// @tparam T 成员值的类型，必须为 LawnMower 或它的派生类。
+		/// @return 装有全体 LawnMower （或者其派生类）对象的 std::vector
+		template<typename T = LawnMower, typename = enable_if_t<is_base_of<LawnMower, T>::value>>
+		std::vector<T> GetAllLawnmovers()
+		{
+			return __prototype_GetAll<T, 0x100, 0x104, 0x30>();
+		}
+		/// @brief 获取 DataArray\<Griditem\> 中的全体对象。
+		/// @note 与其他 GetAll() 不同，此函数不依赖于 __prototype_GetAll() 。
+		/// @tparam T 成员值的类型，必须为 Griditem 或它的派生类。
+		/// @return 装有全体 Griditem （或者其派生类）对象的 std::vector
+		template<typename T = Griditem, typename = enable_if_t<is_base_of<Griditem, T>::value>>
+		std::vector<T> GetAllGriditems()
+		{
+			std::vector<T> griditems;
+			int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x120);
+			DWORD base_addr = Memory::ReadMemory<DWORD>(BaseAddress + 0x11C);
+			for (int i = 0; i < maxnum; i++)
+			{
+				if (!Memory::ReadMemory<byte>(base_addr + 0x20 + T::MemSize * i)
+					&& (T::ItemType == 0 || Memory::ReadMemory<byte>(base_addr + 8 + T::MemSize * i) == T::ItemType))
+						griditems.push_back(T(i));
+			}
+			return griditems;
+		}
 		Lawn GetLawn();
 		Icetrace GetIcetrace();
 		Wave GetWave(int index);
@@ -305,7 +384,7 @@ namespace PVZ
 		/// @brief 获取 Challenge 类型的成员。
 		/// @tparam T 返回值的类型，必须为 Challenge 或它的派生类。
 		/// @return Challenge （或者其派生类）成员对象 
-		template<typename T, typename = enable_if_t<is_base_of<Challenge, T>::value>>
+		template<typename T = Challenge, typename = enable_if_t<is_base_of<Challenge, T>::value>>
 		T GetChallenge()
 		{
 			return T(BaseAddress);
@@ -460,6 +539,7 @@ namespace PVZ
 	{
 	public:
 		Zombie(int indexoraddress);
+		static const DWORD MemSize = 0x15C;
 		/*调用该函数后，对应的 GetAll()、基类的构造函数都会失效。
 		因此，请在派生类中调用这个函数，并且为派生类单独撰写新的构造函数和 GetAll() 。
 		另外，调用该函数后，新生成的存档与原版存档不兼容，请注意清理。 */
@@ -583,6 +663,7 @@ namespace PVZ
 	class Projectile : public GameObject
 	{
 	public:
+		static const DWORD MemSize = 0x94;
 		Projectile(int indexoraddress);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x30);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x34);
@@ -694,6 +775,7 @@ namespace PVZ
 	class Coin : public GameObject //Item
 	{
 	public:
+		static const DWORD MemSize = 0x0D8;
 		Coin(int indexoraddress);
 		INT_READONLY_PROPERTY(ImageXVariation, __get_ImageXVariation, 8);
 		INT_READONLY_PROPERTY(ImageYVariation, __get_ImageYVariation, 0xC);
@@ -720,6 +802,7 @@ namespace PVZ
 	class Lawnmover : public BaseClass
 	{
 	public:
+		static const DWORD MemSize = 0x48;
 		Lawnmover(int indexoraddress);
 		int GetBaseAddress();
 		INT_PROPERTY(X, __get_X, __set_X, 8);
@@ -740,6 +823,8 @@ namespace PVZ
 	class Griditem : public BaseClass
 	{
 	public:
+		static const DWORD MemSize = 0x0EC;
+		static const GriditemType::GriditemType ItemType = GriditemType::None;
 		Griditem(int indexoraddress);
 		PVZ::Board GetBoard();
 		T_PROPERTY(GriditemType::GriditemType, Type, __get_Type, __set_Type, 0x8);
@@ -755,18 +840,21 @@ namespace PVZ
 	class Grave :public PVZ::Griditem
 	{
 	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::Grave;
 		Grave(int indexoraddress) :Griditem(indexoraddress) {};
 		INT_PROPERTY(AppearedValue, __get_AppearedValue, __set_AppearedValue, 0x18);
 	};
 	class Crater :public PVZ::Griditem
 	{
 	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::Crater;
 		Crater(int indexoraddress) :Griditem(indexoraddress) {};
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x18);
 	};
 	class AquariumBrain :public PVZ::Griditem
 	{
 	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::AquariumBrain;
 		AquariumBrain(int indexoraddress) :Griditem(indexoraddress) {};
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
@@ -774,6 +862,7 @@ namespace PVZ
 	class Snail :public PVZ::Griditem
 	{
 	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::Snail;
 		Snail(int indexoraddress) :Griditem(indexoraddress) {};
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
@@ -783,6 +872,7 @@ namespace PVZ
 	class Vase :public PVZ::Griditem
 	{
 	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::Vase;
 		Vase(int indexoraddress) :Griditem(indexoraddress) {};
 		T_PROPERTY(VaseSkin::VaseSkin, Skin, __get_Skin, __set_Skin, 0xC);
 		T_PROPERTY(ZombieType::ZombieType, ContentZombie, __get_ContentZombie, __set_ContentZombie, 0x3C);
@@ -796,6 +886,7 @@ namespace PVZ
 	class IZBrain :public PVZ::Griditem
 	{
 	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::IZBrain;
 		IZBrain(int indexoraddress) :Griditem(indexoraddress) {};
 		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x18);
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
@@ -816,6 +907,18 @@ namespace PVZ
 		bool isProjectileIn(std::shared_ptr<PVZ::Projectile> projectile);
 		// 获取子弹从这个传送门射出时的X坐标
 		int getProjectileOutX();
+	};
+	class CirclePortal : public Portal
+	{
+	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::PortalBlue;
+		CirclePortal(int indexoraddress) : Portal(indexoraddress) {};
+	};
+	class SquarePortal : public Portal
+	{
+	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::PortalYellow;
+		SquarePortal(int indexoraddress) : Portal(indexoraddress) {};
 	};
 	class MousePointer : public GameObject//+138
 	{
