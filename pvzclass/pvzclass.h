@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "ProcessOpener.h"
 #include "PVZ.h"
+#include "Const.h"
 #include "Classes.hpp"
 #include "Creators.h"
 #include "Draw.h"
