@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include "DLLEvent.h"
 
 namespace PVZEvent
 {
-	/// @brief Ö²Îï¸üĞÂÊÂ¼ş¡£
-	/// @param ´¥·¢ÊÂ¼şµÄÖ²Îï¡£
-	/// @return ÊÇ·ñ¿¼ÂÇ½øĞĞ´Ë´Î¸üĞÂ¡£
+	/// @brief æ¤ç‰©æ›´æ–°äº‹ä»¶ã€‚
+	/// @param è§¦å‘äº‹ä»¶çš„æ¤ç‰©ã€‚
+	/// @return æ˜¯å¦è€ƒè™‘è¿›è¡Œæ­¤æ¬¡æ›´æ–°ã€‚
 	class PlantUpdateEvent : public DLLEvent
 	{
 	public:
