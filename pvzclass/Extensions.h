@@ -1,4 +1,7 @@
-﻿#pragma once
+﻿/// @file Extensions.h
+/// @brief 包含多种修改器功能实现的文件
+
+#pragma once
 #include "PVZ.h"
 #include "Creators.h"
 
@@ -16,9 +19,9 @@ using ThreeState::None;
 using ThreeState::Disable;
 using Memory = PVZ::Memory;
 
-//启用/禁用砸罐子功能。
-//包括罐子高亮、罐子可砸、小丑炸罐子、巨人砸罐子。
-/// @param state 功能的启用状态，缺省值为 Enable。
+/// @brief 启用/禁用砸罐子功能。
+///		包括罐子高亮、罐子可砸、小丑炸罐子、巨人砸罐子。
+/// @param state 功能的启用状态。
 inline void EnableVaseBreak(ThreeState::ThreeState state = Enable)
 {
 	switch (state)
@@ -61,13 +64,15 @@ inline void EnableVaseBreak(ThreeState::ThreeState state = Enable)
 	}
 }
 
-//是否启用后台运行
+/// @brief 启用后台运行
+/// @param b 是否开启此功能
 inline void EnableBackgroundRunning(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x54EBA8, JO, JZ);
 }
 
-//是否显示隐藏关卡
+/// @brief 显示隐藏关卡
+/// @param b 是否开启此功能
 inline void ShowHiddenLevel(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(b ? 0x42DF5D : 0x54EBA8, 56, 136);
@@ -76,8 +81,8 @@ inline void ShowHiddenLevel(BOOLEAN b = true)
 /// @brief 启用或禁用传送门功能。
 /// @param b 是否启用传送功能。默认为 `true`。
 /// @param adjust_existed 是否调整现有的传送门。默认为 `false`。
-///        - 当 `b` 为 `true` 且 `adjust_existed` 为 `false` 时，将创建默认位置的传送门。
-///        - 当 `b` 为 `false` 且 `adjust_existed` 为 `true` 时，将移除现有的传送门
+///		- 当 `b` 为 `true` 且 `adjust_existed` 为 `false` 时，将创建默认位置的传送门。
+///		- 当 `b` 为 `false` 且 `adjust_existed` 为 `true` 时，将移除现有的传送门
 inline void EnablePortal(BOOLEAN b = true, BOOLEAN adjust_existed = false)
 {
 	if (b)
@@ -107,18 +112,23 @@ inline void EnablePortal(BOOLEAN b = true, BOOLEAN adjust_existed = false)
 	}
 }
 
-//是否固定传送门
+/// @brief 固定传送门
+/// @param b 是否开启此功能
 inline void FixPortal(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x4276DD, 0, 255);
 }
 
+/// @brief 设置阳光上限
+/// @param sunmax 阳光上限数值
 inline void SetSunMax(int sunmax)
 {
 	PVZ::Memory::WriteMemory<int>(0x430A1F, sunmax);
 	PVZ::Memory::WriteMemory<int>(0x430A2B, sunmax);
 }
 
+/// @brief 移除阳光上限，优先级高于 SetSunMax()
+/// @param b 是否开启此功能
 inline void RemoveSunUpperLimit(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x430A23, JUMP, JLE);
@@ -126,6 +136,8 @@ inline void RemoveSunUpperLimit(BOOLEAN b = true)
 	MEMMOD_BYTE(0x48CAB0, JUMP, JLE);
 }
 
+/// @brief 允许叠种
+/// @param b 是否开启此功能
 inline void OverlapPlanting(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x40FE30, 129, 132);
@@ -144,6 +156,8 @@ inline void IgnoreResources(BOOLEAN b = true)
 	PVZ::Memory::WriteMemory<LONGLONG>(0x48C7A0, b ? 174109865281658857 : 173951535625964815);
 }
 
+/// @brief 取消卡牌的冷却时间
+/// @param b 是否开启此功能
 inline void CancelCardCooldown(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x487296, JO, JLE);
@@ -151,12 +165,16 @@ inline void CancelCardCooldown(BOOLEAN b = true)
 	MEMMOD_BYTE(0x488E76, 1, 0);
 }
 
+/// @brief 取消传送带的运输冷却时间
+/// @param b 是否开启此功能
 inline void ConveyorBeltNoDelay(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x422D20, 128, 143);
 	MEMMOD_BYTE(0x489CA1, 51, 133);
 }
 
+/// @brief 将雾的范围改为全场
+/// @param b 是否开启此功能
 inline void FullScreenFog(BOOLEAN b = true)
 {
 	MEMMOD_SHORT(0x41A476, 16363, 1397);
@@ -167,11 +185,15 @@ inline void FullScreenFog(BOOLEAN b = true)
 			PVZ::Memory::WriteMemory<int>(PVZBASEADDRESS + 0xC8 + 4 * i, 0);
 }
 
+/// @brief 暂停自然刷僵尸的进程
+/// @param b 是否开启此功能
 inline void BlockZombie(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x4265DC, JUMP, JZ);
 }
 
+/// @brief 开启罐子透视
+/// @param b 是否开启此功能
 inline void VasePerspect(BOOLEAN b = true)
 {
 	byte __vaseperspect_set[10] { 0xC7, 0x47, 0x4C, 0x64, 0, 0, 0, 0x5E, 0x59, 0xC3 };
@@ -180,12 +202,16 @@ inline void VasePerspect(BOOLEAN b = true)
 	else PVZ::Memory::WriteArray<byte>(0x44E5CC, STRING(__vaseperspect_reset));
 }
 
+/// @brief 令手中的物品强制变为铲子
+/// @param b 是否开启此功能
 inline void LockShovel(PVZ::MousePointer* mousepointer, BOOLEAN b = true)
 {
 	if (b)mousepointer->Type = MouseType::Shovel;
 	PVZ::Memory::WriteMemory<LONGLONG>(0x41233D, b ? -8029759805927192901 : 586669480753);
 }
 
+/// @brief 自动拾取物品
+/// @param b 是否开启此功能
 inline void AutoCollect(BOOLEAN b = true)
 {
 	byte __autocollect_set[26]
@@ -213,35 +239,39 @@ inline void AutoCollect(BOOLEAN b = true)
 		PVZ::Memory::WriteArray<byte>(0x40CCDA, STRING(__autocollect_reset));
 }
 
+/// @brief 禁用初始小推车
+/// @param b 是否开启此功能
 inline void DisableInitialLawnmover(BOOLEAN b = true)
 {
 	MEMMOD_INT(0x40BC8C, 34793, 1965488771);
 	MEMMOD_BYTE(0x40BC90, 0, 5);
 }
 
+/// @brief 禁用冰冻关卡延迟一段时间后播放的失败音效
+/// @param b 是否开启此功能
 inline void DisableIceLevelFailSound(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x42492D, JUMP, JNE);
 }
 
-// 关闭关卡内大部分内容的绘制。
-// 建议仅在调试和测试环境下调用此函数。
+/// @brief 关闭关卡内大部分内容的绘制。\n
+///		建议仅在调试和测试环境下调用此函数。
 inline void DisableBoardDraw(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x42492D, 129, 133);
 }
 
-// 阻止新生成的粒子系统产生粒子效果。
-// 已生成的粒子系统不受影响。
-// 建议仅在调试和测试环境下调用此函数。
+/// @brief 阻止新生成的粒子系统产生粒子效果。\n
+///		建议仅在调试和测试环境下调用此函数。
+/// @note 已生成的粒子系统不受影响。
 inline void DisableNewParticle(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x515EBB, 129, 142);
 }
 
-// 禁用一切音效播放。
-// 不影响背景音乐。
-// 建议仅在调试和测试环境下调用此函数。
+/// @brief 禁用一切音效播放。\n
+///		建议仅在调试和测试环境下调用此函数。
+/// @note 不影响背景音乐。
 inline void DisableAllSounds(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x554C27, JUMP, JZ);
@@ -249,8 +279,8 @@ inline void DisableAllSounds(BOOLEAN b = true)
 	MEMMOD_SHORT(0x515055, 0x4D71, 0x0A74);
 }
 
-// 设置吸金磁吸取物品数的上限。最小为 1，最大为 5 。
-// 会影响绘制过程。
+/// @brief 设置吸金磁吸取物品数的上限。最小为 1，最大为 5 。\n
+///		会影响绘制过程。
 inline void SetGoldMagnetLimit(int num)
 {
 	if (num > 5)
