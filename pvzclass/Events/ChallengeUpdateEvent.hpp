@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 #include "DLLEvent.h"
 
-// ÓÎÏ·Ä£Ê½ÌØĞÔ¸üĞÂÊÂ¼ş¡£
-/// @param ´¥·¢ÊÂ¼şµÄ Challenge
-/// @return ÊÇ·ñ°´Ô­°æÄ£Ê½¸üĞÂÊÂ¼ş¡£
+// æ¸¸æˆæ¨¡å¼ç‰¹æ€§æ›´æ–°äº‹ä»¶ã€‚
+/// @param è§¦å‘äº‹ä»¶çš„ Challenge
+/// @return æ˜¯å¦æŒ‰åŸç‰ˆæ¨¡å¼æ›´æ–°äº‹ä»¶ã€‚
 class ChallengeUpdateEvent : public DLLEvent
 {
 public:
@@ -22,7 +22,8 @@ ChallengeUpdateEvent::ChallengeUpdateEvent()
 		ADD_ESP(4),
 
 		TEST_AL_AL,
-		JNZ(1),
+		JNZ(2),
+		POPAD,
 		RET
 	};
 	start(STRING(code));
