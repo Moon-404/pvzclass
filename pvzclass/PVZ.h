@@ -1087,10 +1087,12 @@ namespace PVZ
 	};
 	//if anyone want a class for calling functions in bass.dll to totally control the music in game,just tell me
 
+	/// @brief 禅境花园类，包含部分与禅境花园有关的函数。
 	class ZenGarden : public BaseClass
 	{
 	public:
-		ZenGarden(int address);
+		ZenGarden(int address) : BaseClass(address) {};
+		PVZApp GetLawnApp();
 		PVZ::Board GetBoard();
 		T_PROPERTY(GardenScene::GardenScene, GardenType, __get_GardenType, __set_GardenType, 0x8);
 		bool IsFull(bool consider_items);

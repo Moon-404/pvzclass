@@ -1,8 +1,8 @@
-#include "..\PVZ.h"
+﻿#include "..\PVZ.h"
 
-PVZ::ZenGarden::ZenGarden(int address)
+PVZ::PVZApp PVZ::ZenGarden::GetLawnApp()
 {
-	BaseAddress = address;
+	return PVZ::PVZApp(Memory::ReadMemory<DWORD>(BaseAddress));
 }
 
 PVZ::Board PVZ::ZenGarden::GetBoard()
