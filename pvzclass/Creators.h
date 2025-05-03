@@ -128,67 +128,145 @@ namespace Creator
 	/// @return 生成的梯子
 	PVZ::Griditem CreateLadder(int row, byte column);
 
+	/// @brief 在指定位置生成一个包含指定内容物的罐子
+	/// @param row 行
+	/// @param column 列 
+	/// @param content 罐子内容物状态
+	/// @param skin 罐子外观
+	/// @param zombie 僵尸类型
+	/// @param plant 植物卡牌类型
+	/// @param sun 阳光数量
+	/// @return 生成的罐子
 	PVZ::Vase CreateVase(int row, int column, VaseContent::VaseContent content, VaseSkin::VaseSkin skin = VaseSkin::VaseSkinUnknow, ZombieType::ZombieType zombie = ZombieType::Zombie, SeedType::SeedType plant = SeedType::Peashooter, int sun = 0);
 
+	/// @brief 在指定位置生成 IZ 模式的脑子
+	/// @param row 行
+	/// @param column 列。默认情况下非零值不会改变僵尸索敌范围。
+	/// @return 生成的脑子
 	PVZ::IZBrain CreateIZBrain(int row, int column = 0);
 
+	/// @brief 在指定位置生成一扇传送门
+	/// @param row 行
+	/// @param column 列
+	/// @param isYellow 是否为方传送门
+	/// @return 生成的传送门
 	PVZ::Portal CreatePortal(int row, int column, int isYellow = 0);
 
 	/// @brief 待创建罐子的详细信息
 	struct VaseCreateInfo
 	{
+		/// @brief 行
 		int row;
+		/// @brief 列
 		int column;
+		/// @brief 罐子内容物类型
 		VaseContent::VaseContent content;
+		/// @brief 罐子外观状态
 		VaseSkin::VaseSkin skin;
+		/// @brief 僵尸类型
 		ZombieType::ZombieType zombie;
+		/// @brief 植物卡牌类型
 		SeedType::SeedType plant;
+		/// @brief 阳光数量
 		int sun;
 	};
 
+	/// @brief 在指定位置生成一个包含指定内容物的罐子
+	/// @param vaseinfo 罐子详细信息
+	/// @return 生成的罐子
 	PVZ::Vase CreateVase(VaseCreateInfo vaseinfo);
 
+	/// @brief 在指定位置生成一个钉耙
+	/// @note 此函数没有返回值。
+	/// @todo 尝试实现一个可捕获返回值的版本。
+	/// @param row 行
+	/// @param column 列
 	void CreateRake(byte row, byte column);
 
+	/// @brief 创建文字字幕
+	/// @param str 文字内容
+	/// @param length 字符串长度
+	/// @param style 字幕样式
+	/// @param duration	字幕持续时间
 	void CreateCaption(const char* str, int length, CaptionStyle::CaptionStyle style, int duration = 500);
 
+	/// @brief 创建图片样式的文字字幕
+	/// @param str 文字内容
+	/// @param length 字符串长度
 	void CreateImageCaption(const char* str, int length);
 
+	/// @deprecated 
 	void CreatePlantEffect(PlantEffectType::PlantEffectType type, int x, int y);
 
+	/// @brief 在指定位置生成爆炸
+	/// @param x 爆炸中心 X 坐标
+	/// @param y 爆炸中心 Y 坐标
+	/// @param radius 爆炸范围
+	/// @param cinder 是否带有灰烬斩杀效果
+	/// @param bound 最大行差
+	/// @param fromjackzombie 爆炸是否伤害魅惑僵尸
 	void CreateExplosion(int x, int y, int radius, BOOLEAN cinder = true, byte bound = 5, BOOLEAN fromjackzombie = false);
 
+	/// @deprecated
 	void CreateEffect(EffectType::EffectType type, float x, float y);
 
-	//部分音效是持续的，需要用StopSound手动停止音效持续播放
+	/// @brief 播放 Foley 型音效。
+	/// @param soundid 通过 LowerSoundType::LowerSoundType 表示的音效类型
+	/// @see LowerSoundType
+	/// @note 部分音效是持续的，需要用 StopSound() 手动停止音效持续播放
 	void CreateSound(int soundid);
 
+	/// @brief 同 CreateSound()
+	/// @param sound 音效类型
+	/// @see CreateSound()
 	void CreateLowerSound(LowerSoundType::LowerSoundType sound);
 
+	/// @brief 播放 Sample 型音效
+	/// @param sound 音效类型
+	/// @see UpperSoundType::UpperSoundType
 	void CreateUpperSound(UpperSoundType::UpperSoundType sound);
 
 	/// @brief 将第一个植物视为寒冰菇，然后令其冻结全场僵尸。
 	/// @attention 当前关卡必须至少存在过一个植物，此函数才有效。
 	void FrozeAll();
 
+	/// @brief 停止指定 Foley 型音效
+	/// @param soundid 通过 LowerSoundType::LowerSoundType 表示的音效类型
 	void StopSound(int soundid);
 
+	/// @brief 生成指定 IZ 关卡的植物阵型
+	/// @param izlevel IZ 关卡编号
 	void CreateIZombieFormation(PVZLevel::PVZLevel izlevel);
 
+	/// @brief 生成指定 VB 关卡的罐子阵型
+	/// @param vblevel VB 关卡编号
 	void CreateVaseFormation(PVZLevel::PVZLevel vblevel);
 
+	/// @brief 移除场上所有传送门，然后在默认位置生成传送门
 	/// @attention 你需要先调用一次 AsmInit() 后才能使用这个函数。
 	/// @see AsmInit()
 	void __CreatePortal();
 
+	/// @brief 在指定位置生成传送门
 	/// @attention 你需要先调用一次 AsmInit() 后才能使用这个函数。
 	/// @see AsmInit()
+	/// @param yellow1Row 第一扇方传送门的行
+	/// @param yellow1Column 第一扇方传送门的列
+	/// @param yellow2Row 第二扇方传送门的行
+	/// @param yellow2Column 第二扇方传送门的列
+	/// @param blue1Row 第一扇圆传送门的行
+	/// @param blue1Column 第一扇圆传送门的列
+	/// @param blue2Row 第二扇圆传送门的行
+	/// @param blue2Column 第二扇圆传送门的列
 	void CreatePortal(int yellow1Row, int yellow1Column, int yellow2Row, int yellow2Column, int blue1Row, int blue1Column, int blue2Row, int blue2Column);
 
+	/// @brief 清除选卡界面的预览僵尸
 	void __ClearZombiePreview();
 
-	//生成出怪列表
-	//wave = 0 means defalt and Non-intervention
+	/// @brief 刷新出怪列表
+	/// @param ztypes 僵尸类型
+	/// @param length ztypes 的元素数
+	/// @param wave 出怪列表波数，若为 0，表示“当前关卡的默认数值”。
 	void CreateZombieInLevel(ZombieType::ZombieType* ztypes, int length, int wave = 0);
 
 }

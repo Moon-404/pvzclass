@@ -1,4 +1,5 @@
 ﻿#include "Creators.h"
+#include "Classes.hpp"
 #include <iostream>
 
 byte __asm__CreateReanimation[44]
@@ -453,20 +454,9 @@ void Creator::CreateExplosion(int x, int y, int radius, BOOLEAN cinder, byte bou
 	PVZ::Memory::Execute(STRING(__asm__CreateExplosion));
 }
 
-byte __asm___CreateEffect[39]
-{
-	MOV_ESI(0),
-	_CREATEEFFECT,
-	RET,
-};
-
 void Creator::CreateEffect(EffectType::EffectType type, float x, float y)
 {
-	SETARG(__asm___CreateEffect, 1) = PVZ::Memory::ReadPointer(0x6A9EC0, 0x820, 0);
-	SETARG(__asm___CreateEffect, 6) = type;
-	SETARGFLOAT(__asm___CreateEffect, 16) = y;
-	SETARGFLOAT(__asm___CreateEffect, 21) = x;
-	PVZ::Memory::Execute(STRING(__asm___CreateEffect));
+	PVZ::CreateParticleSystem(x, y, 0x618A0, type);
 }
 
 byte __asm__CreateSound[26]

@@ -1,4 +1,5 @@
 ﻿#pragma once
+/// @deprecated
 namespace PlantEffectType
 {
 

@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <iostream>
 
+/// @brief 构建指令序列的类
 class AsmBuilder
 {
 private:

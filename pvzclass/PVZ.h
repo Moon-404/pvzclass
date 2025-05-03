@@ -18,7 +18,6 @@ using std::is_base_of;
 #define SETARG(asmfunction,index) *(int*)(asmfunction+index)
 #define SETARGFLOAT(asmfunction,index) *(float*)(asmfunction+index)
 
-#define PAGE_SIZE 1024
 #define PVZ_BASE PVZ::Memory::ReadMemory<int>(0x6A9EC0)
 #define PVZBASEADDRESS PVZ::Memory::ReadMemory<int>(PVZ_BASE + 0x768)
 
@@ -1088,26 +1087,37 @@ namespace PVZ
 	};
 	//if anyone want a class for calling functions in bass.dll to totally control the music in game,just tell me
 
+	/// @brief 禅境花园类，包含部分与禅境花园有关的函数。
 	class ZenGarden : public BaseClass
 	{
 	public:
-		ZenGarden(int address);
+		ZenGarden(int address) : BaseClass(address) {};
+		PVZApp GetLawnApp();
 		PVZ::Board GetBoard();
 		T_PROPERTY(GardenScene::GardenScene, GardenType, __get_GardenType, __set_GardenType, 0x8);
 		bool IsFull(bool consider_items);
 		Snail GetSnail();
 	};
 
+	/// @brief 植物定义类，存储植物相关的若干常量。
 	class PlantDefinition : public BaseClass
 	{
 	public:
 		PlantDefinition(SeedType::SeedType type);
+		/// @brief 植物类型
 		T_READONLY_PROPERTY(SeedType::SeedType, Type, __get_Type, 0);
+		/// @brief 植物的默认动画类型
 		T_READONLY_PROPERTY(AnimationType::AnimationType, AnimType, __get_AnimType, 8);
 		INT_READONLY_PROPERTY(PacketID, __get_PacketID, 0xC);
+		/// @brief 基础阳光消耗
 		INT_PROPERTY(Cost, __get_Cost, __set_Cost, 0x10);
+		/// @brief 基础种植冷却时间
 		INT_PROPERTY(Cooldown, __get_Cooldown, __set_Cooldown, 0x14);
+		/// @brief 植物默认子类型。原版只有非射手（0）与射手（1）之分。
+		INT_PROPERTY(SubClass, __get_SubClass, __set_SubClass, 0x18);
+		/// @deprecated
 		INT_PROPERTY(IsShooter, __get_IsShooter, __set_IsShooter, 0x18);
+		/// @brief 基础攻击间隔
 		INT_PROPERTY(AttackCooldown, __get_AttackCooldown, __set_AttackCooldown, 0x1C);
 	};
 
