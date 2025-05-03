@@ -154,6 +154,7 @@ namespace Creator
 
 	void CreateImageCaption(const char* str, int length);
 
+	/// @deprecated 
 	void CreatePlantEffect(PlantEffectType::PlantEffectType type, int x, int y);
 
 	void CreateExplosion(int x, int y, int radius, BOOLEAN cinder = true, byte bound = 5, BOOLEAN fromjackzombie = false);
