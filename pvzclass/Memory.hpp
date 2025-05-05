@@ -1,4 +1,7 @@
 ﻿#pragma once
+/// @file Memory.hpp
+/// @brief 包含读写 PVZ 本体内存，以及其他内存操作的若干函数和宏定义。
+
 /// @brief 默认的一页内存的字节数
 #define PAGE_SIZE 1024
 
@@ -161,3 +164,28 @@ namespace PVZ
 	};
 
 }
+
+#define PVZ_BASE PVZ::Memory::ReadMemory<int>(0x6A9EC0)
+#define PVZBASEADDRESS PVZ::Memory::ReadMemory<int>(PVZ_BASE + 0x768)
+
+/// @brief 用来替代成员变量声明的类型部分，将其转化为属性。\n
+///		转化后对该变量的读写操作分别会转化为调用 getmethod 和 setmethod。
+/// @note getmethod 和 setmethod 仅有声明，需要自己另行定义。
+/// @param type 变量类型
+/// @param getmethod 读成员变量的方法名
+/// @param setmethod 写成员变量的方法名
+#define PROPERTY(type,getmethod,setmethod) type getmethod();void setmethod(type value);__declspec(property(get=getmethod,put=setmethod)) type
+/// @brief PROPERTY 宏的只读版本，不允许写操作。
+/// @see PROPERTY
+#define READONLY_PROPERTY(type,getmethod) type getmethod();__declspec(property(get=getmethod)) type
+/// @brief PROPERTY 宏的只写版本，不允许读操作。
+/// @see PROPERTY
+#define WRITEONLY_PROPERTY(type,setmethod) void setmethod(type value);__declspec(property(put=setmethod)) type
+
+#define PROPERTY_BINDING(type,getmethod,getter,setmethod,setter) inline type getmethod(){return getter;}; \
+	inline void setmethod(type value){setter;}; \
+	__declspec(property(get=getmethod,put=setmethod)) type
+#define READONLY_PROPERTY_BINDING(type,getmethod,getter) inline type getmethod(){return getter;};\
+	__declspec(property(get=getmethod)) type
+#define WRITEONLY_PROPERTY_BINDING(type,setmethod,setter) inline void setmethod(type value){setter;};\
+	__declspec(property(put=setmethod)) type
