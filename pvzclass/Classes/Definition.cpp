@@ -25,6 +25,11 @@ PVZ::ProjectileDefinition::ProjectileDefinition(ProjectileType::ProjectileType t
 	BaseAddress = 0x69F1C0 + 0xC * type;
 }
 
+PVZ::ProjectileDefinition PVZ::GetProjectileDefinition(ProjectileType::ProjectileType type)
+{
+	return ProjectileDefinition(type);
+}
+
 PVZ::ChallengeDefinition::ChallengeDefinition(PVZLevel::PVZLevel mode)
 {
 	BaseAddress = 0x6A2B88 + 0x18 * mode;

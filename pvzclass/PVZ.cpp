@@ -151,11 +151,6 @@ PVZ::ZenGarden PVZ::GetZenGarden()
 	return ZenGarden(Memory::ReadPointer(0x6A9EC0, 0x81C));
 }
 
-PVZ::ProjectileDefinition PVZ::GetProjectileDefinition(ProjectileType::ProjectileType type)
-{
-	return ProjectileDefinition(type);
-}
-
 PVZ::ChallengeDefinition PVZ::GetChallengeDefinition(PVZLevel::PVZLevel mode)
 {
 	return ChallengeDefinition(mode);

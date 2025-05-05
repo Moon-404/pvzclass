@@ -53,4 +53,20 @@ namespace PVZ
 	/// @param type 僵尸类型
 	/// @return 该类型僵尸对应的 ZombieDefinition
 	ZombieDefinition GetZombieDefinition(ZombieType::ZombieType type);
+
+	/// @brief 弹射物定义类，存储子弹相关的若干常量。
+	class ProjectileDefinition : public BaseClass
+	{
+	public:
+		ProjectileDefinition(ProjectileType::ProjectileType type);
+		/// @brief 子弹类型
+		T_READONLY_PROPERTY(ProjectileType::ProjectileType, Type, __get_Type, 0);
+		INT_READONLY_PROPERTY(ImageRow, __get_ImageRow, 4);
+		/// @brief 子弹的基础伤害
+		INT_PROPERTY(Damage, __get_Damage, __set_Damage, 8);
+	};
+	/// @brief 获取指定子弹类型的定义
+	/// @param type 子弹类型
+	/// @return 该类型子弹对应的 ProjectileDefinition
+	ProjectileDefinition GetProjectileDefinition(ProjectileType::ProjectileType type);
 }

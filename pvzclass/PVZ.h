@@ -1099,15 +1099,6 @@ namespace PVZ
 		Snail GetSnail();
 	};
 
-	class ProjectileDefinition : public BaseClass
-	{
-	public:
-		ProjectileDefinition(ProjectileType::ProjectileType type);
-		T_READONLY_PROPERTY(ProjectileType::ProjectileType, Type, __get_Type, 0);
-		INT_READONLY_PROPERTY(ImageRow, __get_ImageRow, 4);
-		INT_PROPERTY(Damage, __get_Damage, __set_Damage, 8);
-	};
-
 	class ChallengeDefinition : public BaseClass
 	{
 	public:
@@ -1131,7 +1122,6 @@ namespace PVZ
 	SaveData GetSaveData();
 	Music GetMusic();
 	ZenGarden GetZenGarden();
-	ProjectileDefinition GetProjectileDefinition(ProjectileType::ProjectileType type);
 	ChallengeDefinition GetChallengeDefinition(PVZLevel::PVZLevel mode);
 
 #pragma endregion
