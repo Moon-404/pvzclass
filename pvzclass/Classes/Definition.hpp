@@ -69,4 +69,27 @@ namespace PVZ
 	/// @param type 子弹类型
 	/// @return 该类型子弹对应的 ProjectileDefinition
 	ProjectileDefinition GetProjectileDefinition(ProjectileType::ProjectileType type);
+
+	/// @brief 挑战定义类，存储非冒险关卡相关的若干常量
+	class ChallengeDefinition : public BaseClass
+	{
+	public:
+		ChallengeDefinition(PVZLevel::PVZLevel mode);
+		/// @brief 关卡编号
+		T_READONLY_PROPERTY(PVZLevel::PVZLevel, Mode, __get_Mode, 0);
+		/// @brief 关卡在界面中的图标编号
+		INT_PROPERTY(IconIndex, __get_IconIndex, __set_IconIndex, 4);
+		/// @brief 关卡默认所在的页数
+		INT_PROPERTY(Page, __get_Page, __set_Page, 8);
+		/// @brief 关卡图标的行数
+		INT_PROPERTY(Row, __get_Row, __set_Row, 0x0C);
+		/// @brief 关卡图标的列数
+		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
+		/// @brief 关卡名称的地址
+		INT_PROPERTY(NamePTR, __get_NamePTR, __set_NamePTR, 0x14);
+	};
+	/// @brief 获取指定关卡类型的定义
+	/// @param mode 关卡类型
+	/// @return 该关卡对应的 ProjectileDefinition
+	ChallengeDefinition GetChallengeDefinition(PVZLevel::PVZLevel mode);
 }

@@ -151,11 +151,6 @@ PVZ::ZenGarden PVZ::GetZenGarden()
 	return ZenGarden(Memory::ReadPointer(0x6A9EC0, 0x81C));
 }
 
-PVZ::ChallengeDefinition PVZ::GetChallengeDefinition(PVZLevel::PVZLevel mode)
-{
-	return ChallengeDefinition(mode);
-}
-
 PVZ::SaveData PVZ::GetSaveData()
 {
 	return SaveData(Memory::ReadPointer(0x6A9EC0, 0x82C));

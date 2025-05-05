@@ -1099,18 +1099,6 @@ namespace PVZ
 		Snail GetSnail();
 	};
 
-	class ChallengeDefinition : public BaseClass
-	{
-	public:
-		ChallengeDefinition(PVZLevel::PVZLevel mode);
-		T_READONLY_PROPERTY(PVZLevel::PVZLevel, Mode, __get_Mode, 0);
-		INT_PROPERTY(IconIndex, __get_IconIndex, __set_IconIndex, 4);
-		INT_PROPERTY(Page, __get_Page, __set_Page, 8);
-		INT_PROPERTY(Row, __get_Row, __set_Row, 0x0C);
-		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
-		INT_PROPERTY(NamePTR, __get_NamePTR, __set_NamePTR, 0x14);
-	};
-
 #pragma endregion
 
 #pragma region methods
@@ -1122,7 +1110,6 @@ namespace PVZ
 	SaveData GetSaveData();
 	Music GetMusic();
 	ZenGarden GetZenGarden();
-	ChallengeDefinition GetChallengeDefinition(PVZLevel::PVZLevel mode);
 
 #pragma endregion
 

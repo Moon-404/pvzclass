@@ -34,3 +34,8 @@ PVZ::ChallengeDefinition::ChallengeDefinition(PVZLevel::PVZLevel mode)
 {
 	BaseAddress = 0x6A2B88 + 0x18 * mode;
 }
+
+PVZ::ChallengeDefinition PVZ::GetChallengeDefinition(PVZLevel::PVZLevel mode)
+{
+	return ChallengeDefinition(mode);
+}
