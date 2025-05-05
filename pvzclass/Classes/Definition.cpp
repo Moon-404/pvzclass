@@ -1,8 +1,13 @@
-#include "../PVZ.h"
+#include "Definition.hpp"
 
 PVZ::PlantDefinition::PlantDefinition(SeedType::SeedType type)
 {
 	BaseAddress = 0x69F2B0 + 0x24 * type;
+}
+
+PVZ::PlantDefinition PVZ::GetPlantDefinition(SeedType::SeedType type)
+{
+	return PlantDefinition(type);
 }
 
 PVZ::ZombieDefinition::ZombieDefinition(ZombieType::ZombieType type)

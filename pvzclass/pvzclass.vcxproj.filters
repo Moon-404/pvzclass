@@ -743,5 +743,8 @@
     <ClInclude Include="Events\PlantUpdateEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Definition.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
