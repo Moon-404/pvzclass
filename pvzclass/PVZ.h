@@ -18,11 +18,6 @@ using std::is_base_of;
 #define SETARG(asmfunction,index) *(int*)(asmfunction+index)
 #define SETARGFLOAT(asmfunction,index) *(float*)(asmfunction+index)
 
-#define INT_PROPERTY(propname,getmethod,setmethod,offset) PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset),setmethod,Memory::WriteMemory<int>(BaseAddress+offset,value)) propname
-#define INT_READONLY_PROPERTY(propname,getmethod,offset) READONLY_PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset)) propname
-#define T_PROPERTY(type,propname,getmethod,setmethod,offset) PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset),setmethod,Memory::WriteMemory<type>(BaseAddress+offset,value)) propname
-#define T_READONLY_PROPERTY(type,propname,getmethod,offset) READONLY_PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset)) propname
-
 #define INT_ARRAY_PROPERTY(getmethod,setmethod,offset) inline int getmethod(int index) \
 	{ return Memory::ReadMemory<int>(BaseAddress+offset+index*4); } \
 	inline void setmethod(int index, int value) \

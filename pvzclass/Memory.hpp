@@ -182,10 +182,43 @@ namespace PVZ
 /// @see PROPERTY
 #define WRITEONLY_PROPERTY(type,setmethod) void setmethod(type value);__declspec(property(put=setmethod)) type
 
+/// @brief 用来替代成员变量声明的类型部分，将其转化为属性。\n
+///		转化后对该变量的读写操作分别会转化为调用 getmethod 和 setmethod。
+/// @note 在 PROPERTY 的基础上，该语句直接定义读写方法。
+/// @param type 变量类型
+/// @param getmethod 读成员变量的方法名
+/// @param getter 读方法的语句
+/// @param setmethod 写成员变量的方法名
+/// @param getter 读方法的语句
 #define PROPERTY_BINDING(type,getmethod,getter,setmethod,setter) inline type getmethod(){return getter;}; \
 	inline void setmethod(type value){setter;}; \
 	__declspec(property(get=getmethod,put=setmethod)) type
+/// @brief PROPERTY_BINDING 宏的只读版本，不允许写操作。
+/// @see PROPERTY_BINDING
 #define READONLY_PROPERTY_BINDING(type,getmethod,getter) inline type getmethod(){return getter;};\
 	__declspec(property(get=getmethod)) type
+/// @brief PROPERTY_BINDING 宏的只写版本，不允许读操作。
+/// @see PROPERTY_BINDING
 #define WRITEONLY_PROPERTY_BINDING(type,setmethod,setter) inline void setmethod(type value){setter;};\
 	__declspec(property(put=setmethod)) type
+
+/// @brief 用来替代成员变量声明，声明一个有符号 32 位整数属性。\n
+///		对该属性的读写操作分别会转化为读写指定地址的数值。\n
+///		地址为 BaseAddress 的值与偏移的和。
+/// @note 该宏包含完整的变量声明和读写方法定义。
+/// @see PROPERTY_BINDING
+/// @param propname 属性名称
+/// @param getmethod 读方法的名称
+/// @param setmethod 写方法的名称
+/// @param offset 相对基址的偏移
+#define INT_PROPERTY(propname,getmethod,setmethod,offset) PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset),setmethod,Memory::WriteMemory<int>(BaseAddress+offset,value)) propname
+/// @brief INT_PROPERTY 宏的只读版本，不允许写操作。
+/// @see INT_PROPERTY
+#define INT_READONLY_PROPERTY(propname,getmethod,offset) READONLY_PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset)) propname
+/// @brief 与 INT_PROPERTY 类似，不过它可以表示任何类型的属性。
+/// @param type 属性类型。
+/// @see INT_PROPERTY
+#define T_PROPERTY(type,propname,getmethod,setmethod,offset) PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset),setmethod,Memory::WriteMemory<type>(BaseAddress+offset,value)) propname
+/// @brief T_PROPERTY 宏的只读版本，不允许写操作。
+/// @see T_PROPERTY
+#define T_READONLY_PROPERTY(type,propname,getmethod,offset) READONLY_PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset)) propname
