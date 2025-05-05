@@ -15,6 +15,11 @@ PVZ::ZombieDefinition::ZombieDefinition(ZombieType::ZombieType type)
 	BaseAddress = 0x69DA80 + 0x1C * type;
 }
 
+PVZ::ZombieDefinition PVZ::GetZombieDefinition(ZombieType::ZombieType type)
+{
+	return ZombieDefinition(type);
+}
+
 PVZ::ProjectileDefinition::ProjectileDefinition(ProjectileType::ProjectileType type)
 {
 	BaseAddress = 0x69F1C0 + 0xC * type;

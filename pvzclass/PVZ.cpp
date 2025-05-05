@@ -151,11 +151,6 @@ PVZ::ZenGarden PVZ::GetZenGarden()
 	return ZenGarden(Memory::ReadPointer(0x6A9EC0, 0x81C));
 }
 
-PVZ::ZombieDefinition PVZ::GetZombieDefinition(ZombieType::ZombieType type)
-{
-	return ZombieDefinition(type);
-}
-
 PVZ::ProjectileDefinition PVZ::GetProjectileDefinition(ProjectileType::ProjectileType type)
 {
 	return ProjectileDefinition(type);

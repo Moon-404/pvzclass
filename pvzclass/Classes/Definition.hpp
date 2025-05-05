@@ -30,4 +30,27 @@ namespace PVZ
 	/// @param type 植物类型
 	/// @return 该类型植物对应的 PlantDefinition
 	PlantDefinition GetPlantDefinition(SeedType::SeedType type);
+
+	/// @brief 僵尸定义类，存储僵尸相关的若干常量。
+	class ZombieDefinition : public BaseClass
+	{
+	public:
+		ZombieDefinition(ZombieType::ZombieType type);
+		/// @brief 僵尸类型
+		T_READONLY_PROPERTY(ZombieType::ZombieType, Type, __get_Type, 0);
+		/// @brief 僵尸的默认动画类型
+		T_READONLY_PROPERTY(AnimationType::AnimationType, AnimType, __get_AnimType, 4);
+		/// @brief 僵尸的价值，影响出怪和掉落物概率
+		INT_PROPERTY(Value, __get_Value, __set_Value, 8);
+		/// @brief 僵尸在冒险模式首次出现的关卡
+		INT_PROPERTY(StartingLevel, __get_StartingLevel, __set_StartingLevel, 0xC);
+		/// @brief 僵尸在出怪时允许出场最小波数
+		INT_PROPERTY(FirstAllowedWave, __get_FirstAllowedWave, __set_FirstAllowedWave, 0x10);
+		/// @brief 僵尸在随机选择出怪时的权重
+		INT_PROPERTY(PickWeight, __get_PickWeight, __set_PickWeight, 0x14);
+	};
+	/// @brief 获取指定僵尸类型的定义
+	/// @param type 僵尸类型
+	/// @return 该类型僵尸对应的 ZombieDefinition
+	ZombieDefinition GetZombieDefinition(ZombieType::ZombieType type);
 }
