@@ -18,16 +18,6 @@ using std::is_base_of;
 #define SETARG(asmfunction,index) *(int*)(asmfunction+index)
 #define SETARGFLOAT(asmfunction,index) *(float*)(asmfunction+index)
 
-#define INT_ARRAY_PROPERTY(getmethod,setmethod,offset) inline int getmethod(int index) \
-	{ return Memory::ReadMemory<int>(BaseAddress+offset+index*4); } \
-	inline void setmethod(int index, int value) \
-	{ Memory::WriteMemory<int>(BaseAddress+offset+index*4, value); } \
-
-#define T_ARRAY_PROPERTY(type,getmethod,setmethod,offset,size) inline type getmethod(int index) \
-	{ return Memory::ReadMemory<type>(BaseAddress+offset+index*size); } \
-	inline void setmethod(int index, type value) \
-	{ Memory::WriteMemory<type>(BaseAddress+offset+index*size, value); } \
-
 #define LOGICALINCLUDE(c,v) (c&v)==v
 
 #define SPT std::shared_ptr

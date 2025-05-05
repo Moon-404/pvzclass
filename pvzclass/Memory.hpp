@@ -202,7 +202,7 @@ namespace PVZ
 #define WRITEONLY_PROPERTY_BINDING(type,setmethod,setter) inline void setmethod(type value){setter;};\
 	__declspec(property(put=setmethod)) type
 
-/// @brief 用来替代成员变量声明，声明一个有符号 32 位整数属性。\n
+/// @brief 用来替代成员变量声明，声明一个 32 位有符号整数属性。\n
 ///		对该属性的读写操作分别会转化为读写指定地址的数值。\n
 ///		地址为 BaseAddress 的值与偏移的和。
 /// @note 该宏包含完整的变量声明和读写方法定义。
@@ -222,3 +222,22 @@ namespace PVZ
 /// @brief T_PROPERTY 宏的只读版本，不允许写操作。
 /// @see T_PROPERTY
 #define T_READONLY_PROPERTY(type,propname,getmethod,offset) READONLY_PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset)) propname
+
+/// @brief 用来简化声明读写 32 位有符号整数数组元素函数的宏。\n
+/// @note 该宏实际上并不创造真的数组，也没有提供类似 T_PROPERTY 的定义，只是把读写函数绑在一起而已。
+/// @param getmethod 读方法的名称
+/// @param setmethod 写方法的名称
+/// @param offset 数组首个元素的首地址相对基址的偏移
+#define INT_ARRAY_PROPERTY(getmethod,setmethod,offset) inline int getmethod(int index) \
+	{ return Memory::ReadMemory<int>(BaseAddress+offset+index*4); } \
+	inline void setmethod(int index, int value) \
+	{ Memory::WriteMemory<int>(BaseAddress+offset+index*4, value); }
+
+/// @brief 类似 INT_ARRAY_PROPERTY，只是此宏支持其他类型。
+/// @see INT_ARRAY_PROPERTY
+/// @param type 返回值的类型
+/// @param size 类型的大小，按字节数计算
+#define T_ARRAY_PROPERTY(type,getmethod,setmethod,offset,size) inline type getmethod(int index) \
+	{ return Memory::ReadMemory<type>(BaseAddress+offset+index*size); } \
+	inline void setmethod(int index, type value) \
+	{ Memory::WriteMemory<type>(BaseAddress+offset+index*size, value); }
