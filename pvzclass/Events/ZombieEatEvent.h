@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #include "DLLEvent.h"
 
-// ½©Ê¬¿ĞÊ³Ö²ÎïÊÂ¼ş
-// ²ÎÊı£º´¥·¢ÊÂ¼şµÄ½©Ê¬ºÍÖ²Îï
-// ÎŞ·µ»ØÖµ
-class ZombieEatEvent : public DLLEvent
+// åƒµå°¸å•ƒé£Ÿæ¤ç‰©äº‹ä»¶
+// å‚æ•°ï¼šè§¦å‘äº‹ä»¶çš„åƒµå°¸å’Œæ¤ç‰©
+// æ— è¿”å›å€¼
+class ZombieEatEvent : public DLLEventTemplate<0x52FB40, 7, REG_ECX, REG_EDI>
 {
 public:
 	ZombieEatEvent();
@@ -13,8 +13,5 @@ public:
 ZombieEatEvent::ZombieEatEvent()
 {
 	int procAddress = PVZ::Memory::GetProcAddress("onZombieEat");
-	hookAddress = 0x52FB40;
-	rawlen = 7;
-	BYTE code[] = { PUSH_ECX, PUSH_EDI, INVOKE(procAddress), ADD_ESP(8) };
-	start(STRING(code));
+	Init(procAddress);
 }
