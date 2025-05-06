@@ -81,3 +81,13 @@ protected:
 public:
 	static constexpr std::array<DWORD, sizeof...(Params)> regs = { Params... };
 };
+
+template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD _Cancel_Addr, DWORD ...Params>
+class BoolDLLEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
+{
+protected:
+	virtual void InitExtra(AsmBuilder& builder)
+	{
+		builder.test_al_al().jnz_rel(7).popad().push_imm32(_Cancel_Addr).ret();
+	}
+};

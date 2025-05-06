@@ -696,6 +696,11 @@ public:
 		return *this;
 	}
 
+	AsmBuilder& test_al_al()
+	{
+		return this->add_byte(0x84).add_byte(0xC0);
+	}
+
 	// 添加 TEST 指令
 	AsmBuilder& test_reg_reg(uint8_t reg1, uint8_t reg2)
 	{
