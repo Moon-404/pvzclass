@@ -3,6 +3,11 @@
 #include <array>
 #include <iostream>
 
+#define MEM_ESP_ADD_MASK 8
+#define MEM_ESP_ADD(offset) (offset)
+#define CONST_VAL_MASK 0x0FF
+#define CONST_VAL(v) (CONST_VAL_MASK + (v))
+
 using std::cout;
 using std::hex;
 using std::endl;
@@ -46,38 +51,33 @@ void DLLEvent::end()
 	PVZ::Memory::FreeMemory(newAddress);
 }
 
-template<DWORD _Hook_Address, DWORD _Raw_Len, uint8_t ...Regs>
+template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD ...Params>
 class DLLEventTemplate : DLLEvent
 {
 protected:
-	DLLEventTemplate(const char* str)
+	void Init(const char* str)
 	{
-		Init(PVZ::Memory::GetProcAddress(str));
+		hookAddress = _Hook_Address;
+		rawlen = _Raw_Len;
+		AsmBuilder builder = AsmBuilder(128);
+
+		for (int i = 0, sz = this->regs.size(); i < sz; i++)
+			if (this->regs[i] < MEM_ESP_ADD_MASK)
+				builder.push_reg((uint8_t)this->regs[i]);
+			else if (this->regs[i] <= CONST_VAL_MASK)
+				builder.push_m32_esp_imm8((uint8_t)this->regs[i]);
+			else
+				builder.push_imm32(this->regs[i] - CONST_VAL_MASK);
+
+		builder.invoke(PVZ::Memory::GetProcAddress(str)).add_reg_imm(REG_ESP, this->regs.size() << 2);
+		this->InitExtra(builder);
+
+		start(builder.get_code() + 1, builder.get_length() - 1);
 	}
-	void Init(int proc_address);
-	void InitExtra(AsmBuilder& builder)
+	virtual void InitExtra(AsmBuilder& builder)
 	{
 		return;
 	}
 public:
-	static constexpr std::array<uint8_t, sizeof...(Regs)> regs = { Regs... };
+	static constexpr std::array<DWORD, sizeof...(Params)> regs = { Params... };
 };
-
-template<DWORD _Hook_Address, DWORD _Raw_Len, uint8_t ...Regs>
-inline void DLLEventTemplate<_Hook_Address, _Raw_Len, Regs...>::Init(int proc_address)
-{
-	hookAddress = _Hook_Address;
-	rawlen = _Raw_Len;
-	AsmBuilder builder = AsmBuilder(128);
-
-	for (int i = 0, sz = this->regs.size(); i < sz; i++)
-		if (this->regs[i] < 8)
-			builder.push_reg(this->regs[i]);
-		else
-			builder.push_m32_esp_imm8(this->regs[i]);
-
-	builder.invoke(proc_address).add_reg_imm(REG_ESP, this->regs.size() << 2);
-	this->InitExtra(builder);
-	
-	start(builder.get_code() + 1, builder.get_length() - 1);
-}

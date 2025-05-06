@@ -7,5 +7,5 @@
 class ZombieEatEvent : public DLLEventTemplate<0x52FB40, 7, REG_ECX, REG_EDI>
 {
 public:
-	ZombieEatEvent() : DLLEventTemplate("onZombieEat") {};
+	ZombieEatEvent() : DLLEventTemplate() { Init("onZombieEat"); };
 };
