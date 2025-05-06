@@ -50,6 +50,10 @@ template<DWORD _Hook_Address, DWORD _Raw_Len, uint8_t ...Regs>
 class DLLEventTemplate : DLLEvent
 {
 protected:
+	DLLEventTemplate(const char* str)
+	{
+		Init(PVZ::Memory::GetProcAddress(str));
+	}
 	void Init(int proc_address);
 	void InitExtra(AsmBuilder& builder)
 	{
