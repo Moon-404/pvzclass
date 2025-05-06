@@ -141,6 +141,11 @@ public:
 		return *this;
 	}
 
+	AsmBuilder& push_m32_esp_imm8(uint8_t offset)
+	{
+		return this->add_byte(0xFF).add_byte(0x74).add_byte(0x24).add_byte(offset);
+	}
+
 	// 添加 POP 指令
 	AsmBuilder& pop(uint8_t reg)
 	{
@@ -1337,7 +1342,7 @@ public:
 	// 添加 INVOKE 指令（绝对跳转）
 	AsmBuilder& invoke(uint32_t address)
 	{
-		return this->call_rel(2).jmp_rel8(6).push(address).ret();
+		return this->call_rel(2).jmp_rel8(6).push_imm32(address).ret();
 	}
 
 	// 添加 INT 指令

@@ -1,4 +1,7 @@
 ﻿#pragma once
+/// @file Memory.hpp
+/// @brief 包含读写 PVZ 本体内存，以及其他内存操作的若干函数和宏定义。
+
 /// @brief 默认的一页内存的字节数
 #define PAGE_SIZE 1024
 
@@ -161,3 +164,80 @@ namespace PVZ
 	};
 
 }
+
+#define PVZ_BASE PVZ::Memory::ReadMemory<int>(0x6A9EC0)
+#define PVZBASEADDRESS PVZ::Memory::ReadMemory<int>(PVZ_BASE + 0x768)
+
+/// @brief 用来替代成员变量声明的类型部分，将其转化为属性。\n
+///		转化后对该变量的读写操作分别会转化为调用 getmethod 和 setmethod。
+/// @note getmethod 和 setmethod 仅有声明，需要自己另行定义。
+/// @param type 变量类型
+/// @param getmethod 读成员变量的方法名
+/// @param setmethod 写成员变量的方法名
+#define PROPERTY(type,getmethod,setmethod) type getmethod();void setmethod(type value);__declspec(property(get=getmethod,put=setmethod)) type
+/// @brief PROPERTY 宏的只读版本，不允许写操作。
+/// @see PROPERTY
+#define READONLY_PROPERTY(type,getmethod) type getmethod();__declspec(property(get=getmethod)) type
+/// @brief PROPERTY 宏的只写版本，不允许读操作。
+/// @see PROPERTY
+#define WRITEONLY_PROPERTY(type,setmethod) void setmethod(type value);__declspec(property(put=setmethod)) type
+
+/// @brief 用来替代成员变量声明的类型部分，将其转化为属性。\n
+///		转化后对该变量的读写操作分别会转化为调用 getmethod 和 setmethod。
+/// @note 在 PROPERTY 的基础上，该语句直接定义读写方法。
+/// @param type 变量类型
+/// @param getmethod 读成员变量的方法名
+/// @param getter 读方法的语句
+/// @param setmethod 写成员变量的方法名
+/// @param getter 读方法的语句
+#define PROPERTY_BINDING(type,getmethod,getter,setmethod,setter) inline type getmethod(){return getter;}; \
+	inline void setmethod(type value){setter;}; \
+	__declspec(property(get=getmethod,put=setmethod)) type
+/// @brief PROPERTY_BINDING 宏的只读版本，不允许写操作。
+/// @see PROPERTY_BINDING
+#define READONLY_PROPERTY_BINDING(type,getmethod,getter) inline type getmethod(){return getter;};\
+	__declspec(property(get=getmethod)) type
+/// @brief PROPERTY_BINDING 宏的只写版本，不允许读操作。
+/// @see PROPERTY_BINDING
+#define WRITEONLY_PROPERTY_BINDING(type,setmethod,setter) inline void setmethod(type value){setter;};\
+	__declspec(property(put=setmethod)) type
+
+/// @brief 用来替代成员变量声明，声明一个 32 位有符号整数属性。\n
+///		对该属性的读写操作分别会转化为读写指定地址的数值。\n
+///		地址为 BaseAddress 的值与偏移的和。
+/// @note 该宏包含完整的变量声明和读写方法定义。
+/// @see PROPERTY_BINDING
+/// @param propname 属性名称
+/// @param getmethod 读方法的名称
+/// @param setmethod 写方法的名称
+/// @param offset 相对基址的偏移
+#define INT_PROPERTY(propname,getmethod,setmethod,offset) PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset),setmethod,Memory::WriteMemory<int>(BaseAddress+offset,value)) propname
+/// @brief INT_PROPERTY 宏的只读版本，不允许写操作。
+/// @see INT_PROPERTY
+#define INT_READONLY_PROPERTY(propname,getmethod,offset) READONLY_PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset)) propname
+/// @brief 与 INT_PROPERTY 类似，不过它可以表示任何类型的属性。
+/// @param type 属性类型。
+/// @see INT_PROPERTY
+#define T_PROPERTY(type,propname,getmethod,setmethod,offset) PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset),setmethod,Memory::WriteMemory<type>(BaseAddress+offset,value)) propname
+/// @brief T_PROPERTY 宏的只读版本，不允许写操作。
+/// @see T_PROPERTY
+#define T_READONLY_PROPERTY(type,propname,getmethod,offset) READONLY_PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset)) propname
+
+/// @brief 用来简化声明读写 32 位有符号整数数组元素函数的宏。\n
+/// @note 该宏实际上并不创造真的数组，也没有提供类似 T_PROPERTY 的定义，只是把读写函数绑在一起而已。
+/// @param getmethod 读方法的名称
+/// @param setmethod 写方法的名称
+/// @param offset 数组首个元素的首地址相对基址的偏移
+#define INT_ARRAY_PROPERTY(getmethod,setmethod,offset) inline int getmethod(int index) \
+	{ return Memory::ReadMemory<int>(BaseAddress+offset+index*4); } \
+	inline void setmethod(int index, int value) \
+	{ Memory::WriteMemory<int>(BaseAddress+offset+index*4, value); }
+
+/// @brief 类似 INT_ARRAY_PROPERTY，只是此宏支持其他类型。
+/// @see INT_ARRAY_PROPERTY
+/// @param type 返回值的类型
+/// @param size 类型的大小，按字节数计算
+#define T_ARRAY_PROPERTY(type,getmethod,setmethod,offset,size) inline type getmethod(int index) \
+	{ return Memory::ReadMemory<type>(BaseAddress+offset+index*size); } \
+	inline void setmethod(int index, type value) \
+	{ Memory::WriteMemory<type>(BaseAddress+offset+index*size, value); }

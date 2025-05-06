@@ -18,32 +18,6 @@ using std::is_base_of;
 #define SETARG(asmfunction,index) *(int*)(asmfunction+index)
 #define SETARGFLOAT(asmfunction,index) *(float*)(asmfunction+index)
 
-#define PVZ_BASE PVZ::Memory::ReadMemory<int>(0x6A9EC0)
-#define PVZBASEADDRESS PVZ::Memory::ReadMemory<int>(PVZ_BASE + 0x768)
-
-#define PROPERTY(type,getmethod,setmethod) type getmethod();void setmethod(type value);__declspec(property(get=getmethod,put=setmethod)) type
-#define READONLY_PROPERTY(type,getmethod) type getmethod();__declspec(property(get=getmethod)) type
-#define WRITEONLY_PROPERTY(type,setmethod) void setmethod(type value);__declspec(property(put=setmethod)) type
-
-#define PROPERTY_BINDING(type,getmethod,getter,setmethod,setter) inline type getmethod(){return getter;};inline void setmethod(type value){setter;};__declspec(property(get=getmethod,put=setmethod)) type
-#define READONLY_PROPERTY_BINDING(type,getmethod,getter) inline type getmethod(){return getter;};__declspec(property(get=getmethod)) type
-#define WRITEONLY_PROPERTY_BINDING(type,setmethod,setter) inline void setmethod(type value){setter;};__declspec(property(put=setmethod)) type
-
-#define INT_PROPERTY(propname,getmethod,setmethod,offset) PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset),setmethod,Memory::WriteMemory<int>(BaseAddress+offset,value)) propname
-#define INT_READONLY_PROPERTY(propname,getmethod,offset) READONLY_PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset)) propname
-#define T_PROPERTY(type,propname,getmethod,setmethod,offset) PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset),setmethod,Memory::WriteMemory<type>(BaseAddress+offset,value)) propname
-#define T_READONLY_PROPERTY(type,propname,getmethod,offset) READONLY_PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset)) propname
-
-#define INT_ARRAY_PROPERTY(getmethod,setmethod,offset) inline int getmethod(int index) \
-	{ return Memory::ReadMemory<int>(BaseAddress+offset+index*4); } \
-	inline void setmethod(int index, int value) \
-	{ Memory::WriteMemory<int>(BaseAddress+offset+index*4, value); } \
-
-#define T_ARRAY_PROPERTY(type,getmethod,setmethod,offset,size) inline type getmethod(int index) \
-	{ return Memory::ReadMemory<type>(BaseAddress+offset+index*size); } \
-	inline void setmethod(int index, type value) \
-	{ Memory::WriteMemory<type>(BaseAddress+offset+index*size, value); } \
-
 #define LOGICALINCLUDE(c,v) (c&v)==v
 
 #define SPT std::shared_ptr
@@ -1099,61 +1073,6 @@ namespace PVZ
 		Snail GetSnail();
 	};
 
-	/// @brief 植物定义类，存储植物相关的若干常量。
-	class PlantDefinition : public BaseClass
-	{
-	public:
-		PlantDefinition(SeedType::SeedType type);
-		/// @brief 植物类型
-		T_READONLY_PROPERTY(SeedType::SeedType, Type, __get_Type, 0);
-		/// @brief 植物的默认动画类型
-		T_READONLY_PROPERTY(AnimationType::AnimationType, AnimType, __get_AnimType, 8);
-		INT_READONLY_PROPERTY(PacketID, __get_PacketID, 0xC);
-		/// @brief 基础阳光消耗
-		INT_PROPERTY(Cost, __get_Cost, __set_Cost, 0x10);
-		/// @brief 基础种植冷却时间
-		INT_PROPERTY(Cooldown, __get_Cooldown, __set_Cooldown, 0x14);
-		/// @brief 植物默认子类型。原版只有非射手（0）与射手（1）之分。
-		INT_PROPERTY(SubClass, __get_SubClass, __set_SubClass, 0x18);
-		/// @deprecated
-		INT_PROPERTY(IsShooter, __get_IsShooter, __set_IsShooter, 0x18);
-		/// @brief 基础攻击间隔
-		INT_PROPERTY(AttackCooldown, __get_AttackCooldown, __set_AttackCooldown, 0x1C);
-	};
-
-	class ZombieDefinition : public BaseClass
-	{
-	public:
-		ZombieDefinition(ZombieType::ZombieType type);
-		T_READONLY_PROPERTY(ZombieType::ZombieType, Type, __get_Type, 0);
-		T_READONLY_PROPERTY(AnimationType::AnimationType, AnimType, __get_AnimType, 4);
-		INT_PROPERTY(Value, __get_Value, __set_Value, 8);
-		INT_PROPERTY(StartingLevel, __get_StartingLevel, __set_StartingLevel, 0xC);
-		INT_PROPERTY(FirstAllowedWave, __get_FirstAllowedWave, __set_FirstAllowedWave, 0x10);
-		INT_PROPERTY(PickWeight, __get_PickWeight, __set_PickWeight, 0x14);
-	};
-
-	class ProjectileDefinition : public BaseClass
-	{
-	public:
-		ProjectileDefinition(ProjectileType::ProjectileType type);
-		T_READONLY_PROPERTY(ProjectileType::ProjectileType, Type, __get_Type, 0);
-		INT_READONLY_PROPERTY(ImageRow, __get_ImageRow, 4);
-		INT_PROPERTY(Damage, __get_Damage, __set_Damage, 8);
-	};
-
-	class ChallengeDefinition : public BaseClass
-	{
-	public:
-		ChallengeDefinition(PVZLevel::PVZLevel mode);
-		T_READONLY_PROPERTY(PVZLevel::PVZLevel, Mode, __get_Mode, 0);
-		INT_PROPERTY(IconIndex, __get_IconIndex, __set_IconIndex, 4);
-		INT_PROPERTY(Page, __get_Page, __set_Page, 8);
-		INT_PROPERTY(Row, __get_Row, __set_Row, 0x0C);
-		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
-		INT_PROPERTY(NamePTR, __get_NamePTR, __set_NamePTR, 0x14);
-	};
-
 #pragma endregion
 
 #pragma region methods
@@ -1165,10 +1084,6 @@ namespace PVZ
 	SaveData GetSaveData();
 	Music GetMusic();
 	ZenGarden GetZenGarden();
-	PlantDefinition GetPlantDefinition(SeedType::SeedType type);
-	ZombieDefinition GetZombieDefinition(ZombieType::ZombieType type);
-	ProjectileDefinition GetProjectileDefinition(ProjectileType::ProjectileType type);
-	ChallengeDefinition GetChallengeDefinition(PVZLevel::PVZLevel mode);
 
 #pragma endregion
 

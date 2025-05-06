@@ -244,6 +244,7 @@
     <ClInclude Include="AsmBuilder.hpp" />
     <ClInclude Include="Classes\ChallengeScreen.hpp" />
     <ClInclude Include="Classes.hpp" />
+    <ClInclude Include="Classes\Definition.hpp" />
     <ClInclude Include="Classes\ResourceManager.hpp" />
     <ClInclude Include="Classes\SeedChooserScreen.hpp" />
     <ClInclude Include="Classes\TodParticleSystem.hpp" />
