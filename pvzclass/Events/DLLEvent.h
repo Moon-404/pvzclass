@@ -91,3 +91,40 @@ protected:
 		builder.test_al_al().jnz_rel(7).popad().push_imm32(_Cancel_Addr).ret();
 	}
 };
+
+template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD _Cancel_Addr, int _Cancel_val,
+	int _Lower_Bound, DWORD _Out_Param, bool _Exit, DWORD ...Params>
+class IntDLLEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
+{
+protected:
+	virtual void InitExtra(AsmBuilder& builder)
+	{
+		if (_Cancel_Addr)
+			builder.cmp_reg_imm(REG_EAX, _Cancel_val).jne_rel(7).popad().push_imm32(_Cancel_Addr).ret();
+
+
+		if (_Out_Param < MEM_ESP_ADD_MASK)
+		{
+			if (_Lower_Bound > INT32_MIN)
+				builder.cmp_reg_imm(REG_EAX, _Lower_Bound).jl_rel(5 + (_Exit ? 1 : 2));
+			builder.mov_mem_esp_add_imm8_reg(0x1C - (_Out_Param << 2), REG_EAX).popad();
+		}
+		else if (_Out_Param <= CONST_VAL_MASK)
+		{
+			if (_Lower_Bound > INT32_MIN)
+				builder.cmp_reg_imm(REG_EAX, _Lower_Bound).jl_rel(5 + (_Exit ? 1 : 2));
+			builder.mov_mem_esp_add_imm8_reg(_Out_Param, REG_EAX).popad();
+		}
+		else
+		{
+			if (_Lower_Bound > INT32_MIN)
+				builder.cmp_reg_imm(REG_EAX, _Lower_Bound).jl_rel(7 + (_Exit ? 1 : 2));
+			builder.mov_mem_reg(_Out_Param - CONST_VAL_MASK, REG_EAX).popad();
+		}
+
+		if (_Exit)
+			builder.ret();
+		else
+			builder.jmp_rel8((uint8_t)_Raw_Len + 1);
+	}
+};

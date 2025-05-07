@@ -203,6 +203,15 @@ public:
 		return *this;
 	}
 
+	AsmBuilder& mov_mem_esp_add_imm8_reg(uint8_t imm, uint8_t reg)
+	{
+		if (reg > 7)
+		{
+			throw std::invalid_argument("Invalid register for MOV");
+		}
+		return this->add_byte(0x89).add_byte(0x44 + reg * 8).add_byte(0x24).add_byte(imm);
+	}
+
 	// 添加 MOV 指令（寄存器到内存）
 	AsmBuilder& mov_mem_reg(uint32_t address, uint8_t reg)
 	{
