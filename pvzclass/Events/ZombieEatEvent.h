@@ -7,11 +7,5 @@
 class ZombieEatEvent : public DLLEventTemplate<0x52FB40, 7, REG_ECX, REG_EDI>
 {
 public:
-	ZombieEatEvent();
+	ZombieEatEvent() : DLLEventTemplate() { Init("onZombieEat"); };
 };
-
-ZombieEatEvent::ZombieEatEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onZombieEat");
-	Init(procAddress);
-}

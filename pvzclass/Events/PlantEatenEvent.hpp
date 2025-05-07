@@ -1,32 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include "DLLEvent.h"
 
-// Ö²Îï±»¿ĞËÀÊÂ¼ş¡£
-/// @param ÒÀ´ÎÎª£º´¥·¢ÊÂ¼şµÄÖ²Îï¡¢¿ĞÊ³¸ÃÖ²ÎïµÄ½©Ê¬¡£
-/// @return ÊÇ·ñ¼ÌĞø½áËãÔ­°æµÄ½áËã¹ı³Ì¡£
-class PlantEatenEvent : public DLLEvent
+// æ¤ç‰©è¢«å•ƒæ­»äº‹ä»¶ã€‚
+/// @param ä¾æ¬¡ä¸ºï¼šè§¦å‘äº‹ä»¶çš„æ¤ç‰©ã€å•ƒé£Ÿè¯¥æ¤ç‰©çš„åƒµå°¸ã€‚
+/// @return æ˜¯å¦ç»§ç»­ç»“ç®—åŸç‰ˆçš„ç»“ç®—è¿‡ç¨‹ã€‚
+class PlantEatenEvent : public BoolDLLEventTemplate<0x52FD3D, 5, 0x52FDEE, REG_EBP, REG_ESI>
 {
 public:
-	PlantEatenEvent();
+	PlantEatenEvent() : BoolDLLEventTemplate() { Init("onPlantEaten"); };
 };
-
-PlantEatenEvent::PlantEatenEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onPlantEaten");
-	hookAddress = 0x52FD3D;
-	rawlen = 5;
-	BYTE code[] =
-	{
-		PUSH_EBP,
-		PUSH_ESI,
-		INVOKE(procAddress),
-		ADD_ESP(8),
-
-		TEST_AL_AL,
-		JNZ(7),
-		POPAD,
-		PUSHDWORD(0x52FDEE),
-		RET
-	};
-	start(STRING(code));
-}
