@@ -52,7 +52,7 @@ void DLLEvent::end()
 }
 
 template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD ...Params>
-class DLLEventTemplate : DLLEvent
+class DLLEventTemplate : public DLLEvent
 {
 protected:
 	void Init(const char* str)
