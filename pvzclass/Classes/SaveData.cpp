@@ -1,4 +1,9 @@
-﻿#include "..\PVZ.h"
+﻿#include "SaveData.hpp"
+
+PVZ::SaveData PVZ::GetSaveData()
+{
+	return SaveData(Memory::ReadPointer(0x6A9EC0, 0x82C));
+}
 
 void PVZ::SaveData::GetPVZUserName(char str[])
 {

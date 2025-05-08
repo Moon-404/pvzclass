@@ -998,52 +998,6 @@ namespace PVZ
 		void IZSquishBrain(IZBrain brain);
 	};
 	using Miscellaneous = Challenge;
-	class SaveData : public BaseClass
-	{
-	public:
-		SaveData(int baseaddress) : BaseClass(baseaddress) {};
-		void GetPVZUserName(char str[]);//str[12]
-		INT_READONLY_PROPERTY(UserSwitchCount, __get_UserSwitchCount, 0x1C);
-		INT_READONLY_PROPERTY(UserIndex, __get_UserIndex, 0x20);
-		INT_PROPERTY(AdventureLevel, __get_AdventureLevel, __set_AdventureLevel, 0x24);
-		INT_PROPERTY(Money, __get_Money, __set_Money, 0x28);
-		INT_PROPERTY(AdventureFinishCount, __get_AdventureFinishCount, __set_AdventureFinishCount, 0x2C);
-		// 获取当前用户是否购买了指定物品，或者指定物品的剩余数量。
-		int GetPurchase(StoreItem::StoreItem item);
-		// 设定当前用户是否购买了指定物品，或者指定物品的剩余数量。
-		void SetPurchase(StoreItem::StoreItem item, int val);
-		// 获取当前用户通过某一关卡的次数，或者最高波数的通关记录。
-		int GetChallengeRecord(PVZLevel::PVZLevel mode);
-		// 设定当前用户通过某一关卡的次数，或者最高波数的通关记录。
-		void SetChallengeRecord(PVZLevel::PVZLevel mode, int val);
-		INT_PROPERTY(TreeHight, __get_TreeHight, __set_TreeHight, 0xF4);
-		BOOLEAN HavePurpleCard(SeedType::SeedType purplecard);
-		T_PROPERTY(BOOLEAN, HaveImitater, __get_HaveImitater, __set_HaveImitater, 0x1E0);
-		T_PROPERTY(BOOLEAN, HaveGoldenWatering, __get_HaveGoldenWatering, __set_HaveGoldenWatering, 0x1F4);
-		INT_PROPERTY(Fertilizer, __get_Fertilizer, __set_Fertilizer, 0x1F8);//-1000
-		INT_PROPERTY(BugSpray, __get_BugSpray, __set_BugSpray, 0x1FC);//-1000
-		T_PROPERTY(BOOLEAN, HaveMusicBox, __get_HaveMusicBox, __set_HaveMusicBox, 0x200);
-		T_PROPERTY(BOOLEAN, HaveGardeningGlove, __get_HaveGardeningGlove, __set_HaveGardeningGlove, 0x204);
-		T_PROPERTY(BOOLEAN, HaveMushroomGarden, __get_HaveMushroomGarden, __set_HaveMushroomGarden, 0x208);
-		T_PROPERTY(BOOLEAN, HaveWheelBarrow, __get_HaveWheelBarrow, __set_HaveWheelBarrow, 0x20C);
-		T_PROPERTY(BOOLEAN, HaveSnail, __get_HaveSnail, __set_HaveSnail, 0x210);
-		INT_PROPERTY(CardSlotNum, __get_CardSlotNum, __set_CardSlotNum, 0x214);
-		T_PROPERTY(BOOLEAN, HavePoolCleaner, __get_HavePoolCleaner, __set_HavePoolCleaner, 0x218);
-		T_PROPERTY(BOOLEAN, HaveRoofCleaner, __get_HaveRoofCleaner, __set_HaveRoofCleaner, 0x21C);
-		INT_PROPERTY(LeftRakeCount, __get_LeftRakeCount, __set_LeftRakeCount, 0x220);
-		T_PROPERTY(BOOLEAN, HaveAquarium, __get_HaveAquarium, __set_HaveAquarium, 0x224);
-		INT_PROPERTY(Chocolate, __get_Chocolate, __set_Chocolate, 0x228);//-1000
-		T_PROPERTY(BOOLEAN, HaveTreeOfWisdom, __get_HaveTreeOfWisdom, __set_HaveTreeOfWisdom, 0x22C);
-		INT_PROPERTY(TreeFood, __get_TreeFood, __set_TreeFood, 0x230);//-1000
-		T_PROPERTY(BOOLEAN, HaveWallnutFirstAid, __get_HaveWallnutFirstAid, __set_HaveWallnutFirstAid, 0x234);
-		INT_READONLY_PROPERTY(GardenPlantCount, __get_GardenPlantCount, 0x350);
-		class GardenPlant : public PVZ::GardenPlant
-		{
-		public:
-			GardenPlant(int address) : PVZ::GardenPlant(address) {};
-		};
-		GardenPlant GetGardenPlant(int index);
-	};
 
 #pragma endregion
 
@@ -1053,7 +1007,6 @@ namespace PVZ
 	Mouse GetMouse();
 	//若 BaseAddress 为 0，返回空指针
 	Board GetBoard();
-	SaveData GetSaveData();
 
 #pragma endregion
 
