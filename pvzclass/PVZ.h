@@ -1044,22 +1044,6 @@ namespace PVZ
 		};
 		GardenPlant GetGardenPlant(int index);
 	};
-	class Music : public BaseClass
-	{
-	public:
-		Music(int address) : BaseClass(address) {};
-		PROPERTY(MusicType::MusicType, __get_Type, __set_Type) Type;
-		//MINGAM_ENABLE or MINGAM_DISABLE
-		INT_PROPERTY(INGAMEable, __get_INGAMEable, __set_INGAMEable, 0x10);
-		//MINGAME_STARTED or MINGAME_NOTSTARTED
-		INT_PROPERTY(INGAMEStart, __get_INGAMEStart, __set_INGAMEStart, 0x18);
-		INT_READONLY_PROPERTY(Tempo, __get_Tempo, 0x1C);
-		INT_READONLY_PROPERTY(Ticks_Row, __get_Ticks_Row, 0x20);
-		T_PROPERTY(INGAMEState::INGAMEState, State, __get_State, __set_State, 0x24);
-		INT_PROPERTY(AttributeCountdown, __get_AttributeCountdown, __set_AttributeCountdown, 0x28);
-		T_PROPERTY(INGAMEEffect::INGAMEEffect, INGAMEEffect, __get_INGAMEEffect, __set_INGAMEEffect, 0x2C);
-	};
-	//if anyone want a class for calling functions in bass.dll to totally control the music in game,just tell me
 
 #pragma endregion
 
@@ -1070,7 +1054,6 @@ namespace PVZ
 	//若 BaseAddress 为 0，返回空指针
 	Board GetBoard();
 	SaveData GetSaveData();
-	Music GetMusic();
 
 #pragma endregion
 

@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Classes/Music.hpp"
 #include "Classes/ZenGarden.hpp"
 
 #include "Classes/Definition.hpp"
