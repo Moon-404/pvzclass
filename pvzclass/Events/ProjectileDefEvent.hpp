@@ -44,16 +44,28 @@ namespace PVZEvent
 				start(STRING(code));
 			}
 		};
+		class ImgRow : public IntDLLEventTemplate<0x46E6FA, 7, 0, 0,
+			INT32_MIN, REG_EAX, false, CONST_VAL(0), CONST_VAL(0), CONST_VAL(PROJECTILEDEF_IMAGEROW), REG_ESI>
+		{
+		public:
+			ImgRow(const char* str) : IntDLLEventTemplate() { Init(str); };
+		};
+		DamagePart1* part1;
+		DamagePart2* part2;
+		ImgRow* img;
 	public:
 		ProjectileDefEvent()
 		{
-			part1 = new DamagePart1("onProjectileDamageZombie");
-			part2 = new DamagePart2("onProjectileDamageZombie");
+			const char* str = "onProjectileDamageZombie";
+			part1 = new DamagePart1(str);
+			part2 = new DamagePart2(str);
+			img = new ImgRow(str);
 		}
 		void end()
 		{
 			part1->end();
 			part2->end();
+			img->end();
 		}
 	};
 }
