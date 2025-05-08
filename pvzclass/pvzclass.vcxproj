@@ -296,7 +296,7 @@
     <ClInclude Include="Events\PlantTakeDamageEvent.hpp" />
     <ClInclude Include="Events\PlantUpdateAbilityEvent.hpp" />
     <ClInclude Include="Events\PlantUpdateEvent.hpp" />
-    <ClInclude Include="Events\ProjectileDamageZombieEvent.hpp" />
+    <ClInclude Include="Events\ProjectileDefEvent.hpp" />
     <ClInclude Include="Events\SeedPacketMouseDownEvent.hpp" />
     <ClInclude Include="Events\ProjectileCreateEvent.h" />
     <ClInclude Include="Events\PuzzlePhaseCompleteEvent.hpp" />
