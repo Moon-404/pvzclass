@@ -65,10 +65,17 @@ namespace PVZEvent
 		public:
 			ImageSize(const char* str) : IntDLLEventTemplate() { Init(str); };
 		};
+		class ImpactSound : public BoolDLLEventTemplate<0x46DD30, 6, 0x46DDA0, MEM_ESP_ADD(0x24), REG_EAX>
+		{
+		public:
+			ImpactSound(const char* str) : BoolDLLEventTemplate() { Init(str); };
+		};
 		DamagePart1* part1;
 		DamagePart2* part2;
 		ImgRow* img_row;
 		Img* img;
+		ImageSize* img_size;
+		ImpactSound* sound;
 	public:
 		ProjectileDefEvent()
 		{
@@ -77,6 +84,8 @@ namespace PVZEvent
 			part2 = new DamagePart2(str);
 			img_row = new ImgRow(str);
 			img = new Img(str);
+			img_size = new ImageSize(str);
+			sound = new ImpactSound(str);
 		}
 		void end()
 		{
@@ -84,6 +93,8 @@ namespace PVZEvent
 			part2->end();
 			img_row->end();
 			img->end();
+			img_size->end();
+			sound->end();
 		}
 	};
 }
