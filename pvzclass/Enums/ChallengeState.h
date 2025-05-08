@@ -1,4 +1,5 @@
 ﻿#pragma once
+/// @brief 小游戏状态
 namespace ChallengeState
 {
 	enum ChallengeState
