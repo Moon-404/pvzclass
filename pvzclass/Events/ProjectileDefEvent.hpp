@@ -3,7 +3,7 @@
 
 namespace PVZEvent
 {
-	class ProjectileDamageZombieEvent
+	class ProjectileDefEvent
 	{
 	private:
 		class Part1 : public IntDLLEventTemplate<0x46E073, 7, 0, 0,
@@ -40,7 +40,7 @@ namespace PVZEvent
 		Part1* part1;
 		Part2* part2;
 	public:
-		ProjectileDamageZombieEvent()
+		ProjectileDefEvent()
 		{
 			part1 = new Part1("onProjectileDamageZombie");
 			part2 = new Part2("onProjectileDamageZombie");

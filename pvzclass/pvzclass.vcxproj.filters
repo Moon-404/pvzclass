@@ -746,7 +746,7 @@
     <ClInclude Include="Classes\Definition.hpp">
       <Filter>头文件\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ProjectileDamageZombieEvent.hpp">
+    <ClInclude Include="Events\ProjectileDefEvent.hpp">
       <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
   </ItemGroup>
