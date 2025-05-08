@@ -6,7 +6,10 @@ namespace PVZEvent
 	enum ProjectileDefType
 	{
 		PROJECTILEDEF_DAMAGE,
-		PROJECTILEDEF_IMAGEROW
+		PROJECTILEDEF_IMAGEROW,
+		PROJECTILEDEF_IMAGE,
+		PROJECTILEDEF_IMAGESIZE,
+		PROJECTILEDEF_IMPACTSOUND
 	};
 
 	class ProjectileDefEvent
@@ -50,21 +53,36 @@ namespace PVZEvent
 		public:
 			ImgRow(const char* str) : IntDLLEventTemplate() { Init(str); };
 		};
+		class Img : public IntDLLEventTemplate<0x46E6C7, 5, 0, 0,
+			INT32_MIN, MEM_ESP_ADD(0x2C), false, CONST_VAL(0), CONST_VAL(0), CONST_VAL(PROJECTILEDEF_IMAGE), REG_ESI>
+		{
+		public:
+			Img(const char* str) : IntDLLEventTemplate() { Init(str); };
+		};
+		class ImageSize : public IntDLLEventTemplate<0x46E6D3, 6, 0, 0,
+			INT32_MIN, MEM_ESP_ADD(0x30), false, CONST_VAL(0), CONST_VAL(0), CONST_VAL(PROJECTILEDEF_IMAGESIZE), REG_ESI>
+		{
+		public:
+			ImageSize(const char* str) : IntDLLEventTemplate() { Init(str); };
+		};
 		DamagePart1* part1;
 		DamagePart2* part2;
-		ImgRow* img;
+		ImgRow* img_row;
+		Img* img;
 	public:
 		ProjectileDefEvent()
 		{
 			const char* str = "onProjectileDamageZombie";
 			part1 = new DamagePart1(str);
 			part2 = new DamagePart2(str);
-			img = new ImgRow(str);
+			img_row = new ImgRow(str);
+			img = new Img(str);
 		}
 		void end()
 		{
 			part1->end();
 			part2->end();
+			img_row->end();
 			img->end();
 		}
 	};
