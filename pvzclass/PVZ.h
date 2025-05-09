@@ -929,16 +929,14 @@ namespace PVZ
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		INT_PROPERTY(CollisionLength, __get_CollisionLength, __set_CollisionLength, 0x10);
 		PROPERTY(int, __get_CardsCount, SetCardsCount) CardsCount;
-		class SeedCard : BaseClass
+		class SeedCard : public GameObject
 		{
 		public:
 			SeedCard(int address);
-			int GetBaseAddress();
 			INT_PROPERTY(X, __get_X, __set_X, 0x8);
 			INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 			void GetCollision(CollisionBox* collbox);
 			void SetCollision(CollisionBox* collbox);
-			T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
 			INT_PROPERTY(CoolDown, __get_CoolDown, __set_CoolDown, 0x24); // 已冷却时间，从0开始
 			INT_PROPERTY(CoolDownInterval, __get_CoolDownInterval, __set_CoolDownInterval, 0x28);
 			INT_READONLY_PROPERTY(Index, __get_Index, 0x2C);
