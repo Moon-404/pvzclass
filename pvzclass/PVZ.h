@@ -184,10 +184,11 @@ namespace PVZ
 		/// @brief 根据指定的平移坐标、旋转弧度和拉伸比例，设定矩阵每个项的数值。
 		void ScaleRotateTransformMatrix(float x, float y, float rad, float ScaleX, float ScaleY);
 	};
+	/// @brief 包含大部分关卡内部数据和对象的类	
 	class Board : public Widget
 	{
 	protected:
-		/// @brief 所有 GetAll() 形式函数的原型，获取 获取 DataArray\<T\> 中的全体成员。
+		/// @brief 所有 GetAll() 形式函数的原型，获取 DataArray\<T\> 中的全体成员。
 		/// @tparam T 成员类型
 		/// @note T 必须具有 MemSize 静态常量，且类型为整数
 		/// @tparam _Base_offset 基址的偏移量
