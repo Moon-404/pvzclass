@@ -793,21 +793,36 @@ namespace PVZ
 		void Die();
 	};
 	using LawnMower = Lawnmover;
+	/// @brief 各种场地物件的基类。
 	class Griditem : public BaseClass
 	{
 	public:
+		/// @brief 场地物件的内存占用字节数。\n
+		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
 		static const DWORD MemSize = 0x0EC;
+		/// @brief 默认的场地物件类型，派生类需要定义同名常量，用于在 Board::GetAllGriditems() 中定向获取场地物件。
 		static const GriditemType::GriditemType ItemType = GriditemType::None;
 		Griditem(int indexoraddress);
+		/// @brief 获取场地物件所在的 Board
+		/// @return 场地物件所在的 Board
 		PVZ::Board GetBoard();
+		/// @brief 场地物件类型
 		T_PROPERTY(GriditemType::GriditemType, Type, __get_Type, __set_Type, 0x8);
+		/// @brief 场地物件状态
 		T_PROPERTY(GriditemState::GriditemState, State, __get_State, __set_State, 0xC);
+		/// @brief 列
 		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
+		/// @brief 行
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
+		/// @brief 绘制图层编号
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x1C);
+		/// @brief 是否已消失
+		/// @attention 你应该通过 Remove() 移除一个场地物件，而不是通过修改此变量。
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x20);
+		/// @brief 获取场地物件的识别 ID
 		INT_READONLY_PROPERTY(Id, __get_Id, 0xE8);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		/// @brief 移除此物件
 		void Remove();
 	};
 	class Grave :public PVZ::Griditem
@@ -887,6 +902,7 @@ namespace PVZ
 		static const GriditemType::GriditemType ItemType = GriditemType::PortalBlue;
 		CirclePortal(int indexoraddress) : Portal(indexoraddress) {};
 	};
+	/// @brief 矩形传送门。
 	class SquarePortal : public Portal
 	{
 	public:
