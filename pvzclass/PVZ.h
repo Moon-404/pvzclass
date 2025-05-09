@@ -921,15 +921,13 @@ namespace PVZ
 		T_PROPERTY(CaptionStyle::CaptionStyle, Style, __get_CaptionStyle, __set_CaptionStyle, 0x8C);
 	};
 	using Advice = Caption;
-	class CardSlot : public BaseClass
+	class CardSlot : public GameObject
 	{
 	public:
 		CardSlot(int address);
-		int GetBaseAddress();
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		INT_PROPERTY(CollisionLength, __get_CollisionLength, __set_CollisionLength, 0x10);
-		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
 		PROPERTY(int, __get_CardsCount, SetCardsCount) CardsCount;
 		class SeedCard : BaseClass
 		{
