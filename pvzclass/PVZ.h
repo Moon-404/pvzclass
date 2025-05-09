@@ -158,7 +158,7 @@ namespace PVZ
 	class Plant;
 	class Projectile;
 	class Coin;
-	class Lawnmover;
+	class LawnMower;
 	class Griditem;
 	class MousePointer;
 	class Caption;
@@ -772,12 +772,12 @@ namespace PVZ
 		void Collect();
 		void Die();
 	};
-	class Lawnmover : public BaseClass
+	/// @brief 除草机
+	class LawnMower : public BaseClass
 	{
 	public:
 		static const DWORD MemSize = 0x48;
-		Lawnmover(int indexoraddress);
-		int GetBaseAddress();
+		LawnMower(int indexoraddress);
 		INT_PROPERTY(X, __get_X, __set_X, 8);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x10);
@@ -792,7 +792,7 @@ namespace PVZ
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Die();
 	};
-	using LawnMower = Lawnmover;
+	using Lawnmover = LawnMower;
 	/// @brief 各种场地物件的基类。
 	class Griditem : public BaseClass
 	{
