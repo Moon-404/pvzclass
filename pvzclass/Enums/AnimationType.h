@@ -12,7 +12,7 @@ namespace AnimationType
 		Wallbut,
 		LilyPad,
 		Sunflower,
-		Lawnmover,
+		LawnMower,
 		ReadySetPlant,
 		CherryBomb,
 		Squash,

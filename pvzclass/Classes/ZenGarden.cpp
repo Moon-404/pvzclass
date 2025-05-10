@@ -1,4 +1,9 @@
-﻿#include "..\PVZ.h"
+﻿#include "ZenGarden.hpp"
+
+PVZ::ZenGarden PVZ::GetZenGarden()
+{
+	return ZenGarden(Memory::ReadPointer(0x6A9EC0, 0x81C));
+}
 
 PVZ::PVZApp PVZ::ZenGarden::GetLawnApp()
 {

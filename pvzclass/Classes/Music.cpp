@@ -1,4 +1,9 @@
-﻿#include "..\PVZ.h"
+﻿#include "Music.hpp"
+
+PVZ::Music PVZ::GetMusic()
+{
+	return Music(Memory::ReadPointer(0x6A9EC0, 0x83C));
+}
 
 MusicType::MusicType PVZ::Music::__get_Type()
 {

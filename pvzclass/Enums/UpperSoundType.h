@@ -49,7 +49,7 @@ namespace UpperSoundType
 		Shoot2,
 		BlowerBlow,
 		Win,
-		Lawnmover,
+		LawnMower,
 		FutureOn,
 		JackintheboxBGM,
 		GainDiamond,

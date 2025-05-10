@@ -1,4 +1,8 @@
 ﻿#pragma once
+#include "Classes/Music.hpp"
+#include "Classes/SaveData.hpp"
+#include "Classes/ZenGarden.hpp"
+
 #include "Classes/Definition.hpp"
 
 #include "Classes/ChallengeScreen.hpp"

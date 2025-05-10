@@ -5,11 +5,6 @@ PVZ::CardSlot::SeedCard::SeedCard(int address)
 	BaseAddress = address;
 }
 
-int PVZ::CardSlot::SeedCard::GetBaseAddress()
-{
-	return BaseAddress;
-}
-
 void PVZ::CardSlot::SeedCard::GetCollision(CollisionBox* collbox)
 {
 	collbox->X = NULL;

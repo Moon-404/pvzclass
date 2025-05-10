@@ -749,5 +749,14 @@
     <ClInclude Include="Events\ProjectileDefEvent.hpp">
       <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\ZenGarden.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Music.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\SaveData.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@ namespace LowerSoundType
 	{
 		GainSun,
 		PeaHit,
-		Lawnmover,
+		LawnMower,
 		PeaShoot1,
 		PeaShoot2,
 		Chomp1,
