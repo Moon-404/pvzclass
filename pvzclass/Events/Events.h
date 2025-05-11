@@ -57,6 +57,7 @@
 #include "PlantInitAfterEvent.hpp"
 #include "PlantMouseDownEvent.hpp"
 #include "PlantProduceEvent.hpp"
+#include "PlantRectEvents.hpp"
 #include "PlantShoveledEvent.hpp"
 #include "PlantSquishEvent.h"
 #include "PlantStolenEvent.hpp"

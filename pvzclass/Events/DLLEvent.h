@@ -55,7 +55,7 @@ template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD ...Params>
 class DLLEventTemplate : public DLLEvent
 {
 protected:
-	void Init(const char* str)
+	void Init(int address)
 	{
 		hookAddress = _Hook_Address;
 		rawlen = _Raw_Len;
@@ -69,10 +69,14 @@ protected:
 			else
 				builder.push_imm32(this->regs[i] - CONST_VAL_MASK);
 
-		builder.invoke(PVZ::Memory::GetProcAddress(str)).add_reg_imm(REG_ESP, this->regs.size() << 2);
+		builder.invoke(address).add_reg_imm(REG_ESP, this->regs.size() << 2);
 		this->InitExtra(builder);
 
 		start(builder.get_code() + 1, builder.get_length() - 1);
+	}
+	void Init(const char* str)
+	{
+		Init(PVZ::Memory::GetProcAddress(str));
 	}
 	virtual void InitExtra(AsmBuilder& builder)
 	{
@@ -89,6 +93,16 @@ protected:
 	virtual void InitExtra(AsmBuilder& builder)
 	{
 		builder.test_al_al().jnz_rel(7).popad().push_imm32(_Cancel_Addr).ret();
+	}
+};
+
+template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD _Cancel_Addr, DWORD ...Params>
+class TrueDLLEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
+{
+protected:
+	virtual void InitExtra(AsmBuilder& builder)
+	{
+		builder.test_al_al().jz_rel(7).popad().push_imm32(_Cancel_Addr).ret();
 	}
 };
 
