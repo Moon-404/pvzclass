@@ -306,6 +306,9 @@
     <ClCompile Include="Classes\TodParticleSystem.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Events\PlantDamageZombieEvent.hpp">
+      <Filter>头文件\Events\Plant</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">

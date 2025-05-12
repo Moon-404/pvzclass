@@ -188,6 +188,7 @@
 #define POP_PTR_ESP_ADD_V(v)	0x8F,0x44,0x24,v
 #define POP_PTR_ESP_ADD(v)		0x8F,0x84,0x24,INUMBER(v)
 
+#define MOV_REG32_PTR_ESP_ADD_V(reg,v) 0x8B,0x44+(reg)*8,0x24,v
 #define MOV_PTR_ESP_ADD_V_EUX(ux,v) 0x89,0x44+(ux)*8,0x24,v
 #define MOV_PTR_ESP_ADD_V(v1,v2)	0xC7,0x44,0x24,v1,INUMBER(v2)
 #define MOV_PTR_ESP_ADD(v1,v2)		0xC7,0x84,0x24,INUMBER(v1),INUMBER(v2)

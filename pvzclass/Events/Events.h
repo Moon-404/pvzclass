@@ -51,6 +51,7 @@
 #include "ParseResourceEvent.hpp"
 
 #include "PlantAddProjectileEvent.hpp"
+#include "PlantDamageZombieEvent.hpp"
 #include "PlantDieLowHealthEvent.hpp"
 #include "PlantDoSpecialEvent.hpp"
 #include "PlantEatenEvent.hpp"
