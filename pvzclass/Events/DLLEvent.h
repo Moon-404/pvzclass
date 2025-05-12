@@ -33,6 +33,8 @@ void DLLEvent::start(BYTE* code, int newlen)
 	if (newAddress == 0) newAddress = PVZ::Memory::AllocMemory();
 	rawCode = new BYTE[rawlen];
 	PVZ::Memory::ReadArray<BYTE>(hookAddress, rawCode, rawlen);
+	if (rawCode[0] == 0xE8 || rawCode[0] == 0xE9)
+		SETARG(rawCode, 1) = SETARG(rawCode, 1) + hookAddress - newAddress - newlen - 2;
 	BYTE jmpto[] = { JMPFAR(newAddress - (hookAddress + 5)) };
 	PVZ::Memory::WriteArray<BYTE>(hookAddress, jmpto, 5);
 	for (int i = 5; i < rawlen; i++) PVZ::Memory::WriteMemory<BYTE>(hookAddress + i, NOP);
