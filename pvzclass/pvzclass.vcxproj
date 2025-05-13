@@ -231,6 +231,8 @@
     <ClCompile Include="Enums\ZombieState.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="Enums\MagnetItemType.cpp" />
+    <ClCompile Include="Events\DLLEvent.cpp" />
+    <ClCompile Include="Events\PlantDamageZombieEvent.hpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />
@@ -293,6 +295,7 @@
     <ClInclude Include="Events\PlantInitAfterEvent.hpp" />
     <ClInclude Include="Events\PlantMouseDownEvent.hpp" />
     <ClInclude Include="Events\PlantProduceEvent.hpp" />
+    <ClInclude Include="Events\PlantRectEvents.hpp" />
     <ClInclude Include="Events\PlantShoveledEvent.hpp" />
     <ClInclude Include="Events\PlantSquishEvent.h" />
     <ClInclude Include="Events\PlantStolenEvent.hpp" />
