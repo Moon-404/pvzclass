@@ -16,6 +16,7 @@ namespace PVZEvent
 	public:
 		class PZDamageInfo
 		{
+		public:
 			PVZ::Zombie zombie;
 			PVZ::Plant plant;
 			PVZ::DamageFlags flags;
@@ -38,6 +39,7 @@ namespace PVZEvent
 					PUSH_EAX,
 					PUSH(0x14),
 					INVOKE(0x61C130),
+					ADD_ESP(4),
 					MOV_EUX_EVX(REG_EBP, REG_EAX),
 					POP_EUX(REG_EAX),
 
@@ -64,8 +66,11 @@ namespace PVZEvent
 					MOV_EUX_PTR_EVX_ADD_V(REG_EAX, REG_EBP, 8),
 
 					POP_EUX(REG_EBP),
+					PUSH_EAX, PUSH_ECX, PUSH_EDX,
 					PUSH_PTR(tmp),
 					INVOKE(0x61C19A),
+					ADD_ESP(4),
+					POP_EUX(REG_EDX), POP_EUX(REG_ECX), POP_EUX(REG_EAX),
 					JMP(1)
 				};
 				start(STRING(code));
@@ -85,6 +90,7 @@ namespace PVZEvent
 					PUSH_EAX,
 					PUSH(0x14),
 					INVOKE(0x61C130),
+					ADD_ESP(4),
 					MOV_EUX_EVX(REG_EBP, REG_EAX),
 					POP_EUX(REG_EAX),
 
@@ -111,8 +117,11 @@ namespace PVZEvent
 					MOV_EUX_PTR_EVX_ADD_V(REG_EAX, REG_EBP, 8),
 
 					POP_EUX(REG_EBP),
+					PUSH_EAX, PUSH_ECX, PUSH_EDX,
 					PUSH_PTR(tmp),
 					INVOKE(0x61C19A),
+					ADD_ESP(4),
+					POP_EUX(REG_EDX), POP_EUX(REG_ECX), POP_EUX(REG_EAX),
 					JMP(1)
 				};
 				start(STRING(code));
@@ -132,6 +141,7 @@ namespace PVZEvent
 					PUSH_EAX,
 					PUSH(0x14),
 					INVOKE(0x61C130),
+					ADD_ESP(4),
 					MOV_EUX_EVX(REG_EBP, REG_EAX),
 					POP_EUX(REG_EAX),
 
@@ -158,8 +168,11 @@ namespace PVZEvent
 					MOV_EUX_PTR_EVX_ADD_V(REG_EAX, REG_EBP, 8),
 
 					POP_EUX(REG_EBP),
+					PUSH_EAX, PUSH_ECX, PUSH_EDX,
 					PUSH_PTR(tmp),
 					INVOKE(0x61C19A),
+					ADD_ESP(4),
+					POP_EUX(REG_EDX), POP_EUX(REG_ECX), POP_EUX(REG_EAX),
 					JMP(1)
 				};
 				start(STRING(code));
@@ -179,6 +192,7 @@ namespace PVZEvent
 					PUSH_EAX,
 					PUSH(0x14),
 					INVOKE(0x61C130),
+					ADD_ESP(4),
 					MOV_EUX_EVX(REG_EBP, REG_EAX),
 					POP_EUX(REG_EAX),
 
@@ -205,8 +219,11 @@ namespace PVZEvent
 					MOV_EUX_PTR_EVX_ADD_V(REG_EAX, REG_EBP, 8),
 
 					POP_EUX(REG_EBP),
+					PUSH_EAX, PUSH_ECX, PUSH_EDX,
 					PUSH_PTR(tmp),
 					INVOKE(0x61C19A),
+					ADD_ESP(4),
+					POP_EUX(REG_EDX), POP_EUX(REG_ECX), POP_EUX(REG_EAX),
 					JMP(1)
 				};
 				start(STRING(code));
@@ -226,34 +243,38 @@ namespace PVZEvent
 					PUSH_EAX,
 					PUSH(0x14),
 					INVOKE(0x61C130),
+					ADD_ESP(4),
 					MOV_EUX_EVX(REG_EDX, REG_EAX),
 					POP_EUX(REG_EAX),
 
 					MOV_PTR_EUX_ADD_V_EVX(REG_EDX, REG_ESI, 0),
-					MOV_PTR_EUX_ADD_V_EVX(REG_EDX, REG_EDI, 4),
-					MOV_PTR_EUX_ADD_V_EVX(REG_EDX, REG_EBP, 8),
+					MOV_PTR_EUX_ADD_V_EVX(REG_EDX, REG_EBP, 4),
+					MOV_PTR_EUX_ADD_V_EVX(REG_EDX, REG_EAX, 8),
 					MOV_REG32_PTR_ESP_ADD_V(REG_EAX, 0x20),
 					MOV_PTR_EUX_ADD_V_EVX(REG_EDX, REG_EAX, 0x0C),
 					MOV_PTR_EUX_ADD_V(REG_EDX, 0x10, PLANTDAMAGETYPE_AOE),
 
 					PUSH_EDX,
 					INVOKE(address),
-					ADD_ESP(4),
+					POP_EUX(REG_EDX),
 					MOV_PTR_ADDR_EUX(REG_EDX, tmp),
 					POPAD,
 					PUSH_EDX,
 					MOV_EUX_PTR_ADDR(REG_EDX, tmp),
 
 					MOV_EUX_PTR_EVX_ADD_V(REG_EAX, REG_EDX, 0x0C),
-					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 0),
+					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 4),
 
 					MOV_EUX_PTR_EVX_ADD_V(REG_ESI, REG_EDX, 0),
-					MOV_EUX_PTR_EVX_ADD_V(REG_EDI, REG_EDX, 4),
-					MOV_EUX_PTR_EVX_ADD_V(REG_EBP, REG_EDX, 8),
+					MOV_EUX_PTR_EVX_ADD_V(REG_EBP, REG_EDX, 4),
+					MOV_EUX_PTR_EVX_ADD_V(REG_EAX, REG_EDX, 8),
 
-					POP_EUX(PUSH_EDX),
+					POP_EUX(REG_EDX),
+					PUSH_EAX, PUSH_ECX, PUSH_EDX,
 					PUSH_PTR(tmp),
 					INVOKE(0x61C19A),
+					ADD_ESP(4),
+					POP_EUX(REG_EDX), POP_EUX(REG_ECX), POP_EUX(REG_EAX),
 					JMP(1)
 				};
 				start(STRING(code));
@@ -269,14 +290,7 @@ namespace PVZEvent
 		PlantDamageZombieEvent()
 		{
 			const char* str = "onPlantDamageZombie";
-			spikerock1 = new Part1(str);
-			bowling = new Part2(str);
-			chomper = new Part3(str);
-			squash = new Part4(str);
-			rowarea = new Part5(str);
-		}
-		PlantDamageZombieEvent(int address)
-		{
+			auto address = PVZ::Memory::GetProcAddress(str);
 			spikerock1 = new Part1(address);
 			bowling = new Part2(address);
 			chomper = new Part3(address);
@@ -289,6 +303,7 @@ namespace PVZEvent
 			bowling->end();
 			chomper->end();
 			squash->end();
+			rowarea->end();
 		}
 	};
 }
