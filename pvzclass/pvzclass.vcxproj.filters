@@ -70,6 +70,9 @@
     <Filter Include="头文件\Events\Resource">
       <UniqueIdentifier>{e097e27d-895f-4d97-aaf9-e3461a9e61ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Events">
+      <UniqueIdentifier>{48b1875c-9a74-4209-962b-04c7e5ca420f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PVZ.cpp">
@@ -308,6 +311,9 @@
     </ClCompile>
     <ClCompile Include="Events\PlantDamageZombieEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\DLLEvent.cpp">
+      <Filter>源文件\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

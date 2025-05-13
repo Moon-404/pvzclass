@@ -231,6 +231,7 @@
     <ClCompile Include="Enums\ZombieState.cpp" />
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="Enums\MagnetItemType.cpp" />
+    <ClCompile Include="Events\DLLEvent.cpp" />
     <ClCompile Include="Events\PlantDamageZombieEvent.hpp" />
     <ClCompile Include="ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
