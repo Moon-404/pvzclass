@@ -234,7 +234,7 @@ namespace PVZ
 		INT_PROPERTY(Sun, __get_Sun, __set_Sun, 0x5560);
 		PROPERTY(int, __get_WaveCount, __set_WaveCount) WaveCount;
 		/*exclude preparing time*/
-		INT_READONLY_PROPERTY(PlayingTime, __get_PlayingTime, 0x5568);
+		INT_PROPERTY(PlayingTime, __get_PlayingTime, __get_PlayingTime, 0x5568);
 		/*include preparing time*/
 		INT_READONLY_PROPERTY(PlayingTime2, __get_PlayingTime2, 0x556C);
 		/*lose focus and recount*/
