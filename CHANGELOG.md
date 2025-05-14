@@ -1,5 +1,6 @@
 # 目录
-- [2.2 (TBD)](#2.2)
+- [2.2.1 (TBD)](#2.2.1)
+- [2.2](#2.2)
 - [2.1.2](#2.1.2)
 - [2.1.1](#2.1.1)
 - [2.1](#2.1)
@@ -17,11 +18,44 @@
 - [1.15.0](#1.15.0（2023/10/27）)
 - [1.14.3](#1.14.3（2023/10/22）)
 
-## 2.2
+## 2.2.1
 
 ### 改动内容
 
 待定。
+
+### 兼容性
+
+兼容 2.2 。
+
+## 2.2
+
+### 改动内容
+
+- 为大量文件补充了 `Doxygen` 注释。
+- 纠正了部分代码格式问题。
+- `Board` 添加 `__prototype_GetAll()`，是原本各种 `GetAll()` 函数的模板化版本。
+  - 原本的 `GetAll()` 系列函数和 `GetChallenge()` 已经模板化，可以接收它们对应的类的派生类。
+  - `GetAllGriditems()` 可以根据传入的类自动过滤不想要的 `Griditem`，但是类必须定义静态变量 `ItemType`，作为过滤判据。
+- 优化了 `EnablePortal()`，现在可以控制是否生成或移除默认传送门。
+- `Portal` 现在具有两个派生类 `CirclePortal` 和 `SquarePortal`，用来分辨不同类别的传送门。
+- `Const.h` 现在加入 `pvzclass.h`。
+- 部分涉及 `Memory` 类的宏被搬运至 `Memory.hpp` 中。
+- 部分 `PVZ.h` 中的类被分离到 `Classes` 目录的文件中。
+- 将部分函数标为废弃。
+- `Board::PlayingTime` 现在可写。
+
+### 事件改动
+
+- 添加了 `PlantUpdateEvent`，用于植物更新。
+- 修复了 `ChallengeUpdateEvent` 导致崩溃的漏洞。
+- 添加了 `DLLEventTemplate` 类，用于简化部分事件的定义。
+- 添加了 `BoolDLLEventTemplate`，`TrueDLLEventTemplate` 和 `IntDLLEventTemplate`，用于简化部分事件的定义。
+- 添加了 `ProjectileDamageZombieEvent`，用于结算子弹对僵尸的伤害。
+- 添加了 `GetPlantRectEvent` 和 `GetPlantAttackRectEvent`，用于修改植物的攻击和受击范围。
+- 若 `DLLEvent` 钩的第一条语句是 `call` 或 `jmpfar`，则 `start()` 期间会加以调整。
+- 添加了 `PlantDamageZombieEvent`，用于多种植物直接伤害僵尸的情况。
+- 将 `DLLEvent` 的部分内容分到源文件中，减少重复定义的链接问题。
 
 ### 兼容性
 
