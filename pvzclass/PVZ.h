@@ -125,7 +125,10 @@ namespace PVZ
 	class PVZutil
 	{
 	public:
+		/// @brief 获取 PVZClass 版本
 		READONLY_PROPERTY(const char*,				__get_Version)		Version;
+		/// @brief 判断 PVZ 主程序是哪一个发布版本。
+		/// @see PVZVersion
 		READONLY_PROPERTY(PVZVersion::PVZVersion,	__get_GameVersion)	GameVersion;
 	};
 
