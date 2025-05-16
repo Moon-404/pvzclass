@@ -4,6 +4,7 @@
 #include "Const.h"
 #include "Classes.hpp"
 #include "Creators.h"
+#include "Injectors.h"
 #include "Draw.h"
 #include "Extensions.h"
 #include "utils.h"
