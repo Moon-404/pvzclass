@@ -137,14 +137,24 @@ namespace PVZ
 	{
 	public:
 		PVZApp(DWORD address) : BaseClass(address) {};
-		PROPERTY(double,						__get_MusicVolume,	__set_MusicVolume)			aMusicVolume;//range[0,1]
-		PROPERTY(double,						__get_SoundFXVolume,__set_SoundFXVolume)		SoundFXVolume;//range[0,1]
+		/// @brief 音乐音量大小，数值应当在 [0,1] 范围内。
+		PROPERTY(double,						__get_MusicVolume,	__set_MusicVolume)			aMusicVolume;
+		/// @brief 音效音量大小，数值应当在 [0,1] 范围内。
+		PROPERTY(double,						__get_SoundFXVolume,__set_SoundFXVolume)		SoundFXVolume;
+		/// @brief 主线程 ID
 		T_PROPERTY(DWORD,						PrimaryThreadId,	__get_PrimaryThreadId,		__set_PrimaryThreadId,		0x33C);
+		/// @brief 是否关闭
 		T_PROPERTY(BOOLEAN,						Shutdown,			__get_Shutdown,				__set_Shutdown,				0x341);
+		/// @brief 窗口句柄
 		T_PROPERTY(HWND,						HWnd,				__get_HWnd,					__set_HWnd,					0x350);
+		/// @brief 当前模式类型
 		T_PROPERTY(PVZLevel::PVZLevel,			LevelId,			__get_LevelId,				__set_LevelId,				0x7F8);
+		/// @brief 游戏状态
+		/// @see PVZGameState
 		T_PROPERTY(PVZGameState::PVZGameState,	GameState,			__get_GameState,			__set_GameState,			0x7FC);
+		/// @brief 是否开启自由种植
 		T_PROPERTY(BOOLEAN,						FreePlantingCheat,	__get_FreePlantingCheat,	__set_FreePlantingCheat,	0x814);
+		/// @brief 是否在玩完整版。部分 PVZ 主程序反转了它的效果。
 		T_PROPERTY(BOOLEAN,						FullVersion,		__get_FullVersion,			__set_FullVersion,			0x8C0);
 	};
 	PVZApp GetPVZApp();
