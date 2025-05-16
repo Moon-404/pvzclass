@@ -157,6 +157,8 @@ namespace PVZ
 		/// @brief 是否在玩完整版。部分 PVZ 主程序反转了它的效果。
 		T_PROPERTY(BOOLEAN,						FullVersion,		__get_FullVersion,			__set_FullVersion,			0x8C0);
 	};
+	/// @brief 获取游戏程序主对象
+	/// @return 游戏程序主对象
 	PVZApp GetPVZApp();
 
 	class Image : public BaseClass
