@@ -499,17 +499,38 @@ namespace PVZ
 		int GetDisappearCountdown(int route);
 		void SetDisappearCountdown(int route, int cs);
 	};
+	/// @brief 一波僵尸的出怪列表
 	class Wave : public BaseClass
 	{
 	public:
 		Wave(int baseaddress);
+		/// @brief 此波的总僵尸数
 		READONLY_PROPERTY(int, __get_Count) Count;
+		/// @brief 获取此波所有僵尸
+		/// @param ztypes 存储返回值的数组
 		void GetAll(ZombieType::ZombieType* ztypes);
+		/// @brief 设置此波僵尸。若不足 50 个，应当用 ZombieType::None 结尾。
+		/// @param ztypes 僵尸列表
+		/// @param length 僵尸列表长度
 		void SetAll(ZombieType::ZombieType* ztypes, size_t length);
+		/// @brief 获取出怪列表指定编号的僵尸
+		/// @param index 僵尸在出怪列表中的编号
+		/// @return 僵尸类型
 		ZombieType::ZombieType Get(int index);
+		/// @brief 设置指定编号上的僵尸。
+		/// @note 不能以此法增加僵尸数量。若要增加，请使用 Add()
+		/// @param index 
+		/// @param ztype 
 		void Set(int index, ZombieType::ZombieType ztype);
+		/// @brief 删除指定编号上的僵尸
+		/// @param index 编号
 		void Del(int index);
+		/// @brief 将指定类型的僵尸添加到列表末尾。
+		/// @param ztype 僵尸类型
 		void Add(ZombieType::ZombieType ztype);
+		/// @brief 将指定数组的全部僵尸加到本波出怪列表中。溢出的部分会被忽略。
+		/// @param ztypes 僵尸类型数组
+		/// @param length 数组长度
 		void AddAll(ZombieType::ZombieType* ztypes, int length);
 	};
 	// 鼠标对象(控制层面的鼠标)
