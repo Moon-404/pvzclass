@@ -183,6 +183,7 @@ namespace PVZ
 	class Lawn;
 	class Icetrace;
 	class Wave;
+	/// @brief 控件
 	class Widget : public BaseClass
 	{
 	public:
@@ -192,6 +193,7 @@ namespace PVZ
 		INT_PROPERTY(ViewLength,	__get_ViewLength,	__set_ViewLength,	0x38);
 		INT_PROPERTY(ViewHeight,	__get_ViewHeight,	__set_ViewHeight,	0x3C);
 	};
+	/// @brief 三行三列矩阵
 	class Matrix3 : public BaseClass
 	{
 	public:
@@ -227,61 +229,100 @@ namespace PVZ
 	public:
 		Board(int address) : Widget(address) {};
 		PVZApp GetPVZApp();
+		/// @brief 场上僵尸数量
 		INT_READONLY_PROPERTY(ZombiesCount, __get_ZombiesCount, 0xA0);
+		/// @brief 场上植物数量
 		INT_READONLY_PROPERTY(PlantsCount, __get_PlantsCount, 0xBC);
+		/// @brief 场上子弹数量
 		INT_READONLY_PROPERTY(ProjectilesCount, __get_ProjectilesCount, 0xD8);
+		/// @brief 场上掉落物数量
 		INT_READONLY_PROPERTY(CoinsCount, __get_CoinsCount, 0xF4);
+		/// @brief 场上小推车数量
 		INT_READONLY_PROPERTY(LawnmoversCount, __get_LawnmoversCount, 0x110);
+		/// @brief 场地物品总数
 		INT_READONLY_PROPERTY(GriditemsCount, __get_GriditemsCount, 0x12C);
+		/// @brief 游戏是否已暂停
 		T_PROPERTY(BOOLEAN, GamePaused, __get_GamePaused, __set_GamePaused, 0x164);
 
 #pragma region fog
 
+		/// @brief 获得指定格的雾的浓度
+		/// @param row 行
+		/// @param column 列
+		/// @return 雾的浓度
 		int GetGridFog(int row, int column);
+		/// @brief 雾的偏移
 		T_PROPERTY(FLOAT, FogOffset, __get_FogOffset, __set_FogOffset, 0x5D0);
+		/// @brief 雾吹飞效果倒计时
 		INT_PROPERTY(FogBlownCountDown, __get_FogBlownCountDown, __set_FogBlownCountDown, 0x5D4);
 
 #pragma endregion
 
+		/// @brief 天降阳光倒计时
 		INT_PROPERTY(SunDropCountdown, __get_SunDropCountdown, __set_SunDropCountdown, 0x5538);
+		/// @brief 天降阳光数
 		INT_PROPERTY(SunDropCount, __get_SunDropCount, __set_SunDropCount, 0x553C);
+		/// @brief 场景类型
 		PROPERTY(SceneType::SceneType, __get_LevelScene, __set_LevelScene) LevelScene;
+		/// @brief 冒险模式关卡
 		INT_PROPERTY(AdventureLevel, __get_AdventureLevel, __set_AdventureLevel, 0x5550);
+		/// @brief 当前阳光数
 		INT_PROPERTY(Sun, __get_Sun, __set_Sun, 0x5560);
+		/// @brief 总波数
 		PROPERTY(int, __get_WaveCount, __set_WaveCount) WaveCount;
-		/*exclude preparing time*/
+		/// @brief 关卡主更新次数
 		INT_PROPERTY(PlayingTime, __get_PlayingTime, __set_PlayingTime, 0x5568);
 		/*include preparing time*/
 		INT_READONLY_PROPERTY(PlayingTime2, __get_PlayingTime2, 0x556C);
 		/*lose focus and recount*/
 		INT_READONLY_PROPERTY(PlayingTime3, __get_PlayingTime3, 0x5570);
+		/// @brief 当前波数
 		INT_READONLY_PROPERTY(CurrentWave, __get_CurrentWave, 0x557C);
+		/// @brief 已刷新波数
 		INT_READONLY_PROPERTY(RefreshedWave, __get_RefreshedWave, 0x5580);
+		/// @brief 教程状态
 		INT_PROPERTY(FlashTip, __get_FlashTip, __set_FlashTip, 0x5584);
 		/*Flash tips for novice tutorials*/
 		INT_PROPERTY(RefreshHp, __get_RefreshHp, __set_RefreshHp, 0x5594);
 		INT_READONLY_PROPERTY(CurrentWaveHp, __get_CurrentWaveHp, 0x5598);
+		/// @brief 下一波倒计时
 		INT_PROPERTY(NextWaveCountdown, __get_NextWaveCountdown, __set_NextWaveCountdown, 0x559C);
+		/// @brief 下一波倒计时的初值
 		INT_READONLY_PROPERTY(NextWaveCountdownInitialValue, __get_NextWaveCountdownInitialValue, 0x55A0);
+		/// @brief 一大波僵尸的倒计时
 		INT_PROPERTY(HugeWaveCountdown, __get_HugeWaveCountdown, __set_HugeWaveCountdown, 0x55A4);
+		/// @brief 是否显示铲子
 		T_PROPERTY(BOOLEAN, HaveShovel, __get_HaveShovel, __set_HaveShovel, 0x55F1);
+		/// @brief 金钱数显示消失倒计时
 		INT_PROPERTY(ShowMoneyCountdown, __get_ShowMoneyCountdown, __set_ShowMoneyCountdown, 0x55F4);
+		/// @brief 调试模式
 		T_PROPERTY(DebugModeType::DebugModeType, DebugMode, __get_DebugMode, __set_DebugMode, 0x55F8);
+		/// @brief 关卡进度条
 		INT_PROPERTY(LevelProcessBar, __get_LevelProcessBar, __set_LevelProcessBar, 0x5610);
-
+		/// @brief 是否激活 Mustatche
 		T_PROPERTY(BOOLEAN, Mustache, __get_Mustache, __set_Mustache, 0x5761);
+		/// @brief 是否激活 Trickedout
 		T_PROPERTY(BOOLEAN, Trickedout, __get_Trickedout, __set_Trickedout, 0x5762);
+		/// @brief 是否激活 Future
 		T_PROPERTY(BOOLEAN, Future, __get_Future, __set_Future, 0x5763);
+		/// @brief 是否激活 Pinata
 		T_PROPERTY(BOOLEAN, Pinata, __get_Pinata, __set_Pinata, 0x5764);
+		/// @brief 是否激活 Dance
 		T_PROPERTY(BOOLEAN, Dance, __get_Dance, __set_Dance, 0x5765);
+		/// @brief 是否激活 Daisies
 		T_PROPERTY(BOOLEAN, Daisies, __get_Daisies, __set_Daisies, 0x5766);
+		/// @brief 是否激活 Sukhbir
 		T_PROPERTY(BOOLEAN, Sukhbir, __get_Sukhbir, __set_Sukhbir, 0x5767);
-
+		/// @brief 被吃掉的植物总数
 		INT_READONLY_PROPERTY(EatenPlants, __get_EatenPlants, 0x5798);
+		/// @brief 被铲除的植物总数
 		INT_READONLY_PROPERTY(ShoveledPlants, __get_ShoveledPlants, 0x579C);
-
+		
+		/// @brief 获取出怪类型
+		/// @param ztypes 返回值存放位置
 		void GetZombieAllowed(ZombieType::ZombieType* ztypes);
 
+		/// @brief 判断当前场景是否为六行场地
 		READONLY_PROPERTY_BINDING(
 			BOOLEAN,
 			__get_SixRoute,
@@ -289,19 +330,45 @@ namespace PVZ
 
 #pragma region methods
 
+		/// @brief 将列数转换为 X 坐标
+		/// @param row 行
+		/// @param column 列
+		/// @return 对应 X 坐标
 		int GridToXPixel(int row, int column);
+		/// @brief 将行数转换为 Y 坐标
+		/// @param row 行
+		/// @param column 列
+		/// @return 对应 Y 坐标
 		int GridToYPixel(int row, int column);
+		/// @brief 设置突袭（墓碑刷怪、水下僵尸、蹦极空降）僵尸的倒计时
+		/// @param countdown 设置的倒计时，默认为 0.01 秒。
 		void Assault(int countdown = 1);
+		/// @brief 设置最后一波音效倒计时
+		/// @param countdown 设置的倒计时，默认为 0.01 秒。
 		void Bell(int countdown = 1);
+		/// @brief 震动画面面板
+		/// @param horizontalAmplitude X 轴方向的震动大小
+		/// @param verticalAmplitude 
+		/// @param duration 震动持续时间
 		void Earthquake(int horizontalAmplitude = 2, int verticalAmplitude = 4, int duration = 20);
+		/// @brief 立刻失败。
 		void Lose();
 		/// @brief 若当前可以承担 amount 点阳光的支出，则消耗 theAmount 阳光，
 		//	否则触发阳光数量不足的的音效和闪红特效。
 		/// @param amount 阳光消耗数值。
 		/// @return 是否可以承担支出。
 		bool TakeSunMoney(int amount);
+		/// @brief 立刻获胜。
 		void Win();
+		/// @brief 保存游戏存档。
+		/// @param path 存档路径
+		/// @param pathlen path 的长度
+		/// @return 是否保存成功。
 		bool Save(const char* path, int pathlen);
+		/// @brief 读取游戏存档。
+		/// @param path 存档路径
+		/// @param pathlen path 的长度
+		/// @return 是否载入成功
 		bool Load(const char* path, int pathlen);
 
 #pragma endregion
@@ -349,6 +416,7 @@ namespace PVZ
 		}
 		/// @brief 获取 DataArray\<Griditem\> 中的全体对象。
 		/// @note 与其他 GetAll() 不同，此函数不依赖于 __prototype_GetAll() 。
+		/// @note 类型不为 T 的 Griditem 会被滤去。
 		/// @tparam T 成员值的类型，必须为 Griditem 或它的派生类。
 		/// @return 装有全体 Griditem （或者其派生类）对象的 std::vector
 		template<typename T = Griditem, typename = enable_if_t<is_base_of<Griditem, T>::value>>
