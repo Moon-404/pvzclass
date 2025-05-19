@@ -490,13 +490,26 @@ namespace PVZ
 		void SetRouteType(int route, RouteType::RouteType type);
 		bool Plantable(int row, int column, SeedType::SeedType type);
 	};
+	/// @brief 冰道
 	class Icetrace : public BaseClass
 	{
 	public:
 		Icetrace(int baseaddress);
+		/// @brief 获取指定行的冰道最左侧 X 坐标
+		/// @param route 行
+		/// @return 冰道最左侧 X 坐标
 		int GetX(int route);
+		/// @brief 设置指定行的冰道最左侧 X 坐标
+		/// @param route 行
+		/// @param x 设置后的 X 坐标
 		void SetX(int route, int x);
+		/// @brief 获取指定行的冰道消失倒计时
+		/// @param route 行
+		/// @return 消失倒计时
 		int GetDisappearCountdown(int route);
+		/// @brief 设置指定行的冰道消失倒计时
+		/// @param route 行
+		/// @param cs 设置的消失倒计时，单位为厘秒。
 		void SetDisappearCountdown(int route, int cs);
 	};
 	/// @brief 一波僵尸的出怪列表
