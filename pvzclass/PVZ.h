@@ -480,14 +480,35 @@ namespace PVZ
 		AttachmentID GetAttachmentID();
 		Attachment GetAttachment();
 	};
+	/// @brief 控制行地形类型和每个格位地形类型的类
 	class Lawn : public BaseClass
 	{
 	public:
 		Lawn(int baseaddress);
+		/// @brief 获取指定格位的地形类型
+		/// @param row 行
+		/// @param column 列
+		/// @return 地形类型
 		LawnType::LawnType GetGridType(int row, int column);
+		/// @brief 设置指定格位的地形类型
+		/// @param row 行
+		/// @param column 列
+		/// @param type 设置后的地形类型
 		void SetGridType(int row, int column, LawnType::LawnType type);
+		/// @brief 获取指定行的地形类型
+		/// @param route 行
+		/// @return 地形类型
 		RouteType::RouteType GetRouteType(int route);
+		/// @brief 设置指定行的地形类型
+		/// @note 该函数不会影响该行任何格位的地形类型，需要用 SetGridType() 另行改动。
+		/// @param route 行
+		/// @param type 设置后的地形类型
 		void SetRouteType(int route, RouteType::RouteType type);
+		/// @brief 判断指定类型卡牌是否可以在指定位置上使用。
+		/// @param row 行
+		/// @param column 列
+		/// @param type 卡牌类型
+		/// @return 是否可以使用
 		bool Plantable(int row, int column, SeedType::SeedType type);
 	};
 	/// @brief 冰道
