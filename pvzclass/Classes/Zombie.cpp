@@ -437,6 +437,8 @@ PVZ::Rect PVZ::Zombie::GetActualAttackRect()
 		.invoke(0x532140)
 		.ret();
 
+	PVZ::Memory::Execute(GetActualAttackRect_builder);
+
 	Rect tmp = Rect();
 	tmp.X = *((int*)PVZ::Memory::Variable);
 	tmp.Y = *((int*)PVZ::Memory::Variable + 4);
@@ -454,6 +456,8 @@ PVZ::Rect PVZ::Zombie::GetActualRect()
 		.mov_reg_imm(REG_EBX, this->GetBaseAddress())
 		.invoke(0x5320B0)
 		.ret();
+
+	PVZ::Memory::Execute(GetActualRect_builder);
 
 	Rect tmp = Rect();
 	tmp.X = *((int*)PVZ::Memory::Variable);

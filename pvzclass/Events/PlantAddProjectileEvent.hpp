@@ -27,7 +27,7 @@ NormalPlantAddProjectileEvent::NormalPlantAddProjectileEvent(const char* str)
 		ADD_ESP(0x0C),
 
 		TEST_AL_AL,
-		JNZ(6),
+		JNZ(7),
 		POPAD,
 		PUSHDWORD(0x52FDEE),
 		RET
@@ -61,7 +61,7 @@ StarFruitAddProjectileEvent::StarFruitAddProjectileEvent(const char* str)
 		ADD_ESP(0x0C),
 
 		TEST_AL_AL,
-		JNZ(6),
+		JNZ(7),
 		POPAD,
 		PUSHDWORD(0x45F874),
 		RET

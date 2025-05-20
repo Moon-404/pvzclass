@@ -5,7 +5,7 @@
 
 #define MEM_ESP_ADD_MASK 8
 #define MEM_ESP_ADD(offset) (offset)
-#define CONST_VAL_MASK 0x0FF
+#define CONST_VAL_MASK 0x100
 #define CONST_VAL(v) (CONST_VAL_MASK + (v))
 
 using std::cout;
@@ -39,7 +39,7 @@ protected:
 		for (int i = 0, sz = this->regs.size(); i < sz; i++)
 			if (this->regs[i] < MEM_ESP_ADD_MASK)
 				builder.push_reg((uint8_t)this->regs[i]);
-			else if (this->regs[i] <= CONST_VAL_MASK)
+			else if (this->regs[i] < CONST_VAL_MASK)
 				builder.push_m32_esp_imm8((uint8_t)this->regs[i]);
 			else
 				builder.push_imm32(this->regs[i] - CONST_VAL_MASK);
@@ -98,7 +98,7 @@ protected:
 				builder.cmp_reg_imm(REG_EAX, _Lower_Bound).jl_rel(5 + (_Exit ? 1 : 2));
 			builder.mov_mem_esp_add_imm8_reg(0x1C - (_Out_Param << 2), REG_EAX).popad();
 		}
-		else if (_Out_Param <= CONST_VAL_MASK)
+		else if (_Out_Param < CONST_VAL_MASK)
 		{
 			if (_Lower_Bound > INT32_MIN)
 				builder.cmp_reg_imm(REG_EAX, _Lower_Bound).jl_rel(5 + (_Exit ? 1 : 2));
