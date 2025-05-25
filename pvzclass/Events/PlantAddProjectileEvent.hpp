@@ -67,10 +67,9 @@ public:
 	}
 };
 
-// 植物发射子弹事件。
-// 时机上先于子弹索敌类型设定和特殊子弹速度改动。
-/// @param 依次为：触发事件的植物、生成的子弹、子弹目标僵尸的基址。
-/// @return 是否继续结算原版的调整。
+/// @brief 植物发射子弹事件。
+/// @param 按参数列表顺序，依次为：触发事件的植物、生成的子弹、子弹目标僵尸的基址。
+/// @return 是否进行原版的初始化过程。
 class PlantAddProjectileEvent
 {
 private:
@@ -81,6 +80,11 @@ public:
 	{
 		normal_event = new NormalPlantAddProjectileEvent("onPlantAddProjectile");
 		star_event = new StarFruitAddProjectileEvent("onPlantAddProjectile");
+	}
+	PlantAddProjectileEvent(int address)
+	{
+		normal_event = new NormalPlantAddProjectileEvent(address);
+		star_event = new StarFruitAddProjectileEvent(address);
 	}
 	void end()
 	{
