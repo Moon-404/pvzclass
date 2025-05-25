@@ -1,24 +1,35 @@
-#pragma once
+﻿#pragma once
 #include "../PVZ.h"
 #include <array>
 #include <iostream>
 
+/// @file DLLEvent.h
+/// @brief 存放所有事件类的基类，以及它相关的各种内容
+
 #define MEM_ESP_ADD_MASK 8
+/// @brief 用于在 EventTemplate 中表示 [esp+offset] 型的间接寻址。
+/// @note offset 的类型为 byte，因此它的值不应超过 256 。
 #define MEM_ESP_ADD(offset) (offset)
 #define CONST_VAL_MASK 0x100
+/// @brief 用于在 EventTemplate 中表示立即数型参数。
 #define CONST_VAL(v) (CONST_VAL_MASK + (v))
 
 using std::cout;
 using std::hex;
 using std::endl;
 
+/// @brief 所有事件类的基类。结算函数的调用约定应当为 __cdecl
 class DLLEvent
 {
 public:
+	/// @brief 取消该事件产生的效应。
 	void end();
 
 protected:
 	int rawlen, hookAddress;
+	/// @brief 将指定代码段注入。
+	/// @param code 代码段
+	/// @param len 代码段长度
 	void start(BYTE* code, int len);
 
 private:
@@ -26,6 +37,10 @@ private:
 	static int newAddress;
 };
 
+/// @brief DLLEvent 的简化版本，用于快速设置一个事件，其结算函数的返回值为 void。
+/// @tparam _Hook_Address 原始代码的首地址
+/// @tparam _Raw_Len 替代的原始代码长度
+/// @tparam ...Params 结算函数的参数来源。顺序为 push 顺序（即参数列表反序）
 template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD ...Params>
 class DLLEventTemplate : public DLLEvent
 {
@@ -61,6 +76,11 @@ public:
 	static constexpr std::array<DWORD, sizeof...(Params)> regs = { Params... };
 };
 
+/// @brief DLLEvent 的扩展，用于快速设置一个事件，其结算函数的返回值为 bool。若返回值为 false，则会在清栈后跳转至指定位置。
+/// @tparam _Hook_Address 原始代码的首地址
+/// @tparam _Raw_Len 替代的原始代码长度
+/// @tparam _Cancel_Addr 若返回值为 false，则会在清栈后向此地址跳转
+/// @tparam ...Params 结算函数的参数来源。顺序为 push 顺序（即参数列表反序）
 template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD _Cancel_Addr, DWORD ...Params>
 class BoolDLLEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
 {
@@ -71,6 +91,11 @@ protected:
 	}
 };
 
+/// @brief 与 BoolDLLEventTemplate 类似，但会在返回值为 true 时跳转。
+/// @tparam _Hook_Address 原始代码的首地址
+/// @tparam _Raw_Len 替代的原始代码长度
+/// @tparam _Cancel_Addr 若返回值为 true，则会在清栈后向此地址跳转
+/// @tparam ...Params 结算函数的参数来源。顺序为 push 顺序（即参数列表反序）
 template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD _Cancel_Addr, DWORD ...Params>
 class TrueDLLEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
 {
@@ -81,6 +106,15 @@ protected:
 	}
 };
 
+/// @brief DLLEvent 的扩展，用于快速设置一个事件，其结算函数的返回值为 int。若返回值为指定数值，则会在清栈后跳转至指定位置。
+/// @tparam _Hook_Address 原始代码的首地址
+/// @tparam _Raw_Len 替代的原始代码长度
+/// @tparam _Cancel_Addr 若返回值为指定数值，则会在清栈后向此地址跳转
+/// @tparam _Cancel_val 触发跳转的返回值
+/// @tparam _Out_Param 若没有跳转，存储返回值的位置（立即数取值会变为立即数寻址）。
+/// @tparam _Lower_Bound 接受的返回值的下界
+/// @tparam _Exit 存储返回值后，是否直接 ret
+/// @tparam ...Params 结算函数的参数来源。顺序为 push 顺序（即参数列表反序）
 template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD _Cancel_Addr, int _Cancel_val,
 	int _Lower_Bound, DWORD _Out_Param, bool _Exit, DWORD ...Params>
 class IntDLLEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
