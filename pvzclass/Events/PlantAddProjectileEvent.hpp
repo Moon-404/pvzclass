@@ -37,36 +37,35 @@ public:
 class StarFruitAddProjectileEvent : public DLLEvent
 {
 public:
-	StarFruitAddProjectileEvent();
-	StarFruitAddProjectileEvent(const char* str);
-};
-
-StarFruitAddProjectileEvent::StarFruitAddProjectileEvent()
-{
-	StarFruitAddProjectileEvent::StarFruitAddProjectileEvent("onPlantTakeEatDamage");
-}
-
-StarFruitAddProjectileEvent::StarFruitAddProjectileEvent(const char* str)
-{
-	int procAddress = PVZ::Memory::GetProcAddress(str);
-	hookAddress = 0x45F816;
-	rawlen = 7;
-	BYTE code[] =
+	StarFruitAddProjectileEvent()
 	{
-		PUSH(0),
-		PUSH_EDI,
-		PUSH_ESI,
-		INVOKE(procAddress),
-		ADD_ESP(0x0C),
+		StarFruitAddProjectileEvent::StarFruitAddProjectileEvent("onPlantTakeEatDamage");
+	}
+	StarFruitAddProjectileEvent(const char* str)
+	{
+		StarFruitAddProjectileEvent(PVZ::Memory::GetProcAddress(str));
+	}
+	StarFruitAddProjectileEvent(int address)
+	{
+		hookAddress = 0x45F816;
+		rawlen = 7;
+		BYTE code[] =
+		{
+			PUSH(0),
+			PUSH_EDI,
+			PUSH_ESI,
+			INVOKE(address),
+			ADD_ESP(0x0C),
 
-		TEST_AL_AL,
-		JNZ(7),
-		POPAD,
-		PUSHDWORD(0x45F874),
-		RET
-	};
-	start(STRING(code));
-}
+			TEST_AL_AL,
+			JNZ(7),
+			POPAD,
+			PUSHDWORD(0x45F874),
+			RET
+		};
+		start(STRING(code));
+	}
+};
 
 // 植物发射子弹事件。
 // 时机上先于子弹索敌类型设定和特殊子弹速度改动。
