@@ -384,7 +384,7 @@ byte __asm__CreateCaption[]
 void Creator::CreateCaption(const char* str, int length, CaptionStyle::CaptionStyle style, int duration)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, str, length);
-	PVZ::Memory::WriteMemory<const char>(PVZ::Memory::Variable + 100 + length, 0);
+	PVZ::Memory::WriteMemory<char>(PVZ::Memory::Variable + 100 + length, 0);
 	SETARG(__asm__CreateCaption, 1) = PVZ::Memory::Variable + 100;
 	SETARG(__asm__CreateCaption, 6) = PVZ::Memory::Variable + 600;
 	SETARG(__asm__CreateCaption, 24) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0x140);
