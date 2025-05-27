@@ -27,7 +27,7 @@ public:
 			TEST_AL_AL,
 			JNZ(7),
 			POPAD,
-			PUSHDWORD(0x52FDEE),
+			PUSHDWORD(0x467319),
 			RET
 		};
 		start(STRING(code));
