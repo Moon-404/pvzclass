@@ -66,6 +66,7 @@
 #include "PlantUpdateEvent.hpp"
 
 #include "ProjectileDefEvent.hpp"
+#include "ProjectileImageEvent.hpp"
 
 #include "LawnmowerUpdateEvent.hpp"
 #include "SeedPacketMouseDownEvent.hpp"
