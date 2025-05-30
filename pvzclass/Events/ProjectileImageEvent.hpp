@@ -3,12 +3,18 @@
 
 namespace PVZEvent
 {
+	/// @brief ProjectileImageEvent 处理函数的参数之一的类型
 	enum ProjectileImgParam
 	{
+		/// @brief 获取的子弹绘制图片的行数
 		PROJECTILE_IMAGEROW,
+		/// @brief 获取子弹对应的图片基址
 		PROJECTILE_IMAGE,
 	};
 
+	/// @brief 子弹绘制图片事件。
+	/// @param 子弹基址、ProjectileImgParam
+	/// @return 图片对象的基址（或图片的行数）。若返回值为负数，则使用默认数值。
 	class ProjectileImageEvent
 	{
 	private:
