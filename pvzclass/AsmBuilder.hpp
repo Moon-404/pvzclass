@@ -1418,6 +1418,16 @@ public:
 		add_dword(address);
 		return *this;
 	}
+	AsmBuilder& fstp_m32_esp_imm8(uint8_t offset)
+	{
+		return this->add_byte(0xD9).add_byte(0x5C).add_byte(0x24).add_byte(offset);
+	}
+	AsmBuilder& fstp_ST(uint8_t index)
+	{
+		if (index > 7)
+			throw std::invalid_argument("Invalid register for FSTP");
+		return this->add_byte(0xDD).add_byte(0xDC + index);
+	}
 	// 添加 FILD 指令（加载整数到 ST0）
 	AsmBuilder& fild(uint32_t address)
 	{
