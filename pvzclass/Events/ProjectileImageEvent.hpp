@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "DLLEvent.h"
 
 namespace PVZEvent
@@ -45,5 +45,16 @@ namespace PVZEvent
 			img_row->end();
 			image->end();
 		}
+	};
+	/// @brief 子弹图片大小事件。默认获取的导出函数名为 GetProjectileImageSize 。
+	/// @param 依次为：子弹基址、原始大小。
+	/// @return 调整后的子弹图片大小。
+	class ProjectileImageSizeEvent : public FloatDLLEventTemplate<0x46E6D3, MEM_ESP_ADD(0x30), false,
+		MEM_ESP_ADD(0x30), REG_ESI>
+	{
+	public:
+		ProjectileImageSizeEvent(const char* str) : FloatDLLEventTemplate() { Init(str); };
+		ProjectileImageSizeEvent(int address) : FloatDLLEventTemplate() { Init(address); };
+		ProjectileImageSizeEvent() : ProjectileImageSizeEvent("GetProjectileImageSize") {};
 	};
 }
