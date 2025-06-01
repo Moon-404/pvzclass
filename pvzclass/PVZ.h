@@ -1051,6 +1051,9 @@ namespace PVZ
 		PVZ::Projectile Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, byte animPlayArg, int imagespeed);
+		/// @brief 以指定帧频播放闲置动画。IZ 关卡中动画速率会设为 0 。
+		/// @param speed 指定的帧频
+		void PlayIdleAnim(float speed);
 		class MagnetItem
 		{
 			int BaseAddress;

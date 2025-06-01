@@ -212,6 +212,18 @@ void PVZ::Plant::SetAnimation(LPCSTR animName, byte animPlayArg, int imagespeed)
 	PVZ::Memory::FreeMemory(Address);
 }
 
+AsmBuilder PlayIdleAnim_builder = AsmBuilder();
+void PVZ::Plant::PlayIdleAnim(float speed)
+{
+	PlayIdleAnim_builder.clear()
+		.push_float(speed)
+		.mov_reg_imm(REG_EDI, GetBaseAddress())
+		.invoke(0x468280)
+		.ret();
+
+	PVZ::Memory::Execute(PlayIdleAnim_builder);
+}
+
 PVZ::Plant::MagnetItem::MagnetItem(int address)
 {
 	BaseAddress = address;
