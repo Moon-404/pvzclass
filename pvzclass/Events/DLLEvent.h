@@ -165,11 +165,11 @@ protected:
 	virtual void InitExtra(AsmBuilder& builder)
 	{
 		if (_Out_Param < MEM_ESP_ADD_MASK)
-			builder.fstp_ST(_Out_Param).popad();
+			builder.fstp_ST(_Out_Param);
 		else if (_Out_Param < CONST_VAL_MASK)
-			builder.fstp_m32_esp_imm8(_Out_Param).popad();
+			builder.fstp_m32_esp_imm8(_Out_Param);
 		else
-			builder.fstp(_Out_Param - CONST_VAL_MASK).popad();
+			builder.fstp(_Out_Param - CONST_VAL_MASK);
 
 		if (_Exit)
 			builder.ret();
