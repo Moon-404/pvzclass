@@ -8,19 +8,6 @@ PVZ::Plant::Plant(int indexoraddress)
 		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xAC) + indexoraddress * MemSize;
 }
 
-byte __asm__Plant_memset[]
-{
-	MOV_PTR_EUX_ADD__EVX(REG_EBX, REG_EDI, 0x00BC),
-	PUSH_EUX(REG_EAX),
-	MOV_EUX(REG_EAX, 0),
-	0x89, 0x3C, 0x18,
-	ADD_EUX(REG_EAX, 4),
-	CMP_EUX_DWORD(REG_EAX, 0),
-	JNG(242), // -14
-	POP_EUX(REG_EAX),
-	JMPFAR(0)
-};
-
 void PVZ::Plant::SetMemSize(int NewSize = 0x14C, int NewCount = 1024)
 {
 	if (NewSize < 0x14C)
@@ -53,13 +40,6 @@ void PVZ::Plant::SetMemSize(int NewSize = 0x14C, int NewCount = 1024)
 	Memory::WriteMemory<int>(0x52CBC0, NewSize);
 	Memory::WriteMemory<int>(0x530433, NewSize);
 	Memory::WriteMemory<int>(0x5304A5, NewSize);
-	Memory::WriteMemory<byte>(0x45DCA8, 0xE9);
-	Memory::WriteMemory<int>(0x45DCA9, PVZ::Memory::Variable + 400 - 5 - 0x45DCA8);
-	Memory::WriteMemory<byte>(0x45DCAD, NOP);
-	SETARG(__asm__Plant_memset, 8) = 0x14C;
-	SETARG(__asm__Plant_memset, 20) = NewSize - 4;
-	SETARG(__asm__Plant_memset, 28) = 0x45DCAE - 5 - (Memory::Variable + 427);
-	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 400, STRING(__asm__Plant_memset));
 }
 
 PVZ::Animation PVZ::Plant::GetAnimationPart1()
