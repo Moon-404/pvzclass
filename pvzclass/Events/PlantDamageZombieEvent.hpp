@@ -287,15 +287,19 @@ namespace PVZEvent
 		Part4* squash;
 		Part5* rowarea;
 	public:
-		PlantDamageZombieEvent()
+		PlantDamageZombieEvent(int address)
 		{
-			const char* str = "onPlantDamageZombie";
-			auto address = PVZ::Memory::GetProcAddress(str);
 			spikerock1 = new Part1(address);
 			bowling = new Part2(address);
 			chomper = new Part3(address);
 			squash = new Part4(address);
 			rowarea = new Part5(address);
+		}
+		PlantDamageZombieEvent()
+		{
+			const char* str = "onPlantDamageZombie";
+			auto address = PVZ::Memory::GetProcAddress(str);
+			PlantDamageZombieEvent(address);
 		}
 		void end()
 		{
