@@ -269,7 +269,12 @@ namespace Creator
 	/// @see AsmInit()
 	/// @param range 随机数的上限，必须大于 0 。
 	/// @return 一个小于 range1 的随机正整数
-	inline int Rand(const int range);
+	inline int Rand(const int range)
+	{
+		PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 228, range);
+		int (*func)() = (int (*)())(PVZ::Memory::Variable + 225);
+		return func();
+	}
 
 	/// @brief 刷新出怪列表
 	/// @param ztypes 僵尸类型

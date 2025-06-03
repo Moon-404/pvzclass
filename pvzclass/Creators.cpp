@@ -623,13 +623,6 @@ void Creator::__ClearZombiePreview()
 	PVZ::Memory::Execute(STRING(__asm__ClearZombiePreview));
 }
 
-int Creator::Rand(const int range)
-{
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 228, range);
-	int (*func)() = (int (*)())(PVZ::Memory::Variable + 225);
-	return func();
-}
-
 byte __asm__CreateZombieInLevel[19]
 {
 	MOV_EDI(0),
