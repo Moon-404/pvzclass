@@ -16,8 +16,9 @@ namespace PVZ
 		/// @brief Init() 系函数申请的、PVZ 本体的内存的基址，供部分函数使用。
 		/// @detail 000-100存放创建子弹的函数\n
 		///		100 - 200存放字符串或者PlantEffect的伪造植物对象\n
+		///		200 - 224存放 AsmInit() 为传送门创建设定的辅助代码\n
+		///		225 - 249存放随机数调用\n
 		///		300 - 400存放__autocollect_set\n
-		///		400 - 500存放__asm__Plant_memset\n
 		///		500 - 600存放Execute的同步代码\n
 		static int Variable;
 		/// @brief PVZ 进程句柄

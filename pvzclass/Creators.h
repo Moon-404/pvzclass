@@ -263,6 +263,14 @@ namespace Creator
 	/// @brief 清除选卡界面的预览僵尸
 	void __ClearZombiePreview();
 
+	/// @brief 使用 PVZ 主程序的随机数生成器（一个 mt19937）获取一个随机正整数。
+	/// @attention 你需要先调用一次 AsmInit() 后才能使用这个函数。
+	/// @attention 该函数仅供 pvzdll 使用，在应用程序直接使用会导致崩溃。
+	/// @see AsmInit()
+	/// @param range 随机数的上限，必须大于 0 。
+	/// @return 一个小于 range1 的随机正整数
+	inline int Rand(const int range);
+
 	/// @brief 刷新出怪列表
 	/// @param ztypes 僵尸类型
 	/// @param length ztypes 的元素数
