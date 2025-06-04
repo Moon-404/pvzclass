@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "DLLEvent.h"
 
 namespace PVZEvent
@@ -14,16 +14,19 @@ namespace PVZEvent
 	class PlantDamageZombieEvent
 	{
 	public:
-		class PZDamageInfo
+		template<typename P = PVZ::Plant, typename = enable_if_t<is_base_of<PVZ::Plant, P>::value>,
+			typename Z = PVZ::Zombie, typename = enable_if_t<is_base_of<PVZ::Zombie, Z>::value>>
+			class PZDamageInfo
 		{
 		public:
-			PVZ::Zombie zombie;
-			PVZ::Plant plant;
+			Z zombie;
+			P plant;
 			PVZ::DamageFlags flags;
 			int damage;
 			PlantDamageType type;
-			PZDamageInfo(PVZ::Zombie zombie, PVZ::Plant plant, PVZ::DamageFlags flags, int damage, PlantDamageType type)
-				: zombie(zombie), plant(plant), flags(flags), damage(damage), type(type) {}
+			PZDamageInfo(Z zombie, P plant, PVZ::DamageFlags flags, int damage, PlantDamageType type)
+				: zombie(zombie), plant(plant), flags(flags), damage(damage), type(type) {
+			}
 		};
 	private:
 		class Part1 : public DLLEvent
@@ -297,9 +300,7 @@ namespace PVZEvent
 		}
 		PlantDamageZombieEvent()
 		{
-			const char* str = "onPlantDamageZombie";
-			auto address = PVZ::Memory::GetProcAddress(str);
-			PlantDamageZombieEvent(address);
+			PlantDamageZombieEvent(PVZ::Memory::GetProcAddress("onPlantDamageZombie"));
 		}
 		void end()
 		{
