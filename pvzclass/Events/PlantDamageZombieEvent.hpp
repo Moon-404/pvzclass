@@ -14,9 +14,10 @@ namespace PVZEvent
 	class PlantDamageZombieEvent
 	{
 	public:
-		template<typename P = PVZ::Plant, typename = enable_if_t<is_base_of<PVZ::Plant, P>::value>,
-			typename Z = PVZ::Zombie, typename = enable_if_t<is_base_of<PVZ::Zombie, Z>::value>>
-			class PZDamageInfo
+		template<typename P = PVZ::Plant, typename Z = PVZ::Zombie,
+			typename = enable_if_t<is_base_of<PVZ::Plant, P>::value>, 
+			typename = enable_if_t<is_base_of<PVZ::Zombie, Z>::value>>
+		class PZDamageInfo
 		{
 		public:
 			Z zombie;
