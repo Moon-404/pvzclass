@@ -1,5 +1,12 @@
-#include "../PVZ.h"
+﻿#include "../PVZ.h"
 #include "../Const.h"
+
+void PVZ::Board::SetMemSize(int NewSize)
+{
+	if (NewSize < 0x57B0)
+		return;
+	PVZ::Memory::WriteMemory<int>(0x44F60F, NewSize);
+}
 
 PVZ::PVZApp PVZ::Board::GetPVZApp()
 {
