@@ -25,13 +25,13 @@ namespace PVZEvent
 		{
 		public:
 			DamagePart1(const char* str) : IntDLLEventTemplate() { Init(str); };
+			DamagePart1(int address) : IntDLLEventTemplate() { Init(address); };
 		};
 		class DamagePart2 : public DLLEvent
 		{
 		public: 
-			DamagePart2(const char* str)
+			DamagePart2(int address)
 			{
-				int procAddress = PVZ::Memory::GetProcAddress(str);
 				hookAddress = 0x46D468;
 				rawlen = 5;
 				BYTE code[] =
@@ -46,7 +46,7 @@ namespace PVZEvent
 
 					PUSH_PTR_ESP_ADD_V(0x48),
 					PUSH_EDI,
-					INVOKE(procAddress),
+					INVOKE(address),
 					ADD_ESP(0x0C),
 
 					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 0x20),
@@ -54,6 +54,7 @@ namespace PVZEvent
 				};
 				start(STRING(code));
 			}
+			DamagePart2(const char* str) : DamagePart2(PVZ::Memory::GetProcAddress(str)) { };
 		};
 		DamagePart1* part1;
 		DamagePart2* part2;
@@ -63,6 +64,11 @@ namespace PVZEvent
 			const char* str = "onProjectileDamageZombie";
 			part1 = new DamagePart1(str);
 			part2 = new DamagePart2(str);
+		}
+		ProjectileDamageZombieEvent(int address)
+		{
+			part1 = new DamagePart1(address);
+			part2 = new DamagePart2(address);
 		}
 		void end()
 		{
