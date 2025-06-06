@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "BoardUpdateGameEvent.hpp"
 #include "CoinCollectEvent.h"
 #include "CoinCreateEvent.h"
@@ -40,6 +40,7 @@
 #include "ZombieUpdatePlayingEvent.hpp"
 
 #include "BegTwistFailMoveEvent.hpp"
+#include "BoardInitAfterEvent.hpp"
 #include "BoardKeyDownEvent.hpp"
 #include "CalcSunCostEvent.hpp"
 #include "ChallengeInitAfterEvent.hpp"

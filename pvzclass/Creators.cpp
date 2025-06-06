@@ -124,6 +124,17 @@ byte __asm__CreatePortalpieces2[15]
 	JMPFAR(0),
 };
 
+byte __asm__Random[]
+{
+	PUSH_ECX,
+	PUSH_EDX,
+	MOV_EAX(0),
+	INVOKE(0x5AF400),
+	POP_EUX(REG_EDX),
+	POP_EUX(REG_ECX),
+	RET
+};
+
 void Creator::AsmInit()
 {
 	SETARG(__asm__CreateProjectile2, 50) = PVZ::Memory::Variable + 8;
@@ -137,6 +148,8 @@ void Creator::AsmInit()
 	PVZ::Memory::WriteArray<byte>(0x42706C, STRING(__asm__CreatePortalpieces1));
 	SETARG(__asm__CreatePortalpieces2, 11) = 0x427076 - 5 - (PVZ::Memory::Variable + 210);
 	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 200, STRING(__asm__CreatePortalpieces2));
+	// random
+	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 225, STRING(__asm__Random));
 }
 
 byte __asm__Asm__Reset[10]

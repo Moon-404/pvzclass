@@ -228,6 +228,14 @@ namespace PVZ
 		}
 	public:
 		Board(int address) : Widget(address) {};
+
+		/// @brief 调整该类在 PVZ 中对象的大小。
+		/// @note 请在派生类中调用这个函数。
+		/// @note 调用该函数后，新生成的存档与原版存档不兼容，请注意清理。
+		/// @note 额外的空间未经初始化，使用前请设法初始化。
+		/// @param MemSize 更改后的大小。
+		static void SetMemSize(int NewSize);
+
 		PVZApp GetPVZApp();
 		/// @brief 场上僵尸数量
 		INT_READONLY_PROPERTY(ZombiesCount, __get_ZombiesCount, 0xA0);
@@ -1051,6 +1059,9 @@ namespace PVZ
 		PVZ::Projectile Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
 		//animPlayArg(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, byte animPlayArg, int imagespeed);
+		/// @brief 以指定帧频播放闲置动画。IZ 关卡中动画速率会设为 0 。
+		/// @param speed 指定的帧频
+		void PlayIdleAnim(float speed);
 		class MagnetItem
 		{
 			int BaseAddress;

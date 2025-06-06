@@ -773,5 +773,8 @@
     <ClInclude Include="Events\ProjectileImageEvent.hpp">
       <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
+    <ClInclude Include="Events\BoardInitAfterEvent.hpp">
+      <Filter>头文件\Events\Board</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -259,6 +259,7 @@
     <ClInclude Include="Enums\StoreItem.hpp" />
     <ClInclude Include="Enums\ZombieAttackType.hpp" />
     <ClInclude Include="Events\BegTwistFailMoveEvent.hpp" />
+    <ClInclude Include="Events\BoardInitAfterEvent.hpp" />
     <ClInclude Include="Events\BoardKeyDownEvent.hpp" />
     <ClInclude Include="Events\BoardUpdateGameEvent.hpp" />
     <ClInclude Include="Events\CalcSunCostEvent.hpp" />

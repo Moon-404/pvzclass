@@ -130,7 +130,7 @@ protected:
 		{
 			if (_Lower_Bound > INT32_MIN)
 				builder.cmp_reg_imm(REG_EAX, _Lower_Bound).jl_rel(5 + (_Exit ? 1 : 2));
-			builder.mov_mem_esp_add_imm8_reg(0x1C - (_Out_Param << 2), REG_EAX).popad();
+			builder.mov_mem_esp_add_imm8_reg(0x1C - ((_Out_Param & 7) << 2), REG_EAX).popad();
 		}
 		else if (_Out_Param < CONST_VAL_MASK)
 		{
@@ -165,11 +165,11 @@ protected:
 	virtual void InitExtra(AsmBuilder& builder)
 	{
 		if (_Out_Param < MEM_ESP_ADD_MASK)
-			builder.fstp_ST(_Out_Param).popad();
+			builder.fstp_ST(_Out_Param);
 		else if (_Out_Param < CONST_VAL_MASK)
-			builder.fstp_m32_esp_imm8(_Out_Param).popad();
+			builder.fstp_m32_esp_imm8(_Out_Param);
 		else
-			builder.fstp(_Out_Param - CONST_VAL_MASK).popad();
+			builder.fstp(_Out_Param - CONST_VAL_MASK);
 
 		if (_Exit)
 			builder.ret();

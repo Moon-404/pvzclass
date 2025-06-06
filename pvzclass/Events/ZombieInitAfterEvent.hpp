@@ -1,22 +1,12 @@
-#pragma once
+﻿#pragma once
 #include "DLLEvent.h"
 
-class ZombieInitAfterEvent : public DLLEvent
+/// @brief 僵尸初始化完成事件
+/// @param 初始化的 Zombie 的基址。
+class ZombieInitAfterEvent : public DLLEventTemplate<0x524035, 5, REG_EDI>
 {
 public:
-	ZombieInitAfterEvent();
+	ZombieInitAfterEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	ZombieInitAfterEvent(int address) : DLLEventTemplate() { Init(address); };
+	ZombieInitAfterEvent() : DLLEventTemplate() { Init("onZombieInitAfter"); };
 };
-
-ZombieInitAfterEvent::ZombieInitAfterEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onZombieInitAfter");
-	hookAddress = 0x524035;
-	rawlen = 5;
-	BYTE code[] =
-	{
-		PUSH_EDI,
-		INVOKE(procAddress),
-		ADD_ESP(4)
-	};
-	start(STRING(code));
-}

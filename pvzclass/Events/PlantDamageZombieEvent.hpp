@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "DLLEvent.h"
 
 namespace PVZEvent
@@ -14,16 +14,20 @@ namespace PVZEvent
 	class PlantDamageZombieEvent
 	{
 	public:
+		template<typename P = PVZ::Plant, typename Z = PVZ::Zombie,
+			typename = enable_if_t<is_base_of<PVZ::Plant, P>::value>, 
+			typename = enable_if_t<is_base_of<PVZ::Zombie, Z>::value>>
 		class PZDamageInfo
 		{
 		public:
-			PVZ::Zombie zombie;
-			PVZ::Plant plant;
+			Z zombie;
+			P plant;
 			PVZ::DamageFlags flags;
 			int damage;
 			PlantDamageType type;
-			PZDamageInfo(PVZ::Zombie zombie, PVZ::Plant plant, PVZ::DamageFlags flags, int damage, PlantDamageType type)
-				: zombie(zombie), plant(plant), flags(flags), damage(damage), type(type) {}
+			PZDamageInfo(Z zombie, P plant, PVZ::DamageFlags flags, int damage, PlantDamageType type)
+				: zombie(zombie), plant(plant), flags(flags), damage(damage), type(type) {
+			}
 		};
 	private:
 		class Part1 : public DLLEvent
@@ -287,15 +291,17 @@ namespace PVZEvent
 		Part4* squash;
 		Part5* rowarea;
 	public:
-		PlantDamageZombieEvent()
+		PlantDamageZombieEvent(int address)
 		{
-			const char* str = "onPlantDamageZombie";
-			auto address = PVZ::Memory::GetProcAddress(str);
 			spikerock1 = new Part1(address);
 			bowling = new Part2(address);
 			chomper = new Part3(address);
 			squash = new Part4(address);
 			rowarea = new Part5(address);
+		}
+		PlantDamageZombieEvent()
+		{
+			PlantDamageZombieEvent(PVZ::Memory::GetProcAddress("onPlantDamageZombie"));
 		}
 		void end()
 		{
