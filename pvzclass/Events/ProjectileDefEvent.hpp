@@ -3,13 +3,20 @@
 
 namespace PVZEvent
 {
+	/// @brief 子弹对僵尸伤害类型
 	enum ProjDmgType
 	{
+		/// @brief 非溅射伤害
 		DAMAGE_SINGULAR,
+		/// @brief 溅射伤害的主目标
 		DAMAGE_SPLASH_PRIMARY,
+		/// @brief 溅射伤害的次级目标
 		DAMAGE_SPLASH_SECONDARY
 	};
 
+	/// @brief 子弹对僵尸造成伤害事件
+	/// @param 依次为：子弹基址、受伤僵尸基址、伤害类型、溅射僵尸次级目标数
+	/// @return 调整后的伤害。
 	class ProjectileDamageZombieEvent
 	{
 	private:
@@ -29,23 +36,21 @@ namespace PVZEvent
 				rawlen = 5;
 				BYTE code[] =
 				{
-					PUSH_PTR_ESP_ADD_V(0x34),
+					PUSH_PTR_ESP_ADD_V(0x38),
 
-					CALC_PTR_ESP_ADD_V_EUX(CALC_CMP, REG_ESI, 0x40),
+					CALC_PTR_ESP_ADD_V_EUX(CALC_CMP, REG_ESI, 0x44),
 					JNZ(4),
 					PUSH(DAMAGE_SPLASH_PRIMARY),
 					JMP(2),
 					PUSH(DAMAGE_SPLASH_SECONDARY),
 
-					PUSH_PTR_ESP_ADD_V(0x44),
+					PUSH_PTR_ESP_ADD_V(0x48),
 					PUSH_EDI,
 					INVOKE(procAddress),
 					ADD_ESP(0x0C),
 
-					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 0),
+					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 0x20),
 					POPAD,
-					MOV_EAX(0x46D3EE),
-					JMP_REG32(REG_EAX)
 				};
 				start(STRING(code));
 			}
