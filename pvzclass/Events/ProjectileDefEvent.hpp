@@ -16,12 +16,12 @@ namespace PVZEvent
 
 	/// @brief 子弹对僵尸造成伤害事件
 	/// @param 依次为：子弹基址、受伤僵尸基址、伤害类型、溅射僵尸次级目标数
-	/// @return 调整后的伤害。
+	/// @return 调整后的伤害。非负值会被忽略。
 	class ProjectileDamageZombieEvent
 	{
 	private:
 		class DamagePart1 : public IntDLLEventTemplate<0x46E073, 7, 0, 0,
-			INT32_MIN, REG_EDX, false, CONST_VAL(0), CONST_VAL(DAMAGE_SINGULAR), REG_ESI, REG_EDI>
+			0, REG_EDX, false, CONST_VAL(0), CONST_VAL(DAMAGE_SINGULAR), REG_ESI, REG_EDI>
 		{
 		public:
 			DamagePart1(const char* str) : IntDLLEventTemplate() { Init(str); };
@@ -49,8 +49,9 @@ namespace PVZEvent
 					INVOKE(address),
 					ADD_ESP(0x0C),
 
+					TEST_EUX_EVX(REG_EAX, REG_EAX),
+					JS(4),
 					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 0x20),
-					POPAD,
 				};
 				start(STRING(code));
 			}
