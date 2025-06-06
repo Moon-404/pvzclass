@@ -1,13 +1,20 @@
-#pragma once
+﻿#pragma once
 #include "DLLEvent.h"
 
 namespace PVZEvent
 {
+	enum ProjDmgType
+	{
+		DAMAGE_SINGULAR,
+		DAMAGE_SPLASH_PRIMARY,
+		DAMAGE_SPLASH_SECONDARY
+	};
+
 	class ProjectileDamageZombieEvent
 	{
 	private:
 		class DamagePart1 : public IntDLLEventTemplate<0x46E073, 7, 0, 0,
-			INT32_MIN, REG_EDX, false, CONST_VAL(0), REG_ESI, REG_EDI>
+			INT32_MIN, REG_EDX, false, CONST_VAL(0), CONST_VAL(DAMAGE_SINGULAR), REG_ESI, REG_EDI>
 		{
 		public:
 			DamagePart1(const char* str) : IntDLLEventTemplate() { Init(str); };
@@ -18,13 +25,19 @@ namespace PVZEvent
 			DamagePart2(const char* str)
 			{
 				int procAddress = PVZ::Memory::GetProcAddress(str);
-				hookAddress = 0x46ECB0;
-				rawlen = 7;
+				hookAddress = 0x46D468;
+				rawlen = 5;
 				BYTE code[] =
 				{
-					MOV_PTR_ESP_ADD_V_EUX(REG_EBP, 0x34),
-					PUSH(1),
-					PUSH_PTR_ESP_ADD_V(0x40),
+					PUSH_PTR_ESP_ADD_V(0x34),
+
+					CALC_PTR_ESP_ADD_V_EUX(CALC_CMP, REG_ESI, 0x40),
+					JNZ(4),
+					PUSH(DAMAGE_SPLASH_PRIMARY),
+					JMP(2),
+					PUSH(DAMAGE_SPLASH_SECONDARY),
+
+					PUSH_PTR_ESP_ADD_V(0x44),
 					PUSH_EDI,
 					INVOKE(procAddress),
 					ADD_ESP(0x0C),
