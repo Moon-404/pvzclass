@@ -263,7 +263,7 @@ namespace Creator
 	/// @brief 清除选卡界面的预览僵尸
 	void __ClearZombiePreview();
 
-	/// @brief 使用 PVZ 主程序的随机数生成器（一个 mt19937）获取一个随机正整数。
+	/// @brief 使用 PVZ 主程序的随机数生成器（一个 mt19937）获取一个随机非负整数。
 	/// @attention 你需要先调用一次 AsmInit() 后才能使用这个函数。
 	/// @attention 该函数仅供 pvzdll 使用，在应用程序直接使用会导致崩溃。
 	/// @see AsmInit()

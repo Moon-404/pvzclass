@@ -1,5 +1,5 @@
 # 目录
-- [2.2.1 (TBD)](#2.2.1)
+- [2.2.1](#2.2.1)
 - [2.2](#2.2)
 - [2.1.2](#2.1.2)
 - [2.1.1](#2.1.1)
@@ -20,9 +20,49 @@
 
 ## 2.2.1
 
+### 新增内容
+
+- `ProjectileImageEvent`
+- `FloatDLLEventTemplate`，用于快速设置一个事件，其结算函数的返回值为 float。若返回值为指定数值，则会在清栈后跳转至指定位置。
+- `ProjectileImageSizeEvent`，子弹图片大小事件。
+- `Plant::PlayIdleAnim`，植物播放闲置动画。
+- `Creator::Rand()`，使用 PVZ 主程序的随机数生成器获取一个随机非负整数。
+- `Board::SetMemSize()`，设置该类的大小。
+- `BoardInitAfterEvent`，`Board` 构造完成事件。
+
 ### 改动内容
 
-待定。
+- `Injectors.h` 现在被 `pvzclass.h` 包含。
+- 以下类添加 doc 注释：
+  - `PVZApp`
+  - `Image`
+  - `Projectile`
+  - `Zombie`
+  - `Wave`
+  - `Icetrace`
+  - `Lawn`
+  - `Animation`
+  - `GameObject`
+  - `Board`
+  - `Widget`
+  - `DLLEvent`
+- 以下事件现在支持 int 参数构造：
+  - `PlantAddProjectileEvent` 及其基础事件。
+  - `PlantDamageZombieEvent`
+  - `UpdateGameObjectsEvent`
+  - `ZombieInitAfterEvent`
+  - `PlantInitAfterEvent`
+- `__asm__Plant_memset` 被清除。
+- 优化了 `ProjectileDamageZombieEvent`。
+
+### 漏洞修复
+
+- 修复 \# 52
+- 修复 \# 66
+- 修复 \# 67
+- 修复 \# 68
+- 修复 `CreateCaption` 导致编译失败的漏洞。
+- 修复 `NormalPlantAddProjectileEvent` 崩溃漏洞。
 
 ### 兼容性
 
