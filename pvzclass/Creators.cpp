@@ -139,6 +139,7 @@ byte __asm__Random[]
 	PUSHDWORD(0),
 	INVOKE(0x5AF410),
 	POP_EUX(REG_ECX),
+	POP_EUX(REG_ECX),
 	POP_EUX(REG_EAX),
 	RET,
 };
