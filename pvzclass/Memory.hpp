@@ -17,7 +17,7 @@ namespace PVZ
 		/// @detail 000-100存放创建子弹的函数\n
 		///		100 - 200存放字符串或者PlantEffect的伪造植物对象\n
 		///		200 - 224存放 AsmInit() 为传送门创建设定的辅助代码\n
-		///		225 - 249存放随机数调用\n
+		///		225 - 274存放随机数调用\n
 		///		300 - 400存放__autocollect_set\n
 		///		500 - 600存放Execute的同步代码\n
 		static int Variable;
