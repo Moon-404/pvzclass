@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "DLLEvent.h"
 
 namespace PVZEvent

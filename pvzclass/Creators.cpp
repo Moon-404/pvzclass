@@ -132,7 +132,16 @@ byte __asm__Random[]
 	INVOKE(0x5AF400),
 	POP_EUX(REG_EDX),
 	POP_EUX(REG_ECX),
-	RET
+	RET,
+	0xCC, 0xCC,
+	PUSH_EAX,
+	PUSH_ECX,
+	PUSHDWORD(0),
+	INVOKE(0x5AF410),
+	POP_EUX(REG_ECX),
+	POP_EUX(REG_ECX),
+	POP_EUX(REG_EAX),
+	RET,
 };
 
 void Creator::AsmInit()

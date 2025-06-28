@@ -1,27 +1,14 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ¹Ø¿¨ÄÚ¼üÅÌ°´¼üÊÂ¼ş¡£
-// ÓÅÏÈ¼¶¸ßÓÚÔ­°æÊÂ¼ş¡£
-/// @param ÒÀ´ÎÎª£º´¥·¢ÊÂ¼şµÄ Board£¬°´¼üµÄ KeyCode¡£
-/// @return ÊÇ·ñ¼ÌĞø½áËãÔ­°æÊÂ¼ş¡£
-class BoardKeyDownEvent : public DLLEvent
+/// @brief å…³å¡å†…é”®ç›˜æŒ‰é”®äº‹ä»¶ã€‚
+/// @note ä¼˜å…ˆçº§é«˜äºåŸç‰ˆäº‹ä»¶ã€‚
+/// @param ä¾æ¬¡ä¸ºï¼šè§¦å‘äº‹ä»¶çš„ Boardï¼ŒæŒ‰é”®çš„ KeyCodeã€‚
+/// @return æ˜¯å¦ç»§ç»­ç»“ç®—åŸç‰ˆäº‹ä»¶ã€‚
+class BoardKeyDownEvent : public BoolDLLEventTemplate<0x41B820, 6, 0x41B946, MEM_ESP_ADD(0x24), REG_ECX>
 {
 public:
-	BoardKeyDownEvent();
+	BoardKeyDownEvent(const char* str) : BoolDLLEventTemplate() { Init(str); };
+	BoardKeyDownEvent(int address) : BoolDLLEventTemplate() { Init(address); };
+	BoardKeyDownEvent() : BoolDLLEventTemplate() { Init("onBoardKeyDown"); };
 };
-
-BoardKeyDownEvent::BoardKeyDownEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onBoardKeyDown");
-	hookAddress = 0x41B820;
-	rawlen = 6;
-	BYTE code[] =
-	{
-		PUSH_PTR_ESP_ADD_V(0x24),
-		PUSH_ECX,
-		INVOKE(procAddress),
-		ADD_ESP(0x08)
-	};
-	start(STRING(code));
-}
