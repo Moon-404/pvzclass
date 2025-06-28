@@ -1,22 +1,13 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ±¦Ê¯ÃÔÕó×ª×ª¿´ÖĞ£¬Ò»´ÎÒÆ¶¯²»²úÉúÆ¥ÅäÊ±´¥·¢µÄÊÂ¼ş¡£
-// ²ÎÊı£º×óÉÏ½ÇµÄĞĞÊı£¬×óÉÏ½ÇµÄÁĞÊı
-// ·µ»ØÖµ£ºÊÇ·ñ¾Ü¾ø´Ë´ÎÒÆ¶¯¡£
-class BegTwistFailMoveEvent : public DLLEvent
+/// @brief å®çŸ³è¿·é˜µè½¬è½¬çœ‹ä¸­ï¼Œä¸€æ¬¡ç§»åŠ¨ä¸äº§ç”ŸåŒ¹é…æ—¶è§¦å‘çš„äº‹ä»¶ã€‚
+/// @param ä¾æ¬¡ä¸ºï¼šå·¦ä¸Šè§’çš„è¡Œæ•°ï¼Œå·¦ä¸Šè§’çš„åˆ—æ•°
+/// @return æ˜¯å¦æ‹’ç»æ­¤æ¬¡ç§»åŠ¨ã€‚
+class BegTwistFailMoveEvent : public BoolDLLEventTemplate<0x42053C, 7, 0x420602, REG_ESI, MEM_ESP_ADD(0x3C)>
 {
 public:
-	BegTwistFailMoveEvent();
+	BegTwistFailMoveEvent(const char* str) : BoolDLLEventTemplate() { Init(str); };
+	BegTwistFailMoveEvent(int address) : BoolDLLEventTemplate() { Init(address); };
+	BegTwistFailMoveEvent() : BoolDLLEventTemplate() { Init("onBegTwistFailMove"); };
 };
-
-BegTwistFailMoveEvent::BegTwistFailMoveEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onBegTwistFailMove");
-	hookAddress = 0x42053C;
-	rawlen = 7;
-	BYTE code[]	 = { PUSH_ESI, PUSH_PTR_ESP_ADD_V(0x3C), INVOKE(procAddress), ADD_ESP(8),
-		TEST_AL_AL, JNZ(8), POPAD, MOV_ESI(0x420602), JMP_REG32(REG_ESI)};
-	start(STRING(code));
-}
-#pragma once
