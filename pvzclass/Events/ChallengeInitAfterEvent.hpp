@@ -1,20 +1,12 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ¹Ø¿¨³õÊ¼»¯ºóµÄÊÂ¼ş¡£
-// ÎŞ·µ»ØÖµ
-/// @param ´¥·¢ÊÂ¼şµÄ Challenge
-class ChallengeInitAfterEvent : public DLLEvent
+/// @brief å…³å¡åˆå§‹åŒ–åçš„äº‹ä»¶ã€‚
+/// @param è§¦å‘äº‹ä»¶çš„ Challenge
+class ChallengeInitAfterEvent : public DLLEventTemplate<0x41F6D8, 5, REG_EDI>
 {
 public:
-	ChallengeInitAfterEvent();
+	ChallengeInitAfterEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	ChallengeInitAfterEvent(int address) : DLLEventTemplate() { Init(address); };
+	ChallengeInitAfterEvent() : DLLEventTemplate() { Init("onChallengeInitAfter"); };
 };
-
-ChallengeInitAfterEvent::ChallengeInitAfterEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onChallengeInitAfter");
-	hookAddress = 0x41F6D8;
-	rawlen = 5;
-	BYTE code[] = { PUSH_EDI, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
-}
