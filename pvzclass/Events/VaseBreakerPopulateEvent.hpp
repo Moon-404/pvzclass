@@ -1,30 +1,14 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ÔÒ¹ŞÄ£Ê½Éú³É¹Ş×ÓÊÂ¼ş¡£
-// ÊÂ¼ş´¥·¢Ê±¹Ş×ÓÉĞÎ´Éú³É¡£
-/// @param ´¥·¢ÊÂ¼şµÄ Challenge¡£
-/// @return ÊÇ·ñ¼ÌĞøÉú³ÉÔ­°æ¹Ş×Ó¡£
-class VaseBreakerPopulateEvent : public DLLEvent
+/// @brief ç ¸ç½æ¨¡å¼ç”Ÿæˆç½å­äº‹ä»¶ã€‚
+/// @note äº‹ä»¶è§¦å‘æ—¶ç½å­å°šæœªç”Ÿæˆã€‚
+/// @param è§¦å‘äº‹ä»¶çš„ Challengeã€‚
+/// @return æ˜¯å¦ç»§ç»­ç”ŸæˆåŸç‰ˆç½å­ã€‚
+class VaseBreakerPopulateEvent : public BoolDLLEventTemplate<0x4286F0, 6, 0x4294FA, REG_ESI>
 {
 public:
-	VaseBreakerPopulateEvent();
+	VaseBreakerPopulateEvent(const char* str) : BoolDLLEventTemplate() { Init(str); };
+	VaseBreakerPopulateEvent(int address) : BoolDLLEventTemplate() { Init(address); };
+	VaseBreakerPopulateEvent() : BoolDLLEventTemplate() { Init("onVaseBreakerPopulate"); };
 };
-
-VaseBreakerPopulateEvent::VaseBreakerPopulateEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onVaseBreakerPopulate");
-	hookAddress = 0x4286F0;
-	rawlen = 6;
-	BYTE code[] =
-	{
-		PUSH_ESI,
-		INVOKE(procAddress),
-		ADD_ESP(4),
-		TEST_AL_AL,
-		JNZ(2),
-		POPAD,
-		RET,
-	};
-	start(STRING(code));
-}
