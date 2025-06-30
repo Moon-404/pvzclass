@@ -1,22 +1,12 @@
 #pragma once
 #include "DLLEvent.h"
 
-class IZScoreBrainEvent : public DLLEvent
+/// @brief IZ 中，获得脑子积分的事件
+/// @param 触发事件的 IZBrain
+class IZScoreBrainEvent : public DLLEventTemplate<0x42B8B3, 6, REG_EBX>
 {
 public:
-	IZScoreBrainEvent();
+	IZScoreBrainEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	IZScoreBrainEvent(int address) : DLLEventTemplate() { Init(address); };
+	IZScoreBrainEvent() : DLLEventTemplate() { Init("onIZScoreBrain"); };
 };
-
-IZScoreBrainEvent::IZScoreBrainEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onIZScoreBrain");
-	hookAddress = 0x42B8B3;
-	rawlen = 6;
-	BYTE code[] =
-	{
-		PUSH_EBX,
-		INVOKE(procAddress),
-		ADD_ESP(4)
-	};
-	start(STRING(code));
-}
