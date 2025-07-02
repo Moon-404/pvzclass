@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Enums.h"
 #include "Flags.h"
 #include "AsmFunctions.h"
@@ -1156,9 +1156,9 @@ namespace PVZ
 		static const DWORD MemSize = 0x48;
 		LawnMower(int indexoraddress);
 		/// @brief X 坐标
-		INT_PROPERTY(X, __get_X, __set_X, 8);
+		T_PROPERTY(FLOAT, X, __get_X, __set_X, 8);
 		/// @brief Y 坐标
-		INT_PROPERTY(Y, __get_Y, __set_Y, 0xC);
+		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0xC);
 		/// @brief 绘制图层编号
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x10);
 		/// @brief 行
