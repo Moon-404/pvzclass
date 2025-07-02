@@ -1,20 +1,12 @@
 #pragma once
 #include "DLLEvent.h"
 
-// 解谜关卡完成事件
-// 参数：触发事件时的 Challenge
-// 无返回值
-class PuzzlePhaseCompleteEvent : public DLLEvent
+/// @brief 瑙ｈ皽鍏冲崱瀹屾垚浜嬩欢
+/// @param 瑙﹀彂浜嬩欢鏃剁殑 Challenge
+class PuzzlePhaseCompleteEvent : public DLLEventTemplate<0x429980, 6, REG_ECX>
 {
 public:
-	PuzzlePhaseCompleteEvent();
+	PuzzlePhaseCompleteEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	PuzzlePhaseCompleteEvent(int address) : DLLEventTemplate() { Init(address); };
+	PuzzlePhaseCompleteEvent() : DLLEventTemplate() { Init("onPuzzlePhaseComplete"); };
 };
-
-PuzzlePhaseCompleteEvent::PuzzlePhaseCompleteEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onPuzzlePhaseComplete");
-	hookAddress = 0x429980;
-	rawlen = 6;
-	BYTE code[] = { PUSH_ECX, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
-}

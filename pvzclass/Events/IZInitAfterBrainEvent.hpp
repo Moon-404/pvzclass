@@ -1,22 +1,14 @@
 #pragma once
 #include "DLLEvent.h"
 
-// IZ ¹Ø¿¨³õÊ¼»¯ÊÂ¼ş
-// ´ËÊ±ÄÔ×ÓÉú³ÉÒÑÍê³É£¬µ«Ö²ÎïÉĞÎ´·ÅÖÃ¡£
-// ²ÎÊı£º´¥·¢ÊÂ¼şµÄ Challenge
-// ·µ»ØÖµ£ºÊÇ·ñÉú³É¹Ø¿¨Ä¬ÈÏÉú³ÉµÄÖ²Îï
-class IZInitAfterBrainEvent : public DLLEvent
+/// @brief IZ å…³å¡åˆå§‹åŒ–äº‹ä»¶
+/// @note æ­¤æ—¶è„‘å­ç”Ÿæˆå·²å®Œæˆï¼Œä½†æ¤ç‰©å°šæœªæ”¾ç½®ã€‚
+/// @param è§¦å‘äº‹ä»¶çš„ Challenge
+/// @return æ˜¯å¦ç”Ÿæˆå…³å¡é»˜è®¤ç”Ÿæˆçš„æ¤ç‰©
+class IZInitAfterBrainEvent : public BoolDLLEventTemplate<0x42A981, 6, 0x42B277, REG_EDI>
 {
 public:
-	IZInitAfterBrainEvent();
+	IZInitAfterBrainEvent(const char* str) : BoolDLLEventTemplate() { Init(str); };
+	IZInitAfterBrainEvent(int address) : BoolDLLEventTemplate() { Init(address); };
+	IZInitAfterBrainEvent() : BoolDLLEventTemplate() { Init("onIZInitAfterBrain"); };
 };
-
-IZInitAfterBrainEvent::IZInitAfterBrainEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onIZInitAfterBrain");
-	hookAddress = 0x42A981;
-	rawlen = 6;
-	BYTE code[] = { PUSH_EDI, INVOKE(procAddress), ADD_ESP(4), TEST_AL_AL, JNZ(8), POPAD, MOV_EDX(0x42B277), 0xFF, 0XE2};
-	start(STRING(code));
-}
-#pragma once
