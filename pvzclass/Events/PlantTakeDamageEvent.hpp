@@ -40,38 +40,86 @@ public:
 /// @brief 植物受到子弹伤害事件。
 /// @param 依次为：植物地址、子弹地址、子弹的 GameObjectType、伤害数值（非引用）
 /// @return 调整后的伤害数值，负数会取消伤害。
-class PlantTakeProjectileDamageEvent : public DLLEvent
+class PlantTakeProjectileDamageEvent
 {
+private:
+	class Part1 : public DLLEvent
+	{
+	public:
+		Part1(int address)
+		{
+			hookAddress = 0x46CFEB;
+			rawlen = 6;
+			BYTE code[] =
+			{
+				PUSH_EAX,
+
+				PUSH_EDX,
+				PUSHDWORD(GameObjectType::OBJECT_TYPE_PROJECTILE),
+				PUSH_EBP,
+				PUSH_EAX,
+				INVOKE(address),
+
+				ADD_ESP(16),
+				TEST_EUX_EVX(REG_EAX, REG_EAX),
+				POP_EUX(REG_ECX),
+				JS(12),
+
+				0xF7, 0xD8,
+				ADD_PTR_EUX_ADD_V_EVX(REG_ECX, 0x40, REG_EAX),
+				POPAD,
+				JMP(12),
+
+				POPAD,
+				MOV_ECX(0x46CFFE),
+				JMP_REG32(REG_ECX),
+			};
+			start(STRING(code));
+		}
+	} *part1;
+	class Part2 : public DLLEvent
+	{
+	public:
+		Part2(int address)
+		{
+			hookAddress = 0x46D7A6;
+			rawlen = 6;
+			BYTE code[] =
+			{
+				PUSH_ECX,
+				PUSHDWORD(GameObjectType::OBJECT_TYPE_PROJECTILE),
+				PUSH_EBP,
+				PUSH_ESI,
+				INVOKE(address),
+
+				ADD_ESP(16),
+				TEST_EUX_EVX(REG_EAX, REG_EAX),
+				JS(12),
+
+				0xF7, 0xD8,
+				ADD_PTR_EUX_ADD_V_EVX(REG_ESI, 0x40, REG_EAX),
+				POPAD,
+				JMP(12),
+
+				POPAD,
+				MOV_ECX(0x46CFFE),
+				JMP_REG32(REG_ECX),
+			};
+			start(STRING(code));
+		}
+	} *part2;
 public:
 	PlantTakeProjectileDamageEvent() : PlantTakeProjectileDamageEvent("onPlantTakeProjectileDamage") {};
 	PlantTakeProjectileDamageEvent(const char* name) : PlantTakeProjectileDamageEvent(PVZ::Memory::GetProcAddress(name)) {};
 	PlantTakeProjectileDamageEvent(int address)
 	{
-		hookAddress = 0x46CFEB;
-		rawlen = 6;
-		BYTE code[] =
-		{
-			PUSH_EAX,
-
-			PUSH_EDX,
-			PUSHDWORD(GameObjectType::OBJECT_TYPE_PROJECTILE),
-			PUSH_EBP,
-			PUSH_EAX,
-			INVOKE(address),
-
-			ADD_ESP(16),
-			TEST_EUX_EVX(REG_EAX, REG_EAX),
-			POP_EUX(REG_ECX),
-			JS(5),
-
-			0xF7, 0xD8,
-			ADD_PTR_EUX_ADD_V_EVX(REG_ECX, 0x40, REG_EAX),
-
-			POPAD,
-			MOV_ECX(0x46CFFE),
-			JMP_REG32(REG_ECX),
-		};
-		start(STRING(code));
+		part1 = new Part1(address);
+		part2 = new Part2(address);
+	}
+	void end()
+	{
+		part1->end();
+		part2->end();
 	}
 };
 
