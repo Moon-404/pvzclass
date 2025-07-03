@@ -159,9 +159,9 @@ public:
 	}
 };
 
-// 植物受伤事件。
-// 复合事件。
-// 此事件不考虑 IZ 模式下的双倍伤害。若要手动避免，请另行结算后取消伤害，
+/// @brief 植物受伤事件。
+/// @note 复合事件。
+/// @note 此事件不考虑 IZ 模式下的双倍伤害。若要手动避免，请另行结算后取消伤害，
 /// @param 依次为：植物地址、伤害来源地址（可能为空）、伤害来源的 GameObjectType、伤害数值（非引用）
 /// @return 调整后的伤害数值，负数会取消伤害。
 class PlantTakeDamageEvent
@@ -171,11 +171,13 @@ private:
 	PlantTakeProjectileDamageEvent* ptej_event;
 	SpikeRockTakeDamageEvent* srtd_event;
 public:
-	PlantTakeDamageEvent()
+	PlantTakeDamageEvent() : PlantTakeDamageEvent("onPlantTakeDamage") {};
+	PlantTakeDamageEvent(const char* name) : PlantTakeDamageEvent(PVZ::Memory::GetProcAddress(name)) {};
+	PlantTakeDamageEvent(int address)
 	{
-		pted_event = new PlantTakeEatDamageEvent("onPlantTakeDamage");
-		ptej_event = new PlantTakeProjectileDamageEvent("onPlantTakeDamage");
-		srtd_event = new SpikeRockTakeDamageEvent("onPlantTakeDamage");
+		pted_event = new PlantTakeEatDamageEvent(address);
+		ptej_event = new PlantTakeProjectileDamageEvent(address);
+		srtd_event = new SpikeRockTakeDamageEvent(address);
 	}
 	void end()
 	{
