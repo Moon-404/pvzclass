@@ -37,50 +37,43 @@ public:
 	}
 };
 
-// 植物受到子弹伤害事件。
+/// @brief 植物受到子弹伤害事件。
 /// @param 依次为：植物地址、子弹地址、子弹的 GameObjectType、伤害数值（非引用）
 /// @return 调整后的伤害数值，负数会取消伤害。
 class PlantTakeProjectileDamageEvent : public DLLEvent
 {
 public:
-	PlantTakeProjectileDamageEvent();
-	PlantTakeProjectileDamageEvent(const char* name);
-};
-
-PlantTakeProjectileDamageEvent::PlantTakeProjectileDamageEvent()
-{
-	PlantTakeProjectileDamageEvent::PlantTakeProjectileDamageEvent("onPlantTakeProjectileDamage");
-}
-
-PlantTakeProjectileDamageEvent::PlantTakeProjectileDamageEvent(const char* name)
-{
-	DWORD procAddress = PVZ::Memory::GetProcAddress(name);
-	hookAddress = 0x46CFEB;
-	rawlen = 6;
-	BYTE code[] =
+	PlantTakeProjectileDamageEvent() : PlantTakeProjectileDamageEvent("onPlantTakeProjectileDamage") {};
+	PlantTakeProjectileDamageEvent(const char* name) : PlantTakeProjectileDamageEvent(PVZ::Memory::GetProcAddress(name)) {};
+	PlantTakeProjectileDamageEvent(int address)
 	{
-		PUSH_EAX,
+		hookAddress = 0x46CFEB;
+		rawlen = 6;
+		BYTE code[] =
+		{
+			PUSH_EAX,
 
-		PUSH_EDX,
-		PUSHDWORD(GameObjectType::OBJECT_TYPE_PROJECTILE),
-		PUSH_EBP,
-		PUSH_EAX,
-		INVOKE(procAddress),
+			PUSH_EDX,
+			PUSHDWORD(GameObjectType::OBJECT_TYPE_PROJECTILE),
+			PUSH_EBP,
+			PUSH_EAX,
+			INVOKE(address),
 
-		ADD_ESP(16),
-		TEST_EUX_EVX(REG_EAX, REG_EAX),
-		POP_EUX(REG_ECX),
-		JS(5),
+			ADD_ESP(16),
+			TEST_EUX_EVX(REG_EAX, REG_EAX),
+			POP_EUX(REG_ECX),
+			JS(5),
 
-		0xF7, 0xD8,
-		ADD_PTR_EUX_ADD_V_EVX(REG_ECX, 0x40, REG_EAX),
+			0xF7, 0xD8,
+			ADD_PTR_EUX_ADD_V_EVX(REG_ECX, 0x40, REG_EAX),
 
-		POPAD,
-		MOV_ECX(0x46CFFE),
-		JMP_REG32(REG_ECX),
-	};
-	start(STRING(code));
-}
+			POPAD,
+			MOV_ECX(0x46CFFE),
+			JMP_REG32(REG_ECX),
+		};
+		start(STRING(code));
+	}
+};
 
 // 钢地刺因车辆、碾压等受伤事件。
 /// @param 依次为：植物地址、0、GameObjectType::None、伤害数值（非引用）
