@@ -1,31 +1,14 @@
 #pragma once
 #include "DLLEvent.h"
 
-// Ğ¡ÍÆ³µ¸üĞÂÊÂ¼ş¡£
-// Ê±»úÉÏÏÈÓÚÔ­°æ¸üĞÂËùÓĞ²Ù×÷¡£
-/// @param ´¥·¢ÊÂ¼şµÄĞ¡ÍÆ³µµÄ»ùÖ·¡£
-/// @return ÊÇ·ñ¼ÌĞø½áËãÔ­°æ¸üĞÂ¡£
-class LawnmowerUpdateEvent : public DLLEvent
+/// @brief å°æ¨è½¦æ›´æ–°äº‹ä»¶ã€‚
+/// @note æ—¶æœºä¸Šå…ˆäºåŸç‰ˆæ›´æ–°æ‰€æœ‰æ“ä½œã€‚
+/// @param è§¦å‘äº‹ä»¶çš„å°æ¨è½¦çš„åŸºå€ã€‚
+/// @return æ˜¯å¦ç»§ç»­ç»“ç®—åŸç‰ˆæ›´æ–°ã€‚
+class LawnmowerUpdateEvent : public BoolDLLEventTemplate<0x4586E0, 5, 0x45870F, MEM_ESP_ADD(0x24)>
 {
 public:
-	LawnmowerUpdateEvent();
+	LawnmowerUpdateEvent(const char* str) : BoolDLLEventTemplate() { Init(str); };
+	LawnmowerUpdateEvent(int address) : BoolDLLEventTemplate() { Init(address); };
+	LawnmowerUpdateEvent() : BoolDLLEventTemplate() { Init("onLawnmowerUpdate"); };
 };
-
-LawnmowerUpdateEvent::LawnmowerUpdateEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onLawnmowerUpdate");
-	hookAddress = 0x4586E0;
-	rawlen = 5;
-	BYTE code[] =
-	{
-		PUSH_PTR_ESP_ADD_V(0x24),
-		INVOKE(procAddress),
-		ADD_ESP(4),
-
-		TEST_AL_AL,
-		JNZ(4),
-		POPAD,
-		RETN(4)
-	};
-	start(STRING(code));
-}
