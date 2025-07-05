@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "../PVZ.h"
 #include <array>
 #include <iostream>
@@ -173,5 +173,42 @@ protected:
 
 		if (_Exit)
 			builder.ret();
+	}
+};
+
+/// @brief DLLEvent 的扩展，用于快速设置一个事件，其结算函数的返回值为基址。若返回空指针，则按原本的方法获取基址。
+/// @tparam _Hook_Address 原始代码的首地址
+/// @tparam _Raw_Len 替代的原始代码长度
+/// @tparam _Out_Param 若没有跳转，存储获取的值的位置（立即数取值会变为立即数寻址）
+/// @tparam _Out_Offset 若没有跳转，则为取值时的偏移大小
+/// @tparam ...Params 结算函数的参数来源。顺序为 push 顺序（即参数列表反序）
+template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD _Out_Param, DWORD _Out_Offset, DWORD ...Params>
+class BaseAddressEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
+{
+protected:
+	virtual void InitExtra(AsmBuilder& builder)
+	{
+		builder.test_reg_reg(REG_EAX, REG_EAX);
+
+		if (_Out_Param < MEM_ESP_ADD_MASK)
+		{
+			builder.jl_rel(12);
+			builder.mov_reg_mem_reg_add_imm32(_Out_Param, REG_EAX, _Out_Offset);
+			builder.popad().jmp_rel(_Raw_Len + 1);
+		}
+		else if (_Out_Param < CONST_VAL_MASK)
+		{
+			builder.jl_rel(16);
+			builder.mov_reg_mem_reg_add_imm32(REG_EAX, REG_EAX, _Out_Offset)
+				.mov_mem_esp_add_imm8_reg(_Out_Param, REG_EAX);
+			builder.popad().jmp_rel(_Raw_Len + 1);
+		}
+		else
+		{
+			builder.jl_rel(18);
+			builder.mov_reg_mem_reg_add_imm32(REG_EAX, REG_EAX, _Out_Offset)
+				.mov_mem_reg(_Out_Param, REG_EAX);
+			builder.popad().jmp_rel(_Raw_Len + 1);
+		}
 	}
 };
