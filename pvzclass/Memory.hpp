@@ -231,14 +231,14 @@ namespace PVZ
 /// @param getmethod 读方法的名称
 /// @param setmethod 写方法的名称
 /// @param offset 相对基址的偏移
-#define INT_PROPERTY(propname,getmethod,setmethod,offset) PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset),setmethod,Memory::WriteMemory<int>(BaseAddress+offset,value)) propname
+#define INT_PROPERTY(propname,getmethod,setmethod,offset) PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset),setmethod,Memory::WriteMemoryUnsafe<int>(BaseAddress+offset,value)) propname
 /// @brief INT_PROPERTY 宏的只读版本，不允许写操作。
 /// @see INT_PROPERTY
 #define INT_READONLY_PROPERTY(propname,getmethod,offset) READONLY_PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset)) propname
 /// @brief 与 INT_PROPERTY 类似，不过它可以表示任何类型的属性。
 /// @param type 属性类型。
 /// @see INT_PROPERTY
-#define T_PROPERTY(type,propname,getmethod,setmethod,offset) PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset),setmethod,Memory::WriteMemory<type>(BaseAddress+offset,value)) propname
+#define T_PROPERTY(type,propname,getmethod,setmethod,offset) PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset),setmethod,Memory::WriteMemoryUnsafe<type>(BaseAddress+offset,value)) propname
 /// @brief T_PROPERTY 宏的只读版本，不允许写操作。
 /// @see T_PROPERTY
 #define T_READONLY_PROPERTY(type,propname,getmethod,offset) READONLY_PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset)) propname
@@ -251,7 +251,7 @@ namespace PVZ
 #define INT_ARRAY_PROPERTY(getmethod,setmethod,offset) inline int getmethod(int index) \
 	{ return Memory::ReadMemory<int>(BaseAddress+offset+index*4); } \
 	inline void setmethod(int index, int value) \
-	{ Memory::WriteMemory<int>(BaseAddress+offset+index*4, value); }
+	{ Memory::WriteMemoryUnsafe<int>(BaseAddress+offset+index*4, value); }
 
 /// @brief 类似 INT_ARRAY_PROPERTY，只是此宏支持其他类型。
 /// @see INT_ARRAY_PROPERTY
@@ -260,4 +260,4 @@ namespace PVZ
 #define T_ARRAY_PROPERTY(type,getmethod,setmethod,offset,size) inline type getmethod(int index) \
 	{ return Memory::ReadMemory<type>(BaseAddress+offset+index*size); } \
 	inline void setmethod(int index, type value) \
-	{ Memory::WriteMemory<type>(BaseAddress+offset+index*size, value); }
+	{ Memory::WriteMemoryUnsafe<type>(BaseAddress+offset+index*size, value); }
