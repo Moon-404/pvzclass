@@ -41,7 +41,7 @@ private:
 /// @tparam _Hook_Address 原始代码的首地址
 /// @tparam _Raw_Len 替代的原始代码长度
 /// @tparam ...Params 结算函数的参数来源。顺序为 push 顺序（即参数列表反序）
-template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD ...Params>
+template<DWORD _Hook_Address, uint8_t _Raw_Len, DWORD ...Params>
 class DLLEventTemplate : public DLLEvent
 {
 protected:
@@ -81,7 +81,7 @@ public:
 /// @tparam _Raw_Len 替代的原始代码长度
 /// @tparam _Cancel_Addr 若返回值为 false，则会在清栈后向此地址跳转
 /// @tparam ...Params 结算函数的参数来源。顺序为 push 顺序（即参数列表反序）
-template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD _Cancel_Addr, DWORD ...Params>
+template<DWORD _Hook_Address, uint8_t _Raw_Len, DWORD _Cancel_Addr, DWORD ...Params>
 class BoolDLLEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
 {
 protected:
@@ -96,7 +96,7 @@ protected:
 /// @tparam _Raw_Len 替代的原始代码长度
 /// @tparam _Cancel_Addr 若返回值为 true，则会在清栈后向此地址跳转
 /// @tparam ...Params 结算函数的参数来源。顺序为 push 顺序（即参数列表反序）
-template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD _Cancel_Addr, DWORD ...Params>
+template<DWORD _Hook_Address, uint8_t _Raw_Len, DWORD _Cancel_Addr, DWORD ...Params>
 class TrueDLLEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
 {
 protected:
@@ -115,7 +115,7 @@ protected:
 /// @tparam _Lower_Bound 接受的返回值的下界
 /// @tparam _Exit 存储返回值后，是否直接 ret
 /// @tparam ...Params 结算函数的参数来源。顺序为 push 顺序（即参数列表反序）
-template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD _Cancel_Addr, int _Cancel_val,
+template<DWORD _Hook_Address, uint8_t _Raw_Len, DWORD _Cancel_Addr, int _Cancel_val,
 	int _Lower_Bound, DWORD _Out_Param, bool _Exit, DWORD ...Params>
 class IntDLLEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
 {
@@ -148,7 +148,7 @@ protected:
 		if (_Exit)
 			builder.ret();
 		else
-			builder.jmp_rel8((uint8_t)_Raw_Len + 1);
+			builder.jmp_rel8(_Raw_Len + 1);
 	}
 };
 
@@ -158,7 +158,7 @@ protected:
 /// @tparam _Out_Param 存储返回值的位置（立即数取值会变为立即数寻址）。0~7的数值会视为 ST 寄存器，而不是常规 32 位寄存器。
 /// @tparam _Exit 存储返回值后，是否直接 ret
 /// @tparam ...Params 结算函数的参数来源。顺序为 push 顺序（即参数列表反序）
-template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD _Out_Param, bool _Exit, DWORD ...Params>
+template<DWORD _Hook_Address, uint8_t _Raw_Len, DWORD _Out_Param, bool _Exit, DWORD ...Params>
 class FloatDLLEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
 {
 protected:
@@ -182,7 +182,7 @@ protected:
 /// @tparam _Out_Param 若没有跳转，存储获取的值的位置（立即数取值会变为立即数寻址）
 /// @tparam _Out_Offset 若没有跳转，则为取值时的偏移大小
 /// @tparam ...Params 结算函数的参数来源。顺序为 push 顺序（即参数列表反序）
-template<DWORD _Hook_Address, DWORD _Raw_Len, DWORD _Out_Param, DWORD _Out_Offset, DWORD ...Params>
+template<DWORD _Hook_Address, uint8_t _Raw_Len, DWORD _Out_Param, DWORD _Out_Offset, DWORD ...Params>
 class BaseAddressEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
 {
 protected:
@@ -192,23 +192,23 @@ protected:
 
 		if (_Out_Param < MEM_ESP_ADD_MASK)
 		{
-			builder.jl_rel(12);
+			builder.jl_rel(9);
 			builder.mov_reg_mem_reg_add_imm32(_Out_Param, REG_EAX, _Out_Offset);
-			builder.popad().jmp_rel(_Raw_Len + 1);
+			builder.popad().jmp_rel8(_Raw_Len + 1);
 		}
 		else if (_Out_Param < CONST_VAL_MASK)
 		{
-			builder.jl_rel(16);
+			builder.jl_rel(13);
 			builder.mov_reg_mem_reg_add_imm32(REG_EAX, REG_EAX, _Out_Offset)
 				.mov_mem_esp_add_imm8_reg(_Out_Param, REG_EAX);
-			builder.popad().jmp_rel(_Raw_Len + 1);
+			builder.popad().jmp_rel8(_Raw_Len + 1);
 		}
 		else
 		{
-			builder.jl_rel(18);
+			builder.jl_rel(15);
 			builder.mov_reg_mem_reg_add_imm32(REG_EAX, REG_EAX, _Out_Offset)
 				.mov_mem_reg(_Out_Param, REG_EAX);
-			builder.popad().jmp_rel(_Raw_Len + 1);
+			builder.popad().jmp_rel8(_Raw_Len + 1);
 		}
 	}
 };
