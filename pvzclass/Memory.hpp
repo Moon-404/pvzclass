@@ -243,6 +243,13 @@ namespace PVZ
 /// @see T_PROPERTY
 #define T_READONLY_PROPERTY(type,propname,getmethod,offset) READONLY_PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset)) propname
 
+/// @brief 与 INT_PROPERTY 类似，只是写操作使用 WriteMemory() ，而不是 WriteMemoryUnsafe() 。
+/// @see INT_PROPERTY
+#define INT_SAFE_PROPERTY(propname,getmethod,setmethod,offset) PROPERTY_BINDING(int,getmethod,Memory::ReadMemory<int>(BaseAddress+offset),setmethod,Memory::WriteMemory<int>(BaseAddress+offset,value)) propname
+/// @brief 与 T_PROPERTY 类似，只是写操作使用 WriteMemory() ，而不是 WriteMemoryUnsafe() 。
+/// @see T_PROPERTY
+#define T_SAFE_PROPERTY(type,propname,getmethod,setmethod,offset) PROPERTY_BINDING(type,getmethod,Memory::ReadMemory<type>(BaseAddress+offset),setmethod,Memory::WriteMemory<type>(BaseAddress+offset,value)) propname
+
 /// @brief 用来简化声明读写 32 位有符号整数数组元素函数的宏。\n
 /// @note 该宏实际上并不创造真的数组，也没有提供类似 T_PROPERTY 的定义，只是把读写函数绑在一起而已。
 /// @param getmethod 读方法的名称
