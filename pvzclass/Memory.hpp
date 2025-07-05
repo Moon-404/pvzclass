@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 /// @file Memory.hpp
 /// @brief 包含读写 PVZ 本体内存，以及其他内存操作的若干函数和宏定义。
 
@@ -55,6 +55,25 @@ namespace PVZ
 				T buffer = (T)NULL;
 				ReadProcessMemory(hProcess, (LPCVOID)address, &buffer, sizeof(T), NULL);
 				return buffer;
+			}
+		};
+		/// @brief 将数据写入 PVZ 程序指定地址。在 localExecute 为 true 时，忽略权限设置。
+		/// @tparam T 数据类型
+		/// @param address 写入数据的内存地址
+		/// @param value 写入的数值
+		/// @return 写入是否成功
+		template <class T>
+		inline static BOOL WriteMemoryUnsafe(DWORD address, T value)
+		{
+			if (localExecute)
+			{
+				T* buffer = (T*)address;
+				*buffer = value;
+				return true;
+			}
+			else
+			{
+				return WriteProcessMemory(hProcess, (LPVOID)address, &value, sizeof(T), NULL);
 			}
 		};
 		/// @brief 将数据写入 PVZ 程序指定地址
