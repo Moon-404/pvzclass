@@ -102,7 +102,7 @@ namespace PVZ
 		int Page;
 		int Row;
 		int Column;
-		char* Name;
+		const char* Name;
 
 		/// @brief 重新定位默认挑战定义的基址，并将旧基址的所有旧内容复制到新基址上。
 		/// @param baseaddress 主程序中的新基址
