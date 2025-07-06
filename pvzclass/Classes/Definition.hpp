@@ -92,4 +92,21 @@ namespace PVZ
 	/// @param mode 关卡类型
 	/// @return 该关卡对应的 ProjectileDefinition
 	ChallengeDefinition GetChallengeDefinition(PVZLevel::PVZLevel mode);
+
+	/// @brief 挑战定义类，但是每个成员变量都用内存空间存储。
+	class ChallengeDef
+	{
+	public:
+		PVZLevel::PVZLevel Mode;
+		int IconIndex;
+		int Page;
+		int Row;
+		int Column;
+		char* Name;
+
+		/// @brief 重新定位默认挑战定义的基址，并将旧基址的所有旧内容复制到新基址上。
+		/// @param baseaddress 主程序中的新基址
+		/// @param num 挑战定义总数。必须大于等于 72 。
+		static void Reposition(DWORD baseaddress, DWORD num = 72);
+	};
 }
