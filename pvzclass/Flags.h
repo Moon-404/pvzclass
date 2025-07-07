@@ -1,6 +1,6 @@
 ﻿namespace PVZ
 {
-#pragma region DamageRangeFlags
+	#pragma region DamageRangeFlags
 
 	/// @brief 判定僵尸是否符合指定条件的标志位，以 DRF 开头。
 	typedef unsigned char DamageRangeFlags;
@@ -28,7 +28,7 @@
 	/// @brief 全体被魅惑的僵尸。
 	const DamageRangeFlags DRF_ALL_HYPNOTIZED = DRF_HYPNOTIZED | DRF_ALL;
 
-#pragma endregion
+	#pragma endregion
 
 	/// @brief 判定对僵尸伤害是否具有某种特效的标志位，以 DAMAGEF 开头。
 	enum DamageFlags

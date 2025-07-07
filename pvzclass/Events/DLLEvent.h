@@ -125,7 +125,6 @@ protected:
 		if (_Cancel_Addr)
 			builder.cmp_reg_imm(REG_EAX, _Cancel_val).jne_rel(7).popad().push_imm32(_Cancel_Addr).ret();
 
-
 		if (_Out_Param < MEM_ESP_ADD_MASK)
 		{
 			if (_Lower_Bound > INT32_MIN)
