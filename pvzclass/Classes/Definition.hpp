@@ -105,8 +105,9 @@ namespace PVZ
 		const char* Name;
 
 		/// @brief 重新定位默认挑战定义的基址，并将旧基址的所有旧内容复制到新基址上。
+		/// @attention 调用该函数会导致 GetChallengeDefinition() ，以及 ChallengeScreen 的 ChallengeButton 失效。
 		/// @param baseaddress 主程序中的新基址
-		/// @param num 挑战定义总数。必须大于等于 72 。
-		static void Reposition(DWORD baseaddress, DWORD num = 72);
+		/// @param num 挑战定义总数。必须大于等于 72 且小于等于 100，且为 6 的倍数。
+		static void Reposition(DWORD baseaddress, uint8_t num = 72);
 	};
 }

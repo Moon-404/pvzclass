@@ -40,7 +40,7 @@ PVZ::ChallengeDefinition PVZ::GetChallengeDefinition(PVZLevel::PVZLevel mode)
 	return ChallengeDefinition(mode);
 }
 
-void PVZ::ChallengeDef::Reposition(DWORD baseaddress, DWORD num)
+void PVZ::ChallengeDef::Reposition(DWORD baseaddress, uint8_t num)
 {
 	if (PVZ::Memory::localExecute)
 		PVZ::Memory::WriteArray<ChallengeDef>(baseaddress, (ChallengeDef*)0x6A2BA0, 72 * sizeof(ChallengeDef));
@@ -81,4 +81,24 @@ void PVZ::ChallengeDef::Reposition(DWORD baseaddress, DWORD num)
 	PVZ::Memory::WriteMemory<DWORD>(0x42E5D1, baseaddress + num * sizeof(ChallengeDef));
 	PVZ::Memory::WriteMemory<DWORD>(0x42F963, baseaddress + num * sizeof(ChallengeDef));
 	PVZ::Memory::WriteMemory<DWORD>(0x455C08, baseaddress + num * sizeof(ChallengeDef));
+
+	PVZ::Memory::WriteMemory<DWORD>(0x42E066, baseaddress + 8 + num * sizeof(ChallengeDef));
+
+	PVZ::Memory::WriteMemory<DWORD>(0x42E7C9, baseaddress + 0x20 + num * sizeof(ChallengeDef));
+
+	PVZ::Memory::WriteMemory<DWORD>(0x44FC47, 0x1E4 + 4 * num);
+
+	PVZ::Memory::WriteMemory<DWORD>(0x42DF75, 0x1E4);
+	PVZ::Memory::WriteMemory<DWORD>(0x42E2EB, 0x1E4);
+	PVZ::Memory::WriteMemory<uint8_t>(0x42E2F0, num);
+	PVZ::Memory::WriteMemory<DWORD>(0x42E957, 0x1E4);
+	PVZ::Memory::WriteMemory<DWORD>(0x42F661, 0x1E4);
+	PVZ::Memory::WriteMemory<uint8_t>(0x42F666, num);
+	PVZ::Memory::WriteMemory<DWORD>(0x42F6D1, 0x1E4);
+	PVZ::Memory::WriteMemory<uint8_t>(0x42F6D6, num);
+	PVZ::Memory::WriteMemory<DWORD>(0x42E726, 0x1E8);
+	PVZ::Memory::WriteMemory<DWORD>(0x42F826, 0x1E4);
+
+	PVZ::Memory::WriteMemory<uint8_t>(0x42F4E1, num);
+	PVZ::Memory::WriteMemory<uint8_t>(0x42F79D, num - 1);
 }
