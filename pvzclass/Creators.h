@@ -130,7 +130,7 @@ namespace Creator
 
 	/// @brief 在指定位置生成一个包含指定内容物的罐子
 	/// @param row 行
-	/// @param column 列 
+	/// @param column 列
 	/// @param content 罐子内容物状态
 	/// @param skin 罐子外观
 	/// @param zombie 僵尸类型
@@ -195,7 +195,7 @@ namespace Creator
 	/// @param length 字符串长度
 	void CreateImageCaption(const char* str, int length);
 
-	/// @deprecated 
+	/// @deprecated
 	void CreatePlantEffect(PlantEffectType::PlantEffectType type, int x, int y);
 
 	/// @brief 在指定位置生成爆炸

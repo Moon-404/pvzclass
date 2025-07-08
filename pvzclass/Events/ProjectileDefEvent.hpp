@@ -29,7 +29,7 @@ namespace PVZEvent
 		};
 		class DamagePart2 : public DLLEvent
 		{
-		public: 
+		public:
 			DamagePart2(int address)
 			{
 				hookAddress = 0x46D468;
