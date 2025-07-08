@@ -1,21 +1,13 @@
 #pragma once
 #include "DLLEvent.h"
 
-// Coin消失事件
-// 参数：消失的Coin
-// 无返回值
-// Coin消失原因很多：被收集后、时间到了等都会使其消失
-class CoinRemoveEvent : public DLLEvent
+/// @brief Coin娑堝け浜嬩欢
+/// @param 娑堝け鐨凜oin
+/// @note Coin娑堝け鍘熷洜寰堝锛氳鏀堕泦鍚庛�佹椂闂村埌浜嗙瓑閮戒細浣垮叾娑堝け
+class CoinRemoveEvent : public DLLEventTemplate<0x432DD0, 7, REG_ESI>
 {
 public:
-	CoinRemoveEvent();
+	CoinRemoveEvent() : CoinRemoveEvent("onCoinRemove") {};
+	CoinRemoveEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	CoinRemoveEvent(int address) : DLLEventTemplate() { Init(address); };
 };
-
-CoinRemoveEvent::CoinRemoveEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onCoinRemove");
-	hookAddress = 0x432DD0;
-	rawlen = 7;
-	BYTE code[] = { PUSH_ESI, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
-}

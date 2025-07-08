@@ -1,33 +1,14 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ÎïÆ·±»µã»÷ÊÂ¼ş¡£
-// ÒÑÊÕ¼¯µÄÎïÆ·¿ÉÒÔÔÙ´Î´¥·¢´ËÊÂ¼ş£¬×¢Òâ¹ıÂË¡£
-/// @param ÒÀ´ÎÎª£º´¥·¢ÊÂ¼şµÄÎïÆ·¡¢µã»÷´ÎÊı¡£
-/// @return ÊÇ·ñ¼ÌĞø½áËãÔ­°æ¹ı³Ì¡£
-class CoinMouseDownEvent : public DLLEvent
+/// @brief ç‰©å“è¢«ç‚¹å‡»äº‹ä»¶ã€‚
+/// @note å·²æ”¶é›†çš„ç‰©å“å¯ä»¥å†æ¬¡è§¦å‘æ­¤äº‹ä»¶ï¼Œæ³¨æ„è¿‡æ»¤ã€‚
+/// @param ä¾æ¬¡ä¸ºï¼šè§¦å‘äº‹ä»¶çš„ç‰©å“ã€ç‚¹å‡»æ¬¡æ•°ã€‚
+/// @return æ˜¯å¦ç»§ç»­ç»“ç®—åŸç‰ˆè¿‡ç¨‹ã€‚
+class CoinMouseDownEvent : public BoolDLLEventTemplate<0x432C47, 5, 0x432DBA, MEM_ESP_ADD(0x7C), REG_ESI>
 {
 public:
-	CoinMouseDownEvent();
+	CoinMouseDownEvent() : CoinMouseDownEvent("onCoinMouseDown") {};
+	CoinMouseDownEvent(const char* str) : BoolDLLEventTemplate() { Init(str); };
+	CoinMouseDownEvent(int address) : BoolDLLEventTemplate() { Init(address); };
 };
-
-CoinMouseDownEvent::CoinMouseDownEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onCoinMouseDown");
-	hookAddress = 0x432C47;
-	rawlen = 5;
-	BYTE code[] =
-	{
-		PUSH_PTR_ESP_ADD_V(0x7C),
-		PUSH_ESI,
-		INVOKE(procAddress),
-		ADD_ESP(8),
-
-		TEST_AL_AL,
-		JNZ(8),
-		POPAD,
-		MOV_ECX(0x432DBA),
-		JMP_REG32(REG_ECX)
-	};
-	start(STRING(code));
-}

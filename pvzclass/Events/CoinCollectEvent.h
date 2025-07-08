@@ -1,20 +1,12 @@
 #pragma once
 #include "DLLEvent.h"
 
-// Coin收集事件
-// 参数：触发事件的Coin
-// 无返回值
-class CoinCollectEvent : public DLLEvent
+/// @brief Coin鏀堕泦浜嬩欢
+/// @param 瑙﹀彂浜嬩欢鐨凜oin
+class CoinCollectEvent : public DLLEventTemplate<0x432060, 6, REG_ECX>
 {
 public:
-	CoinCollectEvent();
+	CoinCollectEvent() : CoinCollectEvent("onCoinCollect") {};
+	CoinCollectEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	CoinCollectEvent(int address) : DLLEventTemplate() { Init(address); };
 };
-
-CoinCollectEvent::CoinCollectEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onCoinCollect");
-	hookAddress = 0x432060;
-	rawlen = 6;
-	BYTE code[] = { PUSH_ECX, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
-}
