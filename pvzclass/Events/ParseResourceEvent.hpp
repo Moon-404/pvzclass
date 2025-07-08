@@ -1,23 +1,13 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ½âÎö×ÊÔ´ÅäÖÃÎÄ¼şÊÂ¼ş¡£
-// Ê±»ú·¢ÉúÔÚ resources.xml ½âÎö³É¹¦ºó¡£
-// ÎŞ·µ»ØÖµ
-class ParseResourceEvent : public DLLEvent
+/// @brief è§£æèµ„æºé…ç½®æ–‡ä»¶äº‹ä»¶ã€‚
+/// @note æ—¶æœºå‘ç”Ÿåœ¨ resources.xml è§£ææˆåŠŸåã€‚
+/// @note è™½ç„¶å‚æ•°åˆ—è¡¨éç©ºï¼Œä½†å®é™…ä¸Šç›®æ ‡å‡½æ•°ä¸éœ€è¦å‚æ•°ã€‚
+class ParseResourceEvent : public DLLEventTemplate<0x451A0D, 7, REG_EAX>
 {
 public:
-	ParseResourceEvent();
+	ParseResourceEvent() : ParseResourceEvent("onParseResource") {};
+	ParseResourceEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	ParseResourceEvent(int address) : DLLEventTemplate() { Init(address); };
 };
-
-ParseResourceEvent::ParseResourceEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onParseResource");
-	hookAddress = 0x451A0D;
-	rawlen = 7;
-	BYTE code[] =
-	{
-		INVOKE(procAddress),
-	};
-	start(STRING(code));
-}
