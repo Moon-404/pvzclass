@@ -1,39 +1,32 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ÌáÈ¡×ÊÔ´ÊÂ¼ş¡£
-// Ê±»ú·¢ÉúÔÚ resources.xml ½âÎö³É¹¦ºó¡£
-/// @param ´¥·¢ÊÂ¼şµÄ ResourceManager£¬¶ÁÈ¡µÄ×ÊÔ´×éÃû³Æ£¨char* ĞÎÊ½£©
-/// @return ÈôÎªÕıÊı£¬Ôò¶ÁÈ¡³É¹¦£»ÈôÎª 0£¬Ôò¶ÁÈ¡Ê§°Ü£»ÈôÎª¸ºÊı£¬½áËãÔ­°æ¹ı³Ì¡£
-class ExtractResourceEvent : public DLLEvent
+/// @brief æå–èµ„æºäº‹ä»¶ã€‚
+/// @note æ—¶æœºå‘ç”Ÿåœ¨ resources.xml è§£ææˆåŠŸåã€‚
+/// @param è§¦å‘äº‹ä»¶çš„ ResourceManagerï¼Œè¯»å–çš„èµ„æºç»„åç§°ï¼ˆchar* å½¢å¼ï¼‰
+/// @return è‹¥ä¸ºæ­£æ•°ï¼Œåˆ™è¯»å–æˆåŠŸï¼›è‹¥ä¸º 0ï¼Œåˆ™è¯»å–å¤±è´¥ï¼›è‹¥ä¸ºè´Ÿæ•°ï¼Œç»“ç®—åŸç‰ˆè¿‡ç¨‹ã€‚
+class ExtractResourceEvent : public DLLEventTemplate<0x474700, 5, MEM_ESP_ADD(0x28), MEM_ESP_ADD(0x28)>
 {
 public:
-	ExtractResourceEvent();
-};
-
-ExtractResourceEvent::ExtractResourceEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onExtractResource");
-	hookAddress = 0x474700;
-	rawlen = 5;
-	BYTE code[] =
+	ExtractResourceEvent() : ExtractResourceEvent("onParseResource") {};
+	ExtractResourceEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	ExtractResourceEvent(int address) : DLLEventTemplate() { Init(address); };
+	void InitExtra(AsmBuilder& builder)
 	{
-		PUSH_PTR_ESP_ADD_V(0x28),
-		PUSH_PTR_ESP_ADD_V(0x28),
-		INVOKE(procAddress),
-		ADD_ESP(8),
+		BYTE code[] =
+		{
+			TEST_EUX_EVX(REG_EAX, REG_EAX),
+			JS(17),
+			JE(9),
 
-		TEST_EUX_EVX(REG_EAX, REG_EAX),
-		JS(17),
-		JE(9),
+			POPAD,
+			MOV_EAX(1),
+			RETN(8),
 
-		POPAD,
-		MOV_EAX(1),
-		RETN(8),
-
-		POPAD,
-		XOR_EUX_EVX(REG_EAX, REG_EAX),
-		RETN(8),
-	};
-	start(STRING(code));
-}
+			POPAD,
+			XOR_EUX_EVX(REG_EAX, REG_EAX),
+			RETN(8),
+		};
+		builder.add_bytes(STRING(code));
+	}
+};
