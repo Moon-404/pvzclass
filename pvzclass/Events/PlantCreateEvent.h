@@ -1,20 +1,13 @@
 #pragma once
 #include "DLLEvent.h"
 
-// Ö²Îï´´½¨ÊÂ¼ş
-// ²ÎÊı£º´¥·¢ÊÂ¼şµÄÖ²Îï
-// ÎŞ·µ»ØÖµ
-class PlantCreateEvent : public DLLEvent
+/// @brief æ¤ç‰©åˆ›å»ºäº‹ä»¶
+/// @param è§¦å‘äº‹ä»¶çš„æ¤ç‰©
+/// @note è¯¥äº‹ä»¶åªå¯¹éƒ¨åˆ†æ¥æºçš„æ¤ç‰©æœ‰æ•ˆã€‚è‹¥éœ€è¦ç›‘æµ‹å…¨éƒ¨æ¤ç‰©ï¼Œå‚è§ PlantInitAfterEvent ã€‚
+class PlantCreateEvent : public DLLEventTemplate<0x40D190, 8 , REG_EAX>
 {
 public:
-	PlantCreateEvent();
+	PlantCreateEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	PlantCreateEvent(int address) : DLLEventTemplate() { Init(address); };
+	PlantCreateEvent() : DLLEventTemplate() { Init("onPlantCreate"); };
 };
-
-PlantCreateEvent::PlantCreateEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onPlantCreate");
-	hookAddress = 0x40D190;
-	rawlen = 8;
-	BYTE code[] = { PUSH_EAX, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
-}
