@@ -12,3 +12,11 @@ public:
 	SeedPacketMouseDownEvent(int address) : BoolDLLEventTemplate() { Init(address); };
 	SeedPacketMouseDownEvent() : SeedPacketMouseDownEvent("onSeedPacketMouseDown") {};
 };
+
+class SeedCardClickEvent : public SeedPacketMouseDownEvent
+{
+public:
+	SeedCardClickEvent(const char* str) : SeedPacketMouseDownEvent(str) {};
+	SeedCardClickEvent(int address) : SeedPacketMouseDownEvent(address) {};
+	SeedCardClickEvent() : SeedPacketMouseDownEvent("onSeedCardClick") {};
+};
