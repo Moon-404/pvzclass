@@ -1,34 +1,13 @@
 #pragma once
 #include "DLLEvent.h"
 
-// Ö²ÎïÏûÊ§ÊÂ¼ş
-// ²ÎÊı£º´¥·¢ÊÂ¼şµÄÖ²Îï
-// ÎŞ·µ»ØÖµ
-// Ö²ÎïÏûÊ§Ô­Òò¶àÖÖ¶àÑù£º±»²ùµô¡¢±»¿ĞÊ³¡¢Ò»´ÎĞÔÖ²ÎïÉúĞ§¡¢×Ï¿¨Ö²ÎïÉı¼¶µÈ¶¼»á´¥·¢
-class PlantDieEvent : public DLLEvent
+/// @brief æ¤ç‰©æ¶ˆå¤±äº‹ä»¶
+/// @param è§¦å‘äº‹ä»¶çš„æ¤ç‰©
+/// @note æ¤ç‰©æ¶ˆå¤±åŸå› å¤šç§å¤šæ ·ï¼šè¢«é“²æ‰ã€è¢«å•ƒé£Ÿã€ä¸€æ¬¡æ€§æ¤ç‰©ç”Ÿæ•ˆã€ç´«å¡æ¤ç‰©å‡çº§ç­‰éƒ½ä¼šè§¦å‘
+class PlantDieEvent : public DLLEventTemplate<0x4679B9, 7, REG_EBP>
 {
-protected:
-	const char* proc_name = "onPlantDie";
 public:
-	PlantDieEvent();
+	PlantDieEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	PlantDieEvent(int address) : DLLEventTemplate() { Init(address); };
+	PlantDieEvent() : DLLEventTemplate() { Init("onPlantDie"); };
 };
-
-PlantDieEvent::PlantDieEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress(this->proc_name);
-	hookAddress = 0x4679B9;
-	rawlen = 7;
-	BYTE code[] = { PUSH_EBP, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
-}
-
-/// @deprecated
-class PlantRemoveEvent : public PlantDieEvent
-{
-protected:
-	const char* proc_name = "onPlantRemove";
-public:
-	PlantRemoveEvent();
-};
-
-PlantRemoveEvent::PlantRemoveEvent() : PlantDieEvent() {}
