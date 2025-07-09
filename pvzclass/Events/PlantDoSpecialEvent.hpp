@@ -1,23 +1,12 @@
 #pragma once
 #include "DLLEvent.h"
 
-class PlantDoSpecialEvent : public DLLEvent
+/// @brief 一次性植物发动效果事件
+/// @param 触发事件的植物
+class PlantDoSpecialEvent : public DLLEventTemplate<0x4666A0, 6, MEM_ESP_ADD(0x24)>
 {
 public:
-	PlantDoSpecialEvent();
+	PlantDoSpecialEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	PlantDoSpecialEvent(int address) : DLLEventTemplate() { Init(address); };
+	PlantDoSpecialEvent() : DLLEventTemplate() { Init("onPlantDoSpecial"); };
 };
-
-PlantDoSpecialEvent::PlantDoSpecialEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onPlantDoSpecial");
-	hookAddress = 0x4666A0;
-	rawlen = 6;
-	BYTE code[] =
-	{
-		PUSH_PTR_ESP_ADD_V(0x24),
-		INVOKE(procAddress),
-		ADD_ESP(4),
-	};
-	start(STRING(code));
-}
-#pragma once
