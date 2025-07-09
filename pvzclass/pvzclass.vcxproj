@@ -394,7 +394,6 @@
     <ClInclude Include="Events\ZombieHypnotizeEvent.h" />
     <ClInclude Include="Events\ZombieRemoveEvent.h" />
     <ClInclude Include="Events\DrawUITopEvent.h" />
-    <ClInclude Include="Events\SeedCardClickEvent.h" />
     <ClInclude Include="Events\VaseOpenEvent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

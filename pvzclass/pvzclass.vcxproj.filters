@@ -476,9 +476,6 @@
     <ClInclude Include="Events\NewGameEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\SeedCardClickEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
     <ClInclude Include="Events\UpdateAppEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
