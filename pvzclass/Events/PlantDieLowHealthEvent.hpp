@@ -1,34 +1,30 @@
 #pragma once
 #include "DLLEvent.h"
 
-// Ö²ÎïÒòÉúÃüÖµĞ¡ÓÚ 0 ±»ÒÆ³ıÊÂ¼ş¡£
-/// @param ´¥·¢ÊÂ¼şµÄÖ²Îï¡£
-/// @return ¸ÃÖ²ÎïÊÇ·ñ±»ÒÆ³ı¡£
-class PlantDieLowHealthEvent : public DLLEvent
+/// @brief æ¤ç‰©å› ç”Ÿå‘½å€¼å°äº 0 è¢«ç§»é™¤äº‹ä»¶ã€‚
+/// @param è§¦å‘äº‹ä»¶çš„æ¤ç‰©ã€‚
+/// @return è¯¥æ¤ç‰©æ˜¯å¦è¢«ç§»é™¤ã€‚
+class PlantDieLowHealthEvent : public DLLEventTemplate<0x463EDD, 6, REG_EBX>
 {
 public:
-	PlantDieLowHealthEvent();
-};
-
-PlantDieLowHealthEvent::PlantDieLowHealthEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onPlantDieLowHealth");
-	hookAddress = 0x463EDD;
-	rawlen = 6;
-	BYTE code[] =
+	PlantDieLowHealthEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	PlantDieLowHealthEvent(int address) : DLLEventTemplate() { Init(address); };
+	PlantDieLowHealthEvent() : DLLEventTemplate() { Init("onPlantDieLowHealth"); };
+	void InitExtra(AsmBuilder& builder)
 	{
-		PUSH_EBX,
-		INVOKE(procAddress),
-		ADD_ESP(4),
-		TEST_AL_AL,
-		JE(14),
+		BYTE code[] =
+		{
+			TEST_AL_AL,
+			JE(14),
 
-		PUSH_EBX,
-		INVOKE(0x4679B0),
+			PUSH_EBX,
+			INVOKE(0x4679B0),
 
-		POPAD,
-		MOV_ECX(0x463EE3),
-		JMP_REG32(REG_ECX)
-	};
-	start(STRING(code));
-}
+			POPAD,
+			MOV_ECX(0x463EE3),
+			JMP_REG32(REG_ECX)
+		};
+
+		builder.add_bytes(STRING(code));
+	}
+};
