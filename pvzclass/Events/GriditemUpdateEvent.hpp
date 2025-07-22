@@ -1,21 +1,13 @@
 #pragma once
 #include "DLLEvent.h"
 
-// Griditem ¸üĞÂÊÂ¼ş
-// ²ÎÊı£º¸üĞÂµÄ Griditem
-// ÎŞ·µ»ØÖµ
-// Ê±»úÉÏÏÈÓÚÔ­°æ¸üĞÂ¡£
-class GriditemUpdateEvent : public DLLEvent
+/// @brief Griditem æ›´æ–°äº‹ä»¶
+/// @param æ›´æ–°çš„ Griditem
+/// @note æ—¶æœºä¸Šå…ˆäºåŸç‰ˆæ›´æ–°ã€‚
+class GriditemUpdateEvent : public DLLEventTemplate<0x44E5E0, 5, REG_EAX>
 {
 public:
-	GriditemUpdateEvent();
+	GriditemUpdateEvent() : GriditemUpdateEvent("onGriditemUpdate") {};
+	GriditemUpdateEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	GriditemUpdateEvent(int address) : DLLEventTemplate() { Init(address); };
 };
-
-GriditemUpdateEvent::GriditemUpdateEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onGriditemUpdate");
-	hookAddress = 0x44E5E0;
-	rawlen = 5;
-	BYTE code[] = { PUSH_EAX, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
-}
