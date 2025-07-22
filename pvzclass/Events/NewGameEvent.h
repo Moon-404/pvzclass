@@ -1,19 +1,12 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ĞÂÓÎÏ·¿ªÊ¼Ê±£¬PVZGameState±äÎªPreparingÖ®ºó
-// ´ËÊ±ÓÎÏ·ÒÑ¾­Íê³ÉÁË¹Ø¿¨µÄ¸÷ÖÖ¼ÓÔØºÍ×¼±¸
-class NewGameEvent : public DLLEvent
+/// @brief æ–°æ¸¸æˆå¼€å§‹æ—¶ï¼ŒPVZGameStateå˜ä¸ºPreparingä¹‹å
+/// @note æ­¤æ—¶æ¸¸æˆå·²ç»å®Œæˆäº†å…³å¡çš„å„ç§åŠ è½½å’Œå‡†å¤‡
+class NewGameEvent : public DLLEventTemplate<0x44F8D8, 5>
 {
 public:
-	NewGameEvent();
+	NewGameEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	NewGameEvent(int address) : DLLEventTemplate() { Init(address); };
+	NewGameEvent() : DLLEventTemplate() { Init("onNewGame"); };
 };
-
-NewGameEvent::NewGameEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onNewGame");
-	hookAddress = 0x44F8D8;
-	rawlen = 5;
-	BYTE code[] = { INVOKE(procAddress) };
-	start(STRING(code));
-}
