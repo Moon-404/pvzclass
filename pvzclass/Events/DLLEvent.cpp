@@ -4,7 +4,7 @@ int DLLEvent::newAddress = 0;
 
 void DLLEvent::start(BYTE* code, int newlen)
 {
-	if (newAddress == 0) newAddress = PVZ::Memory::AllocMemory(4, 0);
+	if (newAddress == 0) newAddress = PVZ::Memory::AllocMemory(16, 0);
 	rawCode = new BYTE[rawlen];
 	PVZ::Memory::ReadArray<BYTE>(hookAddress, rawCode, rawlen);
 	if (rawCode[0] == 0xE8 || rawCode[0] == 0xE9)
