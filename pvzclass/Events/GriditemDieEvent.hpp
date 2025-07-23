@@ -1,30 +1,13 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ³¡µØÎïÆ·ÒÆ³ıÊÂ¼ş¡£
-/// @param ´¥·¢ÊÂ¼şµÄ³¡µØÎïÆ·¡£
-/// @return ÊÇ·ñÒÆ³ı´ËÎïÆ·¡£
-class GriditemDieEvent : public DLLEvent
+/// @brief åœºåœ°ç‰©å“ç§»é™¤äº‹ä»¶ã€‚
+/// @param è§¦å‘äº‹ä»¶çš„åœºåœ°ç‰©å“ã€‚
+/// @return æ˜¯å¦ç§»é™¤æ­¤ç‰©å“ã€‚
+class GriditemDieEvent : public BoolDLLEventTemplate<0x44D000, 5, 0x44D06A, REG_ESI>
 {
 public:
-	GriditemDieEvent();
+	GriditemDieEvent() : GriditemDieEvent("onGriditemDie") {};
+	GriditemDieEvent(const char* str) : BoolDLLEventTemplate() { Init(str); };
+	GriditemDieEvent(int address) : BoolDLLEventTemplate() { Init(address); };
 };
-
-GriditemDieEvent::GriditemDieEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onGriditemDie");
-	hookAddress = 0x44D000;
-	rawlen = 5;
-	BYTE code[] =
-	{
-		PUSH_ESI,
-		INVOKE(procAddress),
-		ADD_ESP(4),
-
-		TEST_AL_AL,
-		JNZ(2),
-		POPAD,
-		RET
-	};
-	start(STRING(code));
-}

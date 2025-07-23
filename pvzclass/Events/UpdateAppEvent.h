@@ -1,19 +1,13 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ÓÎÏ·³ÌĞòµÄ¸üĞÂÊÂ¼ş
-// ¸ÃÊÂ¼şÎŞÂÛÊÇ·ñÔÚ¹Ø¿¨ÄÚ¶¼»á³ÖĞø´¥·¢
-class UpdateAppEvent : public DLLEvent
+/// @brief æ¸¸æˆç¨‹åºçš„æ›´æ–°äº‹ä»¶
+/// @param è§¦å‘äº‹ä»¶çš„ PVZApp
+/// @note è¯¥äº‹ä»¶æ— è®ºæ˜¯å¦åœ¨å…³å¡å†…éƒ½ä¼šæŒç»­è§¦å‘
+class UpdateAppEvent : public DLLEventTemplate<0x453A50, 7, REG_ECX>
 {
 public:
-	UpdateAppEvent();
+	UpdateAppEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	UpdateAppEvent(int address) : DLLEventTemplate() { Init(address); };
+	UpdateAppEvent() : DLLEventTemplate() { Init("onAppUpdate"); };
 };
-
-UpdateAppEvent::UpdateAppEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onAppUpdate");
-	hookAddress = 0x453A50;
-	rawlen = 7;
-	BYTE code[] = { PUSH_ECX, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
-}
