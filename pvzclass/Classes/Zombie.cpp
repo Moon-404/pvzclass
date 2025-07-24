@@ -1,4 +1,4 @@
-﻿#include "../PVZ.h"
+#include "../PVZ.h"
 
 PVZ::Zombie::Zombie(int indexoraddress)
 {
@@ -461,9 +461,9 @@ PVZ::Rect PVZ::Zombie::GetActualRect()
 
 	Rect tmp = Rect();
 	tmp.X = *((int*)PVZ::Memory::Variable);
-	tmp.Y = *((int*)PVZ::Memory::Variable + 4);
-	tmp.Width = *((int*)PVZ::Memory::Variable + 8);
-	tmp.Height = *((int*)PVZ::Memory::Variable + 0x0C);
+	tmp.Y = *((int*)(PVZ::Memory::Variable + 4));
+	tmp.Width = *((int*)(PVZ::Memory::Variable + 8));
+	tmp.Height = *((int*)(PVZ::Memory::Variable + 0x0C));
 
 	return tmp;
 }
