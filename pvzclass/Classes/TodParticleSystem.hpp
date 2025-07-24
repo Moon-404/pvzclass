@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "../PVZ.h"
 
 namespace PVZ
@@ -11,6 +11,7 @@ namespace PVZ
 		TodParticleSystem(DWORD indexoraddress);
 		/// @brief 是否已被移除。
 		T_PROPERTY(BOOLEAN, Dead, __get_Dead, __set_Dead, 0x1C);
+		T_PROPERTY(DWORD, Id, __get_Id, __set_Id, 0x28);
 		/// @brief 移除此粒子系统。
 		void Die();
 		/// @brief 将粒子系统移至指定位置。
