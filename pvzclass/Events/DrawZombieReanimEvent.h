@@ -2,34 +2,34 @@
 #include "DLLEvent.h"
 #define MOV_VAR(u, v) 0x8B, 0x43, u, 0x89, 0x44, 0x24, (0x20 + v)
 
-// »æÖÆ½©Ê¬¶¯»­ÊÂ¼ş
-// ²ÎÊı£º»æÖÆµÄ½©Ê¬ºÍ¶ÔÓ¦µÄ¶¯»­
-// ·µ»ØÖµ£ºÈç¹û½©Ê¬ÊÖ³Ö»¤¶Ü²¢ÇÒĞŞ¸ÄÁËÑÕÉ«£¬Çë·µ»Ø1£¬·ñÔò·µ»Ø0ÒÔ¼õÉÙĞÔÄÜÏûºÄ
-// ÊÂ¼ş´¥·¢ÔÚÑÕÉ«¼ÆËãÖ®ºóºÍ»æÖÆ·¢ÉúÖ®Ç°
+/// @brief ç»˜åˆ¶åƒµå°¸åŠ¨ç”»äº‹ä»¶
+/// @param ç»˜åˆ¶çš„åƒµå°¸ã€åƒµå°¸å¯¹åº”çš„åŠ¨ç”»
+/// @return å¦‚æœåƒµå°¸æ‰‹æŒæŠ¤ç›¾å¹¶ä¸”ä¿®æ”¹äº†é¢œè‰²ï¼Œè¯·è¿” å›1ï¼Œå¦åˆ™è¿”å› 0 ä»¥å‡å°‘æ€§èƒ½æ¶ˆè€—
+/// @note äº‹ä»¶è§¦å‘åœ¨é¢œè‰²è®¡ç®—ä¹‹åå’Œç»˜åˆ¶å‘ç”Ÿä¹‹å‰
 class DrawZombieReanimEvent : public DLLEvent
 {
 public:
-	DrawZombieReanimEvent();
-};
+	DrawZombieReanimEvent() : DrawZombieReanimEvent("onDrawZombieReanim") {};
+	DrawZombieReanimEvent(const char* str) : DrawZombieReanimEvent(PVZ::Memory::GetProcAddress(str)) {};
+	DrawZombieReanimEvent(int address)
+	{
+		hookAddress = 0x52D429;
+		rawlen = 6;
+		BYTE code[] = { PUSH_EBX, PUSH_ESI, INVOKE(address), ADD_ESP(8),
+			CMP_EAX_DWORD(0), JE(67), // 25
+			0x8B, 0x5C, 0x24, 0x10, // mov ebx, [esp+10]
+			MOV_VAR(0x48, 0x30),
+			MOV_VAR(0x4C, 0x34),
+			MOV_VAR(0x50, 0x38),
+			MOV_VAR(0x54, 0x3C),
+			MOV_VAR(0x6C, 0x20),
+			MOV_VAR(0x70, 0x24),
+			MOV_VAR(0x74, 0x28),
+			MOV_VAR(0x78, 0x2C),
+			0x8A, 0x43, 0x7C, // mov al, [ebx+7C]
+			0x88, 0x44, 0x24, 0x2F // mov [esp+2F], al
+		};
+		start(STRING(code));
 
-DrawZombieReanimEvent::DrawZombieReanimEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onDrawZombieReanim");
-	hookAddress = 0x52D429;
-	rawlen = 6;
-	BYTE code[] = { PUSH_EBX, PUSH_ESI, INVOKE(procAddress), ADD_ESP(8),
-		CMP_EAX_DWORD(0), JE(67), // 25
-		0x8B, 0x5C, 0x24, 0x10, // mov ebx, [esp+10]
-		MOV_VAR(0x48, 0x30),
-		MOV_VAR(0x4C, 0x34),
-		MOV_VAR(0x50, 0x38),
-		MOV_VAR(0x54, 0x3C),
-		MOV_VAR(0x6C, 0x20),
-		MOV_VAR(0x70, 0x24),
-		MOV_VAR(0x74, 0x28),
-		MOV_VAR(0x78, 0x2C),
-		0x8A, 0x43, 0x7C, // mov al, [ebx+7C]
-		0x88, 0x44, 0x24, 0x2F // mov [esp+2F], al
-	};
-	start(STRING(code));
-}
+	}
+};
