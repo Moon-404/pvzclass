@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "DLLEvent.h"
 
 namespace PVZEvent
@@ -15,13 +15,13 @@ namespace PVZEvent
 	};
 
 	/// @brief 子弹对僵尸造成伤害事件
-	/// @param 依次为：子弹基址、受伤僵尸基址、伤害类型、溅射僵尸次级目标数
+	/// @param 依次为：子弹基址、受伤僵尸基址、伤害类型、溅射僵尸次级目标数、溅射伤害数值（非溅射时固定为 0）
 	/// @return 调整后的伤害。非负值会被忽略。
 	class ProjectileDamageZombieEvent
 	{
 	private:
 		class DamagePart1 : public IntDLLEventTemplate<0x46E073, 7, 0, 0,
-			0, REG_EDX, false, CONST_VAL(0), CONST_VAL(DAMAGE_SINGULAR), REG_ESI, REG_EDI>
+			0, REG_EDX, false, CONST_VAL(0), CONST_VAL(0), CONST_VAL(DAMAGE_SINGULAR), REG_ESI, REG_EDI>
 		{
 		public:
 			DamagePart1(const char* str) : IntDLLEventTemplate() { Init(str); };
@@ -36,18 +36,19 @@ namespace PVZEvent
 				rawlen = 5;
 				BYTE code[] =
 				{
-					PUSH_PTR_ESP_ADD_V(0x38),
+					PUSH_PTR_ESP_ADD_V(0x20),
+					PUSH_PTR_ESP_ADD_V(0x3C),
 
-					CALC_PTR_ESP_ADD_V_EUX(CALC_CMP, REG_ESI, 0x44),
+					CALC_PTR_ESP_ADD_V_EUX(CALC_CMP, REG_ESI, 0x48),
 					JNZ(4),
 					PUSH(DAMAGE_SPLASH_PRIMARY),
 					JMP(2),
 					PUSH(DAMAGE_SPLASH_SECONDARY),
 
-					PUSH_PTR_ESP_ADD_V(0x48),
+					PUSH_PTR_ESP_ADD_V(0x4C),
 					PUSH_EDI,
 					INVOKE(address),
-					ADD_ESP(0x0C),
+					ADD_ESP(0x14),
 
 					TEST_EUX_EVX(REG_EAX, REG_EAX),
 					JS(4),
