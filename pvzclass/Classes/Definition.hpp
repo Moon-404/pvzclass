@@ -48,6 +48,8 @@ namespace PVZ
 		INT_SAFE_PROPERTY(FirstAllowedWave, __get_FirstAllowedWave, __set_FirstAllowedWave, 0x10);
 		/// @brief 僵尸在随机选择出怪时的权重
 		INT_SAFE_PROPERTY(PickWeight, __get_PickWeight, __set_PickWeight, 0x14);
+		/// @brief 僵尸名称
+		T_SAFE_PROPERTY(DWORD, NamePTR, __get_NamePTR, __set_NamePTR, 0x18);
 	};
 	/// @brief 获取指定僵尸类型的定义
 	/// @param type 僵尸类型
