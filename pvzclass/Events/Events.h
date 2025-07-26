@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "BoardUpdateGameEvent.hpp"
 #include "CoinCollectEvent.h"
 #include "CoinCreateEvent.h"
@@ -25,7 +25,6 @@
 #include "ProjectileHitZombieEvent.h"
 #include "ProjectileRemoveEvent.h"
 #include "PuzzlePhaseCompleteEvent.hpp"
-#include "SeedCardClickEvent.h"
 #include "UpdateAppEvent.h"
 #include "UpdateGameObjectsEvent.h"
 #include "ZombieBlastEvent.h"
