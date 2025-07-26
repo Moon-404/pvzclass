@@ -1,25 +1,12 @@
 #pragma once
 #include "DLLEvent.h"
 
-// Ö²Îï±»Íµ×ßÊÂ¼ş¡£
-// ÎŞ·µ»ØÖµ
-/// @param ÒÀ´ÎÎª£º´¥·¢ÊÂ¼şµÄÖ²Îï¡£
-class PlantStolenEvent : public DLLEvent
+/// @brief æ¤ç‰©è¢«å·èµ°äº‹ä»¶ã€‚
+/// @param è§¦å‘äº‹ä»¶çš„æ¤ç‰©ã€‚
+class PlantStolenEvent : public DLLEventTemplate<0x5304B6, 7, REG_EAX>
 {
 public:
-	PlantStolenEvent();
+	PlantStolenEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	PlantStolenEvent(int address) : DLLEventTemplate() { Init(address); };
+	PlantStolenEvent() : PlantStolenEvent("onPlantStolen") {};
 };
-
-PlantStolenEvent::PlantStolenEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onPlantStolen");
-	hookAddress = 0x5304B6;
-	rawlen = 7;
-	BYTE code[] =
-	{
-		PUSH_EAX,
-		INVOKE(procAddress),
-		ADD_ESP(4),
-	};
-	start(STRING(code));
-}
