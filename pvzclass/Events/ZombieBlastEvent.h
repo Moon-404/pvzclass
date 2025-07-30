@@ -10,44 +10,20 @@
 class ZombieBlastEvent : public DLLEventTemplate<0x532B70, 6, REG_ECX>
 {
 public:
-	ZombieBlastEvent();
+	ZombieBlastEvent() : DLLEventTemplate() { Init("onZombieBlast"); };
+	ZombieBlastEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	ZombieBlastEvent(int address) : DLLEventTemplate() { Init(address); };
 };
-
-ZombieBlastEvent::ZombieBlastEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onZombieBlast");
-	hookAddress = 0x532B70;
-	rawlen = 6;
-	BYTE code[] = { PUSH_ECX, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
-}
 
 /// @brief 僵尸受到灰烬伤害事件。
 /// @param 触发事件的僵尸
 /// @return 是否取消该事件。
 /// @note 该事件不与 ZombieBlastEvent 兼容，请不要同时使用。
 /// @see ZombieBlastEvent
-class ZombieBurntEvent : public DLLEvent
+class ZombieBurntEvent : public BoolDLLEventTemplate<0x532B70, 6, 0x532FF0, REG_ECX>
 {
 public:
-	ZombieBurntEvent(int address);
+	ZombieBurntEvent() : BoolDLLEventTemplate() { Init("onZombieBurnt"); };
+	ZombieBurntEvent(const char* str) : BoolDLLEventTemplate() { Init(str); };
+	ZombieBurntEvent(int address) : BoolDLLEventTemplate() { Init(address); };
 };
-
-ZombieBurntEvent::ZombieBurntEvent(int address)
-{
-	hookAddress = 0x532B70;
-	rawlen = 6;
-	BYTE code[] =
-	{
-		PUSH_ECX,
-		INVOKE(address),
-		MOV_EUX_EVX(REG_ECX, REG_EAX),
-		ADD_ESP(4),
-
-		TEST_EUX_EVX(REG_ECX, REG_ECX),
-		JNZ(2),
-		POPAD,
-		RET
-	};
-	start(STRING(code));
-}
