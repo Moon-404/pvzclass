@@ -1,26 +1,13 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ½©Ê¬µôÂäÎïÆ·ÊÂ¼ş¡£
-// ÒÑ³¢ÊÔµôÂä¹ıÎïÆ·µÄ½©Ê¬²»»áÔÙ´ÎµôÂäÎïÆ·¡£
-// ²ÎÊı£ºµôÂäÎïÆ·µÄ½©Ê¬µÄµØÖ·
-// ÎŞ·µ»ØÖµ
-class ZombieDropLootEvent : public DLLEvent
+/// @brief åƒµå°¸æ‰è½ç‰©å“äº‹ä»¶ã€‚
+/// @note å·²å°è¯•æ‰è½è¿‡ç‰©å“çš„åƒµå°¸ä¸ä¼šå†æ¬¡æ‰è½ç‰©å“ã€‚
+/// @param æ‰è½ç‰©å“çš„åƒµå°¸çš„åœ°å€
+class ZombieDropLootEvent : public DLLEventTemplate<0x5301C0, 7, REG_EBX>
 {
 public:
-	ZombieDropLootEvent();
+	ZombieDropLootEvent() : DLLEventTemplate() { Init("onZombieDropLoot"); };
+	ZombieDropLootEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	ZombieDropLootEvent(int address) : DLLEventTemplate() { Init(address); };
 };
-
-ZombieDropLootEvent::ZombieDropLootEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onZombieDropLoot");
-	hookAddress = 0x5301C0;
-	rawlen = 7;
-	BYTE code[] =
-	{
-		PUSH_EBX,
-		INVOKE(procAddress),
-		ADD_ESP(4)
-	};
-	start(STRING(code));
-}
