@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "BoardUpdateGameEvent.hpp"
 #include "CoinCollectEvent.h"
 #include "CoinCreateEvent.h"
@@ -76,7 +76,6 @@
 #include "GriditemUpdateEvent.hpp"
 #include "ZombieInitAfterEvent.hpp"
 #include "IZInitAfterBrainEvent.hpp"
-#include "ZombieBurntEvent.hpp"
 #include "ZombieDetachShieldEvent.hpp"
 #include "ZombieDropHeadEvent.hpp"
 #include "ZombieDropHeadParticleEvent.hpp"
