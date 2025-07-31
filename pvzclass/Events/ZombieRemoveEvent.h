@@ -1,21 +1,13 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ½©Ê¬±»ÒÆ³ıÊÂ¼ş
-// ²ÎÊı£º´¥·¢ÊÂ¼şµÄ½©Ê¬
-// ÎŞ·µ»ØÖµ
-// ½©Ê¬±»ÒÆ³ıµÄÔ­Òò¶àÖÖ¶àÑù£¬¼´Ê¹ÊÇ¹Ø¿¨½©Ê¬Ô¤ÀÀ½çÃæµÄ½©Ê¬±»ÒÆ³ıÒ²»á´¥·¢¸ÃÊÂ¼ş
-class ZombieRemoveEvent : public DLLEvent
+/// @brief åƒµå°¸è¢«ç§»é™¤äº‹ä»¶
+/// @param è§¦å‘äº‹ä»¶çš„åƒµå°¸
+/// @note åƒµå°¸è¢«ç§»é™¤çš„åŸå› å¤šç§å¤šæ ·ï¼Œå³ä½¿æ˜¯å…³å¡åƒµå°¸é¢„è§ˆç•Œé¢çš„åƒµå°¸è¢«ç§»é™¤ä¹Ÿä¼šè§¦å‘è¯¥äº‹ä»¶
+class ZombieRemoveEvent : public DLLEventTemplate<0x530510, 6, REG_ECX>
 {
 public:
-	ZombieRemoveEvent();
+	ZombieRemoveEvent() : DLLEventTemplate() { Init("onZombieRemove"); };
+	ZombieRemoveEvent(const char* str) : DLLEventTemplate() { Init(str); };
+	ZombieRemoveEvent(int address) : DLLEventTemplate() { Init(address); };
 };
-
-ZombieRemoveEvent::ZombieRemoveEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onZombieRemove");
-	hookAddress = 0x530510;
-	rawlen = 6;
-	BYTE code[] = { PUSH_ECX, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code));
-}
