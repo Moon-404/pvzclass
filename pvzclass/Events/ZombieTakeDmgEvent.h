@@ -1,45 +1,39 @@
 #pragma once
 #include "DLLEvent.h"
 
-// ½©Ê¬ÊÜÉËÊÂ¼ş
-// ²ÎÊı£º´¥·¢ÊÂ¼şµÄ½©Ê¬£¬ÉËº¦ÀàĞÍ£¬ÉËº¦ÊıÖµ
-// ·µ»ØÖµ£º¸üĞÂºóµÄÉËº¦Öµ
-// ¶à¸öÊÂ¼şÖ®¼äÉËº¦»á´®ÁªĞŞ¸Ä£¬ÀıÈç»ù´¡ÉËº¦20
-// µÚÒ»¸ö¼àÌıÆ÷·­±¶ÖÁ40£¬µÚ¶ş¸öÊÂ¼ş¼àÌıµ½µÄÉËº¦ÊıÖµ¾ÍÊÇ40
-// Èç²»×÷ÆäËüĞŞ¸Ä£¬½©Ê¬×îºó»áÊÜµ½40µãÉËº¦
+// åƒµå°¸å—ä¼¤äº‹ä»¶
+// å‚æ•°ï¼šè§¦å‘äº‹ä»¶çš„åƒµå°¸ï¼Œä¼¤å®³ç±»å‹ï¼Œä¼¤å®³æ•°å€¼
+// è¿”å›å€¼ï¼šæ›´æ–°åçš„ä¼¤å®³å€¼
+// å¤šä¸ªäº‹ä»¶ä¹‹é—´ä¼¤å®³ä¼šä¸²è”ä¿®æ”¹ï¼Œä¾‹å¦‚åŸºç¡€ä¼¤å®³20
+// ç¬¬ä¸€ä¸ªç›‘å¬å™¨ç¿»å€è‡³40ï¼Œç¬¬äºŒä¸ªäº‹ä»¶ç›‘å¬åˆ°çš„ä¼¤å®³æ•°å€¼å°±æ˜¯40
+// å¦‚ä¸ä½œå…¶å®ƒä¿®æ”¹ï¼Œåƒµå°¸æœ€åä¼šå—åˆ°40ç‚¹ä¼¤å®³
 /// @deprecated
 class ZombieHitEvent : public DLLEvent
 {
 public:
-	ZombieHitEvent();
+	ZombieHitEvent()
+	{
+		int procAddress = PVZ::Memory::GetProcAddress("onZombieHit");
+		hookAddress = 0x5317C0;
+		rawlen = 7;
+		BYTE code[] = { PUSH_PTR_ESP_ADD_V(36), PUSH_EAX, PUSH_ESI, INVOKE(procAddress), ADD_ESP(12), MOV_PTR_ESP_ADD_V_EUX(0, 36) };
+		start(STRING(code));
+	}
 };
 
-ZombieHitEvent::ZombieHitEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onZombieHit");
-	hookAddress = 0x5317C0;
-	rawlen = 7;
-	BYTE code[] = { PUSH_PTR_ESP_ADD_V(36), PUSH_EAX, PUSH_ESI, INVOKE(procAddress), ADD_ESP(12), MOV_PTR_ESP_ADD_V_EUX(0, 36)};
-	start(STRING(code));
-}
-
-// ½©Ê¬ÊÜÉËÊÂ¼ş
-// ²ÎÊı£º´¥·¢ÊÂ¼şµÄ½©Ê¬£¬ÉËº¦ÀàĞÍ£¬ÉËº¦ÊıÖµ
-// ·µ»ØÖµ£º¸üĞÂºóµÄÉËº¦Öµ
-// ¶à¸öÊÂ¼şÖ®¼äÉËº¦»á´®ÁªĞŞ¸Ä£¬ÀıÈç»ù´¡ÉËº¦20
-// µÚÒ»¸ö¼àÌıÆ÷·­±¶ÖÁ40£¬µÚ¶ş¸öÊÂ¼ş¼àÌıµ½µÄÉËº¦ÊıÖµ¾ÍÊÇ40
-// Èç²»×÷ÆäËüĞŞ¸Ä£¬½©Ê¬×îºó»áÊÜµ½40µãÉËº¦
+/// @brief åƒµå°¸å—ä¼¤äº‹ä»¶
+/// @param è§¦å‘äº‹ä»¶çš„åƒµå°¸ï¼Œä¼¤å®³ç±»å‹ï¼Œä¼¤å®³æ•°å€¼
+/// @return æ›´æ–°åçš„ä¼¤å®³å€¼
 class ZombieTakeDmgEvent : public DLLEvent
 {
 public:
-	ZombieTakeDmgEvent();
+	ZombieTakeDmgEvent() : ZombieTakeDmgEvent("onZombieTakeDamage") {};
+	ZombieTakeDmgEvent(const char* str) : ZombieTakeDmgEvent(PVZ::Memory::GetProcAddress(str)) {};
+	ZombieTakeDmgEvent(int address)
+	{
+		hookAddress = 0x5317C0;
+		rawlen = 7;
+		BYTE code[] = { PUSH_PTR_ESP_ADD_V(36), PUSH_EAX, PUSH_ESI, INVOKE(address), ADD_ESP(12), MOV_PTR_ESP_ADD_V_EUX(0, 36) };
+		start(STRING(code));
+	}
 };
-
-ZombieTakeDmgEvent::ZombieTakeDmgEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onZombieTakeDamage");
-	hookAddress = 0x5317C0;
-	rawlen = 7;
-	BYTE code[] = { PUSH_PTR_ESP_ADD_V(36), PUSH_EAX, PUSH_ESI, INVOKE(procAddress), ADD_ESP(12), MOV_PTR_ESP_ADD_V_EUX(0, 36) };
-	start(STRING(code));
-}
