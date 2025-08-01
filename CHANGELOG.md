@@ -1,4 +1,5 @@
 # 目录
+- [2.3](#2.3)
 - [2.2.1](#2.2.1)
 - [2.2](#2.2)
 - [2.1.2](#2.1.2)
@@ -17,6 +18,45 @@
 - [1.15.1](#1.15.1（2023/11/22）)
 - [1.15.0](#1.15.0（2023/10/27）)
 - [1.14.3](#1.14.3（2023/10/22）)
+
+## 2.3
+
+### 新增内容
+
+- `Creator::RandFloat()`，使用 PVZ 主程序的随机数生成器获取一个随机非负浮点数。
+- `Memory::WriteMemoryUnsafe()`，用于在 dll 中减少不必要的权限调整。 
+  - `T_PROPERTY` 系列属性和 `T_ARRAY_PROPERTY` 系列属性现在默认使用使用 `Memory::WriteMemoryUnsafe()`。
+  - 对于需要进行权限调整的情况，请使用对应的 `SAFE_PROPERTY`。
+- `BaseAddressEventTemplate` 事件模板，用于快速设置一个事件，其结算函数的返回值为基址。若返回空指针，则按原本的方法获取基址。
+- `ChallengeDef`，类似 `ChallengeDefinition`，但是每个成员变量都用内存空间存储。
+- `ChallengeDef::Reposition`，用于 `ChallengeDef` 挪表。
+
+### 改动内容
+
+- 现在除了 DrawUITopEvent 仅将构造函数改为内联外，所有事件现在都具有 doxygen 注释和新的构造函数，且这些构造函数均内联。
+- `HZC` 系列宏被废弃，它们的作用被 `PVZ::DamageRangeFlags` 取代。
+- `pvzdll` 项目现在含有 Debug 构建规则。
+  - 虽然它默认不会加载 `pvzclass.lib` 。
+- 所有事件模板的 `_Raw_Len` 现在均为 `uint8_t` 类型。
+- 更新了码风校正脚本。
+- 现在 `pvzmain` 是默认的启动项目。
+- 将 `SeedCardClickEvent` 并入 `SeedPacketMouseDownEvent`，并修复 \# 47。
+- `DLLEvent::newAddress` 对应的空间扩展至 16KB 。
+- 删除了实际上没有作用的 `.gitattributes`。
+- 三个项目现在都是 UTF-8 项目。
+- `ProjectileDamageZombieEvent` 对应的函数添加一个新参数，表示溅射伤害的伤害数值。
+- `ZombieBurntEvent` 现在并入 `ZombieBlastEvent.h` 。
+
+### 漏洞修复
+
+- 修复 \# 60
+- 修复 \# 77
+- 修复 `Zombie::GetActualRect()` 获取的矩形不正确的漏洞。
+- 修复 `ProjectileDamageZombieEvent` 参数获取不正确的漏洞。
+
+### 兼容性
+
+大部分兼容 2.2.x，涉及 `SeedCardClickEvent` 和 `ZombieBurntEvent` 的部分除外。
 
 ## 2.2.1
 
