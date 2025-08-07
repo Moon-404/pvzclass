@@ -44,20 +44,63 @@ private:
 template<DWORD _Hook_Address, uint8_t _Raw_Len, DWORD ...Params>
 class DLLEventTemplate : public DLLEvent
 {
+private:	
+	template<DWORD param>
+	static constexpr size_t param_size()
+	{
+		if constexpr (param < MEM_ESP_ADD_MASK)
+			return 1;
+		else if constexpr (param < CONST_VAL_MASK)
+			return 4;
+		else
+			return 5;
+	}
+	static constexpr size_t calculate_total_size()
+	{
+		size_t total = 0;
+		((total += param_size<Params>()), ...);
+		return total;
+	}
+	static constexpr auto build_base_bytes() {
+		constexpr size_t total_size = calculate_total_size();
+		std::array<uint8_t, total_size> bytes{};
+		size_t offset = 0;
+
+		// 使用 lambda 处理每个参数
+		auto process = [&](auto param)
+		{
+			if (param < MEM_ESP_ADD_MASK)
+				bytes[offset++] = 0x50 | (param & 0x7);
+			else if (param < CONST_VAL_MASK)
+			{
+				bytes[offset++] = 0xFF;
+				bytes[offset++] = 0x74;
+				bytes[offset++] = 0x24;
+				bytes[offset++] = static_cast<uint8_t>(param);
+			}
+			else 
+			{
+				DWORD value = param - CONST_VAL_MASK;
+				bytes[offset++] = 0x68;
+				bytes[offset++] = static_cast<uint8_t>(value & 0xFF);
+				bytes[offset++] = static_cast<uint8_t>((value >> 8) & 0xFF);
+				bytes[offset++] = static_cast<uint8_t>((value >> 16) & 0xFF);
+				bytes[offset++] = static_cast<uint8_t>((value >> 24) & 0xFF);
+			}
+		};
+
+		// 展开参数包
+		(process(Params), ...);
+
+		return bytes;
+	}
+	static constexpr auto compiled_base_bytes = build_base_bytes();
 protected:
 	void Init(int address)
 	{
 		hookAddress = _Hook_Address;
 		rawlen = _Raw_Len;
-		AsmBuilder builder = AsmBuilder(128);
-
-		for (int i = 0, sz = this->regs.size(); i < sz; i++)
-			if (this->regs[i] < MEM_ESP_ADD_MASK)
-				builder.push_reg((uint8_t)this->regs[i]);
-			else if (this->regs[i] < CONST_VAL_MASK)
-				builder.push_m32_esp_imm8((uint8_t)this->regs[i]);
-			else
-				builder.push_imm32(this->regs[i] - CONST_VAL_MASK);
+		AsmBuilder builder = AsmBuilder(128).add_bytes(compiled_base_bytes.data(), calculate_total_size());
 
 		builder.invoke(address).add_reg_imm(REG_ESP, this->regs.size() << 2);
 		this->InitExtra(builder);
