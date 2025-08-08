@@ -1001,9 +1001,11 @@ namespace PVZ
 		/// @brief 植物射击（或产出物品）的基础间隔
 		INT_PROPERTY(ShootOrProductInterval, __get_ShootOrProductInterval, __set_ShootOrProductInterval, 0x5C);
 		/// @brief 目标 X 坐标
-		INT_PROPERTY(mTargetX, __get_mTargetX, __set_mTargetX, 0x88);
+		INT_PROPERTY(mTargetX, __get_mTargetX, __set_mTargetX, 0x80);
 		/// @brief 目标 Y 坐标
-		INT_PROPERTY(mTargetY, __get_mTargetY, __set_mTargetY, 0x8C);
+		INT_PROPERTY(mTargetY, __get_mTargetY, __set_mTargetY, 0x84);
+		/// @brief 粒子效果识别 ID
+		T_PROPERTY(DWORD, ParticleID, __get_ParticleID, __set_ParticleID, 0x8C);
 		/// @brief 射击动作倒计时
 		INT_PROPERTY(ShootingCountdown, __get_ShootingCountdown, __set_ShootingCountdown, 0x90);
 		/// @brief 获取植物的第一个动画
