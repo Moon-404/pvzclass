@@ -763,11 +763,15 @@ namespace PVZ
 		/// @brief 是否在吃东西
 		T_READONLY_PROPERTY(BOOLEAN, Eating, __get_Eating, 0x51);
 		void Light(int cs = 100);
+		INT_PROPERTY(JustGotShotCounter, __get_JustGotShotCounter, __set_JustGotShotCounter, 0x54);
+		INT_PROPERTY(ShieldJustGotShotCounter, __get_ShieldJustGotShotCounter, __set_ShieldJustGotShotCounter, 0x58);
 		/// @brief 存在时间
 		INT_READONLY_PROPERTY(ExistedTime, __get_ExistedTime, 0x60);
-		INT_READONLY_PROPERTY(ZombieHeight, __get_ZombieHeight, 0x64);
+		INT_PROPERTY(ZombieHeight, __get_ZombieHeight, __set_ZombieHeight, 0x64);
 		/// @brief 属性倒计时
 		INT_PROPERTY(AttributeCountdown, __get_AttributeCountdown, __set_AttributeCountdown, 0x68);
+		/// @brief 是否生成过掉落物
+		T_PROPERTY(BOOLEAN, DroppedLoot, __get_DroppedLoot, __set_DroppedLoot, 0x70);
 		/// @brief 消失倒计时
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x74);
 		/// @brief 蹦极僵尸目标列
@@ -824,9 +828,13 @@ namespace PVZ
 		INT_PROPERTY(FlyingMaxHealth, __get_FlyingMaxHealth, __set_FlyingMaxHealth, 0xE8);
 		/// @brief 是否已移除
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
+		/// @brief 关联僵尸的识别 ID
+		INT_PROPERTY(RelatedZombieID, __get_RelatedZombieID, __set_RelatedZombieID, 0x0F0);
 		/// @brief 获取僵尸动画
 		/// @return 僵尸动画
 		PVZ::Animation GetAnimation();
+		/// @brief 僵王召唤僵尸的倒计时。同时也是投手僵尸剩余篮球数。
+		INT_PROPERTY(SummonCounter, __get_SummonCounter, __set_SummonCounter, 0x114);
 		/// @brief 大小
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
 		//临时变量
@@ -902,6 +910,8 @@ namespace PVZ
 		/// @brief 设置是否显示铁门僵尸的手臂。
 		/// @param shown 是否显示，默认为 true
 		void ShowDoorArms(bool shown = true);
+		/// @brief 根据盾的类型设置相应动画轨道的绘制分组。
+		void AttachShield();
 
 		/// @deprecated
 		void GetBodyHp(int* hp, int* maxhp);

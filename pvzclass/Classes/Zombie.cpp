@@ -162,6 +162,15 @@ void PVZ::Zombie::ShowDoorArms(bool shown)
 	PVZ::Memory::Execute(ShowDoorArms_builder);
 }
 
+void PVZ::Zombie::AttachShield()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x533000)
+		.ret()
+	);
+}
+
 void PVZ::Zombie::GetBodyHp(int* hp, int* maxhp)
 {
 	*hp = Memory::ReadMemory<int>(BaseAddress + 0xC8);
