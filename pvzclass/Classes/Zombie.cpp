@@ -437,6 +437,14 @@ bool PVZ::Zombie::EffectedBy(DamageRangeFlags range, bool usepvzfunc)
 	}
 }
 
+void PVZ::Zombie::UpdateAnimSpeed()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, this->GetBaseAddress())
+		.invoke(0x52F050)
+		.ret());
+}
+
 AsmBuilder GetActualAttackRect_builder = AsmBuilder();
 PVZ::Rect PVZ::Zombie::GetActualAttackRect()
 {

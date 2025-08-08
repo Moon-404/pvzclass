@@ -899,6 +899,8 @@ namespace PVZ
 		/// @param usepvzfunc 是否调用 pvz 内部函数。默认为 true。
 		/// @return 是否能被搜寻到。
 		bool EffectedBy(DamageRangeFlags range, bool usepvzfunc = true);
+		/// @brief 僵尸运动或状态改变时调用，更新动画速度。
+		void UpdateAnimSpeed();
 
 		/// @brief 获取僵尸的实际可攻击范围。
 		/// @return 僵尸的实际攻击范围
