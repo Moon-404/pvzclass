@@ -73,6 +73,9 @@
     <Filter Include="源文件\Events">
       <UniqueIdentifier>{48b1875c-9a74-4209-962b-04c7e5ca420f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Widgets">
+      <UniqueIdentifier>{26417ca2-9be0-4398-8066-a306dfc4bc48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PVZ.cpp">
@@ -769,6 +772,9 @@
     </ClInclude>
     <ClInclude Include="Events\BoardInitAfterEvent.hpp">
       <Filter>头文件\Events\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\ButtonWidget.hpp">
+      <Filter>头文件\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

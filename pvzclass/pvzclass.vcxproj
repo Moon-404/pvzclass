@@ -402,6 +402,7 @@
     <ClInclude Include="Events\ZombieRemoveEvent.h" />
     <ClInclude Include="Events\DrawUITopEvent.h" />
     <ClInclude Include="Events\VaseOpenEvent.h" />
+    <ClInclude Include="Widgets\ButtonWidget.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
