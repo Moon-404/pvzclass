@@ -1490,6 +1490,11 @@ namespace PVZ
 		/// @param brain 将被压扁的脑子
 		/// @see IZBrain
 		void IZSquishBrain(IZBrain brain);
+		/// @brief 在指定行随机种植若干个指定类型的植物，并对其进行 IZ 关卡的特殊调整。
+		/// @param type 植物类型
+		/// @param count 种植数量
+		/// @param row 指定的行。若为 -1，则没有行限制。
+		void IZPlacePlants(SeedType::SeedType type, int count, int row);
 	};
 	using Miscellaneous = Challenge;
 
