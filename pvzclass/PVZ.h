@@ -875,8 +875,8 @@ namespace PVZ
 		void Remove();
 		/// @brief 移除僵尸并生成它的掉落物。
 		void RemoveWithLoot();
-		//animPlayArg(APA_XXXXXX)
-		void SetAnimation(LPCSTR animName, byte animPlayArg);
+		//LoopType(APA_XXXXXX)
+		void SetAnimation(LPCSTR animName, byte LoopType, int blend_time = 14, float fps = 24.0f);
 		/// @brief 为僵尸装备铁桶
 		/// @param shield 铁桶生命值
 		void EquipBucket(int shield = 1100);
