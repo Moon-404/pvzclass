@@ -1093,6 +1093,13 @@ namespace PVZ
 			T_PROPERTY(MagnetItemType::MagnetItemType, Type, __get_Type, __set_Type, 0x10);
 		};
 		MagnetItem GetMagnetItem(int num);
+
+		/// @brief 取得植物种植时的基础阳光消耗。
+		/// @note 对其他类型的卡牌也有效
+		/// @param type 种子卡类型
+		/// @param imitater_type 模仿者模仿的类型
+		/// @return 种植的基础阳光消耗
+		static int GetCost(SeedType::SeedType type, SeedType::SeedType imitater_type = SeedType::None);
 	};
 	class GardenPlant : public BaseClass
 	{
