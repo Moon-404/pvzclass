@@ -81,3 +81,4 @@
 #include "ZombieDropLootEvent.hpp"
 #include "ZombieTargetPlantEvent.hpp"
 #include "ZombieEatSoundEvent.hpp"
+#include "ZombieEquipmentEvents.hpp"

@@ -776,5 +776,8 @@
     <ClInclude Include="Widgets\ButtonWidget.hpp">
       <Filter>头文件\Widgets</Filter>
     </ClInclude>
+    <ClInclude Include="Events\ZombieEquipmentEvents.hpp">
+      <Filter>头文件\Events\Zombie</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
