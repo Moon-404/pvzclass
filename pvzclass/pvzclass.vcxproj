@@ -325,6 +325,7 @@
     <ClInclude Include="Events\ZombieDropLootEvent.hpp" />
     <ClInclude Include="Events\ZombieEatEvent.h" />
     <ClInclude Include="Events\ZombieEatSoundEvent.hpp" />
+    <ClInclude Include="Events\ZombieEquipmentEvents.hpp" />
     <ClInclude Include="Events\ZombieTakeDmgEvent.h" />
     <ClInclude Include="Enums\LawnmoverState.h" />
     <ClInclude Include="Creators.h" />
@@ -402,6 +403,7 @@
     <ClInclude Include="Events\ZombieRemoveEvent.h" />
     <ClInclude Include="Events\DrawUITopEvent.h" />
     <ClInclude Include="Events\VaseOpenEvent.h" />
+    <ClInclude Include="Widgets\ButtonWidget.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
