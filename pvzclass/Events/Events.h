@@ -49,6 +49,7 @@
 
 #include "ExtractResourceEvent.hpp"
 #include "ParseResourceEvent.hpp"
+#include "OverrideSavedataFolderEvent.hpp"
 
 #include "PlantAddProjectileEvent.hpp"
 #include "PlantDamageZombieEvent.hpp"

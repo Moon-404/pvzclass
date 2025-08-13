@@ -782,5 +782,8 @@
     <ClInclude Include="Events\LevelDialogQuitEvent.hpp">
       <Filter>头文件\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Events\OverrideSavedataFolderEvent.hpp">
+      <Filter>头文件\Events\Resource</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
