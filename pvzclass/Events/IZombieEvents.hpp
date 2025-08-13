@@ -246,4 +246,15 @@ namespace PVZEvent
 			p19->end();
 		}
 	};
+
+	/// @brief IZ 关卡发送初始字幕的事件。
+	/// @param 触发事件的 Challenge
+	/// @return 是否显示原生的字幕。
+	class IZStartAdviceEvent : BoolDLLEventTemplate<0x42B290, 7, 0x42B330, MEM_ESP_ADD(0x20)>
+	{
+	public:
+		IZStartAdviceEvent(int address) : BoolDLLEventTemplate() { Init(address); };
+		IZStartAdviceEvent(const char* name) : BoolDLLEventTemplate() { Init(name); };
+		IZStartAdviceEvent() : IZStartAdviceEvent("onIZStartAdvice") {};
+	};
 }
