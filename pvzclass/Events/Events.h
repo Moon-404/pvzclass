@@ -82,3 +82,5 @@
 #include "ZombieTargetPlantEvent.hpp"
 #include "ZombieEatSoundEvent.hpp"
 #include "ZombieEquipmentEvents.hpp"
+
+#include "LevelDialogQuitEvent.hpp"
