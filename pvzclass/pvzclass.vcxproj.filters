@@ -779,5 +779,14 @@
     <ClInclude Include="Events\ZombieEquipmentEvents.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
+    <ClInclude Include="Events\LevelDialogQuitEvent.hpp">
+      <Filter>头文件\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\OverrideSavedataFolderEvent.hpp">
+      <Filter>头文件\Events\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\IZombieEvents.hpp">
+      <Filter>头文件\Events\Challenge</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

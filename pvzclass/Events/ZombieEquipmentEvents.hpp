@@ -5,6 +5,7 @@ namespace PVZEvent
 {
 	/// @brief 僵尸失去盾牌事件
 	/// @param 触发事件时的僵尸
+	/// @bug 与已存在的事件重复。
 	class ZombieDetachShieldEvent : public DLLEventTemplate<0x5330E0, 5, REG_EAX>
 	{
 	public:

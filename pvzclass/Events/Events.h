@@ -44,11 +44,13 @@
 #include "CalcSunCostEvent.hpp"
 #include "ChallengeInitAfterEvent.hpp"
 #include "ChallengeUpdateEvent.hpp"
+#include "IZombieEvents.hpp"
 #include "CoinMouseDownEvent.hpp"
 #include "GriditemDieEvent.hpp"
 
 #include "ExtractResourceEvent.hpp"
 #include "ParseResourceEvent.hpp"
+#include "OverrideSavedataFolderEvent.hpp"
 
 #include "PlantAddProjectileEvent.hpp"
 #include "PlantDamageZombieEvent.hpp"
@@ -82,3 +84,5 @@
 #include "ZombieTargetPlantEvent.hpp"
 #include "ZombieEatSoundEvent.hpp"
 #include "ZombieEquipmentEvents.hpp"
+
+#include "LevelDialogQuitEvent.hpp"
