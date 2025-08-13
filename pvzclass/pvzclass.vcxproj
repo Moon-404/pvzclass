@@ -292,6 +292,7 @@
     <ClInclude Include="Events\IZInitAfterBrainEvent.hpp" />
     <ClInclude Include="Events\IZLevelCompleteEvent.hpp" />
     <ClInclude Include="Events\IZLevelStartAfterEvent.hpp" />
+    <ClInclude Include="Events\IZombieEvents.hpp" />
     <ClInclude Include="Events\IZScoreBrainEvent.hpp" />
     <ClInclude Include="Events\LawnmowerStartEvent.hpp" />
     <ClInclude Include="Events\LawnmowerUpdateEvent.hpp" />

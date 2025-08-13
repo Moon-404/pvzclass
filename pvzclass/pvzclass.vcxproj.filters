@@ -785,5 +785,8 @@
     <ClInclude Include="Events\OverrideSavedataFolderEvent.hpp">
       <Filter>头文件\Events\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="Events\IZombieEvents.hpp">
+      <Filter>头文件\Events\Challenge</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

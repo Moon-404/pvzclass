@@ -44,6 +44,7 @@
 #include "CalcSunCostEvent.hpp"
 #include "ChallengeInitAfterEvent.hpp"
 #include "ChallengeUpdateEvent.hpp"
+#include "IZombieEvents.hpp"
 #include "CoinMouseDownEvent.hpp"
 #include "GriditemDieEvent.hpp"
 
