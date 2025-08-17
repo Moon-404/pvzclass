@@ -76,6 +76,9 @@
     <Filter Include="头文件\Widgets">
       <UniqueIdentifier>{26417ca2-9be0-4398-8066-a306dfc4bc48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Events\Dialog">
+      <UniqueIdentifier>{7ed88d71-3ced-4107-b090-081d6251432d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PVZ.cpp">
@@ -790,6 +793,9 @@
     </ClInclude>
     <ClInclude Include="Events\LoadStringEvent.hpp">
       <Filter>头文件\Events\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\LawnDialogEvents.hpp">
+      <Filter>头文件\Events\Dialog</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

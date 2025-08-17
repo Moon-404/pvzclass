@@ -87,3 +87,5 @@
 #include "ZombieEquipmentEvents.hpp"
 
 #include "LevelDialogQuitEvent.hpp"
+
+#include "LawnDialogEvents.hpp"
