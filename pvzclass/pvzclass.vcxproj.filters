@@ -797,5 +797,8 @@
     <ClInclude Include="Events\LawnDialogEvents.hpp">
       <Filter>头文件\Events\Dialog</Filter>
     </ClInclude>
+    <ClInclude Include="Events\Dialog_ButtonDepressEvent.hpp">
+      <Filter>头文件\Events\Dialog</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

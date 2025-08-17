@@ -274,6 +274,7 @@
     <ClInclude Include="Events\ChallengeInitAfterEvent.hpp" />
     <ClInclude Include="Events\ChallengeUpdateEvent.hpp" />
     <ClInclude Include="Events\CoinMouseDownEvent.hpp" />
+    <ClInclude Include="Events\Dialog_ButtonDepressEvent.hpp" />
     <ClInclude Include="Events\DrawPlantReanimEvent.h" />
     <ClInclude Include="Events\DrawZombieReanimEvent.h" />
     <ClInclude Include="Enums\ChallengePage.hpp" />

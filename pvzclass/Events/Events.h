@@ -89,3 +89,4 @@
 #include "LevelDialogQuitEvent.hpp"
 
 #include "LawnDialogEvents.hpp"
+#include "Dialog_ButtonDepressEvent.hpp"
