@@ -803,5 +803,8 @@
     <ClInclude Include="Events\SeedPacketResourceEvents.hpp">
       <Filter>头文件\Events\SeedPacket</Filter>
     </ClInclude>
+    <ClInclude Include="Events\PlantFindTargetEvents.hpp">
+      <Filter>头文件\Events\Plant</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
