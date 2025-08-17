@@ -815,5 +815,8 @@
     <ClInclude Include="Events\ZombieSpeedAlterEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
+    <ClInclude Include="Events\BoardCustomTooltipEvent.hpp">
+      <Filter>头文件\Events\Board</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

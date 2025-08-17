@@ -39,6 +39,7 @@
 #include "ZombieUpdatePlayingEvent.hpp"
 
 #include "BegTwistFailMoveEvent.hpp"
+#include "BoardCustomTooltipEvent.hpp"
 #include "BoardInitAfterEvent.hpp"
 #include "BoardKeyDownEvent.hpp"
 #include "CanPlantAtEvents.hpp"
