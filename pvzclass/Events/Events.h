@@ -32,7 +32,7 @@
 #include "ZombieDecelerateEvent.h"
 #include "ZombieEatEvent.h"
 #include "ZombieFrozeEvent.h"
-#include "ZombieTakeDmgEvents.h"
+#include "ZombieTakeDmgEvent.h"
 #include "ZombieHypnotizeEvent.h"
 #include "ZombieRemoveEvent.h"
 #include "ZombieUpdateActionEvent.hpp"
