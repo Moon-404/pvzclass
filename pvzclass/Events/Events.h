@@ -86,6 +86,7 @@
 #include "ZombieDropHeadEvent.hpp"
 #include "ZombieDropHeadParticleEvent.hpp"
 #include "ZombieDropLootEvent.hpp"
+#include "ZombieSpeedAlterEvent.hpp"
 #include "ZombieTargetPlantEvent.hpp"
 #include "ZombieEatSoundEvent.hpp"
 #include "ZombieEquipmentEvents.hpp"
