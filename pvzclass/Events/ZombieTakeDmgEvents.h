@@ -37,3 +37,17 @@ public:
 		start(STRING(code));
 	}
 };
+
+namespace PVZEvent
+{
+	/// @brief 僵尸本体受伤后事件
+	/// @note 时机上后于本体受伤，先于后续所有判别。
+	/// @param 触发事件的僵尸，伤害数值，伤害标签
+	class ZombieTakeBodyDamageAfterEvent : public DLLEventTemplate<0x53131F, 5, MEM_ESP_ADD(0x44), MEM_ESP_ADD(0x44), REG_EBP>
+	{
+	public:
+		ZombieTakeBodyDamageAfterEvent(const char* str) : DLLEventTemplate() { Init(str); };
+		ZombieTakeBodyDamageAfterEvent(int address) : DLLEventTemplate() { Init(address); };
+		ZombieTakeBodyDamageAfterEvent() : ZombieTakeBodyDamageAfterEvent("onZombieTakeBodyDamageAfter") {};
+	};
+}
