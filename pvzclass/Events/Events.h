@@ -73,6 +73,7 @@
 
 #include "LawnmowerUpdateEvent.hpp"
 #include "SeedPacketMouseDownEvent.hpp"
+#include "SeedPacketResourceEvents.hpp"
 #include "SeedPacketUpdateEvent.hpp"
 #include "VaseBreakerPopulateEvent.hpp"
 #include "GriditemUpdateEvent.hpp"

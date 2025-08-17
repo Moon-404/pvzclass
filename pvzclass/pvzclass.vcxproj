@@ -322,6 +322,7 @@
     <ClInclude Include="Events\SeedPacketMouseDownEvent.hpp" />
     <ClInclude Include="Events\ProjectileCreateEvent.h" />
     <ClInclude Include="Events\PuzzlePhaseCompleteEvent.hpp" />
+    <ClInclude Include="Events\SeedPacketResourceEvents.hpp" />
     <ClInclude Include="Events\SeedPacketUpdateEvent.hpp" />
     <ClInclude Include="Events\UpdateAppEvent.h" />
     <ClInclude Include="Events\VaseBreakerPopulateEvent.hpp" />

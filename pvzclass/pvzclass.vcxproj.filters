@@ -800,5 +800,8 @@
     <ClInclude Include="Events\Dialog_ButtonDepressEvent.hpp">
       <Filter>头文件\Events\Dialog</Filter>
     </ClInclude>
+    <ClInclude Include="Events\SeedPacketResourceEvents.hpp">
+      <Filter>头文件\Events\SeedPacket</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
