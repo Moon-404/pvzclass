@@ -665,7 +665,7 @@
     <ClInclude Include="Events\ZombieEatEvent.h">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieTakeDmgEvent.h">
+    <ClInclude Include="Events\ZombieTakeDmgEvents.h">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
     <ClInclude Include="Events\ZombieRemoveEvent.h">
