@@ -49,6 +49,7 @@
 #include "GriditemDieEvent.hpp"
 
 #include "ExtractResourceEvent.hpp"
+#include "LoadStringEvent.hpp"
 #include "ParseResourceEvent.hpp"
 #include "OverrideSavedataFolderEvent.hpp"
 
