@@ -329,6 +329,7 @@
     <ClInclude Include="Events\UpdateAppEvent.h" />
     <ClInclude Include="Events\VaseBreakerPopulateEvent.hpp" />
     <ClInclude Include="Events\ZombieDetachShieldEvent.hpp" />
+    <ClInclude Include="Events\ZombieDebuffEvents.hpp" />
     <ClInclude Include="Events\ZombieDropHeadEvent.hpp" />
     <ClInclude Include="Events\ZombieDropHeadParticleEvent.hpp" />
     <ClInclude Include="Events\ZombieDropLootEvent.hpp" />

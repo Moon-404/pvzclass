@@ -809,5 +809,8 @@
     <ClInclude Include="Events\CanPlantAtEvents.hpp">
       <Filter>头文件\Events\Board</Filter>
     </ClInclude>
+    <ClInclude Include="Events\ZombieDebuffEvents.hpp">
+      <Filter>头文件\Events\Zombie</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
