@@ -41,6 +41,7 @@
 #include "BegTwistFailMoveEvent.hpp"
 #include "BoardInitAfterEvent.hpp"
 #include "BoardKeyDownEvent.hpp"
+#include "CanPlantAtEvents.hpp"
 #include "CalcSunCostEvent.hpp"
 #include "ChallengeInitAfterEvent.hpp"
 #include "ChallengeUpdateEvent.hpp"
