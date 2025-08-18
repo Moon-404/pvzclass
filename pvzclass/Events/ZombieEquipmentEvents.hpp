@@ -13,4 +13,14 @@ namespace PVZEvent
 		ZombieDetachShieldEvent(const char* name) : DLLEventTemplate() { Init(name); };
 		ZombieDetachShieldEvent() : ZombieDetachShieldEvent("onZombieDetachShield") {};
 	};
+
+	/// @brief 僵尸掉头盔事件
+	/// @param 触发事件的僵尸
+	class ZombieDropHelmEvent : public DLLEventTemplate<0x530E46, 6, REG_EBX>
+	{
+	public:
+		ZombieDropHelmEvent(int address) : DLLEventTemplate() { Init(address); };
+		ZombieDropHelmEvent(const char* name) : DLLEventTemplate() { Init(name); };
+		ZombieDropHelmEvent() : ZombieDropHelmEvent("onZombieDropHelm") {};
+	};
 }

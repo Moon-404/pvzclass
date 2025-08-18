@@ -257,4 +257,25 @@ namespace PVZEvent
 		IZStartAdviceEvent(const char* name) : BoolDLLEventTemplate() { Init(name); };
 		IZStartAdviceEvent() : IZStartAdviceEvent("onIZStartAdvice") {};
 	};
+
+	/// @brief IZ 中放置僵尸事件
+	/// @param 触发事件的 Zombie
+	class IZPlaceZombieEvent : public DLLEventTemplate<0x42A42A, 9, REG_EAX>
+	{
+	public:
+		IZPlaceZombieEvent(int address) : DLLEventTemplate() { Init(address); };
+		IZPlaceZombieEvent(const char* name) : DLLEventTemplate() { Init(name); };
+		IZPlaceZombieEvent() : IZPlaceZombieEvent("onIZPlaceZombie") {};
+	};
+
+	/// @brief 判断 IZ 关卡失败条件事件
+	/// @param 触发事件时场上的总阳光数
+	/// @return 阳光是否足够使用僵尸卡牌
+	class IZSunConditionEvent : public DiversionEventTemplate<0x42B4B3, 7, 0x42B526, 0x42B4BA, MEM_ESP_ADD(0x30)>
+	{
+	public:
+		IZSunConditionEvent(int address) : DiversionEventTemplate() { Init(address); };
+		IZSunConditionEvent(const char* name) : DiversionEventTemplate() { Init(name); };
+		IZSunConditionEvent() : IZSunConditionEvent("IsSunSuffcient") {};
+	};
 }

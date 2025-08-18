@@ -39,8 +39,10 @@
 #include "ZombieUpdatePlayingEvent.hpp"
 
 #include "BegTwistFailMoveEvent.hpp"
+#include "BoardCustomTooltipEvent.hpp"
 #include "BoardInitAfterEvent.hpp"
 #include "BoardKeyDownEvent.hpp"
+#include "CanPlantAtEvents.hpp"
 #include "CalcSunCostEvent.hpp"
 #include "ChallengeInitAfterEvent.hpp"
 #include "ChallengeUpdateEvent.hpp"
@@ -49,6 +51,7 @@
 #include "GriditemDieEvent.hpp"
 
 #include "ExtractResourceEvent.hpp"
+#include "LoadStringEvent.hpp"
 #include "ParseResourceEvent.hpp"
 #include "OverrideSavedataFolderEvent.hpp"
 
@@ -57,6 +60,7 @@
 #include "PlantDieLowHealthEvent.hpp"
 #include "PlantDoSpecialEvent.hpp"
 #include "PlantEatenEvent.hpp"
+#include "PlantFindTargetEvents.hpp"
 #include "PlantInitAfterEvent.hpp"
 #include "PlantMouseDownEvent.hpp"
 #include "PlantProduceEvent.hpp"
@@ -72,17 +76,23 @@
 
 #include "LawnmowerUpdateEvent.hpp"
 #include "SeedPacketMouseDownEvent.hpp"
+#include "SeedPacketResourceEvents.hpp"
 #include "SeedPacketUpdateEvent.hpp"
 #include "VaseBreakerPopulateEvent.hpp"
 #include "GriditemUpdateEvent.hpp"
 #include "ZombieInitAfterEvent.hpp"
 #include "IZInitAfterBrainEvent.hpp"
+#include "ZombieDebuffEvents.hpp"
 #include "ZombieDetachShieldEvent.hpp"
 #include "ZombieDropHeadEvent.hpp"
 #include "ZombieDropHeadParticleEvent.hpp"
 #include "ZombieDropLootEvent.hpp"
+#include "ZombieSpeedAlterEvent.hpp"
 #include "ZombieTargetPlantEvent.hpp"
 #include "ZombieEatSoundEvent.hpp"
 #include "ZombieEquipmentEvents.hpp"
 
 #include "LevelDialogQuitEvent.hpp"
+
+#include "LawnDialogEvents.hpp"
+#include "Dialog_ButtonDepressEvent.hpp"
