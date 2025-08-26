@@ -73,6 +73,7 @@
 
 #include "ProjectileDefEvent.hpp"
 #include "ProjectileImageEvent.hpp"
+#include "ProjectileUpdateEvents.hpp"
 
 #include "LawnmowerUpdateEvent.hpp"
 #include "SeedPacketMouseDownEvent.hpp"

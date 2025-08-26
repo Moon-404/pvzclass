@@ -818,5 +818,8 @@
     <ClInclude Include="Events\BoardCustomTooltipEvent.hpp">
       <Filter>头文件\Events\Board</Filter>
     </ClInclude>
+    <ClInclude Include="Events\ProjectileUpdateEvents.hpp">
+      <Filter>头文件\Events\Projectile</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
