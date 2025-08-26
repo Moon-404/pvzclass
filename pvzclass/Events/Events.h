@@ -86,6 +86,7 @@
 
 #include "BungeeEvents.hpp"
 #include "PoleVaulterEvents.hpp"
+#include "ZombieAbilityEvents.hpp"
 #include "ZombieDebuffEvents.hpp"
 #include "ZombieDetachShieldEvent.hpp"
 #include "ZombieDropHeadEvent.hpp"
