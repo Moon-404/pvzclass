@@ -63,6 +63,7 @@
 #include "PlantFindTargetEvents.hpp"
 #include "PlantInitAfterEvent.hpp"
 #include "PlantMouseDownEvent.hpp"
+#include "PlantPassiveEvents.hpp"
 #include "PlantProduceEvent.hpp"
 #include "PlantRectEvents.hpp"
 #include "PlantShoveledEvent.hpp"
