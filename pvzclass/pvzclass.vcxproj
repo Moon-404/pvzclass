@@ -271,6 +271,7 @@
     <ClInclude Include="Events\BoardInitAfterEvent.hpp" />
     <ClInclude Include="Events\BoardKeyDownEvent.hpp" />
     <ClInclude Include="Events\BoardUpdateGameEvent.hpp" />
+    <ClInclude Include="Events\BungeeEvents.hpp" />
     <ClInclude Include="Events\CalcSunCostEvent.hpp" />
     <ClInclude Include="Events\CanPlantAtEvents.hpp" />
     <ClInclude Include="Events\ChallengeInitAfterEvent.hpp" />

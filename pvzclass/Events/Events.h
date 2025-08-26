@@ -83,6 +83,8 @@
 #include "GriditemUpdateEvent.hpp"
 #include "ZombieInitAfterEvent.hpp"
 #include "IZInitAfterBrainEvent.hpp"
+
+#include "BungeeEvents.hpp"
 #include "PoleVaulterEvents.hpp"
 #include "ZombieDebuffEvents.hpp"
 #include "ZombieDetachShieldEvent.hpp"
