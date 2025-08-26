@@ -320,6 +320,7 @@
     <ClInclude Include="Events\PlantTakeDamageEvent.hpp" />
     <ClInclude Include="Events\PlantUpdateAbilityEvent.hpp" />
     <ClInclude Include="Events\PlantUpdateEvent.hpp" />
+    <ClInclude Include="Events\PoleVaulterEvents.hpp" />
     <ClInclude Include="Events\ProjectileDefEvent.hpp" />
     <ClInclude Include="Events\ProjectileImageEvent.hpp" />
     <ClInclude Include="Events\ProjectileUpdateEvents.hpp" />
