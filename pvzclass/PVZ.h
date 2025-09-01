@@ -1163,7 +1163,7 @@ namespace PVZ
 		/// @brief 是否有光环视觉效果
 		T_PROPERTY(BOOLEAN, HasHalo, __get_HasHalo, __set_HasHalo, 0xC8);
 		/// @brief 识别 ID.
-		INT_READONLY_PROPERTY(Id, __get_Id, 0xD0);
+		INT_READONLY_PROPERTY(Id, __get_Id, 0xD4);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Collect();
 		void Die();
