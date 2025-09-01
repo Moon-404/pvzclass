@@ -1,4 +1,5 @@
 # 目录
+- [2.4](#2.4)
 - [2.3](#2.3)
 - [2.2.1](#2.2.1)
 - [2.2](#2.2)
@@ -18,6 +19,39 @@
 - [1.15.1](#1.15.1（2023/11/22）)
 - [1.15.0](#1.15.0（2023/10/27）)
 - [1.14.3](#1.14.3（2023/10/22）)
+
+## 2.4
+
+### 新增内容
+
+- `Challenge::IZPlacePlants()`，使用原生方法生成 IZ 初始植物。
+- `ButtonWidget`，按钮控件。
+- `Plant::GetCost()`，用于获取卡牌基础阳光消耗。
+- `DiversionEventTemplate` 事件模板，用于快速设置一个事件，其结算函数的返回值为 bool。根据返回值，将会跳转到不同的地址。
+- `ThreeStateEventTemplate` 事件模板，用于快速设置一个事件，其结算函数的返回值为 int（或 ThreeState::ThreeState）。根据返回值的正负性，将会跳转到不同的地址。负数不会进行跳转。
+- 从其他项目中搬运大量新事件。
+
+### 改动内容
+
+- 现在 PVZClass 项目的默认 C++ 标准为 C++17 。
+- 优化 `DLLEventTemplate` 的构造，降低工件大小。
+- 更新 `Zombie` 类，增加若干接口。
+- 交换了 `ThreeState::None` 和 `ThreeState::Disabled` 的数值，方便事件返回特定数值。
+
+### 漏洞修复
+
+- 修复 `Const::GetLevelScene()` 无法获得正确数值的漏洞。
+- 修复 `Creator::CreateCrater()` 不能设置消失倒计时的漏洞。
+- 修复 `PlantShoveledEvent` 不正常的漏洞。
+- 修复 `Plant` 类若干接口的偏移不正确的漏洞。
+- 修复 `Coin` 类一个接口的偏移不正确的漏洞。
+- 修复 `ZombieHypnotizeEvent` 指定的函数名称不正确的漏洞。
+- 修复 `pvzdll` 的过滤器不正确的漏洞。
+- 修复部分情况下 `DLLEventTemplate` 的构造会在相关 `AsmBuilder` 析构时崩溃的漏洞。
+
+### 兼容性
+
+兼容 2.3。
 
 ## 2.3
 
