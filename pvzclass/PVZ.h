@@ -901,6 +901,8 @@ namespace PVZ
 		bool EffectedBy(DamageRangeFlags range, bool usepvzfunc = true);
 		/// @brief 僵尸运动或状态改变时调用，更新动画速度。
 		void UpdateAnimSpeed();
+		/// @brief 随机刷新僵尸的移动速度。
+		void PickRandomSpeed();
 
 		/// @brief 获取僵尸的实际可攻击范围。
 		/// @return 僵尸的实际攻击范围
