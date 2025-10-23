@@ -190,15 +190,20 @@ namespace PVZ
 	class Lawn;
 	class Icetrace;
 	class Wave;
-	/// @brief 控件
-	class Widget : public BaseClass
+	class WidgetContainer : public BaseClass
 	{
 	public:
-		Widget(int address) : BaseClass(address) {};
+		WidgetContainer(int address) : BaseClass(address) {};
 		INT_PROPERTY(ViewX,			__get_ViewX,		__set_ViewX,		0x30);
 		INT_PROPERTY(ViewY,			__get_ViewY,		__set_ViewY,		0x34);
 		INT_PROPERTY(ViewLength,	__get_ViewLength,	__set_ViewLength,	0x38);
 		INT_PROPERTY(ViewHeight,	__get_ViewHeight,	__set_ViewHeight,	0x3C);
+	};
+	/// @brief 控件
+	class Widget : public WidgetContainer
+	{
+	public:
+		Widget(int address) : WidgetContainer(address) {};
 	};
 	/// @brief 三行三列矩阵
 	class Matrix3 : public BaseClass
