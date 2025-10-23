@@ -833,5 +833,8 @@
     <ClInclude Include="Events\PlantPassiveEvents.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Challenge.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
