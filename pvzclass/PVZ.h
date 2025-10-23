@@ -190,6 +190,8 @@ namespace PVZ
 	class Lawn;
 	class Icetrace;
 	class Wave;
+	class Widget;
+
 	class WidgetContainer : public BaseClass
 	{
 	public:
@@ -198,6 +200,13 @@ namespace PVZ
 		INT_PROPERTY(ViewY,			__get_ViewY,		__set_ViewY,		0x34);
 		INT_PROPERTY(ViewLength,	__get_ViewLength,	__set_ViewLength,	0x38);
 		INT_PROPERTY(ViewHeight,	__get_ViewHeight,	__set_ViewHeight,	0x3C);
+
+		/// @brief 将指定控件设定为容器的子控件。
+		/// @param widget 子控件
+		void AddWidget(Widget widget);
+		/// @brief 将指定控件移出容器的子控件列表。
+		/// @param widget 子控件
+		void RemoveWidget(Widget widget);
 	};
 	/// @brief 控件
 	class Widget : public WidgetContainer
