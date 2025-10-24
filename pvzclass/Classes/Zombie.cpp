@@ -445,6 +445,14 @@ void PVZ::Zombie::UpdateAnimSpeed()
 		.ret());
 }
 
+void PVZ::Zombie::PickRandomSpeed()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x524A70)
+		.ret());
+}
+
 AsmBuilder GetActualAttackRect_builder = AsmBuilder();
 PVZ::Rect PVZ::Zombie::GetActualAttackRect()
 {

@@ -1,5 +1,7 @@
-﻿#include "../PVZ.h"
+#include "../PVZ.h"
 #include "../Const.h"
+#include "SeedBank.hpp"
+#include "Challenge.hpp"
 
 void PVZ::Board::SetMemSize(int NewSize)
 {

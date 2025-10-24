@@ -79,6 +79,9 @@
     <Filter Include="头文件\Events\Dialog">
       <UniqueIdentifier>{7ed88d71-3ced-4107-b090-081d6251432d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Widget">
+      <UniqueIdentifier>{13e95f3e-25f6-406a-b482-c73050b04cc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PVZ.cpp">
@@ -320,6 +323,9 @@
     </ClCompile>
     <ClCompile Include="Events\DLLEvent.cpp">
       <Filter>源文件\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Widget.cpp">
+      <Filter>源文件\Widget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -832,6 +838,12 @@
     </ClInclude>
     <ClInclude Include="Events\PlantPassiveEvents.hpp">
       <Filter>头文件\Events\Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Challenge.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\SeedBank.hpp">
+      <Filter>头文件\Classes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -249,9 +249,12 @@
     <ClCompile Include="Classes\GardenPlant.cpp" />
     <ClCompile Include="Enums\SeedState.cpp" />
     <ClCompile Include="Sexy.cpp" />
+    <ClCompile Include="Widgets\Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AsmBuilder.hpp" />
+    <ClInclude Include="Classes\SeedBank.hpp" />
+    <ClInclude Include="Classes\Challenge.hpp" />
     <ClInclude Include="Classes\ChallengeScreen.hpp" />
     <ClInclude Include="Classes.hpp" />
     <ClInclude Include="Classes\Definition.hpp" />
