@@ -129,9 +129,10 @@ template<DWORD _Hook_Address, uint8_t _Raw_Len, DWORD _Cancel_Addr, DWORD ...Par
 class BoolDLLEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
 {
 protected:
+	static constexpr std::array<uint8_t, 11> compiled_special_bytes = { TEST_AL_AL, JNZ(7), POPAD, PUSHDWORD(_Cancel_Addr), RET };
 	virtual void InitExtra(AsmBuilder& builder)
 	{
-		builder.test_al_al().jnz_rel(7).popad().push_imm32(_Cancel_Addr).ret();
+		builder.add_bytes(compiled_special_bytes.data(), 11);
 	}
 };
 
@@ -144,9 +145,10 @@ template<DWORD _Hook_Address, uint8_t _Raw_Len, DWORD _Cancel_Addr, DWORD ...Par
 class TrueDLLEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
 {
 protected:
+	static constexpr std::array<uint8_t, 11> compiled_special_bytes = { TEST_AL_AL, JE(7), POPAD, PUSHDWORD(_Cancel_Addr), RET };
 	virtual void InitExtra(AsmBuilder& builder)
 	{
-		builder.test_al_al().jz_rel(7).popad().push_imm32(_Cancel_Addr).ret();
+		builder.add_bytes(compiled_special_bytes.data(), 11);
 	}
 };
 
@@ -266,11 +268,21 @@ template<DWORD _Hook_Address, uint8_t _Raw_Len, DWORD _True_Addr, DWORD _False_A
 class DiversionEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
 {
 protected:
+	static constexpr std::array<uint8_t, 17> compiled_special_bytes =
+	{
+		TEST_AL_AL,
+		POPAD,
+		JE(6),
+
+		PUSHDWORD(_True_Addr),
+		RET,
+
+		PUSHDWORD(_False_Addr),
+		RET
+	};
 	virtual void InitExtra(AsmBuilder& builder)
 	{
-		builder.test_al_al().popad().jz_rel(6)
-			.push_imm32(_True_Addr).ret()
-			.push_imm32(_False_Addr).ret();
+		builder.add_bytes(compiled_special_bytes.data(), 17);
 	}
 };
 
@@ -284,10 +296,21 @@ template<DWORD _Hook_Address, uint8_t _Raw_Len, DWORD _Posi_Addr, DWORD _Zero_Ad
 class ThreeStateEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len, Params...>
 {
 protected:
+	static constexpr std::array<uint8_t, 19> compiled_special_bytes =
+	{
+		TEST_AL_AL,
+		JS(19),
+		POPAD,
+		JE(6),
+
+		PUSHDWORD(_Posi_Addr),
+		RET,
+
+		PUSHDWORD(_Zero_Addr),
+		RET
+	};
 	virtual void InitExtra(AsmBuilder& builder)
 	{
-		builder.test_al_al().js_rel(19).popad().jz_rel(6)
-			.push_imm32(_Posi_Addr).ret()
-			.push_imm32(_Zero_Addr).ret();
+		builder.add_bytes(compiled_special_bytes.data(), 19);
 	}
 };
