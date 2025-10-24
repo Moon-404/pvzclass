@@ -398,7 +398,7 @@ bool PVZ::Zombie::EffectedBy(DamageRangeFlags range, bool usepvzfunc)
 			if (state != ZombieState::ZOMBOSS_DOWN
 				&& state != ZombieState::ZOMBOSS_PREPARE_RISE
 				&& state != ZombieState::ZOMBOSS_BALL)
-					return(false);
+				return(false);
 		}
 		//if (type == ZombieType::ZombieBobsledTeam && )
 			//return(false);
@@ -414,7 +414,7 @@ bool PVZ::Zombie::EffectedBy(DamageRangeFlags range, bool usepvzfunc)
 			|| state == ZombieState::RISING_FROM_GROUND
 			|| state == ZombieState::BOBSLED_GETOFF
 			|| state == ZombieState::BACKUP_SPAWNING)
-				return(range & DRF_OFF_GROUND);
+			return(range & DRF_OFF_GROUND);
 
 		//)if (this->mZombieType == ZombieType::BOBSLED
 
@@ -422,14 +422,14 @@ bool PVZ::Zombie::EffectedBy(DamageRangeFlags range, bool usepvzfunc)
 		if ((range & DRF_SUBMERGED) != 0 && submerged)
 			return(true);
 
-		if((range & DRF_UNDERGROUND) != 0
+		if ((range & DRF_UNDERGROUND) != 0
 			&& state == ZombieState::DIGGER_DIG)
-				return(true);
+			return(true);
 
 		bool flying = state == ZombieState::BALLOON_FLYING || state == ZombieState::BALLOON_FALLING;
-		if((range & DRF_FLYING) != 0 && flying)
+		if ((range & DRF_FLYING) != 0 && flying)
 			return(true);
-		
+
 		if (range & DRF_GROUND && !flying && !submerged && state != ZombieState::DIGGER_DIG)
 			return(true);
 
@@ -453,42 +453,38 @@ void PVZ::Zombie::PickRandomSpeed()
 		.ret());
 }
 
-AsmBuilder GetActualAttackRect_builder = AsmBuilder();
 PVZ::Rect PVZ::Zombie::GetActualAttackRect()
 {
-	GetActualAttackRect_builder.clear()
+	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EDI, PVZ::Memory::Variable)
 		.mov_reg_imm(REG_EBX, this->GetBaseAddress())
 		.invoke(0x532140)
-		.ret();
-
-	PVZ::Memory::Execute(GetActualAttackRect_builder);
+		.ret()
+	);
 
 	Rect tmp = Rect();
-	tmp.X = *((int*)PVZ::Memory::Variable);
-	tmp.Y = *((int*)PVZ::Memory::Variable + 4);
-	tmp.Width = *((int*)PVZ::Memory::Variable + 8);
-	tmp.Height = *((int*)PVZ::Memory::Variable + 0x0C);
+	tmp.X = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable);
+	tmp.Y = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 4);
+	tmp.Width = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 8);
+	tmp.Height = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 0x0C);
 
 	return tmp;
 }
 
-AsmBuilder GetActualRect_builder = AsmBuilder();
 PVZ::Rect PVZ::Zombie::GetActualRect()
 {
-	GetActualRect_builder.clear()
+	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EDI, PVZ::Memory::Variable)
 		.mov_reg_imm(REG_EBX, this->GetBaseAddress())
 		.invoke(0x5320B0)
-		.ret();
-
-	PVZ::Memory::Execute(GetActualRect_builder);
+		.ret()
+	);
 
 	Rect tmp = Rect();
-	tmp.X = *((int*)PVZ::Memory::Variable);
-	tmp.Y = *((int*)(PVZ::Memory::Variable + 4));
-	tmp.Width = *((int*)(PVZ::Memory::Variable + 8));
-	tmp.Height = *((int*)(PVZ::Memory::Variable + 0x0C));
+	tmp.X = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable);
+	tmp.Y = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 4);
+	tmp.Width = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 8);
+	tmp.Height = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 0x0C);
 
 	return tmp;
 }
