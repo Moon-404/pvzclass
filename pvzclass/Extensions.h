@@ -1,4 +1,4 @@
-﻿/// @file Extensions.h
+/// @file Extensions.h
 /// @brief 包含多种修改器功能实现的文件
 
 #pragma once
