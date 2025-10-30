@@ -845,5 +845,8 @@
     <ClInclude Include="Classes\SeedBank.hpp">
       <Filter>头文件\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Advice.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

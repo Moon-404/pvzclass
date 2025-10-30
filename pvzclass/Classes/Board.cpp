@@ -1,5 +1,6 @@
 #include "../PVZ.h"
 #include "../Const.h"
+#include "Advice.hpp"
 #include "SeedBank.hpp"
 #include "Challenge.hpp"
 

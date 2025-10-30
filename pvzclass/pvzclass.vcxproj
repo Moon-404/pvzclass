@@ -253,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AsmBuilder.hpp" />
+    <ClInclude Include="Classes\Advice.hpp" />
     <ClInclude Include="Classes\SeedBank.hpp" />
     <ClInclude Include="Classes\Challenge.hpp" />
     <ClInclude Include="Classes\ChallengeScreen.hpp" />
