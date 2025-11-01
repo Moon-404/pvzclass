@@ -5,6 +5,7 @@
 
 #include "Classes/Projectile.hpp"
 #include "Classes/LawnMower.hpp"
+#include "Classes/Griditem.hpp"
 #include "Classes/Mouse.hpp"
 #include "Classes/Advice.hpp"
 #include "Classes/SeedBank.hpp"
