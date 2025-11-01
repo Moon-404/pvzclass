@@ -1,4 +1,5 @@
-﻿#include "../PVZ.h"
+#include "../PVZ.h"
+#include "Projectile.hpp"
 
 PVZ::Griditem::Griditem(int indexoraddress)
 {

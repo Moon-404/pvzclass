@@ -3,6 +3,7 @@
 #include "Classes/SaveData.hpp"
 #include "Classes/ZenGarden.hpp"
 
+#include "Classes/Projectile.hpp"
 #include "Classes/LawnMower.hpp"
 #include "Classes/Mouse.hpp"
 #include "Classes/Advice.hpp"
