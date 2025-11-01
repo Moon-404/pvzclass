@@ -1184,42 +1184,6 @@ namespace PVZ
 		void Collect();
 		void Die();
 	};
-	/// @brief 除草机
-	class LawnMower : public BaseClass
-	{
-	public:
-		/// @brief 除草机的内存占用字节数。\n
-		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
-		static const DWORD MemSize = 0x48;
-		LawnMower(int indexoraddress);
-		/// @brief X 坐标
-		T_PROPERTY(FLOAT, X, __get_X, __set_X, 8);
-		/// @brief Y 坐标
-		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0xC);
-		/// @brief 绘制图层编号
-		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x10);
-		/// @brief 行
-		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
-		/// @brief 获取除草机的动画
-		/// @return 除草机的动画
-		PVZ::Animation GetAnimation();
-		/// @brief 除草机状态
-		T_PROPERTY(LawnmoverState::LawnmoverState, State, __get_State, __set_State, 0x2C);
-		/// @brief 是否已消失
-		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x30);
-		/// @brief 是否可见
-		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x31);
-		/// @brief 除草机类型
-		T_PROPERTY(LawnmoverType::LawnmoverType, Type, __get_Type, __set_Type, 0x34);
-		/// @brief Y 坐标偏移量
-		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
-		/// @brief 识别 ID
-		INT_READONLY_PROPERTY(Id, __get_Id, 0x44);
-		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
-		/// @brief 移除该除草机
-		void Die();
-	};
-	using Lawnmover = LawnMower;
 	/// @brief 各种场地物件的基类。
 	class Griditem : public BaseClass
 	{
@@ -1370,34 +1334,6 @@ namespace PVZ
 		static const GriditemType::GriditemType ItemType = GriditemType::PortalYellow;
 		SquarePortal(int indexoraddress) : Portal(indexoraddress) {};
 	};
-	class MousePointer : public GameObject//+138
-	{
-	public:
-		MousePointer(int address);
-		INT_PROPERTY(CardIndex, __get_CardIndex, __set_CardIndex, 0x24);
-		T_PROPERTY(SeedType::SeedType, ContentCard, __get_ContentCard, __set_ContentCard, 0x28);
-		T_PROPERTY(SeedType::SeedType, ContentCardImitative, __get_ContentCardImitative, __set_ContentCardImitative, 0x2C);
-		T_PROPERTY(MouseType::MouseType, Type, __get_Type, __set_Type, 0x30);
-		INT_PROPERTY(CoinID, __get_CoinID, __set_CoinID, 0x34);
-		INT_PROPERTY(GlovePlantID, __get_GlovePlantID, __set_GlovePlantID, 0x38);
-		INT_PROPERTY(ImitativePlantID, __get_ImitativePlantID, __set_ImitativePlantID, 0x3C);
-		INT_PROPERTY(CobCannonID, __get_CobCannonID, __set_CobCannonID, 0x40);
-		INT_PROPERTY(HammerDownCount, __get_HammerDownCount, __set_HammerDownCount, 0x44);
-		PVZ::Animation GetAnimation();
-		READONLY_PROPERTY_BINDING(int, __get_Row, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x28)) Row;
-		READONLY_PROPERTY_BINDING(int, __get_Column, Memory::ReadPointer(PVZBASEADDRESS + 0x13C, 0x24)) Column;
-	};
-	class Caption : public BaseClass
-	{
-	public:
-		Caption(int address);
-		int GetBaseAddress();
-		void GetText(char str[]);//str[0x80]
-		void SetText(const char str[]);//str[0x80]
-		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x88);
-		T_PROPERTY(CaptionStyle::CaptionStyle, Style, __get_CaptionStyle, __set_CaptionStyle, 0x8C);
-	};
-	using Advice = Caption;
 
 #pragma endregion
 

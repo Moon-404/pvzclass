@@ -3,6 +3,9 @@
 #include "Classes/SaveData.hpp"
 #include "Classes/ZenGarden.hpp"
 
+#include "Classes/LawnMower.hpp"
+#include "Classes/Mouse.hpp"
+#include "Classes/Advice.hpp"
 #include "Classes/SeedBank.hpp"
 #include "Classes/Challenge.hpp"
 

@@ -1,5 +1,8 @@
 #include "../PVZ.h"
 #include "../Const.h"
+#include "LawnMower.hpp"
+#include "Mouse.hpp"
+#include "Advice.hpp"
 #include "SeedBank.hpp"
 #include "Challenge.hpp"
 
