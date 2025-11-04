@@ -272,7 +272,7 @@ namespace Creator
 	/// @return 一个小于 range 的随机非负整数
 	inline int Rand(const int range)
 	{
-		PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 228, range);
+		PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 228, range);
 		int (*func)() = (int (*)())(PVZ::Memory::Variable + 225);
 		return func();
 	}
@@ -285,7 +285,7 @@ namespace Creator
 	/// @return 一个小于等于 range 的随机非负整数
 	inline float RandFloat(const float range)
 	{
-		PVZ::Memory::WriteMemory<float>(PVZ::Memory::Variable + 253, range);
+		PVZ::Memory::WriteMemoryUnsafe<float>(PVZ::Memory::Variable + 253, range);
 		float (*func)() = (float (*)())(PVZ::Memory::Variable + 250);
 		return func();
 	}
