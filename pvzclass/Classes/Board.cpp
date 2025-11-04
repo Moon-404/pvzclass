@@ -1,6 +1,8 @@
 #include "../PVZ.h"
 #include "../Const.h"
+#include "Projectile.hpp"
 #include "LawnMower.hpp"
+#include "Griditem.hpp"
 #include "Mouse.hpp"
 #include "Advice.hpp"
 #include "SeedBank.hpp"

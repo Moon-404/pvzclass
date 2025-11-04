@@ -854,5 +854,11 @@
     <ClInclude Include="Classes\LawnMower.hpp">
       <Filter>头文件\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Projectile.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Griditem.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
