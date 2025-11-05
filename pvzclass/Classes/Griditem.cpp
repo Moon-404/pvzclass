@@ -1,4 +1,5 @@
 #include "../PVZ.h"
+#include "GameObject.hpp"
 #include "Projectile.hpp"
 #include "Griditem.hpp"
 
