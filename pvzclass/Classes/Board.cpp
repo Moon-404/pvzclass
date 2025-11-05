@@ -1,5 +1,6 @@
 #include "../PVZ.h"
 #include "../Const.h"
+#include "GameObject.hpp"
 #include "Projectile.hpp"
 #include "LawnMower.hpp"
 #include "Griditem.hpp"
@@ -13,6 +14,7 @@ void PVZ::Board::SetMemSize(int NewSize)
 	if (NewSize < 0x57B0)
 		return;
 	PVZ::Memory::WriteMemory<int>(0x44F60F, NewSize);
+	PVZ::Memory::WriteMemory<int>(0x4819E1, NewSize - 0x164);
 }
 
 PVZ::PVZApp PVZ::Board::GetPVZApp()

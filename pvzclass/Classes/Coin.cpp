@@ -1,4 +1,4 @@
-﻿#include "../PVZ.h"
+#include "GameObject.hpp"
 
 PVZ::Coin::Coin(int indexoraddress)
 {
@@ -8,7 +8,7 @@ PVZ::Coin::Coin(int indexoraddress)
 		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xE4) + indexoraddress * 0xD8;
 }
 
-void PVZ::Coin::GetCollision(CollisionBox* collbox)
+void PVZ::Coin::GetCollision(PVZ::Rect* collbox)
 {
 	collbox->X = NULL;
 	collbox->Y = NULL;
@@ -16,7 +16,7 @@ void PVZ::Coin::GetCollision(CollisionBox* collbox)
 	collbox->Height = Memory::ReadMemory<int>(BaseAddress + 0x14);
 }
 
-void PVZ::Coin::SetCollision(CollisionBox* collbox)
+void PVZ::Coin::SetCollision(PVZ::Rect* collbox)
 {
 	Memory::WriteMemory<int>(BaseAddress + 0x10, collbox->Width);
 	Memory::WriteMemory<int>(BaseAddress + 0x14, collbox->Height);

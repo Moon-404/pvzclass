@@ -1,4 +1,4 @@
-#include "../PVZ.h"
+#include "GameObject.hpp"
 
 PVZ::Zombie::Zombie(int indexoraddress)
 {
