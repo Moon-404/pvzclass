@@ -1,8 +1,42 @@
 #pragma once
 #include "../PVZ.h"
+#include "Board.hpp"
 
 namespace PVZ
 {
+	/// @brief 部分类的基类
+	/// @attention 你不应该直接构造这个类！
+	class GameObject : public BaseClass
+	{
+	protected:
+		GameObject() : BaseClass(0) {};
+	public:
+		/// @brief 获取 GameObject 所在的 PVZApp
+		PVZApp GetLawnApp()
+		{
+			return(PVZ::PVZApp(Memory::ReadMemory<DWORD>(BaseAddress)));
+		}
+		/// @brief 获取当前对象所属的 Board
+		/// @return 对象所在的 Board
+		PVZ::Board GetBoard()
+		{
+			return(PVZ::Board(Memory::ReadMemory<int>(BaseAddress + 4)));
+		}
+		/// @brief X 坐标。部分派生类仅将其用作实际坐标的取整版本。
+		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
+		/// @brief Y 坐标。部分派生类仅将其用作实际坐标的取整版本。
+		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
+		/// @brief 宽度
+		INT_PROPERTY(Width, __get_Width, __set_Width, 0x10);
+		/// @brief 高度
+		INT_PROPERTY(Height, __get_Height, __set_Height, 0x14);
+		/// @brief 是否可见
+		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
+		/// @brief 行
+		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
+		/// @brief 绘制图层编号
+		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
+	};
 	/// @brief 僵尸
 	class Zombie : public GameObject
 	{
