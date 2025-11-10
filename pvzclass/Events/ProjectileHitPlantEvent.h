@@ -19,7 +19,8 @@ public:
 		hookAddress = 0x46CC28;
 		rawlen = 6;
 		BYTE code[] = { CMP_EAX_DWORD(0), JE(22), PUSH_EAX, PUSH_EBP,
-			INVOKE(address), ADD_ESP(8), MOV_PTR_ESP_ADD_V_EUX(0, 28) };
+				INVOKE(address), ADD_ESP(8), MOV_PTR_ESP_ADD_V_EUX(0, 28)
+			};
 		start(STRING(code));
 	}
 };

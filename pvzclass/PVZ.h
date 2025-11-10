@@ -77,7 +77,7 @@ namespace PVZ
 	void InitPVZ(DWORD pid);
 	void QuitPVZ();
 
-#pragma region structs
+	#pragma region structs
 
 	struct Color
 	{
@@ -87,9 +87,9 @@ namespace PVZ
 		int Alpha;
 	};
 
-#pragma endregion
+	#pragma endregion
 
-#pragma region classes	
+	#pragma region classes
 	/// @brief 所有对应 PVZ 内部对象的类的基类。
 	/// @attention 你不应该直接构造 BaseClass！
 	class BaseClass
@@ -99,7 +99,7 @@ namespace PVZ
 		int BaseAddress;
 	public:
 		BaseClass() : BaseAddress(INVALID_BASEADDRESS) {};
-		BaseClass(int address) : BaseAddress(address){};
+		BaseClass(int address) : BaseAddress(address) {};
 		/// @brief 返回基址
 		/// @return 基址
 		int GetBaseAddress() const
@@ -133,7 +133,7 @@ namespace PVZ
 	{
 	public:
 		/// @brief 获取 PVZClass 版本
-		READONLY_PROPERTY(const char*,				__get_Version)		Version;
+		READONLY_PROPERTY(const char*,	__get_Version)	Version;
 		/// @brief 判断 PVZ 主程序是哪一个发布版本。
 		/// @see PVZVersion
 		READONLY_PROPERTY(PVZVersion::PVZVersion,	__get_GameVersion)	GameVersion;
@@ -172,7 +172,7 @@ namespace PVZ
 	class Image : public BaseClass
 	{
 	public:
-		Image(int address) : BaseClass(address){};
+		Image(int address) : BaseClass(address) {};
 	};
 
 	class Attachment;
@@ -416,8 +416,8 @@ namespace PVZ
 		ZombieType::ZombieType Get(int index);
 		/// @brief 设置指定编号上的僵尸。
 		/// @note 不能以此法增加僵尸数量。若要增加，请使用 Add()
-		/// @param index 
-		/// @param ztype 
+		/// @param index
+		/// @param ztype
 		void Set(int index, ZombieType::ZombieType ztype);
 		/// @brief 删除指定编号上的僵尸
 		/// @param index 编号
@@ -463,16 +463,16 @@ namespace PVZ
 		T_PROPERTY(std::time_t, LastGrowthTime, __get_LastGrowthTime, __set_LastGrowthTime, 0x48);
 	};
 
-#pragma endregion
+	#pragma endregion
 
-#pragma region methods
+	#pragma region methods
 
 	void InitImages();
 	Mouse GetMouse();
 
-#pragma endregion
+	#pragma endregion
 
-#pragma region Images
+	#pragma region Images
 
 	class Resource
 	{
@@ -480,5 +480,5 @@ namespace PVZ
 		static Image* IMAGE_BLANK;
 	};
 
-#pragma endregion
+	#pragma endregion
 };

@@ -50,7 +50,7 @@ namespace PVZEvent
 		ZombieTakeBodyDamageAfterEvent(int address) : DLLEventTemplate() { Init(address); };
 		ZombieTakeBodyDamageAfterEvent() : ZombieTakeBodyDamageAfterEvent("onZombieTakeBodyDamageAfter") {};
 	};
-	
+
 	/// @brief 僵尸受到非灰烬爆炸伤害事件
 	/// @param 触发事件的僵尸
 	/// @return 是否受到此次伤害

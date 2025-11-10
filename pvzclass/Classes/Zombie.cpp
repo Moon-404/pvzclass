@@ -350,7 +350,7 @@ byte __asm__Zombie_EffectedBy[]
 {
 	MOV_ESI(0),
 	ZOMBIE_EFFECTEDBY,
-	AND_EUX(REG_EAX,1),
+	AND_EUX(REG_EAX, 1),
 	MOV_PTR_ADDR_EAX(0),
 	RET
 };
@@ -401,7 +401,7 @@ bool PVZ::Zombie::EffectedBy(DamageRangeFlags range, bool usepvzfunc)
 				return(false);
 		}
 		//if (type == ZombieType::ZombieBobsledTeam && )
-			//return(false);
+		//return(false);
 		if (state == ZombieState::POLE_VALUTING_JUMPPING
 			|| state == ZombieState::IMP_FLYING
 			|| state == ZombieState::DIGGER_DRILL
