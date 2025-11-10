@@ -1,5 +1,6 @@
 #pragma once
 #include "../PVZ.h"
+#include "GameObject.hpp"
 
 namespace PVZ
 {

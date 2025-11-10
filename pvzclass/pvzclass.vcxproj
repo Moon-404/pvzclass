@@ -254,6 +254,7 @@
   <ItemGroup>
     <ClInclude Include="AsmBuilder.hpp" />
     <ClInclude Include="Classes\Advice.hpp" />
+    <ClInclude Include="Classes\Board.hpp" />
     <ClInclude Include="Classes\GameObject.hpp" />
     <ClInclude Include="Classes\Griditem.hpp" />
     <ClInclude Include="Classes\LawnMower.hpp" />

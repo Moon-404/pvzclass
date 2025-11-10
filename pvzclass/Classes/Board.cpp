@@ -8,6 +8,12 @@
 #include "SeedBank.hpp"
 #include "Challenge.hpp"
 
+PVZ::Board PVZ::GetBoard()
+{
+	int address = PVZBASEADDRESS;
+	return (address == 0 ? INVALID_BASEADDRESS : Board(address));
+}
+
 void PVZ::Board::SetMemSize(int NewSize)
 {
 	if (NewSize < 0x57B0)

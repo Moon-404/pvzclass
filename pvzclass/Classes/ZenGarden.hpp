@@ -1,10 +1,12 @@
 #pragma once
 #include "../PVZ.h"
+#include "Board.hpp"
 #include "Griditem.hpp"
 
 namespace PVZ
 {
 	class PVZApp;
+	class Board;
 	class Snail;
 
 	/// @brief 禅境花园类，包含部分与禅境花园有关的函数。
