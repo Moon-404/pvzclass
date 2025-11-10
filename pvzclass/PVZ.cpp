@@ -140,10 +140,4 @@ PVZ::Mouse PVZ::GetMouse()
 	return Mouse(Memory::ReadPointer(0x6A9EC0, 0x320));
 }
 
-PVZ::Board PVZ::GetBoard()
-{
-	int address = PVZBASEADDRESS;
-	return(address == 0 ? INVALID_BASEADDRESS : Board(address));
-}
-
 #pragma endregion

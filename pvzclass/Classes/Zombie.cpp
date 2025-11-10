@@ -274,7 +274,7 @@ void PVZ::Zombie::SetAnimation(LPCSTR animName, byte LoopType, int blend_time, f
 	int Address = PVZ::Memory::AllocMemory();
 	SETARG(__asm__Zombie__setAnimation, 2) = BaseAddress;
 	SETARGFLOAT(__asm__Zombie__setAnimation, 7) = fps;
-	SETARGFLOAT(__asm__Zombie__setAnimation, 12) = blend_time;
+	SETARG(__asm__Zombie__setAnimation, 12) = blend_time;
 	__asm__Zombie__setAnimation[17] = LoopType;
 	SETARG(__asm__Zombie__setAnimation, 19) = Address + 41;
 	lstrcpyA((LPSTR)(__asm__Zombie__setAnimation + 41), animName);
@@ -350,7 +350,7 @@ byte __asm__Zombie_EffectedBy[]
 {
 	MOV_ESI(0),
 	ZOMBIE_EFFECTEDBY,
-	AND_EUX(REG_EAX,1),
+	AND_EUX(REG_EAX, 1),
 	MOV_PTR_ADDR_EAX(0),
 	RET
 };
@@ -401,7 +401,7 @@ bool PVZ::Zombie::EffectedBy(DamageRangeFlags range, bool usepvzfunc)
 				return(false);
 		}
 		//if (type == ZombieType::ZombieBobsledTeam && )
-			//return(false);
+		//return(false);
 		if (state == ZombieState::POLE_VALUTING_JUMPPING
 			|| state == ZombieState::IMP_FLYING
 			|| state == ZombieState::DIGGER_DRILL

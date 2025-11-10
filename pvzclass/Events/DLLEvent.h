@@ -61,33 +61,34 @@ private:
 		((total += param_size<Params>()), ...);
 		return total;
 	}
-	static constexpr auto build_base_bytes() {
+	static constexpr auto build_base_bytes()
+	{
 		constexpr size_t total_size = calculate_total_size();
 		std::array<uint8_t, total_size> bytes{};
 		size_t offset = 0;
 
 		// 使用 lambda 处理每个参数
 		auto process = [&](auto param)
+		{
+			if (param < MEM_ESP_ADD_MASK)
+				bytes[offset++] = 0x50 | (param & 0x7);
+			else if (param < CONST_VAL_MASK)
 			{
-				if (param < MEM_ESP_ADD_MASK)
-					bytes[offset++] = 0x50 | (param & 0x7);
-				else if (param < CONST_VAL_MASK)
-				{
-					bytes[offset++] = 0xFF;
-					bytes[offset++] = 0x74;
-					bytes[offset++] = 0x24;
-					bytes[offset++] = static_cast<uint8_t>(param);
-				}
-				else
-				{
-					DWORD value = param - CONST_VAL_MASK;
-					bytes[offset++] = 0x68;
-					bytes[offset++] = static_cast<uint8_t>(value & 0xFF);
-					bytes[offset++] = static_cast<uint8_t>((value >> 8) & 0xFF);
-					bytes[offset++] = static_cast<uint8_t>((value >> 16) & 0xFF);
-					bytes[offset++] = static_cast<uint8_t>((value >> 24) & 0xFF);
-				}
-			};
+				bytes[offset++] = 0xFF;
+				bytes[offset++] = 0x74;
+				bytes[offset++] = 0x24;
+				bytes[offset++] = static_cast<uint8_t>(param);
+			}
+			else
+			{
+				DWORD value = param - CONST_VAL_MASK;
+				bytes[offset++] = 0x68;
+				bytes[offset++] = static_cast<uint8_t>(value & 0xFF);
+				bytes[offset++] = static_cast<uint8_t>((value >> 8) & 0xFF);
+				bytes[offset++] = static_cast<uint8_t>((value >> 16) & 0xFF);
+				bytes[offset++] = static_cast<uint8_t>((value >> 24) & 0xFF);
+			}
+		};
 
 		// 展开参数包
 		(process(Params), ...);

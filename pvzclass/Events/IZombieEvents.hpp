@@ -152,7 +152,8 @@ namespace PVZEvent
 			{
 				hookAddress = 0x42B8FC;
 				rawlen = 7;
-				BYTE code[] = {
+				BYTE code[] =
+				{
 					PUSH_PTR_EUX_ADD(REG_ECX, 0x7F8), INVOKE(address), ADD_ESP(4),
 
 					TEST_AL_AL,

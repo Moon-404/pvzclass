@@ -1,5 +1,6 @@
-﻿#pragma once
+#pragma once
 #include "../PVZ.h"
+#include "Board.hpp"
 
 namespace PVZ
 {

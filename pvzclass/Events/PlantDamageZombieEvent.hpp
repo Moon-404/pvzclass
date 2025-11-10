@@ -15,7 +15,7 @@ namespace PVZEvent
 	{
 	public:
 		template<typename P = PVZ::Plant, typename Z = PVZ::Zombie,
-			typename = enable_if_t<is_base_of<PVZ::Plant, P>::value>, 
+			typename = enable_if_t<is_base_of<PVZ::Plant, P>::value>,
 			typename = enable_if_t<is_base_of<PVZ::Zombie, Z>::value>>
 		class PZDamageInfo
 		{
@@ -26,7 +26,8 @@ namespace PVZEvent
 			int damage;
 			PlantDamageType type;
 			PZDamageInfo(Z zombie, P plant, PVZ::DamageFlags flags, int damage, PlantDamageType type)
-				: zombie(zombie), plant(plant), flags(flags), damage(damage), type(type) {
+				: zombie(zombie), plant(plant), flags(flags), damage(damage), type(type)
+			{
 			}
 		};
 	private:

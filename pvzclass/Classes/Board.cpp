@@ -1,13 +1,18 @@
 #include "../PVZ.h"
 #include "../Const.h"
 #include "GameObject.hpp"
-#include "Projectile.hpp"
 #include "LawnMower.hpp"
 #include "Griditem.hpp"
 #include "Mouse.hpp"
 #include "Advice.hpp"
 #include "SeedBank.hpp"
 #include "Challenge.hpp"
+
+PVZ::Board PVZ::GetBoard()
+{
+	int address = PVZBASEADDRESS;
+	return (address == 0 ? INVALID_BASEADDRESS : Board(address));
+}
 
 void PVZ::Board::SetMemSize(int NewSize)
 {

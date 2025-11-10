@@ -77,7 +77,7 @@ namespace PVZ
 	void InitPVZ(DWORD pid);
 	void QuitPVZ();
 
-#pragma region structs
+	#pragma region structs
 
 	struct Color
 	{
@@ -87,9 +87,9 @@ namespace PVZ
 		int Alpha;
 	};
 
-#pragma endregion
+	#pragma endregion
 
-#pragma region classes	
+	#pragma region classes
 	/// @brief 所有对应 PVZ 内部对象的类的基类。
 	/// @attention 你不应该直接构造 BaseClass！
 	class BaseClass
@@ -99,7 +99,7 @@ namespace PVZ
 		int BaseAddress;
 	public:
 		BaseClass() : BaseAddress(INVALID_BASEADDRESS) {};
-		BaseClass(int address) : BaseAddress(address){};
+		BaseClass(int address) : BaseAddress(address) {};
 		/// @brief 返回基址
 		/// @return 基址
 		int GetBaseAddress() const
@@ -133,7 +133,7 @@ namespace PVZ
 	{
 	public:
 		/// @brief 获取 PVZClass 版本
-		READONLY_PROPERTY(const char*,				__get_Version)		Version;
+		READONLY_PROPERTY(const char*,	__get_Version)	Version;
 		/// @brief 判断 PVZ 主程序是哪一个发布版本。
 		/// @see PVZVersion
 		READONLY_PROPERTY(PVZVersion::PVZVersion,	__get_GameVersion)	GameVersion;
@@ -172,7 +172,7 @@ namespace PVZ
 	class Image : public BaseClass
 	{
 	public:
-		Image(int address) : BaseClass(address){};
+		Image(int address) : BaseClass(address) {};
 	};
 
 	class Attachment;
@@ -222,295 +222,6 @@ namespace PVZ
 
 		/// @brief 根据指定的平移坐标、旋转弧度和拉伸比例，设定矩阵每个项的数值。
 		void ScaleRotateTransformMatrix(float x, float y, float rad, float ScaleX, float ScaleY);
-	};
-	/// @brief 包含大部分关卡内部数据和对象的类	
-	class Board : public Widget
-	{
-	protected:
-		/// @brief 所有 GetAll() 形式函数的原型，获取 DataArray\<T\> 中的全体成员。
-		/// @tparam T 成员类型
-		/// @note T 必须具有 MemSize 静态常量，且类型为整数
-		/// @tparam _Base_offset 基址的偏移量
-		/// @tparam _Max_offset 最大数量的偏移量
-		/// @tparam _T_Dead_offset 在 T 中，表示该成员已被移除变量的偏移量。此变量视为用 byte 存储。
-		/// @return 装有全体 T 成员对象的 std::vector
-		template<typename T, size_t _Base_offset, size_t _Max_offset, size_t _T_Dead_offset>
-		std::vector<T> __prototype_GetAll()
-		{
-			std::vector<T> container;
-			int maxnum = Memory::ReadMemory<int>(BaseAddress + _Max_offset);
-			DWORD base_addr = Memory::ReadMemory<DWORD>(BaseAddress + _Base_offset);
-			for (int i = 0; i < maxnum; i++)
-			{
-				if (!Memory::ReadMemory<byte>(base_addr + _T_Dead_offset + T::MemSize * i))
-					container.push_back(T(i));
-			}
-			return container;
-		}
-	public:
-		Board(int address) : Widget(address) {};
-
-		/// @brief 调整该类在 PVZ 中对象的大小。
-		/// @note 请在派生类中调用这个函数。
-		/// @note 调用该函数后，新生成的存档与原版存档不兼容，请注意清理。
-		/// @note 额外的空间未经初始化，使用前请设法初始化。
-		/// @param MemSize 更改后的大小。
-		static void SetMemSize(int NewSize);
-
-		PVZApp GetPVZApp();
-		/// @brief 场上僵尸数量
-		INT_READONLY_PROPERTY(ZombiesCount, __get_ZombiesCount, 0xA0);
-		/// @brief 场上植物数量
-		INT_READONLY_PROPERTY(PlantsCount, __get_PlantsCount, 0xBC);
-		/// @brief 场上子弹数量
-		INT_READONLY_PROPERTY(ProjectilesCount, __get_ProjectilesCount, 0xD8);
-		/// @brief 场上掉落物数量
-		INT_READONLY_PROPERTY(CoinsCount, __get_CoinsCount, 0xF4);
-		/// @brief 场上小推车数量
-		INT_READONLY_PROPERTY(LawnmoversCount, __get_LawnmoversCount, 0x110);
-		/// @brief 场地物品总数
-		INT_READONLY_PROPERTY(GriditemsCount, __get_GriditemsCount, 0x12C);
-		/// @brief 游戏是否已暂停
-		T_PROPERTY(BOOLEAN, GamePaused, __get_GamePaused, __set_GamePaused, 0x164);
-
-#pragma region fog
-
-		/// @brief 获得指定格的雾的浓度
-		/// @param row 行
-		/// @param column 列
-		/// @return 雾的浓度
-		int GetGridFog(int row, int column);
-		/// @brief 雾的偏移
-		T_PROPERTY(FLOAT, FogOffset, __get_FogOffset, __set_FogOffset, 0x5D0);
-		/// @brief 雾吹飞效果倒计时
-		INT_PROPERTY(FogBlownCountDown, __get_FogBlownCountDown, __set_FogBlownCountDown, 0x5D4);
-
-#pragma endregion
-
-		/// @brief 天降阳光倒计时
-		INT_PROPERTY(SunDropCountdown, __get_SunDropCountdown, __set_SunDropCountdown, 0x5538);
-		/// @brief 天降阳光数
-		INT_PROPERTY(SunDropCount, __get_SunDropCount, __set_SunDropCount, 0x553C);
-		/// @brief 场景类型
-		PROPERTY(SceneType::SceneType, __get_LevelScene, __set_LevelScene) LevelScene;
-		/// @brief 冒险模式关卡
-		INT_PROPERTY(AdventureLevel, __get_AdventureLevel, __set_AdventureLevel, 0x5550);
-		/// @brief 当前阳光数
-		INT_PROPERTY(Sun, __get_Sun, __set_Sun, 0x5560);
-		/// @brief 总波数
-		PROPERTY(int, __get_WaveCount, __set_WaveCount) WaveCount;
-		/// @brief 关卡主更新次数
-		INT_PROPERTY(PlayingTime, __get_PlayingTime, __set_PlayingTime, 0x5568);
-		/*include preparing time*/
-		INT_READONLY_PROPERTY(PlayingTime2, __get_PlayingTime2, 0x556C);
-		/*lose focus and recount*/
-		INT_READONLY_PROPERTY(PlayingTime3, __get_PlayingTime3, 0x5570);
-		/// @brief 当前波数
-		INT_READONLY_PROPERTY(CurrentWave, __get_CurrentWave, 0x557C);
-		/// @brief 已刷新波数
-		INT_READONLY_PROPERTY(RefreshedWave, __get_RefreshedWave, 0x5580);
-		/// @brief 教程状态
-		INT_PROPERTY(FlashTip, __get_FlashTip, __set_FlashTip, 0x5584);
-		/*Flash tips for novice tutorials*/
-		INT_PROPERTY(RefreshHp, __get_RefreshHp, __set_RefreshHp, 0x5594);
-		INT_READONLY_PROPERTY(CurrentWaveHp, __get_CurrentWaveHp, 0x5598);
-		/// @brief 下一波倒计时
-		INT_PROPERTY(NextWaveCountdown, __get_NextWaveCountdown, __set_NextWaveCountdown, 0x559C);
-		/// @brief 下一波倒计时的初值
-		INT_READONLY_PROPERTY(NextWaveCountdownInitialValue, __get_NextWaveCountdownInitialValue, 0x55A0);
-		/// @brief 一大波僵尸的倒计时
-		INT_PROPERTY(HugeWaveCountdown, __get_HugeWaveCountdown, __set_HugeWaveCountdown, 0x55A4);
-		/// @brief 是否显示铲子
-		T_PROPERTY(BOOLEAN, HaveShovel, __get_HaveShovel, __set_HaveShovel, 0x55F1);
-		/// @brief 金钱数显示消失倒计时
-		INT_PROPERTY(ShowMoneyCountdown, __get_ShowMoneyCountdown, __set_ShowMoneyCountdown, 0x55F4);
-		/// @brief 调试模式
-		T_PROPERTY(DebugModeType::DebugModeType, DebugMode, __get_DebugMode, __set_DebugMode, 0x55F8);
-		/// @brief 关卡进度条
-		INT_PROPERTY(LevelProcessBar, __get_LevelProcessBar, __set_LevelProcessBar, 0x5610);
-		/// @brief 是否激活 Mustatche
-		T_PROPERTY(BOOLEAN, Mustache, __get_Mustache, __set_Mustache, 0x5761);
-		/// @brief 是否激活 Trickedout
-		T_PROPERTY(BOOLEAN, Trickedout, __get_Trickedout, __set_Trickedout, 0x5762);
-		/// @brief 是否激活 Future
-		T_PROPERTY(BOOLEAN, Future, __get_Future, __set_Future, 0x5763);
-		/// @brief 是否激活 Pinata
-		T_PROPERTY(BOOLEAN, Pinata, __get_Pinata, __set_Pinata, 0x5764);
-		/// @brief 是否激活 Dance
-		T_PROPERTY(BOOLEAN, Dance, __get_Dance, __set_Dance, 0x5765);
-		/// @brief 是否激活 Daisies
-		T_PROPERTY(BOOLEAN, Daisies, __get_Daisies, __set_Daisies, 0x5766);
-		/// @brief 是否激活 Sukhbir
-		T_PROPERTY(BOOLEAN, Sukhbir, __get_Sukhbir, __set_Sukhbir, 0x5767);
-		/// @brief 被吃掉的植物总数
-		INT_READONLY_PROPERTY(EatenPlants, __get_EatenPlants, 0x5798);
-		/// @brief 被铲除的植物总数
-		INT_READONLY_PROPERTY(ShoveledPlants, __get_ShoveledPlants, 0x579C);
-		
-		/// @brief 获取出怪类型
-		/// @param ztypes 返回值存放位置
-		void GetZombieAllowed(ZombieType::ZombieType* ztypes);
-
-		/// @brief 判断当前场景是否为六行场地
-		READONLY_PROPERTY_BINDING(
-			BOOLEAN,
-			__get_SixRoute,
-			(LevelScene == SceneType::Pool) || (LevelScene == SceneType::Fog)) SixRoute;
-
-#pragma region methods
-
-		/// @brief 将列数转换为 X 坐标
-		/// @param row 行
-		/// @param column 列
-		/// @return 对应 X 坐标
-		int GridToXPixel(int row, int column);
-		/// @brief 将行数转换为 Y 坐标
-		/// @param row 行
-		/// @param column 列
-		/// @return 对应 Y 坐标
-		int GridToYPixel(int row, int column);
-		/// @brief 设置突袭（墓碑刷怪、水下僵尸、蹦极空降）僵尸的倒计时
-		/// @param countdown 设置的倒计时，默认为 0.01 秒。
-		void Assault(int countdown = 1);
-		/// @brief 设置最后一波音效倒计时
-		/// @param countdown 设置的倒计时，默认为 0.01 秒。
-		void Bell(int countdown = 1);
-		/// @brief 震动画面面板
-		/// @param horizontalAmplitude X 轴方向的震动大小
-		/// @param verticalAmplitude 
-		/// @param duration 震动持续时间
-		void Earthquake(int horizontalAmplitude = 2, int verticalAmplitude = 4, int duration = 20);
-		/// @brief 立刻失败。
-		void Lose();
-		/// @brief 若当前可以承担 amount 点阳光的支出，则消耗 theAmount 阳光，
-		//	否则触发阳光数量不足的的音效和闪红特效。
-		/// @param amount 阳光消耗数值。
-		/// @return 是否可以承担支出。
-		bool TakeSunMoney(int amount);
-		/// @brief 立刻获胜。
-		void Win();
-		/// @brief 保存游戏存档。
-		/// @param path 存档路径
-		/// @param pathlen path 的长度
-		/// @return 是否保存成功。
-		bool Save(const char* path, int pathlen);
-		/// @brief 读取游戏存档。
-		/// @param path 存档路径
-		/// @param pathlen path 的长度
-		/// @return 是否载入成功
-		bool Load(const char* path, int pathlen);
-
-#pragma endregion
-
-#pragma region getmethod
-		/// @brief 获取 DataArray\<Zombie\> 中的全体对象。
-		/// @tparam T 成员的类型，必须为 Zombie 或它的派生类。
-		/// @return 装有全体 Zombie （或者其派生类）对象的 std::vector
-		template<typename T = Zombie, typename = enable_if_t<is_base_of<Zombie, T>::value>>
-		std::vector<T> GetAllZombies()
-		{
-			return __prototype_GetAll<T, 0x90, 0x94, 0x0EC>();
-		}
-		/// @brief 获取 DataArray\<Plant\> 中的全体对象。
-		/// @tparam T 成员值的类型，必须为 Plant 或它的派生类。
-		/// @return 装有全体 Plant （或者其派生类）对象的 std::vector
-		template<typename T = Plant, typename = enable_if_t<is_base_of<Plant, T>::value>>
-		std::vector<T> GetAllPlants()
-		{
-			return __prototype_GetAll<T, 0x0AC, 0x0B0, 0x141>();
-		}
-		/// @brief 获取 DataArray\<Projectile\> 中的全体对象。
-		/// @tparam T 成员值的类型，必须为 Projectile 或它的派生类。
-		/// @return 装有全体 Projectile （或者其派生类）对象的 std::vector
-		template<typename T = Projectile, typename = enable_if_t<is_base_of<Projectile, T>::value>>
-		std::vector<T> GetAllProjectile()
-		{
-			return __prototype_GetAll<T, 0x0C8, 0x0CC, 0x50>();
-		}
-		/// @brief 获取 DataArray\<Coin\> 中的全体对象。
-		/// @tparam T 成员值的类型，必须为 Coin 或它的派生类。
-		/// @return 装有全体 Coin （或者其派生类）对象的 std::vector
-		template<typename T = Coin, typename = enable_if_t<is_base_of<Coin, T>::value>>
-		std::vector<T> GetAllCoins()
-		{
-			return __prototype_GetAll<T, 0x0E4, 0x0E8, 0x38>();
-		}
-		/// @brief 获取 DataArray\<LawnMower\> 中的全体对象。
-		/// @tparam T 成员值的类型，必须为 LawnMower 或它的派生类。
-		/// @return 装有全体 LawnMower （或者其派生类）对象的 std::vector
-		template<typename T = LawnMower, typename = enable_if_t<is_base_of<LawnMower, T>::value>>
-		std::vector<T> GetAllLawnmovers()
-		{
-			return __prototype_GetAll<T, 0x100, 0x104, 0x30>();
-		}
-		/// @brief 获取 DataArray\<Griditem\> 中的全体对象。
-		/// @note 与其他 GetAll() 不同，此函数不依赖于 __prototype_GetAll() 。
-		/// @note 类型不为 T 的 Griditem 会被滤去。
-		/// @tparam T 成员值的类型，必须为 Griditem 或它的派生类。
-		/// @return 装有全体 Griditem （或者其派生类）对象的 std::vector
-		template<typename T = Griditem, typename = enable_if_t<is_base_of<Griditem, T>::value>>
-		std::vector<T> GetAllGriditems()
-		{
-			std::vector<T> griditems;
-			int maxnum = Memory::ReadMemory<int>(BaseAddress + 0x120);
-			DWORD base_addr = Memory::ReadMemory<DWORD>(BaseAddress + 0x11C);
-			for (int i = 0; i < maxnum; i++)
-			{
-				if (!Memory::ReadMemory<byte>(base_addr + 0x20 + T::MemSize * i)
-					&& (T::ItemType == 0 || Memory::ReadMemory<byte>(base_addr + 8 + T::MemSize * i) == T::ItemType))
-						griditems.push_back(T(i));
-			}
-			return griditems;
-		}
-		Lawn GetLawn();
-		Icetrace GetIcetrace();
-		Wave GetWave(int index);
-		MousePointer GetMousePointer();
-		Caption GetCaption();
-		CardSlot GetCardSlot();
-		/// @brief 获取 Challenge 类型的成员。
-		/// @tparam T 返回值的类型，必须为 Challenge 或它的派生类。
-		/// @return Challenge （或者其派生类）成员对象 
-		template<typename T = Challenge, typename = enable_if_t<is_base_of<Challenge, T>::value>>
-		T GetChallenge()
-		{
-			return T(BaseAddress);
-		}
-		/// @brief 获取 Challenge 类型的成员。
-		/// @attention 与 GetChallenge() 不同，此方法只能获得 Challenge 类型的对象。
-		/// @return Challenge 成员对象 
-		Challenge GetMiscellaneous();
-#pragma endregion
-	};
-	/// @brief 部分类的基类
-	/// @attention 你不应该直接构造这个类！
-	class GameObject : public BaseClass
-	{
-	public:
-		GameObject() : BaseClass(0) {};
-		/// @brief 获取 GameObject 所在的 PVZApp
-		PVZApp GetLawnApp()
-		{ return(PVZ::PVZApp(Memory::ReadMemory<DWORD>(BaseAddress))); }
-		/// @brief 获取当前对象所属的 Board
-		/// @return 对象所在的 Board
-		PVZ::Board GetBoard()
-		{
-			return(PVZ::Board(Memory::ReadMemory<int>(BaseAddress + 4)));
-		}
-		/// @brief X 坐标。部分派生类仅将其用作实际坐标的取整版本。
-		INT_PROPERTY(ImageX, __get_ImageX, __set_ImageX, 8);
-		/// @brief Y 坐标。部分派生类仅将其用作实际坐标的取整版本。
-		INT_PROPERTY(ImageY, __get_ImageY, __set_ImageY, 0xC);
-		/// @brief 宽度
-		INT_PROPERTY(Width, __get_Width, __set_Width, 0x10);
-		/// @brief 高度
-		INT_PROPERTY(Height, __get_Height, __set_Height, 0x14);
-		/// @brief 是否可见
-		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x18);
-		/// @brief 行
-		INT_PROPERTY(Row, __get_Row, __set_Row, 0x1C);
-		/// @brief 绘制图层编号
-		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 	};
 	class TrackInstance;
 	class AttachEffect : public BaseClass
@@ -632,93 +343,6 @@ namespace PVZ
 		AttachmentID GetAttachmentID();
 		Attachment GetAttachment();
 	};
-	/// @brief 控制行地形类型和每个格位地形类型的类
-	class Lawn : public BaseClass
-	{
-	public:
-		Lawn(int baseaddress);
-		/// @brief 获取指定格位的地形类型
-		/// @param row 行
-		/// @param column 列
-		/// @return 地形类型
-		LawnType::LawnType GetGridType(int row, int column);
-		/// @brief 设置指定格位的地形类型
-		/// @param row 行
-		/// @param column 列
-		/// @param type 设置后的地形类型
-		void SetGridType(int row, int column, LawnType::LawnType type);
-		/// @brief 获取指定行的地形类型
-		/// @param route 行
-		/// @return 地形类型
-		RouteType::RouteType GetRouteType(int route);
-		/// @brief 设置指定行的地形类型
-		/// @note 该函数不会影响该行任何格位的地形类型，需要用 SetGridType() 另行改动。
-		/// @param route 行
-		/// @param type 设置后的地形类型
-		void SetRouteType(int route, RouteType::RouteType type);
-		/// @brief 判断指定类型卡牌是否可以在指定位置上使用。
-		/// @param row 行
-		/// @param column 列
-		/// @param type 卡牌类型
-		/// @return 是否可以使用
-		bool Plantable(int row, int column, SeedType::SeedType type);
-	};
-	/// @brief 冰道
-	class Icetrace : public BaseClass
-	{
-	public:
-		Icetrace(int baseaddress);
-		/// @brief 获取指定行的冰道最左侧 X 坐标
-		/// @param route 行
-		/// @return 冰道最左侧 X 坐标
-		int GetX(int route);
-		/// @brief 设置指定行的冰道最左侧 X 坐标
-		/// @param route 行
-		/// @param x 设置后的 X 坐标
-		void SetX(int route, int x);
-		/// @brief 获取指定行的冰道消失倒计时
-		/// @param route 行
-		/// @return 消失倒计时
-		int GetDisappearCountdown(int route);
-		/// @brief 设置指定行的冰道消失倒计时
-		/// @param route 行
-		/// @param cs 设置的消失倒计时，单位为厘秒。
-		void SetDisappearCountdown(int route, int cs);
-	};
-	/// @brief 一波僵尸的出怪列表
-	class Wave : public BaseClass
-	{
-	public:
-		Wave(int baseaddress);
-		/// @brief 此波的总僵尸数
-		READONLY_PROPERTY(int, __get_Count) Count;
-		/// @brief 获取此波所有僵尸
-		/// @param ztypes 存储返回值的数组
-		void GetAll(ZombieType::ZombieType* ztypes);
-		/// @brief 设置此波僵尸。若不足 50 个，应当用 ZombieType::None 结尾。
-		/// @param ztypes 僵尸列表
-		/// @param length 僵尸列表长度
-		void SetAll(ZombieType::ZombieType* ztypes, size_t length);
-		/// @brief 获取出怪列表指定编号的僵尸
-		/// @param index 僵尸在出怪列表中的编号
-		/// @return 僵尸类型
-		ZombieType::ZombieType Get(int index);
-		/// @brief 设置指定编号上的僵尸。
-		/// @note 不能以此法增加僵尸数量。若要增加，请使用 Add()
-		/// @param index 
-		/// @param ztype 
-		void Set(int index, ZombieType::ZombieType ztype);
-		/// @brief 删除指定编号上的僵尸
-		/// @param index 编号
-		void Del(int index);
-		/// @brief 将指定类型的僵尸添加到列表末尾。
-		/// @param ztype 僵尸类型
-		void Add(ZombieType::ZombieType ztype);
-		/// @brief 将指定数组的全部僵尸加到本波出怪列表中。溢出的部分会被忽略。
-		/// @param ztypes 僵尸类型数组
-		/// @param length 数组长度
-		void AddAll(ZombieType::ZombieType* ztypes, int length);
-	};
 	// 鼠标对象(控制层面的鼠标)
 	class Mouse : public BaseClass
 	{
@@ -731,136 +355,6 @@ namespace PVZ
 		void WMClick(short x, short y);
 		void GameClick(int x, int y);
 		void MoveTo(int x, int y);
-	};
-	/// @brief 植物
-	class Plant : public GameObject
-	{
-	public:
-		/// @brief 植物的内存占用字节数。\n
-		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
-		static const int MemSize = 0x14C;
-		Plant(int indexoraddress);
-		/// @brief 调整该类在 PVZ 中对象的大小。
-		/// @note 请在派生类中调用这个函数。
-		/// @note 调用该函数后，新生成的存档与原版存档不兼容，请注意清理。
-		/// @param MemSize 更改后的大小。
-		/// @param NewCount 调整后植物上限数
-		static void SetMemSize(int NewSize, int NewCount);
-		/// @brief 类型
-		T_PROPERTY(SeedType::SeedType, Type, __get_Type, __set_Type, 0x24);
-		/// @brief 列
-		INT_PROPERTY(Column, __get_Column, __set_Column, 0x28);
-		/// @brief 植物状态
-		/// @see PlantState
-		T_PROPERTY(PlantState::PlantState, State, __get_State, __set_State, 0x3C);
-		/// @brief 当前生命值
-		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x40);
-		/// @brief 最大生命值
-		INT_PROPERTY(MaxHp, __get_MaxHp, __set_MaxHp, 0x44);
-		/// @brief 植物子类别
-		INT_PROPERTY(SubClass, __get_SubClass, __set_SubClass, 0x48);
-		/// @deprecated
-		T_PROPERTY(BOOLEAN, Aggressive, __get_Aggressive, __set_Aggressive, 0x48);
-		/// @brief 消失倒计时
-		INT_PROPERTY(BloverDisappearCountdown, __get_BloverDisappearCountdown, __set_BloverDisappearCountdown, 0x4C);
-		/// @brief 一次性植物发动技能的倒计时
-		INT_PROPERTY(EffectiveCountdown, __get_EffectiveCountdown, __set_EffectiveCountdown, 0x50);
-		/// @brief 各种倒计时
-		INT_PROPERTY(AttributeCountdown, __get_AttributeCountdown, __set_AttributeCountdown, 0x54);
-		/// @brief 植物射击（或产出物品）的倒计时
-		INT_PROPERTY(ShootOrProductCountdown, __get_ShootOrProductCountdown, __set_ShootOrProductCountdown, 0x58);
-		/// @brief 植物射击（或产出物品）的基础间隔
-		INT_PROPERTY(ShootOrProductInterval, __get_ShootOrProductInterval, __set_ShootOrProductInterval, 0x5C);
-		/// @brief 目标 X 坐标
-		INT_PROPERTY(mTargetX, __get_mTargetX, __set_mTargetX, 0x80);
-		/// @brief 目标 Y 坐标
-		INT_PROPERTY(mTargetY, __get_mTargetY, __set_mTargetY, 0x84);
-		/// @brief 粒子效果识别 ID
-		T_PROPERTY(DWORD, ParticleID, __get_ParticleID, __set_ParticleID, 0x8C);
-		/// @brief 射击动作倒计时
-		INT_PROPERTY(ShootingCountdown, __get_ShootingCountdown, __set_ShootingCountdown, 0x90);
-		/// @brief 获取植物的第一个动画
-		/// @return 第一个动画
-		PVZ::Animation GetAnimationPart1();
-		PVZ::Animation GetAnimationPart2();
-		PVZ::Animation GetAnimationPart3();
-		PVZ::Animation GetAnimationPart4();
-		/// @brief 获取植物的眨眼动画
-		/// @return 植物的眨眼动画
-		PVZ::Animation GetAnimationEyeBlink();
-		PVZ::Animation GetAnimationPotatoGlow();
-		/// @brief 获取植物的睡眠动画
-		/// @return 植物的睡眠动画
-		PVZ::Animation GetAnimationSleep();
-		void Light(int cs = 100);
-		void Flash(int cs = 100);
-		T_PROPERTY(FLOAT, ImageXOffset, __get_ImageXOffset, __set_ImageXOffset, 0xC0);
-		T_PROPERTY(FLOAT, ImageYOffset, __get_ImageYOffset, __set_ImageYOffset, 0xC4);
-		/// @brief 目标僵尸的识别 ID
-		T_PROPERTY(DWORD, mTargetZombieID, __get_mTargetZombieID, __set_mTargetZombieID, 0x12C);
-		/// @brief 苏醒倒计时
-		INT_PROPERTY(mWakeUpCounter, __get_mWakeUpCounter, __set_mWakeUpCounter, 0x130);
-		/// @brief 被蹦极抱起的状态
-		INT_PROPERTY(mOnBungee, __get_mOnBungee, __set_mOnBungee, 0x134);
-		/// @brief 是否已消失
-		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x141);
-		/// @brief 是否已被压扁
-		T_PROPERTY(BOOLEAN, Squash, __get_Squash, __set_Squash, 0x142);
-		/// @brief 是否已睡着
-		T_READONLY_PROPERTY(BOOLEAN, Sleeping, __get_Sleeping, 0x143);
-		/// @brief 设置植物是否睡着
-		/// @param sleeping 植物是否睡着
-		void SetSleeping(bool sleeping);
-		/// @brief 识别 ID
-		INT_READONLY_PROPERTY(Id, __get_Id, 0x148);
-		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
-		void CreateEffect();
-		/// @brief 将植物定身为纸板（同 IZ）。
-		/// @note 会让土豆地雷直接出土。
-		void SetStatic();
-		/// @brief 压扁该植物
-		void Smash();
-		/// @brief 根据植物的当前位置，计算植物应当处于的图层编号
-		/// @return 植物应当所在的图层编号
-		int CalcLayer();
-		/// @brief 移动至指定位置，并更新相关属性
-		/// @param row 行
-		/// @param column 列
-		void MoveTo(int row, int column);
-		/// @brief 移除该植物
-		void Remove();
-		/// @deprecated
-		PVZ::Projectile Shoot(int targetid = -1);
-		/// @brief 立刻发射子弹
-		/// @param motiontype 子弹移动类型
-		/// @param targetid 攻击目标僵尸的 ID
-		/// @param special 是否使用副武器进行攻击
-		/// @return 生成的子弹
-		PVZ::Projectile Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
-		//animPlayArg(APA_XXXXXX)
-		void SetAnimation(LPCSTR animName, byte animPlayArg, int imagespeed);
-		/// @brief 以指定帧频播放闲置动画。IZ 关卡中动画速率会设为 0 。
-		/// @param speed 指定的帧频
-		void PlayIdleAnim(float speed);
-		class MagnetItem
-		{
-			int BaseAddress;
-		public:
-			MagnetItem(int address);
-			T_PROPERTY(FLOAT, X, __get_X, __set_X, 0);
-			T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 4);
-			T_PROPERTY(FLOAT, DestOffsetX, __get_DestOffsetX, __set_DestOffsetX, 8);
-			T_PROPERTY(FLOAT, DestOffsetY, __get_DestOffsetY, __set_DestOffsetY, 0xC);
-			T_PROPERTY(MagnetItemType::MagnetItemType, Type, __get_Type, __set_Type, 0x10);
-		};
-		MagnetItem GetMagnetItem(int num);
-
-		/// @brief 取得植物种植时的基础阳光消耗。
-		/// @note 对其他类型的卡牌也有效
-		/// @param type 种子卡类型
-		/// @param imitater_type 模仿者模仿的类型
-		/// @return 种植的基础阳光消耗
-		static int GetCost(SeedType::SeedType type, SeedType::SeedType imitater_type = SeedType::None);
 	};
 	class GardenPlant : public BaseClass
 	{
@@ -882,18 +376,16 @@ namespace PVZ
 		T_PROPERTY(std::time_t, LastGrowthTime, __get_LastGrowthTime, __set_LastGrowthTime, 0x48);
 	};
 
-#pragma endregion
+	#pragma endregion
 
-#pragma region methods
+	#pragma region methods
 
 	void InitImages();
 	Mouse GetMouse();
-	//若 BaseAddress 为 0，返回空指针
-	Board GetBoard();
 
-#pragma endregion
+	#pragma endregion
 
-#pragma region Images
+	#pragma region Images
 
 	class Resource
 	{
@@ -901,5 +393,5 @@ namespace PVZ
 		static Image* IMAGE_BLANK;
 	};
 
-#pragma endregion
+	#pragma endregion
 };

@@ -1,4 +1,4 @@
-#include "Projectile.hpp"
+#include "GameObject.hpp"
 
 PVZ::Projectile::Projectile(int indexoraddress)
 {
