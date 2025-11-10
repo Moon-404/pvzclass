@@ -1,4 +1,4 @@
-﻿#include <cstring>
+#include <cstring>
 #include "../PVZ.h"
 
 PVZ::Animation::Animation(int idoraddress)
@@ -113,7 +113,7 @@ void PVZ::Animation::Die()
 	Memory::Execute(STRING(__asm__Reanimation__Die));
 }
 
-void PVZ::Animation::Play(const char* trackName, int blendType, int loopType, float rate)
+void PVZ::Animation::Play(const char* trackName, int blendType, PVZEnum::ReanimLoopType loopType, float rate)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, trackName, std::strlen(trackName) + 1);
 	SETARGFLOAT(__asm__Reanimation__Play, 1) = rate;

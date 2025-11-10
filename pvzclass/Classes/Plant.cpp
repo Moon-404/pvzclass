@@ -177,7 +177,7 @@ PVZ::Projectile PVZ::Plant::Shoot(MotionType::MotionType motiontype, int targeti
 	return re;
 }
 
-void PVZ::Plant::SetAnimation(LPCSTR animName, byte animPlayArg, int imagespeed)
+void PVZ::Plant::SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType animPlayArg, int imagespeed)
 {
 	int Address = PVZ::Memory::AllocMemory();
 	SETARG(__asm__Plant__setAnimation, 1) = BaseAddress;

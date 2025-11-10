@@ -327,6 +327,9 @@
     <ClCompile Include="Widgets\Widget.cpp">
       <Filter>源文件\Widget</Filter>
     </ClCompile>
+    <ClCompile Include="Widgets\Dialog.cpp">
+      <Filter>源文件\Widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -862,6 +865,9 @@
     </ClInclude>
     <ClInclude Include="Classes\Board.hpp">
       <Filter>头文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Dialog.hpp">
+      <Filter>头文件\Widgets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

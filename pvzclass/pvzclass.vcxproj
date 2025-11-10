@@ -249,6 +249,7 @@
     <ClCompile Include="Classes\GardenPlant.cpp" />
     <ClCompile Include="Enums\SeedState.cpp" />
     <ClCompile Include="Sexy.cpp" />
+    <ClCompile Include="Widgets\Dialog.cpp" />
     <ClCompile Include="Widgets\Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -430,6 +431,7 @@
     <ClInclude Include="Events\DrawUITopEvent.h" />
     <ClInclude Include="Events\VaseOpenEvent.h" />
     <ClInclude Include="Widgets\ButtonWidget.hpp" />
+    <ClInclude Include="Widgets\Dialog.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

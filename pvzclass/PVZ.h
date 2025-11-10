@@ -42,8 +42,11 @@ using std::is_base_of;
 #define MINGAME_STARTED		1
 #define MINGAME_NOTSTARTED	-1
 
+/// @deprecated
 #define APA_LOOP			1
+/// @deprecated
 #define APA_ONCE_DISAPPEAR	2
+/// @deprecated
 #define APA_ONCE_STOP		3
 
 #define ID_INDEX(id) ((id) & 0x0000FFFF)
@@ -245,6 +248,8 @@ namespace PVZ
 		T_PROPERTY(FLOAT, CycleRate, __get_CycleRate, __set_CycleRate, 4);
 		/// @brief 播放速率
 		T_PROPERTY(FLOAT, Speed, __get_Speed, __set_Speed, 8);
+		/// @brief 动画循环类型
+		T_PROPERTY(PVZEnum::ReanimLoopType, LoopType, __get_LoopType, __set_LoopType, 0x10);
 		/// @brief 是否已移除
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x14);
 		/// @brief 起始帧
@@ -304,7 +309,7 @@ namespace PVZ
 		/// @param blendType 混合类型
 		/// @param loopType 循环类型
 		/// @param rate 播放帧频
-		void Play(const char* TrackName, int blendType, int loopType, float rate);
+		void Play(const char* TrackName, int blendType, PVZEnum::ReanimLoopType loopType, float rate);
 		/// @brief 设置指定前缀的所有轨道在绘制时的分组。通常情况下，分组为 -1 时表示隐藏该轨道。
 		/// @param trackName 动作轨道的名称前缀
 		/// @param renderGroup 分组大小
