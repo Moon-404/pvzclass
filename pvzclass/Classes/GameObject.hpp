@@ -195,7 +195,7 @@ namespace PVZ
 		/// @brief 移除僵尸并生成它的掉落物。
 		void RemoveWithLoot();
 		//LoopType(APA_XXXXXX)
-		void SetAnimation(LPCSTR animName, byte LoopType, int blend_time = 14, float fps = 24.0f);
+		void SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType LoopType, int blend_time = 14, float fps = 24.0f);
 		/// @brief 为僵尸装备铁桶
 		/// @param shield 铁桶生命值
 		void EquipBucket(int shield = 1100);
@@ -355,7 +355,7 @@ namespace PVZ
 		/// @return 生成的子弹
 		PVZ::Projectile Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
 		//animPlayArg(APA_XXXXXX)
-		void SetAnimation(LPCSTR animName, byte animPlayArg, int imagespeed);
+		void SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType animPlayArg, int imagespeed);
 		/// @brief 以指定帧频播放闲置动画。IZ 关卡中动画速率会设为 0 。
 		/// @param speed 指定的帧频
 		void PlayIdleAnim(float speed);

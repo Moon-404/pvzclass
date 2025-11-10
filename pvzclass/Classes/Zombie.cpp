@@ -269,7 +269,7 @@ void PVZ::Zombie::RemoveWithLoot()
 	Memory::Execute(STRING(__asm__Zombie__RemoveWithLoot));
 }
 
-void PVZ::Zombie::SetAnimation(LPCSTR animName, byte LoopType, int blend_time, float fps)
+void PVZ::Zombie::SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType LoopType, int blend_time, float fps)
 {
 	int Address = PVZ::Memory::AllocMemory();
 	SETARG(__asm__Zombie__setAnimation, 2) = BaseAddress;
