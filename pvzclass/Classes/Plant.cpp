@@ -1,6 +1,5 @@
 #include "../PVZ.h"
 #include "GameObject.hpp"
-#include "Projectile.hpp"
 
 PVZ::Plant::Plant(int indexoraddress)
 {

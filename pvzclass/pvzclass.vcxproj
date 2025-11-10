@@ -258,7 +258,6 @@
     <ClInclude Include="Classes\Griditem.hpp" />
     <ClInclude Include="Classes\LawnMower.hpp" />
     <ClInclude Include="Classes\Mouse.hpp" />
-    <ClInclude Include="Classes\Projectile.hpp" />
     <ClInclude Include="Classes\SeedBank.hpp" />
     <ClInclude Include="Classes\Challenge.hpp" />
     <ClInclude Include="Classes\ChallengeScreen.hpp" />
