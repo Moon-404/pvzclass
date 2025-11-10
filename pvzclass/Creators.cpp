@@ -332,8 +332,8 @@ PVZ::IZBrain Creator::CreateIZBrain(int row, int column)
 	iz_brain.Type = GriditemType::IZBrain;
 	iz_brain.NotExist = false;
 	iz_brain.Hp = 70;
-	iz_brain.X = PVZ::GetBoard().GridToXPixel(row, column) - 40.0;
-	iz_brain.Y = PVZ::GetBoard().GridToYPixel(row, column) + 40.0;
+	iz_brain.X = PVZ::GetBoard().GridToXPixel(row, column) - 40.0f;
+	iz_brain.Y = PVZ::GetBoard().GridToYPixel(row, column) + 40.0f;
 	return iz_brain;
 }
 
