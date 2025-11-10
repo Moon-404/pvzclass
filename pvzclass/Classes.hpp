@@ -20,3 +20,4 @@
 #include "Classes/ResourceManager.hpp"
 
 #include "Widgets/ButtonWidget.hpp"
+#include "Widgets/Dialog.hpp"
