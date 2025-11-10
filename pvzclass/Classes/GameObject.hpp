@@ -215,6 +215,136 @@ namespace PVZ
 		/// @deprecated
 		void SetAccessoriesType2(AccessoriesType2 acctype2);
 	};
+	/// @brief 植物
+	class Plant : public GameObject
+	{
+	public:
+		/// @brief 植物的内存占用字节数。\n
+		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
+		static const int MemSize = 0x14C;
+		Plant(int indexoraddress);
+		/// @brief 调整该类在 PVZ 中对象的大小。
+		/// @note 请在派生类中调用这个函数。
+		/// @note 调用该函数后，新生成的存档与原版存档不兼容，请注意清理。
+		/// @param MemSize 更改后的大小。
+		/// @param NewCount 调整后植物上限数
+		static void SetMemSize(int NewSize, int NewCount);
+		/// @brief 类型
+		T_PROPERTY(SeedType::SeedType, Type, __get_Type, __set_Type, 0x24);
+		/// @brief 列
+		INT_PROPERTY(Column, __get_Column, __set_Column, 0x28);
+		/// @brief 植物状态
+		/// @see PlantState
+		T_PROPERTY(PlantState::PlantState, State, __get_State, __set_State, 0x3C);
+		/// @brief 当前生命值
+		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x40);
+		/// @brief 最大生命值
+		INT_PROPERTY(MaxHp, __get_MaxHp, __set_MaxHp, 0x44);
+		/// @brief 植物子类别
+		INT_PROPERTY(SubClass, __get_SubClass, __set_SubClass, 0x48);
+		/// @deprecated
+		T_PROPERTY(BOOLEAN, Aggressive, __get_Aggressive, __set_Aggressive, 0x48);
+		/// @brief 消失倒计时
+		INT_PROPERTY(BloverDisappearCountdown, __get_BloverDisappearCountdown, __set_BloverDisappearCountdown, 0x4C);
+		/// @brief 一次性植物发动技能的倒计时
+		INT_PROPERTY(EffectiveCountdown, __get_EffectiveCountdown, __set_EffectiveCountdown, 0x50);
+		/// @brief 各种倒计时
+		INT_PROPERTY(AttributeCountdown, __get_AttributeCountdown, __set_AttributeCountdown, 0x54);
+		/// @brief 植物射击（或产出物品）的倒计时
+		INT_PROPERTY(ShootOrProductCountdown, __get_ShootOrProductCountdown, __set_ShootOrProductCountdown, 0x58);
+		/// @brief 植物射击（或产出物品）的基础间隔
+		INT_PROPERTY(ShootOrProductInterval, __get_ShootOrProductInterval, __set_ShootOrProductInterval, 0x5C);
+		/// @brief 目标 X 坐标
+		INT_PROPERTY(mTargetX, __get_mTargetX, __set_mTargetX, 0x80);
+		/// @brief 目标 Y 坐标
+		INT_PROPERTY(mTargetY, __get_mTargetY, __set_mTargetY, 0x84);
+		/// @brief 粒子效果识别 ID
+		T_PROPERTY(DWORD, ParticleID, __get_ParticleID, __set_ParticleID, 0x8C);
+		/// @brief 射击动作倒计时
+		INT_PROPERTY(ShootingCountdown, __get_ShootingCountdown, __set_ShootingCountdown, 0x90);
+		/// @brief 获取植物的第一个动画
+		/// @return 第一个动画
+		PVZ::Animation GetAnimationPart1();
+		PVZ::Animation GetAnimationPart2();
+		PVZ::Animation GetAnimationPart3();
+		PVZ::Animation GetAnimationPart4();
+		/// @brief 获取植物的眨眼动画
+		/// @return 植物的眨眼动画
+		PVZ::Animation GetAnimationEyeBlink();
+		PVZ::Animation GetAnimationPotatoGlow();
+		/// @brief 获取植物的睡眠动画
+		/// @return 植物的睡眠动画
+		PVZ::Animation GetAnimationSleep();
+		void Light(int cs = 100);
+		void Flash(int cs = 100);
+		T_PROPERTY(FLOAT, ImageXOffset, __get_ImageXOffset, __set_ImageXOffset, 0xC0);
+		T_PROPERTY(FLOAT, ImageYOffset, __get_ImageYOffset, __set_ImageYOffset, 0xC4);
+		/// @brief 目标僵尸的识别 ID
+		T_PROPERTY(DWORD, mTargetZombieID, __get_mTargetZombieID, __set_mTargetZombieID, 0x12C);
+		/// @brief 苏醒倒计时
+		INT_PROPERTY(mWakeUpCounter, __get_mWakeUpCounter, __set_mWakeUpCounter, 0x130);
+		/// @brief 被蹦极抱起的状态
+		INT_PROPERTY(mOnBungee, __get_mOnBungee, __set_mOnBungee, 0x134);
+		/// @brief 是否已消失
+		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x141);
+		/// @brief 是否已被压扁
+		T_PROPERTY(BOOLEAN, Squash, __get_Squash, __set_Squash, 0x142);
+		/// @brief 是否已睡着
+		T_READONLY_PROPERTY(BOOLEAN, Sleeping, __get_Sleeping, 0x143);
+		/// @brief 设置植物是否睡着
+		/// @param sleeping 植物是否睡着
+		void SetSleeping(bool sleeping);
+		/// @brief 识别 ID
+		INT_READONLY_PROPERTY(Id, __get_Id, 0x148);
+		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		void CreateEffect();
+		/// @brief 将植物定身为纸板（同 IZ）。
+		/// @note 会让土豆地雷直接出土。
+		void SetStatic();
+		/// @brief 压扁该植物
+		void Smash();
+		/// @brief 根据植物的当前位置，计算植物应当处于的图层编号
+		/// @return 植物应当所在的图层编号
+		int CalcLayer();
+		/// @brief 移动至指定位置，并更新相关属性
+		/// @param row 行
+		/// @param column 列
+		void MoveTo(int row, int column);
+		/// @brief 移除该植物
+		void Remove();
+		/// @deprecated
+		PVZ::Projectile Shoot(int targetid = -1);
+		/// @brief 立刻发射子弹
+		/// @param motiontype 子弹移动类型
+		/// @param targetid 攻击目标僵尸的 ID
+		/// @param special 是否使用副武器进行攻击
+		/// @return 生成的子弹
+		PVZ::Projectile Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
+		//animPlayArg(APA_XXXXXX)
+		void SetAnimation(LPCSTR animName, byte animPlayArg, int imagespeed);
+		/// @brief 以指定帧频播放闲置动画。IZ 关卡中动画速率会设为 0 。
+		/// @param speed 指定的帧频
+		void PlayIdleAnim(float speed);
+		class MagnetItem
+		{
+			int BaseAddress;
+		public:
+			MagnetItem(int address);
+			T_PROPERTY(FLOAT, X, __get_X, __set_X, 0);
+			T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 4);
+			T_PROPERTY(FLOAT, DestOffsetX, __get_DestOffsetX, __set_DestOffsetX, 8);
+			T_PROPERTY(FLOAT, DestOffsetY, __get_DestOffsetY, __set_DestOffsetY, 0xC);
+			T_PROPERTY(MagnetItemType::MagnetItemType, Type, __get_Type, __set_Type, 0x10);
+		};
+		MagnetItem GetMagnetItem(int num);
+
+		/// @brief 取得植物种植时的基础阳光消耗。
+		/// @note 对其他类型的卡牌也有效
+		/// @param type 种子卡类型
+		/// @param imitater_type 模仿者模仿的类型
+		/// @return 种植的基础阳光消耗
+		static int GetCost(SeedType::SeedType type, SeedType::SeedType imitater_type = SeedType::None);
+	};
 	/// @brief 各种掉落物
 	class Coin : public GameObject
 	{
