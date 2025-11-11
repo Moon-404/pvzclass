@@ -1,5 +1,8 @@
 #include "../PVZ.h"
 
+using std::max;
+using std::min;
+
 int PVZ::GetXOverlap(const PVZ::Rect& rect1, const PVZ::Rect& rect2)
 {
 	int LeftR, RightR, RightL;
@@ -40,4 +43,17 @@ bool PVZ::Rect::IsCircleOverlap(const int X, const int Y, const int radius)
 
 		return(Xdist * Xdist + Ydist * Ydist <= radius * radius);
 	}
+}
+
+PVZ::Rect PVZ::Rect::Intersection(const Rect& rect) const
+{
+	int x1 = max(X, rect.X);
+	int x2 = min(X + Width, rect.X + rect.Width);
+	int y1 = max(Y, rect.Y);
+	int y2 = min(Y + rect.Height, rect.Y + rect.Height);
+
+	if (((x2 - x1) < 0) || ((y2 - y1) < 0))
+		return Rect(0, 0, 0, 0);
+	else
+		return Rect(x1, y1, x2 - x1, y2 - y1);
 }

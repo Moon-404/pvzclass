@@ -1,4 +1,6 @@
 #include <Windows.h>
+#undef max
+#undef min
 
 #pragma region asm define
 
