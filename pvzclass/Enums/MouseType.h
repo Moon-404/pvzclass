@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 namespace MouseType
 {
 
@@ -14,7 +14,6 @@ namespace MouseType
 		Hammer,
 		Crosshair,
 		Watering,
-		GoldenWatering,
 		Fertilizer,
 		BugSpray,
 		Phonograph,
@@ -24,6 +23,7 @@ namespace MouseType
 		WheelBarrow,
 		TreeFood,
 	};
+	constexpr MouseType CobCannonTarget = Crosshair;
 
 	extern const char* ToString(MouseType mouset);
 

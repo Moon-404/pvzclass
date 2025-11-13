@@ -120,9 +120,18 @@ namespace PVZ
 		int Y;
 		int Width;
 		int Height;
+
+		Rect(int X, int Y, int Width, int Height) : X(X), Y(Y), Width(Width), Height(Height) {}
+		Rect(const Rect& Rect) : X(Rect.X), Y(Rect.Y), Width(Rect.Width), Height(Rect.Height) {}
+		Rect() : X(0), Y(0), Width(0), Height(0) {}
+
 		// 判定坐标为 (X, Y)，半径为 radius 的圆与该矩阵是否有重叠部分。
 		// 相切会视为有重叠部分。
 		bool IsCircleOverlap(const int X, const int Y, const int radius);
+		/// @brief 获取与另一矩形重叠的部分。
+		/// @param rect 另一矩形
+		/// @return 两矩形的重叠部分。若无交叉部分，返回空矩形。
+		Rect Intersection(const Rect& rect) const;
 	};
 	// 取得两个矩形横向重叠部分的长度。
 	// 若横向无重叠部分，返回两矩形横向间距的相反数。
