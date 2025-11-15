@@ -3,6 +3,11 @@
 
 namespace PVZ
 {
+	class Zombie;
+	class Plant;
+	class Projectile;
+	class Coin;
+
 	/// @brief 包含大部分关卡内部数据和对象的类	
 	class Board : public Widget
 	{
