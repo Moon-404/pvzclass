@@ -247,3 +247,15 @@ PVZ::Challenge PVZ::Board::GetMiscellaneous()
 {
 	return this->GetChallenge<PVZ::Challenge>();
 }
+
+PVZ::Zombie PVZ::Board::ZombieHitTest(int mouse_x, int mouse_y)
+{
+	DWORD address = PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(mouse_y)
+		.push_imm32(mouse_x)
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x40E780)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret());
+	return address ? Zombie(address) : Zombie(INVALID_BASEADDRESS);
+}

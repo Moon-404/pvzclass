@@ -265,6 +265,12 @@ namespace PVZ
 		/// @attention 与 GetChallenge() 不同，此方法只能获得 Challenge 类型的对象。
 		/// @return Challenge 成员对象 
 		Challenge GetMiscellaneous();
+		/// @brief 取得指定坐标处存在的僵尸。
+		/// @note 关卡引入阶段和选卡阶段内的植物僵尸会被此函数忽略。
+		/// @param mouse_x X 坐标
+		/// @param mouse_y Y 坐标
+		/// @return 指定坐标处的僵尸。可能为空。
+		Zombie ZombieHitTest(int mouse_x, int mouse_y);
 #pragma endregion
 	};
 	/// @brief 控制行地形类型和每个格位地形类型的类
