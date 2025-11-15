@@ -1,5 +1,7 @@
 #include "GameObject.hpp"
 
+using std::max;
+
 PVZ::Zombie::Zombie(int indexoraddress)
 {
 	if (indexoraddress > 65535)
