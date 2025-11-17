@@ -293,3 +293,10 @@ inline void SetGoldMagnetLimit(int num)
 	PVZ::Memory::WriteMemory<int>(0x46549C, num);
 	PVZ::Memory::WriteMemory<int>(0x4626BF, num);
 }
+
+/// @brief 禁用 IZ 下僵尸在一定条件下对防御植物造成额外啃咬伤害的效果
+/// @param b 是否开启此功能
+inline void DisableIZExtraEatDamage(BOOLEAN b = true)
+{
+	MEMMOD_BYTE(0x52FD0B, JUMP, JZ);
+}
