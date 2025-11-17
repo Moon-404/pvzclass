@@ -300,3 +300,14 @@ inline void DisableIZExtraEatDamage(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x52FD0B, JUMP, JZ);
 }
+
+/// @brief 禁用巨大坚果的影子偏移、眨眼动作、大小缩放的特殊设定。
+/// @param b 是否开启此功能
+inline void DisableGiantWallNutScale(BOOLEAN b = true)
+{
+	MEMMOD_BYTE(0x465916, JUMP, JNE);
+	MEMMOD_BYTE(0x487D4C, JUMP, JNE);
+	MEMMOD_BYTE(0x466211, JUMP, JNE);
+	MEMMOD_BYTE(0x4639E8, JUMP, JNE);
+	MEMMOD_BYTE(0x463F7F, 0x80, 0x84);
+}
