@@ -13,5 +13,5 @@ void PVZ::ReanimationParams::Reposition(DWORD baseaddress, DWORD num)
 
 	PVZ::Memory::WriteMemory<int>(0x47377E, num);
 	PVZ::Memory::WriteMemory<DWORD>(0x4737A5, baseaddress);
-	PVZ::Memory::WriteMemory<DWORD>(0x4737A5, baseaddress + 4);
+	PVZ::Memory::WriteMemory<DWORD>(0x4737F5, baseaddress + 4);
 }
