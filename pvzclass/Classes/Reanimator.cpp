@@ -6,7 +6,7 @@ void PVZ::ReanimationParams::Reposition(DWORD baseaddress, DWORD num)
 		PVZ::Memory::WriteArray<ReanimationParams>(baseaddress, (ReanimationParams*)0x6A1340, 143 * sizeof(ReanimationParams));
 	else
 	{
-		ReanimationParams buf[72];
+		ReanimationParams buf[143];
 		PVZ::Memory::ReadArray<ReanimationParams>(0x6A1340, buf, 143 * sizeof(ReanimationParams));
 		PVZ::Memory::WriteArray<ReanimationParams>(baseaddress, buf, 143 * sizeof(ReanimationParams));
 	}
