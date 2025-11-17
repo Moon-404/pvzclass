@@ -13,6 +13,8 @@
 
 #include "Classes/Definition.hpp"
 
+#include "Classes/Reanimator.hpp"
+
 #include "Classes/ChallengeScreen.hpp"
 #include "Classes/SeedChooserScreen.hpp"
 #include "Classes/TodParticleSystem.hpp"

@@ -189,10 +189,6 @@ namespace PVZ
 
 	class Attachment;
 	class AttachmentID;
-	class Zombie;
-	class Plant;
-	class Projectile;
-	class Coin;
 	class LawnMower;
 	class Griditem;
 	class MousePointer;

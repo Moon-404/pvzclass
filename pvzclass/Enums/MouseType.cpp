@@ -1,4 +1,4 @@
-﻿#include "MouseType.h"
+#include "MouseType.h"
 
 const char* MouseType::ToString(MouseType mouset)
 {
@@ -14,8 +14,6 @@ const char* MouseType::ToString(MouseType mouset)
 		return "Crosshair";
 	case MouseType::Watering:
 		return "Watering";
-	case MouseType::GoldenWatering:
-		return "GoldenWatering";
 	case MouseType::Fertilizer:
 		return "Fertilizer";
 	case MouseType::BugSpray:

@@ -191,6 +191,7 @@
     <ClCompile Include="Classes\Music.cpp" />
     <ClCompile Include="Classes\Plant.cpp" />
     <ClCompile Include="Classes\PVZApp.cpp" />
+    <ClCompile Include="Classes\Reanimator.cpp" />
     <ClCompile Include="Classes\Rect.cpp" />
     <ClCompile Include="Classes\ResourceManager.cpp" />
     <ClCompile Include="Classes\SaveData.cpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="Classes\Griditem.hpp" />
     <ClInclude Include="Classes\LawnMower.hpp" />
     <ClInclude Include="Classes\Mouse.hpp" />
+    <ClInclude Include="Classes\Reanimator.hpp" />
     <ClInclude Include="Classes\SeedBank.hpp" />
     <ClInclude Include="Classes\Challenge.hpp" />
     <ClInclude Include="Classes\ChallengeScreen.hpp" />
