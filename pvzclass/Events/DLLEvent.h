@@ -300,7 +300,7 @@ protected:
 	static constexpr std::array<uint8_t, 19> compiled_special_bytes =
 	{
 		TEST_AL_AL,
-		JS(19),
+		JS(15),
 		POPAD,
 		JE(6),
 

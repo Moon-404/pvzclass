@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "DLLEvent.h"
 
 namespace PVZEvent
@@ -64,7 +64,7 @@ namespace PVZEvent
 					MOV_EUX_PTR_ADDR(REG_EBP, tmp),
 
 					MOV_EUX_PTR_EVX_ADD_V(REG_EAX, REG_EBP, 0x0C),
-					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 0),
+					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 4),
 
 					MOV_EUX_PTR_EVX_ADD_V(REG_ESI, REG_EBP, 0),
 					MOV_EUX_PTR_EVX_ADD_V(REG_EDI, REG_EBP, 4),
@@ -115,7 +115,7 @@ namespace PVZEvent
 					MOV_EUX_PTR_ADDR(REG_EBP, tmp),
 
 					MOV_EUX_PTR_EVX_ADD_V(REG_EAX, REG_EBP, 0x0C),
-					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 0),
+					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 4),
 
 					MOV_EUX_PTR_EVX_ADD_V(REG_ESI, REG_EBP, 0),
 					MOV_EUX_PTR_EVX_ADD_V(REG_EDI, REG_EBP, 4),
@@ -166,7 +166,7 @@ namespace PVZEvent
 					MOV_EUX_PTR_ADDR(REG_EBP, tmp),
 
 					MOV_EUX_PTR_EVX_ADD_V(REG_EAX, REG_EBP, 0x0C),
-					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 0),
+					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 4),
 
 					MOV_EUX_PTR_EVX_ADD_V(REG_ESI, REG_EBP, 0),
 					MOV_EUX_PTR_EVX_ADD_V(REG_EDI, REG_EBP, 4),
@@ -217,7 +217,7 @@ namespace PVZEvent
 					MOV_EUX_PTR_ADDR(REG_EBP, tmp),
 
 					MOV_EUX_PTR_EVX_ADD_V(REG_EAX, REG_EBP, 0x0C),
-					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 0),
+					MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 4),
 
 					MOV_EUX_PTR_EVX_ADD_V(REG_ESI, REG_EBP, 0),
 					MOV_EUX_PTR_EVX_ADD_V(REG_EDI, REG_EBP, 4),
