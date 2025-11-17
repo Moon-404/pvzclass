@@ -13,7 +13,7 @@ namespace PVZ
 		/// @brief 植物类型
 		T_READONLY_PROPERTY(SeedType::SeedType, Type, __get_Type, 0);
 		/// @brief 植物的默认动画类型
-		T_READONLY_PROPERTY(AnimationType::AnimationType, AnimType, __get_AnimType, 8);
+		T_SAFE_PROPERTY(AnimationType::AnimationType, AnimType, __get_AnimType, __set_AnimType, 8);
 		INT_READONLY_PROPERTY(PacketID, __get_PacketID, 0xC);
 		/// @brief 基础阳光消耗
 		INT_SAFE_PROPERTY(Cost, __get_Cost, __set_Cost, 0x10);
@@ -39,7 +39,7 @@ namespace PVZ
 		/// @brief 僵尸类型
 		T_READONLY_PROPERTY(ZombieType::ZombieType, Type, __get_Type, 0);
 		/// @brief 僵尸的默认动画类型
-		T_READONLY_PROPERTY(AnimationType::AnimationType, AnimType, __get_AnimType, 4);
+		T_SAFE_PROPERTY(AnimationType::AnimationType, AnimType, __get_AnimType, __set_AnimType, 4);
 		/// @brief 僵尸的价值，影响出怪和掉落物概率
 		INT_SAFE_PROPERTY(Value, __get_Value, __set_Value, 8);
 		/// @brief 僵尸在冒险模式首次出现的关卡
