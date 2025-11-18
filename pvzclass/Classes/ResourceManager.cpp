@@ -105,7 +105,7 @@ PVZ::Image PVZ::ResourceManager::GetImage(const char* imageName)
 		.invoke(0x404450)
 
 		.push_reg(REG_EAX)
-		.push_imm32(PVZ::Memory::Variable)
+		.push_imm32(PVZ::Memory::Variable + 4)
 		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
 		.invoke(0x5B8000)
 
@@ -113,12 +113,12 @@ PVZ::Image PVZ::ResourceManager::GetImage(const char* imageName)
 		.invoke(0x59A980)
 		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
 
-		.mov_reg_reg(REG_ESI, REG_ECX)
+		.mov_reg_imm(REG_ESI, PVZ::Memory::Variable + 4)
 		.invoke(0x59A8C0)
 
 		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 600)
 		.invoke(0x404420)
 		.ret();
 
-	return (PVZ::SoundID)PVZ::Memory::Execute(GetImage_builder);
+	return (PVZ::Image)PVZ::Memory::Execute(GetImage_builder);
 }
