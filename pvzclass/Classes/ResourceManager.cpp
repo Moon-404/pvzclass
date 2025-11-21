@@ -12,11 +12,11 @@ namespace PVZ
 	}
 }
 
-AsmBuilder AddPAKFile_builder = AsmBuilder(128);
 void PVZ::ResourceManager::AddPAKFile(const char* fileName)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, fileName, std::strlen(fileName) + 1);
-	AddPAKFile_builder.clear()
+
+	PVZ::Memory::Execute(AsmBuilder(128)
 		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 600)
 		.push_imm32(PVZ::Memory::Variable + 100)
 		.invoke(0x404450)
@@ -24,17 +24,16 @@ void PVZ::ResourceManager::AddPAKFile(const char* fileName)
 		.invoke(0x5D7D90)
 		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 600)
 		.invoke(0x404420)
-		.ret();
-
-	PVZ::Memory::Execute(AddPAKFile_builder);
+		.ret()
+	);
 }
 
-AsmBuilder ParseResourcesFile_builder = AsmBuilder(128);
 bool PVZ::ResourceManager::ParseResourcesFile(const char* fileName)
 {
 	this->AllowAlreadyDefinedResources = true;
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, fileName, std::strlen(fileName) + 1);
-	ParseResourcesFile_builder.clear()
+
+	return PVZ::Memory::Execute(AsmBuilder(128)
 		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 600)
 		.push_imm32(PVZ::Memory::Variable + 100)
 		.invoke(0x404450)
@@ -47,16 +46,15 @@ bool PVZ::ResourceManager::ParseResourcesFile(const char* fileName)
 
 		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 600)
 		.invoke(0x404420)
-		.ret();
-
-	return PVZ::Memory::Execute(ParseResourcesFile_builder);
+		.ret()
+	);
 }
 
-AsmBuilder TodLoadResources_builder = AsmBuilder(128);
 bool PVZ::ResourceManager::TodLoadResources(const char* groupName)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, groupName, std::strlen(groupName) + 1);
-	TodLoadResources_builder.clear()
+
+	return PVZ::Memory::Execute(AsmBuilder(128)
 		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 600)
 		.push_imm32(PVZ::Memory::Variable + 100)
 		.invoke(0x404450)
@@ -69,16 +67,15 @@ bool PVZ::ResourceManager::TodLoadResources(const char* groupName)
 
 		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 600)
 		.invoke(0x404420)
-		.ret();
-
-	return PVZ::Memory::Execute(TodLoadResources_builder);
+		.ret()
+	);
 }
 
-AsmBuilder GetSoundThrow_builder = AsmBuilder(128);
 PVZ::SoundID PVZ::ResourceManager::GetSoundThrow(const char* soundName)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, soundName, std::strlen(soundName) + 1);
-	GetSoundThrow_builder.clear()
+
+	return (PVZ::SoundID)PVZ::Memory::Execute(AsmBuilder(128)
 		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 600)
 		.push_imm32(PVZ::Memory::Variable + 100)
 		.invoke(0x404450)
@@ -90,22 +87,21 @@ PVZ::SoundID PVZ::ResourceManager::GetSoundThrow(const char* soundName)
 
 		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 600)
 		.invoke(0x404420)
-		.ret();
-
-	return (PVZ::SoundID)PVZ::Memory::Execute(GetSoundThrow_builder);
+		.ret()
+	);
 }
 
-AsmBuilder GetImage_builder = AsmBuilder(128);
 PVZ::Image PVZ::ResourceManager::GetImage(const char* imageName)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, imageName, std::strlen(imageName) + 1);
-	GetImage_builder.clear()
+
+	return (PVZ::Image)PVZ::Memory::Execute(AsmBuilder(128)
 		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 600)
 		.push_imm32(PVZ::Memory::Variable + 100)
 		.invoke(0x404450)
 
 		.push_reg(REG_EAX)
-		.push_imm32(PVZ::Memory::Variable)
+		.push_imm32(PVZ::Memory::Variable + 4)
 		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
 		.invoke(0x5B8000)
 
@@ -113,12 +109,11 @@ PVZ::Image PVZ::ResourceManager::GetImage(const char* imageName)
 		.invoke(0x59A980)
 		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
 
-		.mov_reg_reg(REG_ESI, REG_ECX)
+		.mov_reg_imm(REG_ESI, PVZ::Memory::Variable + 4)
 		.invoke(0x59A8C0)
 
 		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 600)
 		.invoke(0x404420)
-		.ret();
-
-	return (PVZ::SoundID)PVZ::Memory::Execute(GetImage_builder);
+		.ret()
+	);
 }
