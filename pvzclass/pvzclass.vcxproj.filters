@@ -333,6 +333,9 @@
     <ClCompile Include="Classes\Reanimator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\ReanimatorCache.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -873,6 +876,9 @@
       <Filter>头文件\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Reanimator.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\ReanimatorCache.hpp">
       <Filter>头文件\Classes</Filter>
     </ClInclude>
   </ItemGroup>

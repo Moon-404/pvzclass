@@ -228,9 +228,13 @@ inline void AutoCollect(BOOLEAN b = true)
 	byte __autocollect_reset[3] { 0xC2, 0x10, 0 };
 	if (b)
 	{
-		auto coins = PVZ::GetBoard().GetAllCoins();
-		for (DWORD i = 0; i < coins.size(); i++)
-			coins[i].Collect();
+		auto board = PVZ::GetBoard();
+		if (board.isValid())
+		{
+			auto coins = PVZ::GetBoard().GetAllCoins();
+			for (auto coin : coins)
+				coin.Collect();
+		}
 		PVZ::Memory::WriteMemory<byte>(0x40CCDA, 0xE9);
 		PVZ::Memory::WriteMemory<int>(0x40CCDB, PVZ::Memory::Variable + 300 - 4 - 0x40CCDB);
 		PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 300, STRING(__autocollect_set));
