@@ -43,11 +43,11 @@ using std::is_base_of;
 #define MINGAME_NOTSTARTED	-1
 
 /// @deprecated
-#define APA_LOOP			1
+#define APA_LOOP			(PVZEnum::ReanimLoopType)1
 /// @deprecated
-#define APA_ONCE_DISAPPEAR	2
+#define APA_ONCE_DISAPPEAR	(PVZEnum::ReanimLoopType)2
 /// @deprecated
-#define APA_ONCE_STOP		3
+#define APA_ONCE_STOP		(PVZEnum::ReanimLoopType)3
 
 #define ID_INDEX(id) ((id) & 0x0000FFFF)
 #define ID_RANK(id) ((id) & 0xFFFF0000)
