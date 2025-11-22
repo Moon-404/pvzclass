@@ -881,5 +881,8 @@
     <ClInclude Include="Classes\ReanimatorCache.hpp">
       <Filter>头文件\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Events\LawnAppInitAfterEvent.hpp">
+      <Filter>头文件\Events</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

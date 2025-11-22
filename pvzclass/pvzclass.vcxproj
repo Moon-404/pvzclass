@@ -312,6 +312,7 @@
     <ClInclude Include="Events\IZLevelStartAfterEvent.hpp" />
     <ClInclude Include="Events\IZombieEvents.hpp" />
     <ClInclude Include="Events\IZScoreBrainEvent.hpp" />
+    <ClInclude Include="Events\LawnAppInitAfterEvent.hpp" />
     <ClInclude Include="Events\LawnDialogEvents.hpp" />
     <ClInclude Include="Events\LawnmowerStartEvent.hpp" />
     <ClInclude Include="Events\LawnmowerUpdateEvent.hpp" />
