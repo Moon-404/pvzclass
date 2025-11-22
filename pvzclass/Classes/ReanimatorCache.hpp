@@ -7,6 +7,6 @@ namespace PVZ
 	class ReanimatorCache
 	{
 	public:
-		static void SetMemSize(DWORD zombie_num = 33);
+		static void SetMemSize(byte zombie_num = 35, DWORD lawnmower_num = 4);
 	};
 }
