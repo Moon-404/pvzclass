@@ -12,11 +12,11 @@ void PVZ::ReanimatorCache::SetMemSize(DWORD zombie_num)
 		PUSHDWORD((zombie_num << 2) - 100),
 		PUSH(0),
 		PUSH_EDX,
-		CALC_PTR_ESP(CALC_ADD, 0),
+		CALC_PTR_ESP(CALC_ADD, 0x160),
 		INVOKE(0x626020),
 		ADD_ESP(0x0C),
 		MOV_EUX_PTR_ADDR(REG_EAX, 0x6AF938),
-		MOV_PTR_EUX_ADD__EVX(REG_EDX, REG_EAX, 252 + (zombie_num << 2)),
+		MOV_PTR_EUX_ADD__EVX(REG_EDI, REG_EAX, 252 + (zombie_num << 2)),
 		POP_EUX(REG_EDI),
 		RET
 	};
