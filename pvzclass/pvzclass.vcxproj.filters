@@ -82,6 +82,21 @@
     <Filter Include="源文件\Widget">
       <UniqueIdentifier>{13e95f3e-25f6-406a-b482-c73050b04cc1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Enums\Projectile">
+      <UniqueIdentifier>{14eac6f5-61ad-4165-aaf6-c572572e0753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Enums\Board">
+      <UniqueIdentifier>{41e6042b-8b18-4cfc-aa51-da322cdcb2cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Enums\Plant">
+      <UniqueIdentifier>{5dccbae6-7561-41d1-a5a8-39fd1db6f916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Enums\Coin">
+      <UniqueIdentifier>{4d1e8d90-7416-46cf-92c8-a8dad9a45da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Enums\Griditem">
+      <UniqueIdentifier>{bbbef71e-8dcd-4b5b-a3db-2f227dcdaf58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PVZ.cpp">
@@ -368,15 +383,6 @@
     <ClInclude Include="Enums\CaptionStyle.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\CoinMotionType.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\SeedType.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\CoinType.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\DebugModeType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
@@ -384,12 +390,6 @@
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\GardenPlantState.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\GriditemType.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\GardenScene.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\INGAMEEffect.h">
@@ -401,43 +401,16 @@
     <ClInclude Include="Enums\LawnmoverType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\LawnTypeEnum.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\MotionType.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\MouseClickState.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\MouseType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\MusicType.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\PaintState.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\ZombieType.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\ZombieState.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\ShieldType.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\VaseSkin.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\VaseContent.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\SceneType.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\RouteTypeEnum.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\PVZVersionEnum.h">
@@ -447,9 +420,6 @@
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\PVZGameStateEnum.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\ProjectileType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\PlantState.h">
@@ -509,9 +479,6 @@
     <ClInclude Include="Enums\AnimationType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\GriditemState.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\GardenPlantNeed.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
@@ -521,16 +488,10 @@
     <ClInclude Include="Enums\LowerSoundType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\MagnetItemType.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\SeedState.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\ThreeState.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\UpperSoundType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Events\BoardUpdateGameEvent.hpp">
@@ -883,6 +844,60 @@
     </ClInclude>
     <ClInclude Include="Events\LawnAppInitAfterEvent.hpp">
       <Filter>头文件\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GriditemState.h">
+      <Filter>头文件\Enums\Griditem</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GriditemType.h">
+      <Filter>头文件\Enums\Griditem</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\VaseContent.h">
+      <Filter>头文件\Enums\Griditem</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\UpperSoundType.h">
+      <Filter>头文件\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\MusicType.h">
+      <Filter>头文件\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\VaseSkin.h">
+      <Filter>头文件\Enums\Griditem</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ProjectileType.h">
+      <Filter>头文件\Enums\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\MotionType.h">
+      <Filter>头文件\Enums\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ZombieType.h">
+      <Filter>头文件\Enums\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ZombieState.h">
+      <Filter>头文件\Enums\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\RouteTypeEnum.h">
+      <Filter>头文件\Enums\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\GardenScene.h">
+      <Filter>头文件\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\LawnTypeEnum.h">
+      <Filter>头文件\Enums\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\ShieldType.h">
+      <Filter>头文件\Enums\Zombie</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\MagnetItemType.h">
+      <Filter>头文件\Enums\Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\SeedType.h">
+      <Filter>头文件\Enums\Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\CoinType.h">
+      <Filter>头文件\Enums\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\CoinMotionType.h">
+      <Filter>头文件\Enums\Coin</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
