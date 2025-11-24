@@ -1,4 +1,4 @@
-﻿#include "ProjectileType.h"
+#include "ProjectileType.h"
 
 const char* ProjectileType::ToString(ProjectileType projectilet)
 {
@@ -20,7 +20,7 @@ const char* ProjectileType::ToString(ProjectileType projectilet)
 		return "FirePea";
 	case ProjectileType::Star:
 		return "Star";
-	case ProjectileType::Cactus:
+	case ProjectileType::Spike:
 		return "Cactus";
 	case ProjectileType::Basketball:
 		return "Basketball";

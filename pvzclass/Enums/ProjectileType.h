@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 namespace ProjectileType
 {
 
@@ -12,13 +12,15 @@ namespace ProjectileType
 		WinterMelon,
 		FirePea,
 		Star,
-		Cactus,
+		Spike,
 		Basketball,
 		Kernel,
 		CobCannon,
 		Butter,
 		ZombiePea,
 	};
+
+	constexpr ProjectileType Cactus = Spike;
 
 	extern const char* ToString(ProjectileType projectilet);
 
