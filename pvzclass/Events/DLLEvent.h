@@ -198,7 +198,7 @@ protected:
 	}
 };
 
-/// @brief DLLEvent 的扩展，用于快速设置一个事件，其结算函数的返回值为 float。若返回值为指定数值，则会在清栈后跳转至指定位置。
+/// @brief DLLEvent 的扩展，用于快速设置一个事件，其结算函数的返回值为 float。
 /// @tparam _Hook_Address 原始代码的首地址
 /// @tparam _Raw_Len 替代的原始代码长度
 /// @tparam _Out_Param 存储返回值的位置（立即数取值会变为立即数寻址）。0~7的数值会视为 ST 寄存器，而不是常规 32 位寄存器。
