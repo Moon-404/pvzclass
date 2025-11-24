@@ -10,6 +10,51 @@ PVZ::PlantDefinition PVZ::GetPlantDefinition(SeedType::SeedType type)
 	return PlantDefinition(type);
 }
 
+void PVZ::PlantDef::Reposition(DWORD baseaddress, uint8_t num)
+{
+	if (PVZ::Memory::localExecute)
+		PVZ::Memory::WriteArray<PlantDef>(baseaddress, (PlantDef*)0x69F2B0, 53 * sizeof(PlantDef));
+	else
+	{
+		PlantDef buf[53];
+		PVZ::Memory::ReadArray<PlantDef>(0x69F2B0, buf, 53 * sizeof(PlantDef));
+		PVZ::Memory::WriteArray<PlantDef>(baseaddress, buf, 53 * sizeof(PlantDef));
+	}
+
+	PVZ::Memory::WriteMemory<DWORD>(0x4024C0, baseaddress);
+	PVZ::Memory::WriteMemory<DWORD>(0x45DCBF, baseaddress);
+	PVZ::Memory::WriteMemory<DWORD>(0x45FF73, baseaddress);
+	PVZ::Memory::WriteMemory<DWORD>(0x463F4A, baseaddress);
+	PVZ::Memory::WriteMemory<DWORD>(0x465AFB, baseaddress);
+	PVZ::Memory::WriteMemory<DWORD>(0x467C29, baseaddress);
+	PVZ::Memory::WriteMemory<DWORD>(0x467C89, baseaddress);
+	PVZ::Memory::WriteMemory<DWORD>(0x467DD3, baseaddress);
+	PVZ::Memory::WriteMemory<DWORD>(0x4681E6, baseaddress);
+	PVZ::Memory::WriteMemory<DWORD>(0x46F5F2, baseaddress);
+
+	PVZ::Memory::WriteMemory<DWORD>(0x4662F8, baseaddress + 4);
+
+	PVZ::Memory::WriteMemory<DWORD>(0x439D63, baseaddress + 8);
+	PVZ::Memory::WriteMemory<DWORD>(0x43A049, baseaddress + 8);
+	PVZ::Memory::WriteMemory<DWORD>(0x45FF69, baseaddress + 8);
+	PVZ::Memory::WriteMemory<DWORD>(0x46628E, baseaddress + 8);
+
+	PVZ::Memory::WriteMemory<DWORD>(0x467B99, baseaddress + 16);
+	PVZ::Memory::WriteMemory<DWORD>(0x467BA4, baseaddress + 16);
+
+	PVZ::Memory::WriteMemory<DWORD>(0x467E4E, baseaddress + 20);
+	PVZ::Memory::WriteMemory<DWORD>(0x467E59, baseaddress + 20);
+	PVZ::Memory::WriteMemory<DWORD>(0x486DF6, baseaddress + 20);
+	PVZ::Memory::WriteMemory<DWORD>(0x486E02, baseaddress + 20);
+	PVZ::Memory::WriteMemory<DWORD>(0x488F68, baseaddress + 20);
+	PVZ::Memory::WriteMemory<DWORD>(0x488F79, baseaddress + 20);
+
+	PVZ::Memory::WriteMemory<DWORD>(0x488F79, baseaddress + 32);
+
+	PVZ::Memory::WriteMemory<DWORD>(0x439D4F, baseaddress + 44);
+	PVZ::Memory::WriteMemory<DWORD>(0x43A032, baseaddress + 44);
+}
+
 PVZ::ZombieDefinition::ZombieDefinition(ZombieType::ZombieType type)
 {
 	BaseAddress = 0x69DA80 + 0x1C * type;

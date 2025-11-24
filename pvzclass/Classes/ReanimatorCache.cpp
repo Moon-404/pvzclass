@@ -1,13 +1,31 @@
 #include "ReanimatorCache.hpp"
 
-void PVZ::ReanimatorCache::SetMemSize(byte zombie_num, DWORD lawnmower_num)
+void PVZ::ReanimatorCache::SetMemSize(int8_t plant_num, int8_t zombie_num, DWORD lawnmower_num)
 {
 	PVZ::Memory::WriteMemory<int>(0x452B40, 232 + ((zombie_num + lawnmower_num) << 2));
 
 	PVZ::Memory::WriteMemory<int>(0x46FDC7, 228 + ((zombie_num + lawnmower_num) << 2));
 	PVZ::Memory::WriteMemory<int>(0x470058, 228 + ((zombie_num + lawnmower_num) << 2));
 
-	PVZ::Memory::WriteMemory<byte>(0x46FF7D, zombie_num);
+	int list_pos = (int)plant_num * 4;
+	PVZ::Memory::WriteMemory<int>(0x452B58, list_pos);
+	PVZ::Memory::WriteMemory<int>(0x452B5E, list_pos + 4);
+	PVZ::Memory::WriteMemory<int>(0x452B64, list_pos + 8);
+	PVZ::Memory::WriteMemory<int>(0x452B6A, list_pos + 12);
+
+	PVZ::Memory::WriteMemory<int>(0x46FEF9, list_pos + 8);
+	PVZ::Memory::WriteMemory<int>(0x46FF05, list_pos);
+	PVZ::Memory::WriteMemory<int>(0x46FF10, list_pos);
+	PVZ::Memory::WriteMemory<int>(0x46FF1D, list_pos + 4);
+	PVZ::Memory::WriteMemory<int>(0x46FF2F, list_pos + 8);
+	PVZ::Memory::WriteMemory<int>(0x46FF39, list_pos + 12);
+	PVZ::Memory::WriteMemory<int>(0x46FF54, list_pos + 4);
+
+	PVZ::Memory::WriteMemory<int>(0x46FFC3, list_pos);
+	PVZ::Memory::WriteMemory<int>(0x46FFCB, list_pos);
+
+	PVZ::Memory::WriteMemory<int8_t>(0x46FEF4, plant_num);
+	PVZ::Memory::WriteMemory<int8_t>(0x46FF7D, zombie_num);
 	PVZ::Memory::WriteMemory<int>(0x46FF61, lawnmower_num);
 
 	PVZ::Memory::WriteMemory<int>(0x46FF80, 228 + (lawnmower_num << 2));
