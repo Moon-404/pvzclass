@@ -17,7 +17,7 @@ namespace PVZ
 	{
 	public:
 		AnimationType::AnimationType Type;
-		char* FileName;
+		const char* FileName;
 		PVZEnum::ReanimFlags Flags;
 
 		/// @brief 重新定位默认动画参数数组的基址，并将旧基址的所有旧内容复制到新基址上。
