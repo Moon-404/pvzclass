@@ -31,6 +31,34 @@ namespace PVZ
 	/// @return 该类型植物对应的 PlantDefinition
 	PlantDefinition GetPlantDefinition(SeedType::SeedType type);
 
+	/// @brief 植物定义类，但是每个成员变量都用内存空间存储。
+	/// @see PlantDefinition
+	class PlantDef
+	{
+	public:
+		/// @brief 植物类型
+		SeedType::SeedType Type;
+		PVZ::Image PlantImage = 0;
+		/// @brief 植物的默认动画类型
+		AnimationType::AnimationType AnimType;
+		int PacketID;
+		/// @brief 基础阳光消耗
+		int Cost;
+		/// @brief 基础种植冷却时间
+		int Cooldown;
+		/// @brief 植物默认子类型。原版只有非射手（0）与射手（1）之分。
+		int SubClass;
+		/// @brief 基础攻击间隔
+		int LaunchRate;
+		const char* Name;
+
+		/// @brief 重新定位默认植物定义的基址，并将旧基址的所有旧内容复制到新基址上。
+		/// @attention 调用该函数会导致 GetPlantDefinition() 失效。
+		/// @param baseaddress 主程序中的新基址
+		/// @param num 植物定义总数。
+		static void Reposition(DWORD baseaddress, uint8_t num = 53);
+	};
+
 	/// @brief 僵尸定义类，存储僵尸相关的若干常量。
 	class ZombieDefinition : public BaseClass
 	{
