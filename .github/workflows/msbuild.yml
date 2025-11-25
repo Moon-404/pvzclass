@@ -1,0 +1,45 @@
+name: PRBlock
+
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches: [ "Violet" ]
+
+jobs:
+  close-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+    - id: check-branch
+      run: |
+        TARGET_BRANCH="${{ github.event.pull_request.base.ref }}"
+        PERSONAL_BRANCHES=("personal/" "Violet")
+
+        for branch_pattern in "${PERSONAL_BRANCHES[@]}"; do
+          if [[ "$TARGET_BRANCH" == "$branch_pattern"* ]]; then
+            echo "target_branch=$TARGET_BRANCH" >> $GITHUB_OUTPUT
+            echo "should_close=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+        done
+        echo "should_close=false" >> $GITHUB_OUTPUT
+        
+    - id: close-operation
+      if: steps.check-branch.outputs.should_close == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const targetBranch = '${{ steps.check-branch.outputs.target_branch }}';
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body: `🚫 **PR 自动关闭通知**\n\n这个 PR 的目标分支是 **${targetBranch}**，这是一个个人工作分支，不允许合并 PR。\n\n请将目标分支更改为 Refurbishment 等受保护分支。`
+          });
+          
+          await github.rest.pulls.update({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.issue.number,
+            state: 'closed'
+          });
