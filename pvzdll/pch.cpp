@@ -1,4 +1,4 @@
-﻿// pch.cpp: 与预编译标头对应的源文件
+// pch.cpp: 与预编译标头对应的源文件
 
 #include "pch.h"
 
@@ -10,9 +10,8 @@ void init()
 	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
 }
 
-void onAppUpdate(DWORD appAddress)
+void onAppUpdate(PVZ::PVZApp app)
 {
-	auto app = std::make_shared<PVZ::PVZApp>(appAddress);
 }
 
 void onCoinCollect(DWORD coinAddress)

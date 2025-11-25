@@ -21,7 +21,7 @@ const char* ProjectileType::ToString(ProjectileType projectilet)
 	case ProjectileType::Star:
 		return "Star";
 	case ProjectileType::Spike:
-		return "Cactus";
+		return "Spike";
 	case ProjectileType::Basketball:
 		return "Basketball";
 	case ProjectileType::Kernel:

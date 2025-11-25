@@ -37,7 +37,7 @@ void PVZ::PlantDef::Reposition(DWORD baseaddress, uint8_t num)
 	PVZ::Memory::WriteMemory<DWORD>(0x439D63, baseaddress + 8);
 	PVZ::Memory::WriteMemory<DWORD>(0x43A049, baseaddress + 8);
 	PVZ::Memory::WriteMemory<DWORD>(0x45FF69, baseaddress + 8);
-	PVZ::Memory::WriteMemory<DWORD>(0x46628E, baseaddress + 8);
+	PVZ::Memory::WriteMemory<DWORD>(0x466290, baseaddress + 8);
 
 	PVZ::Memory::WriteMemory<DWORD>(0x467B99, baseaddress + 16);
 	PVZ::Memory::WriteMemory<DWORD>(0x467BA4, baseaddress + 16);
