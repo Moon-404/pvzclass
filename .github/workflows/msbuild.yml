@@ -2,30 +2,15 @@ name: PRBlock
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, synchronize]
     branches: [ "Violet" ]
 
 jobs:
   close-pr:
     runs-on: ubuntu-latest
 
-    steps:
-    - id: check-branch
-      run: |
-        TARGET_BRANCH="${{ github.event.pull_request.base.ref }}"
-        PERSONAL_BRANCHES=("personal/" "Violet")
-
-        for branch_pattern in "${PERSONAL_BRANCHES[@]}"; do
-          if [[ "$TARGET_BRANCH" == "$branch_pattern"* ]]; then
-            echo "target_branch=$TARGET_BRANCH" >> $GITHUB_OUTPUT
-            echo "should_close=true" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-        done
-        echo "should_close=false" >> $GITHUB_OUTPUT
-        
+    steps:        
     - id: close-operation
-      if: steps.check-branch.outputs.should_close == 'true'
       uses: actions/github-script@v7
       with:
         script: |
