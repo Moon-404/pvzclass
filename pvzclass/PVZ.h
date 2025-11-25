@@ -189,6 +189,15 @@ namespace PVZ
 
 	class Attachment;
 	class AttachmentID;
+	class LawnMower;
+	class Griditem;
+	class MousePointer;
+	class Caption;
+	class CardSlot;
+	class Challenge;
+	class Lawn;
+	class Icetrace;
+	class Wave;
 	class Widget;
 
 	class WidgetContainer : public BaseClass

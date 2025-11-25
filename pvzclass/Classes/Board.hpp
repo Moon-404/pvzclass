@@ -7,16 +7,6 @@ namespace PVZ
 	class Plant;
 	class Projectile;
 	class Coin;
-	class Challenge;
-	class Caption;
-	class CardSlot;
-	class LawnMower;
-	class Griditem;
-	class MousePointer;
-
-	class Lawn;
-	class Icetrace;
-	class Wave;
 
 	/// @brief 包含大部分关卡内部数据和对象的类	
 	class Board : public Widget
