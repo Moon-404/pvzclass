@@ -899,5 +899,8 @@
     <ClInclude Include="Enums\CoinMotionType.h">
       <Filter>头文件\Enums\Coin</Filter>
     </ClInclude>
+    <ClInclude Include="deprecated.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
