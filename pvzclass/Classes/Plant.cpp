@@ -103,6 +103,11 @@ void PVZ::Plant::SetSleeping(bool sleeping)
 
 void PVZ::Plant::CreateEffect()
 {
+	this->DoSpecial();
+}
+
+void PVZ::Plant::DoSpecial()
+{
 	SETARG(__asm__CreateEffect, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm__CreateEffect));
 }
