@@ -256,3 +256,33 @@ void PVZ::Graphics::DrawImage(PVZ::Image image, int x, int y)
 {
 	Draw::DrawImage(x, y, image.GetBaseAddress(), this->GetBaseAddress());
 }
+
+void PVZ::Graphics::TodDrawImageScaledF(PVZ::Image image, float x, float y, float scale_x, float scale_y)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_float(scale_y)
+		.push_float(scale_x)
+		.push_float(y)
+		.push_float(x)
+		.mov_reg_imm(REG_EAX, image.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x512950)
+		.add_reg_imm(REG_ESP, 16)
+		.ret()
+	);
+}
+
+void PVZ::Graphics::TodDrawImageCenterScaledF(PVZ::Image image, float x, float y, float scale_x, float scale_y)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_float(scale_y)
+		.push_float(scale_x)
+		.push_float(y)
+		.push_float(x)
+		.mov_reg_imm(REG_EAX, image.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x512A10)
+		.add_reg_imm(REG_ESP, 16)
+		.ret()
+	);
+}
