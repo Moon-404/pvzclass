@@ -294,6 +294,7 @@
     <ClInclude Include="Events\CoinMouseDownEvent.hpp" />
     <ClInclude Include="Events\Dialog_ButtonDepressEvent.hpp" />
     <ClInclude Include="Events\DrawPlantReanimEvent.h" />
+    <ClInclude Include="Events\DrawObjectEvents.hpp" />
     <ClInclude Include="Events\DrawZombieReanimEvent.h" />
     <ClInclude Include="Enums\ChallengePage.hpp" />
     <ClInclude Include="Enums\ThreeState.h" />
@@ -434,7 +435,7 @@
     <ClInclude Include="Events\ZombieFrozeEvent.h" />
     <ClInclude Include="Events\ZombieHypnotizeEvent.h" />
     <ClInclude Include="Events\ZombieRemoveEvent.h" />
-    <ClInclude Include="Events\DrawUITopEvent.h" />
+    <ClInclude Include="Events\DrawUIEvents.hpp" />
     <ClInclude Include="Events\VaseOpenEvent.h" />
     <ClInclude Include="Widgets\ButtonWidget.hpp" />
     <ClInclude Include="Widgets\Dialog.hpp" />

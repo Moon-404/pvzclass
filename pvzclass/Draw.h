@@ -1,6 +1,34 @@
 #pragma once
 #include "PVZ.h"
 
+namespace PVZ
+{
+	class Graphics : public BaseClass
+	{
+	public:
+		Graphics(uint32_t address) : BaseClass(address) {};
+		/// @brief 在指定坐标绘制图片
+		/// @param image 绘制的图片
+		/// @param x X 坐标
+		/// @param y Y 坐标
+		void DrawImage(PVZ::Image image, int x, int y);
+		/// @brief 在指定坐标拉伸地绘制贴图。拉伸原点为贴图左上顶点。
+		/// @param image 绘制的图片
+		/// @param x X 坐标
+		/// @param y Y 坐标
+		/// @param scale_x X 方向拉伸
+		/// @param scale_y Y 方向拉伸
+		void TodDrawImageScaledF(PVZ::Image image, float x, float y, float scale_x, float scale_y);
+		/// @brief 在指定坐标拉伸地绘制贴图。拉伸原点为贴图中心。
+		/// @param image 绘制的图片
+		/// @param x X 坐标
+		/// @param y Y 坐标
+		/// @param scale_x X 方向拉伸
+		/// @param scale_y Y 方向拉伸
+		void TodDrawImageCenterScaledF(PVZ::Image image, float x, float y, float scale_x, float scale_y);
+	};
+}
+
 // 请与DrawUITopEvent配合使用
 namespace Draw
 {
