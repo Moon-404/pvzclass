@@ -331,7 +331,11 @@ namespace PVZ
 		/// @brief 识别 ID
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x148);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		/// @brief 与 DoSpecial() 相同。
+		/// @see DoSpecial()
 		void CreateEffect();
+		/// @brief 部分特殊植物（尤其是一次性植物）的生效函数。
+		void DoSpecial();
 		/// @brief 将植物定身为纸板（同 IZ）。
 		/// @note 会让土豆地雷直接出土。
 		void SetStatic();

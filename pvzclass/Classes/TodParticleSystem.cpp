@@ -1,4 +1,4 @@
-﻿#include "TodParticleSystem.hpp"
+#include "TodParticleSystem.hpp"
 
 PVZ::TodParticleSystem::TodParticleSystem(DWORD indexoraddress) : BaseClass(0)
 {
@@ -8,31 +8,26 @@ PVZ::TodParticleSystem::TodParticleSystem(DWORD indexoraddress) : BaseClass(0)
 		BaseAddress = indexoraddress;
 }
 
-AsmBuilder die_builder = AsmBuilder();
 void PVZ::TodParticleSystem::Die()
 {
-	die_builder.clear()
+	PVZ::Memory::Execute(AsmBuilder()
 		.push(this->BaseAddress)
 		.invoke(0x5160C0)
-		.ret();
-
-	PVZ::Memory::Execute(die_builder);
+		.ret()
+	);
 }
 
-AsmBuilder moveto_builder = AsmBuilder();
 void PVZ::TodParticleSystem::MoveTo(float X, float Y)
 {
-	moveto_builder.clear()
+	PVZ::Memory::Execute(AsmBuilder()
 		.push_float(Y)
 		.push_float(X)
 		.mov_reg_imm(REG_ESI, this->BaseAddress)
 		.invoke(0x518440)
-		.ret();
-
-	PVZ::Memory::Execute(moveto_builder);
+		.ret()
+	);
 }
 
-AsmBuilder color_builder = AsmBuilder();
 void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, Color& color)
 {
 	DWORD tmp_ptr;
@@ -46,7 +41,7 @@ void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, Color& colo
 		PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, emitter_name, std::strlen(emitter_name) + 1);
 	}
 
-	color_builder.clear()
+	PVZ::Memory::Execute(AsmBuilder(128)
 		.mov_reg_imm(REG_EBX, tmp_ptr)
 		.push(color.Alpha)
 		.push(color.Blue)
@@ -56,45 +51,38 @@ void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, Color& colo
 		.push(this->BaseAddress)
 		.invoke(0x518560)
 		.add_reg_imm(REG_ESP, 16)
-		.ret();
-
-	PVZ::Memory::Execute(color_builder);
+		.ret()
+	);
 }
 
-AsmBuilder additive_builder = AsmBuilder();
 void PVZ::TodParticleSystem::OverrideExtraAdditiveDraw(bool isEnable)
 {
-	additive_builder.clear()
+	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EDX, isEnable)
 		.mov_reg_imm(REG_ESI, this->BaseAddress)
 		.invoke(0x5185D0)
-		.ret();
-
-	PVZ::Memory::Execute(additive_builder);
+		.ret()
+	);
 }
 
-AsmBuilder image_builder = AsmBuilder();
 void PVZ::TodParticleSystem::OverrideImage(Image image)
 {
-	image_builder.clear()
+	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_ESI, image.GetBaseAddress())
 		.mov_reg_imm(REG_EDX, this->BaseAddress)
 		.invoke(0x518600)
-		.ret();
-
-	PVZ::Memory::Execute(image_builder);
+		.ret()
+	);
 }
 
-AsmBuilder scale_builder = AsmBuilder();
 void PVZ::TodParticleSystem::OverrideScale(float scale)
 {
-	scale_builder.clear()
+	PVZ::Memory::Execute(AsmBuilder()
 		.push_float(scale)
 		.mov_reg_imm(REG_EDX, this->BaseAddress)
 		.invoke(0x518630)
-		.ret();
-
-	PVZ::Memory::Execute(scale_builder);
+		.ret()
+	);
 }
 
 std::vector<PVZ::TodParticleSystem> PVZ::GetAllParticleSystem()
@@ -113,10 +101,9 @@ std::vector<PVZ::TodParticleSystem> PVZ::GetAllParticleSystem()
 	return particle_syss;
 }
 
-AsmBuilder creator_builder = AsmBuilder();
 PVZ::TodParticleSystem PVZ::CreateParticleSystem(float X, float Y, int render_order, EffectType::EffectType type)
 {
-	creator_builder.clear()
+	return PVZ::TodParticleSystem(PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EAX, type)
 		.mov_reg_imm(REG_ECX, render_order)
 		.push_float(Y)
@@ -124,7 +111,6 @@ PVZ::TodParticleSystem PVZ::CreateParticleSystem(float X, float Y, int render_or
 		.mov_reg_imm(REG_EDX, PVZ_BASE)
 		.invoke(0x453C80)
 		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
-		.ret();
-
-	return PVZ::TodParticleSystem(PVZ::Memory::Execute(creator_builder));
+		.ret()
+	));
 }

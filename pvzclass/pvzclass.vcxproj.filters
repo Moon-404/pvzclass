@@ -905,5 +905,8 @@
     <ClInclude Include="Events\DrawObjectEvents.hpp">
       <Filter>头文件\Events\Draw</Filter>
     </ClInclude>
+    <ClInclude Include="deprecated.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

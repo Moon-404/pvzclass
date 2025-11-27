@@ -42,30 +42,8 @@ using std::is_base_of;
 #define MINGAME_STARTED		1
 #define MINGAME_NOTSTARTED	-1
 
-/// @deprecated
-#define APA_LOOP			(PVZEnum::ReanimLoopType)1
-/// @deprecated
-#define APA_ONCE_DISAPPEAR	(PVZEnum::ReanimLoopType)2
-/// @deprecated
-#define APA_ONCE_STOP		(PVZEnum::ReanimLoopType)3
-
 #define ID_INDEX(id) ((id) & 0x0000FFFF)
 #define ID_RANK(id) ((id) & 0xFFFF0000)
-
-/// @deprecated
-#define HZC_COMMON 1
-/// @deprecated
-#define HZC_BALLOON_AIR 2
-/// @deprecated
-#define HZC_SNORKED_UNDER 4
-/// @deprecated
-#define HZC_NOT_GROUNDED 16
-/// @deprecated
-#define HZC_DYING 32
-/// @deprecated
-#define HZC_DIGGER_UNDER 64
-/// @deprecated
-#define HZC_HYPNOTIZED 128
 
 #define INVALID_BASEADDRESS 0x400000
 
