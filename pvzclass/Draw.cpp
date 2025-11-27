@@ -251,3 +251,8 @@ void Draw::DrawTextBox(DWORD edit, DWORD graphics)
 	PVZ::Memory::Execute(STRING(__asm__DrawTextBox));
 	PVZ::Memory::FreeMemory(rect);
 }
+
+void PVZ::Graphics::DrawImage(PVZ::Image image, int x, int y)
+{
+	Draw::DrawImage(x, y, image.GetBaseAddress(), this->GetBaseAddress());
+}

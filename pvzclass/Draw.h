@@ -1,6 +1,20 @@
 #pragma once
 #include "PVZ.h"
 
+namespace PVZ
+{
+	class Graphics : public BaseClass
+	{
+	public:
+		Graphics(uint32_t address) : BaseClass(address) {};
+		/// @brief 在指定坐标绘制图片
+		/// @param image 绘制的图片
+		/// @param x X 坐标
+		/// @param y Y 坐标
+		void DrawImage(PVZ::Image image, int x, int y);
+	};
+}
+
 // 请与DrawUITopEvent配合使用
 namespace Draw
 {
