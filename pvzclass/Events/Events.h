@@ -6,6 +6,7 @@
 #include "DialogButtonDepressEvent.h"
 #include "DialogDrawEvent.h"
 #include "DrawUITopEvent.h"
+#include "DrawObjectEvents.hpp"
 #include "DrawPlantReanimEvent.h"
 #include "DrawZombieReanimEvent.h"
 #include "IZLevelCompleteEvent.hpp"

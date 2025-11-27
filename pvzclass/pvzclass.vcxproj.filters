@@ -97,6 +97,9 @@
     <Filter Include="头文件\Enums\Griditem">
       <UniqueIdentifier>{bbbef71e-8dcd-4b5b-a3db-2f227dcdaf58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Events\Draw">
+      <UniqueIdentifier>{7bea87cf-7665-4d42-b330-68af7a798a7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PVZ.cpp">
@@ -458,9 +461,6 @@
     <ClInclude Include="Events\DLLEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\DrawUITopEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
     <ClInclude Include="Events\Events.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
@@ -471,9 +471,6 @@
       <Filter>头文件\Events</Filter>
     </ClInclude>
     <ClInclude Include="Events\DrawZombieReanimEvent.h">
-      <Filter>头文件\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Events\DrawPlantReanimEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
     <ClInclude Include="Enums\AnimationType.h">
@@ -898,6 +895,15 @@
     </ClInclude>
     <ClInclude Include="Enums\CoinMotionType.h">
       <Filter>头文件\Enums\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\DrawPlantReanimEvent.h">
+      <Filter>头文件\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\DrawUITopEvent.h">
+      <Filter>头文件\Events\Draw</Filter>
+    </ClInclude>
+    <ClInclude Include="Events\DrawObjectEvents.hpp">
+      <Filter>头文件\Events\Draw</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

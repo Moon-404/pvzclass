@@ -293,6 +293,7 @@
     <ClInclude Include="Events\CoinMouseDownEvent.hpp" />
     <ClInclude Include="Events\Dialog_ButtonDepressEvent.hpp" />
     <ClInclude Include="Events\DrawPlantReanimEvent.h" />
+    <ClInclude Include="Events\DrawObjectEvents.hpp" />
     <ClInclude Include="Events\DrawZombieReanimEvent.h" />
     <ClInclude Include="Enums\ChallengePage.hpp" />
     <ClInclude Include="Enums\ThreeState.h" />
