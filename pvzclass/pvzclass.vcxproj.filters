@@ -899,7 +899,7 @@
     <ClInclude Include="Events\DrawPlantReanimEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\DrawUITopEvent.h">
+    <ClInclude Include="Events\DrawUIEvents.hpp">
       <Filter>头文件\Events\Draw</Filter>
     </ClInclude>
     <ClInclude Include="Events\DrawObjectEvents.hpp">

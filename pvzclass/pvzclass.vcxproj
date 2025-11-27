@@ -434,7 +434,7 @@
     <ClInclude Include="Events\ZombieFrozeEvent.h" />
     <ClInclude Include="Events\ZombieHypnotizeEvent.h" />
     <ClInclude Include="Events\ZombieRemoveEvent.h" />
-    <ClInclude Include="Events\DrawUITopEvent.h" />
+    <ClInclude Include="Events\DrawUIEvents.hpp" />
     <ClInclude Include="Events\VaseOpenEvent.h" />
     <ClInclude Include="Widgets\ButtonWidget.hpp" />
     <ClInclude Include="Widgets\Dialog.hpp" />
