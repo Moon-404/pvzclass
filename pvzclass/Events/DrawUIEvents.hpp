@@ -16,3 +16,14 @@ public:
 		start(STRING(code));
 	}
 };
+
+namespace PVZEvent
+{
+	class DrawUICoinBankEvent : public DLLEventTemplate<0x41A2AC, 5, REG_EDI, REG_EDX>
+	{
+	public:
+		DrawUICoinBankEvent(const char* str) : DLLEventTemplate() { Init(str); };
+		DrawUICoinBankEvent(int address) : DLLEventTemplate() { Init(address); };
+		DrawUICoinBankEvent() : DLLEventTemplate() { Init("onDrawUICoinBank"); };
+	};
+}
