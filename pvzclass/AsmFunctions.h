@@ -1,6 +1,10 @@
+#define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+#include <cstdint>
 #undef max
 #undef min
+
+typedef uint8_t byte;
 
 #pragma region asm define
 
