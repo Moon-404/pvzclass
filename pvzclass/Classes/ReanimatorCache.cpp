@@ -36,6 +36,11 @@ void PVZ::ReanimatorCache::SetMemSize(int8_t plant_num, int8_t zombie_num, DWORD
 	PVZ::Memory::WriteMemory<int>(0x470185, 16 + ((lawnmower_num + plant_num) << 2));
 	PVZ::Memory::WriteMemory<int>(0x47018F, 16 + ((lawnmower_num + plant_num) << 2));
 
+	PVZ::Memory::WriteMemory<int>(0x46FF5C, 16 + (plant_num << 2));
+	PVZ::Memory::WriteMemory<int>(0x470114, 16 + (plant_num << 2));
+	PVZ::Memory::WriteMemory<int>(0x470124, 16 + (plant_num << 2));
+	PVZ::Memory::WriteMemory<int>(0x47012E, 16 + (plant_num << 2));
+
 	byte __asm__inject[]
 	{
 		PUSH_EDX,
