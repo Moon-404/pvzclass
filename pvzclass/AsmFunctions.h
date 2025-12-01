@@ -508,12 +508,6 @@ extern byte __asm__HitBody[29];
 
 extern byte __asm__Blast[19];
 
-extern byte __asm__Butter[19];
-
-extern byte __asm__Decelerate[21];
-
-extern byte __asm__Froze[19];
-
 extern byte __asm__Hypnotize[19];
 
 extern byte __asm__Zombie__Remove[19];
