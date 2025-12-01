@@ -1,8 +1,9 @@
+#pragma once
 #define WIN32_LEAN_AND_MEAN
+#define VC_EXTRALEAN
+#define NOMINMAX
 #include <Windows.h>
 #include <cstdint>
-#undef max
-#undef min
 
 typedef uint8_t byte;
 
@@ -506,12 +507,6 @@ extern byte __asm__Hit[29];
 extern byte __asm__HitBody[29];
 
 extern byte __asm__Blast[19];
-
-extern byte __asm__Butter[19];
-
-extern byte __asm__Decelerate[21];
-
-extern byte __asm__Froze[19];
 
 extern byte __asm__Hypnotize[19];
 

@@ -1,4 +1,7 @@
-﻿#pragma once
+#pragma once
+#define WIN32_LEAN_AND_MEAN
+#define VC_EXTRALEAN
+#define NOMINMAX
 #include <windows.h>
 /// @brief 用于加载 PVZ 主程序的类。
 class ProcessOpener

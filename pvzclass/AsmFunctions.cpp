@@ -112,27 +112,6 @@ byte __asm__Blast[]
 	RET
 };
 
-byte __asm__Butter[]
-{
-	MOV_EAX(0),
-	BUTTER,
-	RET
-};
-
-byte __asm__Decelerate[]
-{
-	MOV_EAX(0),
-	DECELERATE,
-	RET
-};
-
-byte __asm__Froze[]
-{
-	MOV_EAX(0),
-	FROZE,
-	RET
-};
-
 byte __asm__Hypnotize[]
 {
 	MOV_ESI(0),

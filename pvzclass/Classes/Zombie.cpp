@@ -224,6 +224,13 @@ void PVZ::Zombie::Blast()
 	Memory::Execute(STRING(__asm__Blast));
 }
 
+byte __asm__Butter[]
+{
+	MOV_EAX(0),
+	BUTTER,
+	RET
+};
+
 void PVZ::Zombie::Butter(int countdown = 400)
 {
 	int temp = FixedCountdown;
@@ -232,6 +239,13 @@ void PVZ::Zombie::Butter(int countdown = 400)
 	FixedCountdown = max(temp, countdown);
 }
 
+byte __asm__Decelerate[]
+{
+	MOV_EAX(0),
+	DECELERATE,
+	RET
+};
+
 void PVZ::Zombie::Decelerate(int countdown = 1000)
 {
 	int temp = DecelerateCountdown;
@@ -239,6 +253,13 @@ void PVZ::Zombie::Decelerate(int countdown = 1000)
 	Memory::Execute(STRING(__asm__Decelerate));
 	DecelerateCountdown = max(temp, countdown);
 }
+
+byte __asm__Froze[]
+{
+	MOV_EAX(0),
+	FROZE,
+	RET
+};
 
 void PVZ::Zombie::Froze(int countdown = 300)
 {
