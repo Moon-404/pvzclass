@@ -1,4 +1,6 @@
 # 目录
+- [2.5.1](#2.5.1)
+- [2.5](#2.5)
 - [2.4](#2.4)
 - [2.3](#2.3)
 - [2.2.1](#2.2.1)
@@ -19,6 +21,65 @@
 - [1.15.1](#1.15.1（2023/11/22）)
 - [1.15.0](#1.15.0（2023/10/27）)
 - [1.14.3](#1.14.3（2023/10/22）)
+
+## 2.6
+
+### 新增内容
+
+- 系统：
+  - `LawnAppInitAfterEvent` 事件。
+  - `PlantDef` 及其重定位函数。
+- 常规：
+  - `Plant` 添加 `DoSpecial()`。
+- 绘制：
+  - `Graphics`，用来配合绘制事件。
+  - `DrawGriditemEvent` 事件。
+  - `DrawUICoinBankEvent` 事件。
+- 资源：
+  - `ReanimatorCache` 及其大小重载，用于存储动画制图。
+
+### 改动内容
+
+- 视觉效果：
+  - 现在 `TodParticleSystem` 的成员函数使用匿名 `AsmBuilder`。
+  - `ReanimationParams` 的文件名现在必须是常量。
+- 资源：
+  - 现在 `ResourceManager` 的成员函数使用匿名 `AsmBuilder`。
+  - `APA_` 系列宏、`utils.h` 和 `HZC_` 系列宏已被移至 `deprecated.hpp`。
+- 枚举：
+  - `ProjectileType::Cactus` 的正式名称改为 `ProjectileType::Spike`。
+  - 调整了部分头文件的分类。
+
+### 漏洞修复
+
+- 资源：
+  - 修复 `GetImage()` 不能正确载入资源的漏洞。
+- 扩展：
+  - 修复 `AutoCollect()` 不检查是否在关卡内的漏洞。
+ 
+### 兼容性
+
+部分不兼容 2.5.x 及以前的版本。
+
+## 2.5.1
+
+### 改动内容
+
+- 现在 `PlantDefinition` 和 `ZombieDefinition` 的 `AnimType` 属性可写。
+
+### 漏洞修复
+
+- 修复 `ReanimationParams::Reposion()` 的一系列漏洞。
+
+## 2.5
+
+### 新增内容
+
+略。
+
+### 兼容性
+
+部分内容**不兼容** 2.4 及以前的版本。
 
 ## 2.4
 
