@@ -1,8 +1,9 @@
+#pragma once
 #define WIN32_LEAN_AND_MEAN
+#define VC_EXTRALEAN
+#define NOMINMAX
 #include <Windows.h>
 #include <cstdint>
-#undef max
-#undef min
 
 typedef uint8_t byte;
 
