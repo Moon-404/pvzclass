@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "ProcessOpener.h"
 #include "PVZ.h"
 #include "Const.h"
@@ -7,5 +7,4 @@
 #include "Injectors.h"
 #include "Draw.h"
 #include "Extensions.h"
-#include "utils.h"
 #include "Sexy.h"
