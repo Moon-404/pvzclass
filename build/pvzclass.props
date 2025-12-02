@@ -5,6 +5,7 @@
   <PropertyGroup Label="Configuration">
     <PlatformToolset Condition="'$(PlatformToolset)' == ''">v143</PlatformToolset>
     <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
+    <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemGroup />
 </Project>
