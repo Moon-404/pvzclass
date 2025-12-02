@@ -103,5 +103,6 @@
 
 #include "LawnDialogEvents.hpp"
 #include "Dialog_ButtonDepressEvent.hpp"
+#include "../include/Events/GameSelectorUpdateEvent.hpp"
 
 #include "LawnAppInitAfterEvent.hpp"

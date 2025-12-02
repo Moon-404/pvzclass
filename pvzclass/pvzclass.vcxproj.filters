@@ -914,5 +914,8 @@
     <ClInclude Include="include\Widgets\GameSelector.hpp">
       <Filter>头文件\Widgets</Filter>
     </ClInclude>
+    <ClInclude Include="include\Events\GameSelectorUpdateEvent.hpp">
+      <Filter>头文件\Events</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
