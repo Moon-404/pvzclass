@@ -354,6 +354,9 @@
     <ClCompile Include="Classes\ReanimatorCache.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="src\Widgets\GameSelector.cpp">
+      <Filter>源文件\Widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProcessOpener.h">
@@ -437,7 +440,7 @@
     <ClInclude Include="Draw.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Flags.h">
+    <ClInclude Include="include\Flags.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Classes.hpp">
@@ -907,6 +910,12 @@
     </ClInclude>
     <ClInclude Include="deprecated.hpp">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Widgets\GameSelector.hpp">
+      <Filter>头文件\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Events\GameSelectorUpdateEvent.hpp">
+      <Filter>头文件\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -140,4 +140,28 @@ PVZ::Mouse PVZ::GetMouse()
 	return Mouse(Memory::ReadPointer(0x6A9EC0, 0x320));
 }
 
+byte __asm_KillGameSelector[] =
+{
+	MOV_ESI(0),
+	INVOKE(0x44F9E0),
+	RET
+};
+
+void PVZ::PVZApp::KillGameSelector()
+{
+	SETARG(__asm_KillGameSelector, 1) = BaseAddress;
+	PVZ::Memory::Execute(STRING(__asm_KillGameSelector));
+}
+
+void PVZ::PVZApp::PreNewGame(PVZLevel::PVZLevel mode, bool look_for_saved_game)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(look_for_saved_game)
+		.push_imm32(mode)
+		.mov_reg_imm(REG_ESI, BaseAddress)
+		.invoke(0x44F560)
+		.ret()
+	);
+}
+
 #pragma endregion

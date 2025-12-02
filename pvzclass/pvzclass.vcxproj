@@ -243,6 +243,7 @@
     <ClCompile Include="Classes\GardenPlant.cpp" />
     <ClCompile Include="Enums\SeedState.cpp" />
     <ClCompile Include="Sexy.cpp" />
+    <ClCompile Include="src\Widgets\GameSelector.cpp" />
     <ClCompile Include="Widgets\Dialog.cpp" />
     <ClCompile Include="Widgets\Widget.cpp" />
   </ItemGroup>
@@ -395,8 +396,10 @@
     <ClInclude Include="Events\ZombieTargetPlantEvent.hpp" />
     <ClInclude Include="Events\ZombieUpdateActionEvent.hpp" />
     <ClInclude Include="Events\ZombieUpdatePlayingEvent.hpp" />
-    <ClInclude Include="Flags.h" />
+    <ClInclude Include="include\Events\GameSelectorUpdateEvent.hpp" />
+    <ClInclude Include="include\Flags.hpp" />
     <ClInclude Include="Events\ImitaterPlantEvent.h" />
+    <ClInclude Include="include\Widgets\GameSelector.hpp" />
     <ClInclude Include="Injectors.h" />
     <ClInclude Include="Events\PlantCreateEvent.h" />
     <ClInclude Include="Events\CoinCreateEvent.h" />

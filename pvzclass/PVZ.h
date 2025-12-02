@@ -1,6 +1,6 @@
 #pragma once
 #include "Enums.h"
-#include "Flags.h"
+#include "include/Flags.hpp"
 #include "AsmFunctions.h"
 #include "AsmBuilder.hpp"
 #include "Memory.hpp"
@@ -45,7 +45,7 @@ using std::is_base_of;
 #define ID_INDEX(id) ((id) & 0x0000FFFF)
 #define ID_RANK(id) ((id) & 0xFFFF0000)
 
-#define INVALID_BASEADDRESS 0x400000
+constexpr auto INVALID_BASEADDRESS = 0x400000;
 
 /// @brief 包含大部分用于控制 PVZ 内部对象的类和方法。
 /// @note Only version 1.0.0.1051 is fully supported
@@ -153,6 +153,13 @@ namespace PVZ
 		T_PROPERTY(BOOLEAN,						FreePlantingCheat,	__get_FreePlantingCheat,	__set_FreePlantingCheat,	0x814);
 		/// @brief 是否在玩完整版。部分 PVZ 主程序反转了它的效果。
 		T_PROPERTY(BOOLEAN,						FullVersion,		__get_FullVersion,			__set_FullVersion,			0x8C0);
+
+		/// @brief 移除主菜单界面
+		void KillGameSelector();
+		/// @brief 准备开始关卡，处理游戏的开始阶段。
+		/// @param mode 模式
+		/// @param look_for_saved_game 是否尝试读档。若为 false，则会删除旧有存档。
+		void PreNewGame(PVZLevel::PVZLevel mode, bool look_for_saved_game);
 	};
 	/// @brief 获取游戏程序主对象
 	/// @return 游戏程序主对象
