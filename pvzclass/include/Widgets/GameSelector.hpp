@@ -3,6 +3,7 @@
 
 namespace PVZ
 {
+	/// @brief 主菜单界面
 	class GameSelector : public Widget
 	{
 	public:
@@ -14,4 +15,7 @@ namespace PVZ
 		/// @param MemSize 更改后的大小。
 		static void SetMemSize(uint32_t NewSize);
 	};
+
+	/// @brief 获取主菜单界面
+	GameSelector GetGameSelector();
 }
