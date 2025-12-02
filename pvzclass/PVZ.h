@@ -1,6 +1,6 @@
 #pragma once
 #include "Enums.h"
-#include "Flags.hpp"
+#include "include/Flags.hpp"
 #include "AsmFunctions.h"
 #include "AsmBuilder.hpp"
 #include "Memory.hpp"
