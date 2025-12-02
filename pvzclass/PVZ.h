@@ -156,6 +156,10 @@ namespace PVZ
 
 		/// @brief 移除主菜单界面
 		void KillGameSelector();
+		/// @brief 准备开始关卡，处理游戏的开始阶段。
+		/// @param mode 模式
+		/// @param look_for_saved_game 是否尝试读档。若为 false，则会删除旧有存档。
+		void PreNewGame(PVZLevel::PVZLevel mode, bool look_for_saved_game);
 	};
 	/// @brief 获取游戏程序主对象
 	/// @return 游戏程序主对象
