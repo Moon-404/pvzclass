@@ -476,6 +476,16 @@ void PVZ::Zombie::PickRandomSpeed()
 		.ret());
 }
 
+void PVZ::Zombie::PoolSplash(bool into_pool)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(into_pool)
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x52F6D0)
+		.ret()
+	);
+}
+
 PVZ::Rect PVZ::Zombie::GetActualAttackRect()
 {
 	PVZ::Memory::Execute(AsmBuilder()

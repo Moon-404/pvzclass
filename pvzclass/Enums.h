@@ -1,4 +1,4 @@
-﻿#include "Enums/HelmType.h"
+#include "Enums/HelmType.h"
 #include "Enums/PVZVersionEnum.h"
 #include "Enums/PVZLevelEnum.h"
 #include "Enums/PVZGameStateEnum.h"
@@ -43,7 +43,6 @@
 #include "Enums/ChallengeState.h"
 
 #include "Enums/ChallengePage.hpp"
-#include "Enums/GameObjectType.hpp"
 #include "Enums/KeyCode.hpp"
 #include "Enums/StoreItem.hpp"
 #include "Enums/ZombieAttackType.hpp"

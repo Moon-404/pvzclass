@@ -15,11 +15,24 @@ PVZ::Board PVZ::Griditem::GetBoard()
 	return(PVZ::Board(Memory::ReadMemory<int>(BaseAddress + 4)));
 }
 
+byte __asm__Griditem__Remove[]
+{
+	MOV_EUX(REG_ESI, 0),
+	INVOKE(0x44D000),
+	RET
+};
+
 void PVZ::Griditem::Remove()
 {
 	SETARG(__asm__Griditem__Remove, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm__Griditem__Remove));
 }
+
+byte __asm__Vase_Open[]
+{
+	INVOKE_DWORD_DWORD(0x429AC0,0,0),
+	RET
+};
 
 void PVZ::Vase::Open()
 {

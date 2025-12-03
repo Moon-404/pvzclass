@@ -315,3 +315,10 @@ inline void DisableGiantWallNutScale(BOOLEAN b = true)
 	MEMMOD_BYTE(0x4639E8, JUMP, JNE);
 	MEMMOD_BYTE(0x463F7F, 0x80, 0x84);
 }
+
+/// @brief 将植物的子类型改为状态压缩形式。
+/// @param b 是否开启此功能
+inline void ConvertSubClass2Flag(bool b = true)
+{
+	MEMMOD_SHORT(0x4633EE, 0x47F6, 0x7F83);	
+}

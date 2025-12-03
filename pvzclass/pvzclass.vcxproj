@@ -270,7 +270,6 @@
     <ClInclude Include="Classes\ZenGarden.hpp" />
     <ClInclude Include="deprecated.hpp" />
     <ClInclude Include="Draw.h" />
-    <ClInclude Include="Enums\GameObjectType.hpp" />
     <ClInclude Include="Enums\KeyCode.hpp" />
     <ClInclude Include="Enums\StoreItem.hpp" />
     <ClInclude Include="Enums\ZombieAttackType.hpp" />
@@ -397,6 +396,7 @@
     <ClInclude Include="Events\ZombieUpdateActionEvent.hpp" />
     <ClInclude Include="Events\ZombieUpdatePlayingEvent.hpp" />
     <ClInclude Include="include\Events\GameSelectorUpdateEvent.hpp" />
+    <ClInclude Include="include\Events\ZombieConditionEvents.hpp" />
     <ClInclude Include="include\Flags.hpp" />
     <ClInclude Include="Events\ImitaterPlantEvent.h" />
     <ClInclude Include="include\Widgets\GameSelector.hpp" />

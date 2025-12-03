@@ -1,5 +1,5 @@
+#pragma once
 #include "PVZ.h"
-#include "Flags.h"
 #include "utils.h"
 
 /// @deprecated 请使用 PVZEnum::ReanimLoopType 替代
@@ -23,3 +23,8 @@
 #define HZC_DIGGER_UNDER 64
 /// @deprecated 请使用 PVZ::DamageRangeFlags 替代
 #define HZC_HYPNOTIZED 128
+
+/// @deprecated
+#define VASE_OPEN INVOKE_DWORD_DWORD(0x429AC0,0,0)
+/// @deprecated
+#define GRIDITEM_REMOVE INVOKE(0x44D000)
