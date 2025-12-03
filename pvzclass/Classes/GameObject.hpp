@@ -222,6 +222,9 @@ namespace PVZ
 		void UpdateAnimSpeed();
 		/// @brief 随机刷新僵尸的移动速度。
 		void PickRandomSpeed();
+		/// @brief 创建僵尸出入泳池的音效和水花动画。
+		/// @param into_pool 是否入水
+		void PoolSplash(bool into_pool);
 
 		/// @brief 获取僵尸的实际可攻击范围。
 		/// @return 僵尸的实际攻击范围
