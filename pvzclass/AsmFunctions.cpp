@@ -272,19 +272,6 @@ byte __asm__Lawnmover_Die[]
 	RET,
 };
 
-byte __asm__Griditem__Remove[]
-{
-	MOV_EUX(REG_ESI, 0),
-	GRIDITEM_REMOVE,
-	RET
-};
-
-byte __asm__Vase_Open[]
-{
-	VASE_OPEN,
-	RET
-};
-
 byte __asm__CardSlot__set_CardsCount[]
 {
 	MOV_EUX(REG_EAX, 0),
