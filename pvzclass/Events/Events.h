@@ -30,6 +30,7 @@
 #include "UpdateGameObjectsEvent.h"
 #include "ZombieBlastEvent.h"
 #include "ZombieButterEvent.h"
+#include "../include/Events/ZombieConditionEvents.hpp"
 #include "ZombieDecelerateEvent.h"
 #include "ZombieEatEvent.h"
 #include "ZombieFrozeEvent.h"
