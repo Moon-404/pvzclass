@@ -24,3 +24,4 @@
 
 #include "Widgets/ButtonWidget.hpp"
 #include "Widgets/Dialog.hpp"
+#include "include/Widgets/GameSelector.hpp"
