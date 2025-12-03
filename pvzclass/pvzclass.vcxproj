@@ -270,7 +270,6 @@
     <ClInclude Include="Classes\ZenGarden.hpp" />
     <ClInclude Include="deprecated.hpp" />
     <ClInclude Include="Draw.h" />
-    <ClInclude Include="Enums\GameObjectType.hpp" />
     <ClInclude Include="Enums\KeyCode.hpp" />
     <ClInclude Include="Enums\StoreItem.hpp" />
     <ClInclude Include="Enums\ZombieAttackType.hpp" />
