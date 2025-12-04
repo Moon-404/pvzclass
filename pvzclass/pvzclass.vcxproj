@@ -242,7 +242,7 @@
     <ClCompile Include="Classes\Zombie.cpp" />
     <ClCompile Include="Classes\GardenPlant.cpp" />
     <ClCompile Include="Enums\SeedState.cpp" />
-    <ClCompile Include="Sexy.cpp" />
+    <ClCompile Include="src\Sexy.cpp" />
     <ClCompile Include="src\Widgets\GameSelector.cpp" />
     <ClCompile Include="Widgets\Dialog.cpp" />
     <ClCompile Include="Widgets\Widget.cpp" />
@@ -422,7 +422,7 @@
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="Enums\SeedState.h" />
     <ClInclude Include="Events\UpdateGameObjectsEvent.h" />
-    <ClInclude Include="Sexy.h" />
+    <ClInclude Include="include\Sexy.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Events\ZombieBlastEvent.h" />
     <ClInclude Include="Events\ZombieButterEvent.h" />
