@@ -1,6 +1,6 @@
 #pragma once
 #include "../PVZ.h"
-#include "../Draw.h"
+#include "Draw.h"
 #define WIDGETMANAGER PVZ::Memory::ReadPointer(0x6A9EC0, 0x320)
 
 namespace Sexy

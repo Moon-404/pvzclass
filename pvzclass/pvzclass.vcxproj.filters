@@ -207,7 +207,7 @@
     <ClCompile Include="Enums\CaptionStyle.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="Draw.cpp">
+    <ClCompile Include="src\Draw.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Sexy.cpp">
@@ -437,7 +437,7 @@
     <ClInclude Include="Const.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Draw.h">
+    <ClInclude Include="include\Draw.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\Flags.hpp">
