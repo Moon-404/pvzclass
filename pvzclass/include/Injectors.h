@@ -1,5 +1,5 @@
 #pragma once
-#include "PVZ.h"
+#include "../PVZ.h"
 
 /// @brief 代码注入类，可以注入 byte 数组形式的汇编码
 class Injector

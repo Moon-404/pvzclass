@@ -1,5 +1,5 @@
 #pragma once
-#include "PVZ.h"
+#include "../PVZ.h"
 #include "Extensions.h"
 
 #define MEMREAD_BYTE(address) PVZ::Memory::ReadMemory<byte>(address)

@@ -290,7 +290,7 @@
     <ClInclude Include="Events\DrawZombieReanimEvent.h" />
     <ClInclude Include="Enums\ChallengePage.hpp" />
     <ClInclude Include="Enums\ThreeState.h" />
-    <ClInclude Include="Const.h" />
+    <ClInclude Include="include\Const.h" />
     <ClInclude Include="Enums\GriditemState.h" />
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
@@ -400,7 +400,7 @@
     <ClInclude Include="include\Flags.hpp" />
     <ClInclude Include="Events\ImitaterPlantEvent.h" />
     <ClInclude Include="include\Widgets\GameSelector.hpp" />
-    <ClInclude Include="Injectors.h" />
+    <ClInclude Include="include\Injectors.h" />
     <ClInclude Include="Events\PlantCreateEvent.h" />
     <ClInclude Include="Events\CoinCreateEvent.h" />
     <ClInclude Include="Events\PlantDieEvent.h" />
@@ -418,7 +418,7 @@
     <ClInclude Include="Enums\PVZGameStateEnum.h" />
     <ClInclude Include="Enums\PVZLevelEnum.h" />
     <ClInclude Include="Enums\PVZVersionEnum.h" />
-    <ClInclude Include="Extensions.h" />
+    <ClInclude Include="include\Extensions.h" />
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="Enums\SeedState.h" />
     <ClInclude Include="Events\UpdateGameObjectsEvent.h" />

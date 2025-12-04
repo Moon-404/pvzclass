@@ -2,8 +2,8 @@
 /// @brief 包含多种修改器功能实现的文件
 
 #pragma once
-#include "PVZ.h"
-#include "Creators.h"
+#include "../PVZ.h"
+#include "../Creators.h"
 
 #define MEMMOD_BYTE(address,v,rv) PVZ::Memory::WriteMemory<byte>(address,b?v:rv)
 #define MEMMOD_INT(address,v,rv) PVZ::Memory::WriteMemory<int>(address,b?v:rv)
