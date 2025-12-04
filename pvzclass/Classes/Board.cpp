@@ -1,5 +1,5 @@
 #include "../PVZ.h"
-#include "../Const.h"
+#include "Const.h"
 #include "GameObject.hpp"
 #include "LawnMower.hpp"
 #include "Griditem.hpp"

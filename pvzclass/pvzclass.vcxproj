@@ -194,7 +194,7 @@
     <ClCompile Include="Classes\TrackInstance.cpp" />
     <ClCompile Include="Classes\ZenGarden.cpp" />
     <ClCompile Include="Creators.cpp" />
-    <ClCompile Include="Draw.cpp" />
+    <ClCompile Include="src\Draw.cpp" />
     <ClCompile Include="Enums\CaptionStyle.cpp" />
     <ClCompile Include="Enums\SeedType.cpp" />
     <ClCompile Include="Enums\ChallengePage.cpp" />
@@ -242,7 +242,7 @@
     <ClCompile Include="Classes\Zombie.cpp" />
     <ClCompile Include="Classes\GardenPlant.cpp" />
     <ClCompile Include="Enums\SeedState.cpp" />
-    <ClCompile Include="Sexy.cpp" />
+    <ClCompile Include="src\Sexy.cpp" />
     <ClCompile Include="src\Widgets\GameSelector.cpp" />
     <ClCompile Include="Widgets\Dialog.cpp" />
     <ClCompile Include="Widgets\Widget.cpp" />
@@ -269,7 +269,7 @@
     <ClInclude Include="Classes\TodParticleSystem.hpp" />
     <ClInclude Include="Classes\ZenGarden.hpp" />
     <ClInclude Include="deprecated.hpp" />
-    <ClInclude Include="Draw.h" />
+    <ClInclude Include="src\Draw.h" />
     <ClInclude Include="Enums\KeyCode.hpp" />
     <ClInclude Include="Enums\StoreItem.hpp" />
     <ClInclude Include="Enums\ZombieAttackType.hpp" />
@@ -290,7 +290,7 @@
     <ClInclude Include="Events\DrawZombieReanimEvent.h" />
     <ClInclude Include="Enums\ChallengePage.hpp" />
     <ClInclude Include="Enums\ThreeState.h" />
-    <ClInclude Include="Const.h" />
+    <ClInclude Include="include\Const.h" />
     <ClInclude Include="Enums\GriditemState.h" />
     <ClInclude Include="Events\CoinRemoveEvent.h" />
     <ClInclude Include="Events\CoinCollectEvent.h" />
@@ -400,7 +400,7 @@
     <ClInclude Include="include\Flags.hpp" />
     <ClInclude Include="Events\ImitaterPlantEvent.h" />
     <ClInclude Include="include\Widgets\GameSelector.hpp" />
-    <ClInclude Include="Injectors.h" />
+    <ClInclude Include="include\Injectors.h" />
     <ClInclude Include="Events\PlantCreateEvent.h" />
     <ClInclude Include="Events\CoinCreateEvent.h" />
     <ClInclude Include="Events\PlantDieEvent.h" />
@@ -418,11 +418,11 @@
     <ClInclude Include="Enums\PVZGameStateEnum.h" />
     <ClInclude Include="Enums\PVZLevelEnum.h" />
     <ClInclude Include="Enums\PVZVersionEnum.h" />
-    <ClInclude Include="Extensions.h" />
+    <ClInclude Include="include\Extensions.h" />
     <ClInclude Include="pvzclass.h" />
     <ClInclude Include="Enums\SeedState.h" />
     <ClInclude Include="Events\UpdateGameObjectsEvent.h" />
-    <ClInclude Include="Sexy.h" />
+    <ClInclude Include="include\Sexy.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Events\ZombieBlastEvent.h" />
     <ClInclude Include="Events\ZombieButterEvent.h" />

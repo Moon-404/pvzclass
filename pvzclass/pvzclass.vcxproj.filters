@@ -207,10 +207,10 @@
     <ClCompile Include="Enums\CaptionStyle.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="Draw.cpp">
+    <ClCompile Include="src\Draw.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Sexy.cpp">
+    <ClCompile Include="src\Sexy.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Animation.cpp">
@@ -374,7 +374,7 @@
     <ClInclude Include="Creators.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Extensions.h">
+    <ClInclude Include="include\Extensions.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="pvzclass.h">
@@ -383,7 +383,7 @@
     <ClInclude Include="utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Injectors.h">
+    <ClInclude Include="include\Injectors.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Enums\CaptionStyle.h">
@@ -434,10 +434,10 @@
     <ClInclude Include="Enums\PlantEffectType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Const.h">
+    <ClInclude Include="include\Const.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Draw.h">
+    <ClInclude Include="include\Draw.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\Flags.hpp">
@@ -446,7 +446,7 @@
     <ClInclude Include="Classes.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Sexy.h">
+    <ClInclude Include="include\Sexy.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Classes\ChallengeScreen.hpp">
