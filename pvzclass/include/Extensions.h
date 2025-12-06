@@ -325,3 +325,23 @@ inline void ConvertSubClass2Flag(bool b = true)
 {
 	MEMMOD_SHORT(0x4633EE, 0x47F6, 0x7F83);	
 }
+}
+
+/// @brief 禁用音乐接口更新的默认调用。\n
+///		建议仅在调试和测试环境下调用此函数。
+/// @note 仍可手动调用更新函数。
+/// @param b 是否开启此功能
+inline void DisableMusicInterfaceUpdate(BOOLEAN b = true)
+{
+	MEMMOD_SHORT(0x54B9B5, 0x9090, 0xD2FF);
+}
+
+/// @brief 禁用 PVZ::Music 更新的默认调用。\n
+///		建议仅在调试和测试环境下调用此函数。
+/// @note 仍可手动调用更新函数。
+/// @param b 是否开启此功能
+inline void DisableMusicUpdate(BOOLEAN b = true)
+{
+	MEMMOD_INT(0x452702, 0x90909090, 0x8F69E8);
+	MEMMOD_BYTE(0x452706, NOP, 0);
+}
