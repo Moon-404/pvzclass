@@ -1,4 +1,4 @@
-﻿#include "Music.hpp"
+#include "Music.hpp"
 
 PVZ::Music PVZ::GetMusic()
 {
@@ -15,4 +15,13 @@ void PVZ::Music::__set_Type(MusicType::MusicType value)
 	__asm__Music__set_Type[1] = value;
 	SETARG(__asm__Music__set_Type, 6) = BaseAddress;
 	Memory::Execute(STRING(__asm__Music__set_Type));
+}
+
+void PVZ::Music::StopAllMusic()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, BaseAddress)
+		.invoke(0x45ABB0)
+		.ret()
+	);
 }

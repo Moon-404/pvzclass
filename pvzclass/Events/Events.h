@@ -41,6 +41,7 @@
 #include "ZombieUpdatePlayingEvent.hpp"
 
 #include "BegTwistFailMoveEvent.hpp"
+#include "../include/Events/BoardFadeOutLevelEvent.hpp"
 #include "BoardCustomTooltipEvent.hpp"
 #include "BoardInitAfterEvent.hpp"
 #include "BoardKeyDownEvent.hpp"
