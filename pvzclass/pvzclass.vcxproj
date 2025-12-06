@@ -193,7 +193,7 @@
     <ClCompile Include="Classes\TodParticleSystem.cpp" />
     <ClCompile Include="Classes\TrackInstance.cpp" />
     <ClCompile Include="Classes\ZenGarden.cpp" />
-    <ClCompile Include="Creators.cpp" />
+    <ClCompile Include="src\Creators.cpp" />
     <ClCompile Include="src\Draw.cpp" />
     <ClCompile Include="Enums\CaptionStyle.cpp" />
     <ClCompile Include="Enums\SeedType.cpp" />
@@ -235,7 +235,7 @@
     <ClCompile Include="Enums\MagnetItemType.cpp" />
     <ClCompile Include="Events\DLLEvent.cpp" />
     <ClCompile Include="Events\PlantDamageZombieEvent.hpp" />
-    <ClCompile Include="ProcessOpener.cpp" />
+    <ClCompile Include="src\ProcessOpener.cpp" />
     <ClCompile Include="Classes\Projectile.cpp" />
     <ClCompile Include="PVZ.cpp" />
     <ClCompile Include="Classes\Wave.cpp" />
@@ -354,7 +354,7 @@
     <ClInclude Include="Events\ZombieSpeedAlterEvent.hpp" />
     <ClInclude Include="Events\ZombieTakeDmgEvent.h" />
     <ClInclude Include="Enums\LawnmoverState.h" />
-    <ClInclude Include="Creators.h" />
+    <ClInclude Include="include\Creators.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="AsmFunctions.h" />
     <ClInclude Include="Enums\CaptionStyle.h" />
@@ -407,7 +407,7 @@
     <ClInclude Include="Enums\MagnetItemType.h" />
     <ClInclude Include="Events\PlantReloadEvent.h" />
     <ClInclude Include="Memory.hpp" />
-    <ClInclude Include="ProcessOpener.h" />
+    <ClInclude Include="include\ProcessOpener.h" />
     <ClInclude Include="Events\PlantShootEvent.h" />
     <ClInclude Include="Events\PeaOnFireEvent.h" />
     <ClInclude Include="Events\ProjectileRemoveEvent.h" />
