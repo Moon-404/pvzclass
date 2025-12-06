@@ -395,6 +395,7 @@
     <ClInclude Include="Events\ZombieTargetPlantEvent.hpp" />
     <ClInclude Include="Events\ZombieUpdateActionEvent.hpp" />
     <ClInclude Include="Events\ZombieUpdatePlayingEvent.hpp" />
+    <ClInclude Include="include\Events\BoardFadeOutLevelEvent.hpp" />
     <ClInclude Include="include\Events\GameSelectorUpdateEvent.hpp" />
     <ClInclude Include="include\Events\ZombieConditionEvents.hpp" />
     <ClInclude Include="include\Flags.hpp" />
