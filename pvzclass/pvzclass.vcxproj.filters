@@ -108,7 +108,7 @@
     <ClCompile Include="AsmFunctions.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ProcessOpener.cpp">
+    <ClCompile Include="src\ProcessOpener.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Creators.cpp">
@@ -359,7 +359,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ProcessOpener.h">
+    <ClInclude Include="include\ProcessOpener.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="PVZ.h">
