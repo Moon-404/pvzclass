@@ -3,7 +3,7 @@
 
 #pragma once
 #include "../PVZ.h"
-#include "../Creators.h"
+#include "Creators.h"
 
 #define MEMMOD_BYTE(address,v,rv) PVZ::Memory::WriteMemory<byte>(address,b?v:rv)
 #define MEMMOD_INT(address,v,rv) PVZ::Memory::WriteMemory<int>(address,b?v:rv)
