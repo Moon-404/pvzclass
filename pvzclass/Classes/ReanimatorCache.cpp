@@ -8,6 +8,7 @@ void PVZ::ReanimatorCache::SetMemSize(int8_t plant_num, int8_t zombie_num, DWORD
 	PVZ::Memory::WriteMemory<int>(0x470058, 16 + ((zombie_num + lawnmower_num + plant_num) << 2));
 
 	int list_pos = (int)plant_num * 4;
+	PVZ::Memory::WriteMemory<int>(0x44F313, list_pos);
 	PVZ::Memory::WriteMemory<int>(0x452B58, list_pos);
 	PVZ::Memory::WriteMemory<int>(0x452B5E, list_pos + 4);
 	PVZ::Memory::WriteMemory<int>(0x452B64, list_pos + 8);
