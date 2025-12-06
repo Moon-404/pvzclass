@@ -30,7 +30,6 @@
 #include "Enums/CaptionStyle.h"
 #include "Enums/PaintState.h"
 #include "Enums/GardenScene.h"
-#include "Enums/GardenPlantState.h"
 #include "Enums/MusicType.h"
 #include "Enums/INGAMEState.h"
 #include "Enums/INGAMEEffect.h"
