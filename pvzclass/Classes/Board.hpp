@@ -111,6 +111,13 @@ namespace PVZ
 		INT_PROPERTY(ShowMoneyCountdown, __get_ShowMoneyCountdown, __set_ShowMoneyCountdown, 0x55F4);
 		/// @brief 调试模式
 		T_PROPERTY(DebugModeType::DebugModeType, DebugMode, __get_DebugMode, __set_DebugMode, 0x55F8);
+		/// @brief 关卡是否已完成
+		T_PROPERTY(byte, LevelComplete, __get_LevelComplete, __set_LevelComplete, 0x55FC);
+		/// @brief 进入下一阶段的倒计时
+		/// @note 解谜无尽实际上也使用这个变量
+		INT_PROPERTY(NextSurvivalStageCounter, __get_NextSurvivalStageCounter, __set_NextSurvivalStageCounter, 0x5604);
+		/// @brief 过关奖励是否已生成
+		T_PROPERTY(byte, LevelAwardSpawned, __get_LevelAwardSpawned, __set_LevelAwardSpawned, 0x560C);
 		/// @brief 关卡进度条
 		INT_PROPERTY(LevelProcessBar, __get_LevelProcessBar, __set_LevelProcessBar, 0x5610);
 		/// @brief 是否激活 Mustatche
