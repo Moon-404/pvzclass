@@ -260,6 +260,7 @@ inline void DisableIceLevelFailSound(BOOLEAN b = true)
 
 /// @brief 关闭关卡内大部分内容的绘制。\n
 ///		建议仅在调试和测试环境下调用此函数。
+/// @param b 是否开启此功能
 inline void DisableBoardDraw(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x42492D, 129, 133);
@@ -268,6 +269,7 @@ inline void DisableBoardDraw(BOOLEAN b = true)
 /// @brief 阻止新生成的粒子系统产生粒子效果。\n
 ///		建议仅在调试和测试环境下调用此函数。
 /// @note 已生成的粒子系统不受影响。
+/// @param b 是否开启此功能
 inline void DisableNewParticle(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x515EBB, 129, 142);
@@ -276,6 +278,7 @@ inline void DisableNewParticle(BOOLEAN b = true)
 /// @brief 禁用一切音效播放。\n
 ///		建议仅在调试和测试环境下调用此函数。
 /// @note 不影响背景音乐。
+/// @param b 是否开启此功能
 inline void DisableAllSounds(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x554C27, JUMP, JZ);
