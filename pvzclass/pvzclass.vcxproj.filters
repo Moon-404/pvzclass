@@ -111,7 +111,7 @@
     <ClCompile Include="ProcessOpener.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Creators.cpp">
+    <ClCompile Include="src\Creators.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Enums\SceneType.cpp">
@@ -371,7 +371,7 @@
     <ClInclude Include="AsmFunctions.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Creators.h">
+    <ClInclude Include="include\Creators.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\Extensions.h">
