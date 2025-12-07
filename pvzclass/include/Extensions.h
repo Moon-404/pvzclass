@@ -324,6 +324,7 @@ inline void DisableGiantWallNutScale(BOOLEAN b = true)
 inline void ConvertSubClass2Flag(bool b = true)
 {
 	MEMMOD_SHORT(0x4633EE, 0x47F6, 0x7F83);	
+    MEMMOD_BYTE(0x4633F2, 0x74, 0x75);
 }
 
 /// @brief 禁用音乐接口更新的默认调用。\n
