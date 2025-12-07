@@ -10,7 +10,7 @@ void init()
 	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
 }
 
-void onAppUpdate(PVZ::PVZApp app)
+void onAppUpdate(DWORD appAddress)
 {
 }
 
