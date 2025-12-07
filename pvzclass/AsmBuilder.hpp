@@ -205,18 +205,22 @@ public:
 		return *this;
 	}
 
+	// mov dest, [src+imm]
 	AsmBuilder& mov_reg_mem_reg_add_imm(uint8_t reg_dest, uint8_t reg_src, uint32_t imm)
 	{
 		if (reg_dest > 7 || reg_src > 7)
 			throw std::invalid_argument("Invalid register for MOV");
 		if (reg_src == REG_ESP)
 			throw std::invalid_argument("This command is NOT suitable for esp");
-		if (imm <= 0x7F)
+		if (imm == 0x00)
+			return this->add_byte(0x8B).add_byte((reg_dest << 3) + reg_src);
+		else if (imm <= 0x7F)
 			return this->add_byte(0x8B).add_byte(0x40 + (reg_dest << 3) + reg_src).add_byte(static_cast<uint8_t>(imm));
 		else
 			return this->add_byte(0x8B).add_byte(0x80 + (reg_dest << 3) + reg_src).add_dword(imm);
 	}
 
+	// mov dest, [src+imm32]
 	AsmBuilder& mov_reg_mem_reg_add_imm32(uint8_t reg_dest, uint8_t reg_src, uint32_t imm)
 	{
 		if (reg_dest > 7 || reg_src > 7)
@@ -1365,6 +1369,16 @@ public:
 	{
 		add_byte(0xE8);
 		add_dword(address - (ptr + 4));
+		return *this;
+	}
+
+	// 添加 CALL 指令
+	AsmBuilder& call_reg(uint8_t reg)
+	{
+		if (reg > 7)
+			throw std::invalid_argument("Invalid register for CALL");
+		add_byte(0xFF);
+		add_byte(0xD0 + reg);
 		return *this;
 	}
 

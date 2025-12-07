@@ -102,6 +102,12 @@ namespace Sexy
 	// 获取字符串
 	Draw::PString GetEditString(PEdit edit);
 
+	// 设置字符串
+	// left 是否将移动位置归零
+	// 例如如果只能显示 3 个字符，对于 Helloworld 这个字符串
+	// true 则显示 Hel，false 则显示 rld，大概是这个意思……吧
+	void SetEditString(PEdit edit, Draw::PString pstr, bool left);
+
 	// 创建勾选框
 	// checked为是否默认勾选
 	// 勾选框在Resize时的宽为40，高为35

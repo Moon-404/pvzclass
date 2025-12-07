@@ -133,6 +133,19 @@ Draw::PString Sexy::GetEditString(PEdit edit)
 	return edit + 0x8C;
 }
 
+void Sexy::SetEditString(PEdit edit, Draw::PString pstr, bool left)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(left)
+		.push(pstr)
+		.mov_reg_imm(REG_ECX, edit)
+		.mov_reg_mem_reg_add_imm(REG_EDX, REG_ECX, 0)
+		.mov_reg_mem_reg_add_imm(REG_EDX, REG_EDX, 0x124)
+		.call_reg(REG_EDX)
+		.ret()
+	);
+}
+
 BYTE __asm__MakeCheckbox[]
 {
 	PUSHDWORD(0),
