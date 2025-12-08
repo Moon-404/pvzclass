@@ -193,6 +193,17 @@ bool PVZ::Board::Load(const char* path, int pathlen)
 	return PVZ::Memory::Execute(STRING(__asm__Load)) & 1;
 }
 
+int PVZ::Board::CountEmptyPlants(SeedType::SeedType type)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(type)
+		.mov_reg_imm(REG_EDX, BaseAddress)
+		.invoke(0x40D430)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+}
+
 void PVZ::Board::Assault(int countdown)
 {
 	Memory::WriteMemory<int>(BaseAddress + 0x5574, countdown);

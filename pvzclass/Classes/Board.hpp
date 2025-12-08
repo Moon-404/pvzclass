@@ -191,6 +191,9 @@ namespace PVZ
 		/// @param pathlen path 的长度
 		/// @return 是否载入成功
 		bool Load(const char* path, int pathlen);
+		/// @brief 计算空的植物，原版用于计算空花盆或者睡莲的数量。
+		/// @return 空的植物的数量
+		int CountEmptyPlants(SeedType::SeedType type);
 
 #pragma endregion
 
