@@ -28,6 +28,7 @@
 #include "PuzzlePhaseCompleteEvent.hpp"
 #include "UpdateAppEvent.h"
 #include "UpdateGameObjectsEvent.h"
+#include "BossBungeeSpawnEvent.h"
 #include "ZombieBlastEvent.h"
 #include "ZombieButterEvent.h"
 #include "../include/Events/ZombieConditionEvents.hpp"

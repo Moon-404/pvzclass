@@ -130,6 +130,10 @@ void onSeedCardClick(DWORD seedcardAddress)
 	auto seedcard = std::make_shared<PVZ::CardSlot::SeedCard>(seedcardAddress);
 }
 
+void onBossBungeeSpawn(DWORD zombieAddress)
+{
+}
+
 void onZombieBlast(DWORD zombieAddress)
 {
 	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
