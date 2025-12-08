@@ -508,6 +508,17 @@ void PVZ::Zombie::PoolSplash(bool into_pool)
 	);
 }
 
+void PVZ::Zombie::RiseFromGrave(int row, int col)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(row)
+		.mov_reg_imm(REG_EAX, col)
+		.mov_reg_imm(REG_EBX, BaseAddress)
+		.invoke(0x531C90)
+		.ret()
+	);
+}
+
 void PVZ::Zombie::BossSummonZombie(ZombieType::ZombieType type, int row)
 {
 	PVZ::Memory::WriteMemory<DWORD>(0x534DC4, 0); // 跳过一个判定

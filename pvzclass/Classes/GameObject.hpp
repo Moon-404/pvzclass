@@ -283,6 +283,8 @@ namespace PVZ
 		/// @brief 创建僵尸出入泳池的音效和水花动画。
 		/// @param into_pool 是否入水
 		void PoolSplash(bool into_pool);
+		/// @brief 墓碑/珊瑚僵尸出场
+		void RiseFromGrave(int row, int col);
 
 		/// @brief 僵王博士召唤僵尸。
 		/// @param type 通过修改原游戏逻辑控制放置类型。
