@@ -160,6 +160,9 @@ namespace PVZ
 		/// @param mode 模式
 		/// @param look_for_saved_game 是否尝试读档。若为 false，则会删除旧有存档。
 		void PreNewGame(PVZLevel::PVZLevel mode, bool look_for_saved_game);
+
+		/// @brief 播放指定音效
+		void PlayFoley(FoleyType::FoleyType type);
 	};
 	/// @brief 获取游戏程序主对象
 	/// @return 游戏程序主对象

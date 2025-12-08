@@ -920,5 +920,8 @@
     <ClInclude Include="include\Events\ZombieConditionEvents.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
+    <ClInclude Include="Enums\FoleyType.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
