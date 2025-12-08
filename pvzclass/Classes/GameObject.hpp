@@ -247,7 +247,7 @@ namespace PVZ
 		void Remove();
 		/// @brief 移除僵尸并生成它的掉落物。
 		void RemoveWithLoot();
-		/// @brief 移除寒冷、减速、黄油等状态。
+		/// @brief 移除冰冻、减速状态。
 		void RemoveColdEffects();
 		//LoopType(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType LoopType, int blend_time = 14, float fps = 24.0f);
