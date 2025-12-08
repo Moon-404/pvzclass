@@ -292,6 +292,15 @@ void PVZ::Zombie::RemoveWithLoot()
 	Memory::Execute(STRING(__asm__Zombie__RemoveWithLoot));
 }
 
+void PVZ::Zombie::RemoveColdEffects()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x532B40)
+		.ret()
+	);
+}
+
 void PVZ::Zombie::SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType LoopType, int blend_time, float fps)
 {
 	int Address = PVZ::Memory::AllocMemory();
@@ -304,6 +313,19 @@ void PVZ::Zombie::SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType LoopType
 	PVZ::Memory::WriteArray<byte>(Address, STRING(__asm__Zombie__setAnimation));
 	PVZ::Memory::CreateThread(Address);
 	PVZ::Memory::FreeMemory(Address);
+}
+
+void PVZ::Zombie::PlayZombieReanimation(DWORD animAddress, PVZEnum::ReanimLoopType loopType, BYTE blendTime, float rate)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_float(rate)
+		.push(blendTime)
+		.push(loopType)
+		.push(animAddress)
+		.mov_reg_imm(REG_EDI, BaseAddress)
+		.invoke(0x528B00)
+		.ret()
+	);
 }
 
 void PVZ::Zombie::EquipBucket(int shield)
@@ -482,6 +504,41 @@ void PVZ::Zombie::PoolSplash(bool into_pool)
 		.push(into_pool)
 		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
 		.invoke(0x52F6D0)
+		.ret()
+	);
+}
+
+void PVZ::Zombie::BossSummonZombie(ZombieType::ZombieType type, int row)
+{
+	PVZ::Memory::WriteMemory<DWORD>(0x534DC4, 0); // 跳过一个判定
+	PVZ::Memory::WriteMemory<DWORD>(0x534DD0, INT_MAX); // 必定进入该分支
+	PVZ::Memory::WriteMemory<DWORD>(0x534DD7, type); // 决定僵尸种类
+	RemoveColdEffects();
+	State = ZombieState::ZOMBOSS_SUMMON;
+	TargetRow = row;
+	DWORD animAddress = 0x66F454 + row * 0x10;
+	PlayZombieReanimation(animAddress, PVZEnum::ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 12.0f);
+	GetPVZApp().PlayFoley(FoleyType::FOLEY_HYDRAULIC_SHORT);
+}
+
+void PVZ::Zombie::BossRVAttack(int row, int col)
+{
+	if (row < 0 || row > 3) return;
+	if (col < 0 || col > 2) return;
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x534AC0)
+		.ret()
+	);
+	TargetRow = row;
+	TargetCol = col;
+}
+
+void PVZ::Zombie::BossBungeeAttack()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x5350C0)
 		.ret()
 	);
 }
