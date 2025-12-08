@@ -106,6 +106,32 @@ int PVZ::Board::GridToYPixel(int row, int column)
 	return(100 * row + 80);
 }
 
+int PVZ::Board::PixelToRow(int x, int y)
+{
+	if (x < 40) return -1;
+	return (x - 40) / 80;
+}
+
+int PVZ::Board::PixelToCol(int x, int y)
+{
+	int col = PixelToCol(x, y);
+	if (col == -1 || y < 80) return -1;
+
+	if (LevelScene == SceneType::Roof || LevelScene == SceneType::MoonNight)
+	{
+		if (col < 5) y -= (4 - col) * 20;
+		return (y - 80) / 85;
+	}
+	else if (LevelScene == SceneType::Pool || LevelScene == SceneType::Fog)
+	{
+		return (y - 80) / 85;
+	}
+	else
+	{
+		return (y - 80) / 100;
+	}
+}
+
 void PVZ::Board::Lose()
 {
 	PVZ::PVZApp pvz = this->GetPVZApp();
