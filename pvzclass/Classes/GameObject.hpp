@@ -291,6 +291,13 @@ namespace PVZ
 		void BossRVAttack(int row, int col);
 		/// @brief 僵王博士召唤蹦极，需要配合 BossBungeeSpawn 事件使用。
 		void BossBungeeAttack();
+		/// @brief 僵王博士踩踏攻击。
+		/// @param row 通过修改原游戏逻辑控制踩踏行。
+		void BossStompAttack(int row);
+		/// @brief 僵王博士吐球攻击。
+		/// @param row 通过修改原游戏逻辑控制攻击行。
+		/// @param isFireBall 通过修改原游戏逻辑控制是否是火球。
+		void BossHeadSpit(int row, BYTE isFireBall);
 
 		/// @brief 获取僵尸的实际可攻击范围。
 		/// @return 僵尸的实际攻击范围

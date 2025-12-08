@@ -543,6 +543,35 @@ void PVZ::Zombie::BossBungeeAttack()
 	);
 }
 
+void PVZ::Zombie::BossStompAttack(int row)
+{
+	BYTE nop6[] = { NOP, NOP, NOP, NOP, NOP, NOP };
+	Memory::WriteArray<BYTE>(0x534E9B, STRING(nop6));
+	BYTE code[] = { MOV_EAX(row) };
+	Memory::WriteArray<BYTE>(0x534EA3, STRING(code));
+	BYTE nop4[] = { NOP, NOP, NOP, NOP };
+	Memory::WriteArray<BYTE>(0x534EA8, STRING(nop4));
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x534E30)
+		.ret()
+	);
+}
+
+void PVZ::Zombie::BossHeadSpit(int row, BYTE isFireBall)
+{
+	Memory::WriteMemory<DWORD>(0x535485, row);
+	BYTE nop5[] = { NOP, NOP, NOP, NOP, NOP };
+	Memory::WriteArray<BYTE>(0x535490, STRING(nop5));
+	BYTE code[] = { 0xB0, isFireBall, NOP, NOP, NOP };
+	Memory::WriteArray<BYTE>(0x5354A5, STRING(code));
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x535440)
+		.ret()
+	);
+}
+
 PVZ::Rect PVZ::Zombie::GetActualAttackRect()
 {
 	PVZ::Memory::Execute(AsmBuilder()
