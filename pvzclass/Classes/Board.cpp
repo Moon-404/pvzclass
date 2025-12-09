@@ -106,13 +106,13 @@ int PVZ::Board::GridToYPixel(int row, int column)
 	return(100 * row + 80);
 }
 
-int PVZ::Board::PixelToRow(int x, int y)
+int PVZ::Board::PixelToCol(int x, int y)
 {
 	if (x < 40) return -1;
 	return (x - 40) / 80;
 }
 
-int PVZ::Board::PixelToCol(int x, int y)
+int PVZ::Board::PixelToRow(int x, int y)
 {
 	int col = PixelToCol(x, y);
 	if (col == -1 || y < 80) return -1;
