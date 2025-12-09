@@ -29,7 +29,7 @@ namespace PVZ
 			for (int i = 0; i < maxnum; i++)
 			{
 				if (!Memory::ReadMemory<byte>(base_addr + _T_Dead_offset + T::MemSize * i))
-					container.push_back(T(i));
+					container.push_back(T(base_addr + T::MemSize * i));
 			}
 			return container;
 		}
