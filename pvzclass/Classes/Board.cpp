@@ -14,6 +14,17 @@ PVZ::Board PVZ::GetBoard()
 	return (address == 0 ? INVALID_BASEADDRESS : Board(address));
 }
 
+PVZ::PSaveGameContext PVZ::MakeSaveGameContext()
+{
+	int address = PVZ::Memory::AllocMemory(0, 0x30);
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, address)
+		.invoke(0x5D60A0)
+		.ret()
+	);
+	return address;
+}
+
 void PVZ::Board::SetMemSize(int NewSize)
 {
 	if (NewSize < 0x57B0)
@@ -219,9 +230,21 @@ bool PVZ::Board::Load(const char* path, int pathlen)
 	return PVZ::Memory::Execute(STRING(__asm__Load)) & 1;
 }
 
+void PVZ::Board::Sync(PSaveGameContext context, bool read)
+{
+	PVZ::Memory::WriteMemory<bool>(context + 0x20, false);
+	PVZ::Memory::WriteMemory<bool>(context + 0x21, read);
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(BaseAddress)
+		.mov_reg_imm(REG_EAX, context)
+		.invoke(0x4819D0)
+		.retn(4)
+	);
+}
+
 int PVZ::Board::CountEmptyPlants(SeedType::SeedType type)
 {
-	PVZ::Memory::Execute(AsmBuilder()
+	return PVZ::Memory::Execute(AsmBuilder()
 		.push(type)
 		.mov_reg_imm(REG_EDX, BaseAddress)
 		.invoke(0x40D430)
