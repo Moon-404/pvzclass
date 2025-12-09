@@ -16,6 +16,7 @@ PVZ::Board PVZ::GetBoard()
 
 PVZ::PSaveGameContext PVZ::MakeSaveGameContext()
 {
+	// Buffer是0x20byte，后面还有2byte的bool，保险起见留0x30byte
 	int address = PVZ::Memory::AllocMemory(0, 0x30);
 	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EAX, address)
@@ -23,6 +24,46 @@ PVZ::PSaveGameContext PVZ::MakeSaveGameContext()
 		.ret()
 	);
 	return address;
+}
+
+void PVZ::WriteSaveGameContext(PSaveGameContext context, char* buf, int buflen)
+{
+	int address = 0;
+	if (PVZ::Memory::localExecute)
+	{
+		address = (int)buf;
+	}
+	else
+	{
+		address = PVZ::Memory::AllocMemory(0, buflen);
+		PVZ::Memory::WriteArray<char>(address, buf, buflen);
+	}
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(buflen)
+		.push(address)
+		.push(context)
+		.invoke(0x5D6560)
+		.ret()
+	);
+}
+
+int PVZ::ReadSaveGameContext(PSaveGameContext context, char*& buf)
+{
+	int address = PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, context)
+		.invoke(0x5D6990)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+	int buflen = PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, context)
+		.invoke(0x5D69C0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+	if (PVZ::Memory::localExecute) buf = (char*)address;
+	else PVZ::Memory::ReadArray<char>(address, buf, buflen);
+	return buflen;
 }
 
 void PVZ::Board::SetMemSize(int NewSize)
@@ -238,8 +279,18 @@ void PVZ::Board::Sync(PSaveGameContext context, bool read)
 		.push(BaseAddress)
 		.mov_reg_imm(REG_EAX, context)
 		.invoke(0x4819D0)
-		.retn(4)
+		.add_reg_imm(REG_ESP, 4)
+		.ret()
 	);
+	if (read)
+	{
+		PVZ::Memory::Execute(AsmBuilder()
+			.mov_reg_imm(REG_EDI, BaseAddress)
+			.invoke(0x481CE0)
+			.ret()
+		);
+		PVZ::GetPVZApp().GameState = PVZGameState::Playing;
+	}
 }
 
 int PVZ::Board::CountEmptyPlants(SeedType::SeedType type)

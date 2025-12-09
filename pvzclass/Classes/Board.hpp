@@ -196,7 +196,7 @@ namespace PVZ
 		/// @param pathlen path 的长度
 		/// @return 是否载入成功
 		bool Load(const char* path, int pathlen);
-		/// @brief 将游戏内容保存到内存中。
+		/// @brief 将游戏内容与 SaveGameContext 同步，可以理解为存入内存的存/读档。
 		/// @param context 需要使用 MakeSaveGameContext 构建
 		/// @param read true 读取内存数据，false 将数据写入内存
 		void Sync(PSaveGameContext context, bool read);
@@ -384,8 +384,9 @@ namespace PVZ
 	/// @brief 构建SaveGameContext
 	PSaveGameContext MakeSaveGameContext();
 	/// @brief 写入SaveGameContext
+	/// @param buf 如果 localExecute 为 true，则直接将地址作为参数传入，否则会产生拷贝
 	void WriteSaveGameContext(PSaveGameContext context, char* buf, int buflen);
 	/// @brief 读取SaveGameContext
-	/// 
+	/// @param buf 如果 localExecute 为 true，则直接赋值为内存地址，否则会拷贝到 buf
 	int ReadSaveGameContext(PSaveGameContext context, char*& buf);
 }
