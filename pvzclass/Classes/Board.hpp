@@ -161,6 +161,10 @@ namespace PVZ
 		/// @param column 列
 		/// @return 对应 Y 坐标
 		int GridToYPixel(int row, int column);
+		/// @brief 将坐标转换为行数
+		int PixelToRow(int x, int y);
+		/// @brief 将坐标转换为列数
+		int PixelToCol(int x, int y);
 		/// @brief 设置突袭（墓碑刷怪、水下僵尸、蹦极空降）僵尸的倒计时
 		/// @param countdown 设置的倒计时，默认为 0.01 秒。
 		void Assault(int countdown = 1);
@@ -191,6 +195,9 @@ namespace PVZ
 		/// @param pathlen path 的长度
 		/// @return 是否载入成功
 		bool Load(const char* path, int pathlen);
+		/// @brief 计算空的植物，原版用于计算空花盆或者睡莲的数量。
+		/// @return 空的植物的数量
+		int CountEmptyPlants(SeedType::SeedType type);
 
 #pragma endregion
 

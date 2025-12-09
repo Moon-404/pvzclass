@@ -26,3 +26,13 @@ PVZ::CardSlot::SeedCard PVZ::CardSlot::GetCard(int index)
 	else
 		return NULL;
 }
+
+void PVZ::CardSlot::AddSeed(SeedType::SeedType type)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(type)
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x489A50)
+		.ret()
+	);
+}

@@ -63,6 +63,8 @@ namespace PVZ
 		/// @param index 卡片下标
 		/// @return 指定的卡槽卡片
 		PVZ::CardSlot::SeedCard GetCard(int index);
+		/// @brief 给传送带添加卡片
+		void AddSeed(SeedType::SeedType type);
 		using SeedPacket = SeedCard;
 	};
 	using SeedBank = CardSlot;

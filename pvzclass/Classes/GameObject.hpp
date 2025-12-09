@@ -124,6 +124,8 @@ namespace PVZ
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x74);
 		/// @brief 蹦极僵尸目标列
 		INT_PROPERTY(BungeeColumn, __get_BungeeColumn, __set_BungeeColumn, 0x80);
+		/// @brief 僵王博士砸车列
+		INT_PROPERTY(TargetCol, __get_TargetCol, __set_TargetCol, 0x80);
 		/// @brief 高度
 		T_PROPERTY(FLOAT, Height, __get_Height, __set_Height, 0x84);
 		void GetCollision(CollisionBox* collbox);
@@ -178,6 +180,14 @@ namespace PVZ
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0xEC);
 		/// @brief 关联僵尸的识别 ID
 		INT_PROPERTY(RelatedZombieID, __get_RelatedZombieID, __set_RelatedZombieID, 0x0F0);
+		/// @brief 第0个跟随僵尸
+		INT_PROPERTY(FollowerZombieID0, __get_FollowerZombieID0, __set_FollowerZombieID0, 0xF4);
+		/// @brief 第1个跟随僵尸
+		INT_PROPERTY(FollowerZombieID1, __get_FollowerZombieID1, __set_FollowerZombieID1, 0xF8);
+		/// @brief 第2个跟随僵尸
+		INT_PROPERTY(FollowerZombieID2, __get_FollowerZombieID2, __set_FollowerZombieID2, 0xFC);
+		/// @brief 第3个跟随僵尸
+		INT_PROPERTY(FollowerZombieID3, __get_FollowerZombieID3, __set_FollowerZombieID3, 0x100);
 		/// @brief 获取僵尸动画
 		/// @return 僵尸动画
 		PVZ::Animation GetAnimation();
@@ -185,8 +195,22 @@ namespace PVZ
 		INT_PROPERTY(SummonCounter, __get_SummonCounter, __set_SummonCounter, 0x114);
 		/// @brief 大小
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x11C);
-		//临时变量
+		/// @brief 临时变量，原用于僵王博士的模式
 		INT_PROPERTY(Temp, __get_Temp, __set_Temp, 0x12C);
+		/// @brief Boss模式
+		INT_PROPERTY(BossMode, __get_BossMode, __set_BossMode, 0x12C);
+		/// @brief 目标行
+		INT_PROPERTY(TargetRow, __get_TargetRow, __set_TargetRow, 0x130);
+		/// @brief Boss召唤蹦极计数
+		INT_PROPERTY(BossBungeeCounter, __get_BossBungeeCounter, __set_BossBungeeCounter, 0x134);
+		/// @brief Boss踩踏计数
+		INT_PROPERTY(BossStompCounter, __get_BossStompCounter, __set_BossStompCounter, 0x138);
+		/// @brief Boss低头计数
+		INT_PROPERTY(BossHeadCounter, __get_BossHeadCounter, __set_BossHeadCounter, 0x13C);
+		/// @brief Boss吐球行
+		INT_PROPERTY(FireballRow, __get_FireballRow, __set_FireballRow, 0x148);
+		/// @brief 是否是火球
+		T_PROPERTY(BOOLEAN, IsFireBall, __get_IsFireBall, __set_IsFireBall, 0x14C);
 		/// @brief 获取特殊头部动画（如植物僵尸的植物头）
 		/// @return 特殊头部动画
 		Animation GetSpecialHeadAnimation();
@@ -223,8 +247,13 @@ namespace PVZ
 		void Remove();
 		/// @brief 移除僵尸并生成它的掉落物。
 		void RemoveWithLoot();
+		/// @brief 移除冰冻、减速状态。
+		void RemoveColdEffects();
 		//LoopType(APA_XXXXXX)
 		void SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType LoopType, int blend_time = 14, float fps = 24.0f);
+		/// @brief 播放僵尸动画
+		/// @param animAddress 动画轨道名字符串的地址
+		void PlayZombieReanimation(DWORD animAddress, PVZEnum::ReanimLoopType loopType, BYTE blendTime, float rate);
 		/// @brief 为僵尸装备铁桶
 		/// @param shield 铁桶生命值
 		void EquipBucket(int shield = 1100);
@@ -254,6 +283,23 @@ namespace PVZ
 		/// @brief 创建僵尸出入泳池的音效和水花动画。
 		/// @param into_pool 是否入水
 		void PoolSplash(bool into_pool);
+		/// @brief 墓碑/珊瑚僵尸出场
+		void RiseFromGrave(int row, int col);
+
+		/// @brief 僵王博士召唤僵尸。
+		/// @param type 通过修改原游戏逻辑控制放置类型。
+		void BossSummonZombie(ZombieType::ZombieType type, int row);
+		/// @brief 僵王博士砸车。
+		void BossRVAttack(int row, int col);
+		/// @brief 僵王博士召唤蹦极，需要配合 BossBungeeSpawn 事件使用。
+		void BossBungeeAttack();
+		/// @brief 僵王博士踩踏攻击。
+		/// @param row 通过修改原游戏逻辑控制踩踏行。
+		void BossStompAttack(int row);
+		/// @brief 僵王博士吐球攻击。
+		/// @param row 通过修改原游戏逻辑控制攻击行。
+		/// @param isFireBall 通过修改原游戏逻辑控制是否是火球。
+		void BossHeadSpit(int row, BYTE isFireBall);
 
 		/// @brief 获取僵尸的实际可攻击范围。
 		/// @return 僵尸的实际攻击范围

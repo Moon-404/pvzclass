@@ -130,6 +130,31 @@ void onSeedCardClick(DWORD seedcardAddress)
 	auto seedcard = std::make_shared<PVZ::CardSlot::SeedCard>(seedcardAddress);
 }
 
+void onBossBungeeSpawn(DWORD zombieAddress)
+{
+	auto boss = PVZ::Zombie(zombieAddress);
+	for (int i = 0; i < 3; i++)
+	{
+		// 这里控制行列
+		auto zombie = Creator::CreateZombie(ZombieType::BungeeZombie, i, i);
+		zombie.Height = zombie.Y - 30.0f;
+		switch (i)
+		{
+		case 0:
+			boss.FollowerZombieID0 = zombie.Id;
+			break;
+		case 1:
+			boss.FollowerZombieID1 = zombie.Id;
+			break;
+		case 2:
+			boss.FollowerZombieID2 = zombie.Id;
+			break;
+		default:
+			break;
+		}
+	}
+}
+
 void onZombieBlast(DWORD zombieAddress)
 {
 	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);

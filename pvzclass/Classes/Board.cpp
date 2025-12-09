@@ -106,6 +106,32 @@ int PVZ::Board::GridToYPixel(int row, int column)
 	return(100 * row + 80);
 }
 
+int PVZ::Board::PixelToRow(int x, int y)
+{
+	if (x < 40) return -1;
+	return (x - 40) / 80;
+}
+
+int PVZ::Board::PixelToCol(int x, int y)
+{
+	int col = PixelToCol(x, y);
+	if (col == -1 || y < 80) return -1;
+
+	if (LevelScene == SceneType::Roof || LevelScene == SceneType::MoonNight)
+	{
+		if (col < 5) y -= (4 - col) * 20;
+		return (y - 80) / 85;
+	}
+	else if (LevelScene == SceneType::Pool || LevelScene == SceneType::Fog)
+	{
+		return (y - 80) / 85;
+	}
+	else
+	{
+		return (y - 80) / 100;
+	}
+}
+
 void PVZ::Board::Lose()
 {
 	PVZ::PVZApp pvz = this->GetPVZApp();
@@ -191,6 +217,17 @@ bool PVZ::Board::Load(const char* path, int pathlen)
 	SETARG(__asm__Load, 25) = BaseAddress;
 	SETARG(__asm__Load, 43) = PVZ::Memory::Variable;
 	return PVZ::Memory::Execute(STRING(__asm__Load)) & 1;
+}
+
+int PVZ::Board::CountEmptyPlants(SeedType::SeedType type)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(type)
+		.mov_reg_imm(REG_EDX, BaseAddress)
+		.invoke(0x40D430)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
 }
 
 void PVZ::Board::Assault(int countdown)
