@@ -26,6 +26,15 @@ PVZ::PSaveGameContext PVZ::MakeSaveGameContext()
 	return address;
 }
 
+void PVZ::FreeSaveGameContext(PSaveGameContext context)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, context)
+		.invoke(0x4820C0)
+		.ret()
+	);
+}
+
 void PVZ::WriteSaveGameContext(PSaveGameContext context, char* buf, int buflen)
 {
 	int address = 0;
