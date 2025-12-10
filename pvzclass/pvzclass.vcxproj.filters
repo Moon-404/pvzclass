@@ -926,5 +926,8 @@
     <ClInclude Include="Events\BossBungeeSpawnEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Events\GetRandomNumberEvent.h">
+      <Filter>头文件\Events</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

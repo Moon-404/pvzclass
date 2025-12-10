@@ -13,6 +13,7 @@
 #include "IZLevelStartAfterEvent.hpp"
 #include "IZScoreBrainEvent.hpp"
 #include "LawnmowerStartEvent.hpp"
+#include "GetRandomNumberEvent.h"
 #include "NewGameEvent.h"
 #include "PlantCreateEvent.h"
 #include "PlantReloadEvent.h"

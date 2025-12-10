@@ -203,6 +203,8 @@ namespace PVZ
 		/// @brief 计算空的植物，原版用于计算空花盆或者睡莲的数量。
 		/// @return 空的植物的数量
 		int CountEmptyPlants(SeedType::SeedType type);
+		/// @brief 执行一次额外更新，可以用于加速游戏进行。
+		void UpdateGame();
 
 #pragma endregion
 
