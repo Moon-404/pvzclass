@@ -383,6 +383,8 @@ namespace PVZ
 	Board GetBoard();
 	/// @brief 构建SaveGameContext
 	PSaveGameContext MakeSaveGameContext();
+	/// @brief 销毁SaveGameContext
+	void FreeSaveGameContext(PSaveGameContext context);
 	/// @brief 写入SaveGameContext
 	/// @param buf 如果 localExecute 为 true，则直接将地址作为参数传入，否则会产生拷贝
 	void WriteSaveGameContext(PSaveGameContext context, char* buf, int buflen);
