@@ -126,8 +126,8 @@ namespace PVZ
 		INT_PROPERTY(BungeeColumn, __get_BungeeColumn, __set_BungeeColumn, 0x80);
 		/// @brief 僵王博士砸车列
 		INT_PROPERTY(TargetCol, __get_TargetCol, __set_TargetCol, 0x80);
-		/// @brief 高度
-		T_PROPERTY(FLOAT, Height, __get_Height, __set_Height, 0x84);
+		/// @brief 相对地面的高度差
+		T_PROPERTY(FLOAT, Altitude, __get_Altitude, __set_Altitude, 0x84);
 		void GetCollision(CollisionBox* collbox);
 		void SetCollision(CollisionBox* collbox);
 		/// @brief 获取僵尸的基础攻击判定范围。
