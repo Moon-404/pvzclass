@@ -244,8 +244,8 @@
     <ClCompile Include="Enums\SeedState.cpp" />
     <ClCompile Include="src\Sexy.cpp" />
     <ClCompile Include="src\Widgets\GameSelector.cpp" />
-    <ClCompile Include="Widgets\Dialog.cpp" />
-    <ClCompile Include="Widgets\Widget.cpp" />
+    <ClCompile Include="src\Widgets\Dialog.cpp" />
+    <ClCompile Include="src\Widgets\Widget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AsmBuilder.hpp" />
@@ -435,8 +435,8 @@
     <ClInclude Include="Events\ZombieRemoveEvent.h" />
     <ClInclude Include="Events\DrawUIEvents.hpp" />
     <ClInclude Include="Events\VaseOpenEvent.h" />
-    <ClInclude Include="Widgets\ButtonWidget.hpp" />
-    <ClInclude Include="Widgets\Dialog.hpp" />
+    <ClInclude Include="include\Widgets\ButtonWidget.hpp" />
+    <ClInclude Include="include\Widgets\Dialog.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
