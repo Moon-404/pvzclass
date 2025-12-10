@@ -313,6 +313,15 @@ int PVZ::Board::CountEmptyPlants(SeedType::SeedType type)
 	);
 }
 
+void PVZ::Board::UpdateGame()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, BaseAddress)
+		.invoke(0x415920)
+		.ret()
+	);
+}
+
 void PVZ::Board::Assault(int countdown)
 {
 	Memory::WriteMemory<int>(BaseAddress + 0x5574, countdown);
