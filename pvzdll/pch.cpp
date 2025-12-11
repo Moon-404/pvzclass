@@ -12,21 +12,22 @@ void init()
 
 void onAppUpdate(DWORD appAddress)
 {
+	auto app = PVZ::PVZApp(appAddress);
 }
 
 void onCoinCollect(DWORD coinAddress)
 {
-	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
+	auto coin = PVZ::Coin(coinAddress);
 }
 
 void onCoinCreate(DWORD coinAddress)
 {
-	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
+	auto coin = PVZ::Coin(coinAddress);
 }
 
 void onCoinRemove(DWORD coinAddress)
 {
-	auto coin = std::make_shared<PVZ::Coin>(coinAddress);
+	auto coin = PVZ::Coin(coinAddress);
 }
 
 int onDialogButtonDepress(int buttonId, int dialogId)
@@ -44,14 +45,14 @@ void onDrawUITop(DWORD graphics)
 
 void onDrawPlantReanim(DWORD plantAddress, DWORD animationAddress)
 {
-	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
-	auto anim = std::make_shared<PVZ::Animation>(animationAddress);
+	auto plant = PVZ::Plant(plantAddress);
+	auto anim = PVZ::Animation(animationAddress);
 }
 
 int onDrawZombieReanim(DWORD zombieAddress, DWORD animationAddress)
 {
-	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
-	auto anim = std::make_shared<PVZ::Animation>(animationAddress);
+	auto zombie = PVZ::Zombie(zombieAddress);
+	auto anim = PVZ::Animation(animationAddress);
 	return 0;
 }
 
@@ -68,7 +69,7 @@ void onNewGame()
 
 void onPlantCreate(DWORD plantAddress)
 {
-	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	auto plant = PVZ::Plant(plantAddress);
 }
 
 void onPlantFromBank(DWORD plantAddress, int cardIndex)
@@ -79,66 +80,66 @@ void onPlantFromBank(DWORD plantAddress, int cardIndex)
 
 int onPlantReload(DWORD plantAddress, int cd)
 {
-	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	auto plant = PVZ::Plant(plantAddress);
 	return cd;
 }
 
 void onPlantShoot(DWORD plantAddress)
 {
-	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	auto plant = PVZ::Plant(plantAddress);
 }
 
 void onPlantRemove(DWORD plantAddress)
 {
-	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	auto plant = PVZ::Plant(plantAddress);
 }
 
 void onPeaOnFire(DWORD projectileAddress)
 {
-	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+	auto projectile = PVZ::Projectile(projectileAddress);
 }
 
 int onProjectileCollision(DWORD projectileAddress)
 {
-	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
-	if (projectile->Type == ProjectileType::Basketball) return 2;
-	if (projectile->Type == ProjectileType::ZombiePea) return 1;
+	auto projectile = PVZ::Projectile(projectileAddress);
+	if (projectile.Type == ProjectileType::Basketball) return 2;
+	if (projectile.Type == ProjectileType::ZombiePea) return 1;
 	return 0;
 }
 
 void onProjectileCreate(DWORD projectileAddress)
 {
-	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+	auto projectile = PVZ::Projectile(projectileAddress);
 }
 
 DWORD onProjectileHitPlant(DWORD projectileAddress, DWORD plantAddress)
 {
-	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
-	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
-	return plant->GetBaseAddress();
+	auto projectile = PVZ::Projectile(projectileAddress);
+	auto plant = PVZ::Plant(plantAddress);
+	return plant.GetBaseAddress();
 }
 
 DWORD onProjectileHitZombie(DWORD projectileAddress, DWORD zombieAddress)
 {
-	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
-	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
-	return zombie->GetBaseAddress();
+	auto projectile = PVZ::Projectile(projectileAddress);
+	auto zombie = PVZ::Zombie(zombieAddress);
+	return zombie.GetBaseAddress();
 }
 
 int onProjectileRemove(DWORD projectileAddress)
 {
-	auto projectile = std::make_shared<PVZ::Projectile>(projectileAddress);
+	auto projectile = PVZ::Projectile(projectileAddress);
 	return 0;
 }
 
 void onGameObjectsUpdate(DWORD boardAddress)
 {
-	auto board = std::make_shared<PVZ::Board>(boardAddress);
+	auto board = PVZ::Board(boardAddress);
 }
 
 void onSeedCardClick(DWORD seedcardAddress)
 {
-	auto seedcard = std::make_shared<PVZ::CardSlot::SeedCard>(seedcardAddress);
+	auto seedcard = PVZ::CardSlot::SeedCard(seedcardAddress);
 }
 
 void onBossBungeeSpawn(DWORD zombieAddress)
@@ -168,42 +169,42 @@ void onBossBungeeSpawn(DWORD zombieAddress)
 
 void onZombieBlast(DWORD zombieAddress)
 {
-	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	auto zombie = PVZ::Zombie(zombieAddress);
 }
 
 void onZombieButter(DWORD zombieAddress)
 {
-	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	auto zombie = PVZ::Zombie(zombieAddress);
 }
 
 void onZombieDecelerate(DWORD zombieAddress)
 {
-	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	auto zombie = PVZ::Zombie(zombieAddress);
 }
 
 void onZombieEat(DWORD zombieAddress, DWORD plantAddress)
 {
-	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
-	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
+	auto zombie = PVZ::Zombie(zombieAddress);
+	auto plant = PVZ::Plant(plantAddress);
 }
 
 void onZombieFroze(DWORD zombieAddress)
 {
-	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	auto zombie = PVZ::Zombie(zombieAddress);
 }
 
 int onZombieHit(DWORD zombieAddress, PVZ::DamageFlags type, DWORD amount)
 {
-	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	auto zombie = PVZ::Zombie(zombieAddress);
 	return amount;
 }
 
 void onZombieHypnotize(DWORD zombieAddress)
 {
-	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	auto zombie = PVZ::Zombie(zombieAddress);
 }
 
 void onZombieRemove(DWORD zombieAddress)
 {
-	auto zombie = std::make_shared<PVZ::Zombie>(zombieAddress);
+	auto zombie = PVZ::Zombie(zombieAddress);
 }
