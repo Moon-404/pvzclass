@@ -71,6 +71,12 @@ void onPlantCreate(DWORD plantAddress)
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);
 }
 
+void onPlantFromBank(DWORD plantAddress, int cardIndex)
+{
+	auto plant = PVZ::Plant(plantAddress);
+	auto card = PVZ::GetBoard().GetCardSlot().GetCard(cardIndex);
+}
+
 int onPlantReload(DWORD plantAddress, int cd)
 {
 	auto plant = std::make_shared<PVZ::Plant>(plantAddress);

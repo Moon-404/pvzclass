@@ -54,6 +54,9 @@ namespace PVZ
 			/// @brief 该卡槽进入CD.
 			/// @param duration 冷却时间。若为 -1，则改该卡槽的默认冷却时间
 			void EnterCoolDown(int duration = -1);
+			/// @brief 该卡槽被种植
+			/// @note 如果是传送带则移除，不是传送带则进入CD
+			void Planted();
 			/// @brief 设置卡牌类型
 			/// @param type 卡牌类型
 			/// @param imitater_type 模仿者模仿的植物类型s 

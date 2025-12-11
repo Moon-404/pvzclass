@@ -272,6 +272,7 @@
     <ClInclude Include="Enums\FoleyType.h" />
     <ClInclude Include="Events\BossBungeeSpawnEvent.h" />
     <ClInclude Include="Events\GetRandomNumberEvent.h" />
+    <ClInclude Include="Events\PlantFromBankEvent.h" />
     <ClInclude Include="include\Draw.h" />
     <ClInclude Include="Enums\KeyCode.hpp" />
     <ClInclude Include="Enums\StoreItem.hpp" />
