@@ -929,5 +929,8 @@
     <ClInclude Include="Events\GetRandomNumberEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Events\PlantFromBankEvent.h">
+      <Filter>头文件\Events\Plant</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

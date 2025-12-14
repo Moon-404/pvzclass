@@ -16,6 +16,7 @@
 #include "GetRandomNumberEvent.h"
 #include "NewGameEvent.h"
 #include "PlantCreateEvent.h"
+#include "PlantFromBankEvent.h"
 #include "PlantReloadEvent.h"
 #include "PlantDieEvent.h"
 #include "PlantShootEvent.h"

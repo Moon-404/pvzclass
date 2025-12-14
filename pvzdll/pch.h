@@ -27,6 +27,7 @@ extern "C"
 	__declspec(dllexport) int onRandomNumberGet(int number);
 	__declspec(dllexport) void onNewGame();
 	__declspec(dllexport) void onPlantCreate(DWORD plantAddress);
+	__declspec(dllexport) void onPlantFromBank(DWORD plantAddress, int cardIndex);
 	__declspec(dllexport) int onPlantReload(DWORD plantAddress, int cd);
 	__declspec(dllexport) void onPlantRemove(DWORD plantAddress);
 	__declspec(dllexport) void onPlantShoot(DWORD plantAddress);

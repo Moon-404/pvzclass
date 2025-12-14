@@ -33,6 +33,17 @@ void PVZ::CardSlot::SeedCard::EnterCoolDown(int duration)
 	Active = true;
 }
 
+void PVZ::CardSlot::SeedCard::Planted()
+{
+	Enable = false;
+	CoolDown = 0;
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x488EC0)
+		.ret()
+	);
+}
+
 AsmBuilder SetPacketType_builder = AsmBuilder();
 void PVZ::CardSlot::SeedCard::SetPacketType(SeedType::SeedType type, SeedType::SeedType imitater_type)
 {
