@@ -1,4 +1,4 @@
-#include "Dialog.hpp"
+#include "Widgets/Dialog.hpp"
 
 void PVZ::Dialog::CalcSize(int ExtraX, int ExtraY)
 {
