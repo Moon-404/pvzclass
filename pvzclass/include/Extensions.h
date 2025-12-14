@@ -345,3 +345,10 @@ inline void DisableMusicUpdate(BOOLEAN b = true)
 	MEMMOD_INT(0x452702, 0x90909090, 0x8F69E8);
 	MEMMOD_BYTE(0x452706, NOP, 0);
 }
+
+/// @brief 禁止僵尸进家时触发玩家失败。
+/// @param b 是否开启此功能
+inline void DisableZombieFailHome(BOOLEAN b = true)
+{
+	MEMMOD_BYTE(0x52B308, JO, JZ);
+}
