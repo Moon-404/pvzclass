@@ -204,7 +204,11 @@ namespace PVZ
 		/// @return 空的植物的数量
 		int CountEmptyPlants(SeedType::SeedType type);
 		/// @brief 执行一次额外更新，可以用于加速游戏进行。
+		/// @note 只更新玩法相关，是僵尸快跑的实现方式，传送带、字幕等不会更新。
 		void UpdateGame();
+		/// @brief 执行一次额外更新，可以用于加速游戏进行。
+		/// @note 是总更新接口，更新关卡内的各种东西。
+		void Update();
 
 #pragma endregion
 

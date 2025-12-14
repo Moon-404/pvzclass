@@ -322,6 +322,17 @@ void PVZ::Board::UpdateGame()
 	);
 }
 
+void PVZ::Board::Update()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, BaseAddress)
+		.mov_reg_mem_reg_add_imm(REG_EDX, REG_ECX, 0)
+		.mov_reg_mem_reg_add_imm(REG_EDX, REG_EDX, 0x58)
+		.call_reg(REG_EDX)
+		.ret()
+	);
+}
+
 void PVZ::Board::Assault(int countdown)
 {
 	Memory::WriteMemory<int>(BaseAddress + 0x5574, countdown);
