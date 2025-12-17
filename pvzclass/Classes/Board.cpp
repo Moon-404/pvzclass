@@ -193,6 +193,18 @@ int PVZ::Board::PixelToRow(int x, int y)
 	}
 }
 
+int PVZ::Board::PixelToRowKeepOnBoard(int x, int y)
+{
+	if (x < 40)
+		x = 40;
+	auto tmp = this->PixelToRow(x, y);
+	if (tmp <= 0)
+		tmp = 0;
+	if (tmp >= 5)
+		tmp = 5;
+	return tmp;
+}
+
 void PVZ::Board::Lose()
 {
 	PVZ::PVZApp pvz = this->GetPVZApp();
