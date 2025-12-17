@@ -22,7 +22,7 @@ namespace PVZ
 
 		/// @brief 重新定位默认动画参数数组的基址，并将旧基址的所有旧内容复制到新基址上。
 		/// @param baseaddress 主程序中的新基址
-		/// @param num 挑战定义总数。必须大于等于 143。
+		/// @param num 动画定义总数。必须大于等于 143。
 		static void Reposition(DWORD baseaddress, DWORD num = 143);
 	};
 
