@@ -27,6 +27,8 @@ namespace PVZ
 		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
 		/// @brief 行
 		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
+		/// @brief 倒计时，具体效果与场地物品类型有关
+		INT_PROPERTY(Counter, __get_Counter, __set_Counter, 0x18);
 		/// @brief 绘制图层编号
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x1C);
 		/// @brief 是否已消失
