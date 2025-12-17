@@ -14,6 +14,8 @@ namespace PVZ
 		/// @brief 默认的场地物件类型，派生类需要定义同名常量，用于在 Board::GetAllGriditems() 中定向获取场地物件。
 		static const GriditemType::GriditemType ItemType = GriditemType::None;
 		Griditem(int indexoraddress);
+		/// @brief 场地物件所在的 PVZApp
+		T_PROPERTY(PVZApp, App, __get_App, __set_App, 0);
 		/// @brief 获取场地物件所在的 Board
 		/// @return 场地物件所在的 Board
 		PVZ::Board GetBoard();
@@ -41,7 +43,8 @@ namespace PVZ
 	{
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::Grave;
-		Grave(int indexoraddress) :Griditem(indexoraddress) {};
+		Grave(int indexoraddress) : Griditem(indexoraddress) {};
+		Grave(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		INT_PROPERTY(AppearedValue, __get_AppearedValue, __set_AppearedValue, 0x18);
 	};
 	/// @brief 弹坑
@@ -50,6 +53,7 @@ namespace PVZ
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::Crater;
 		Crater(int indexoraddress) :Griditem(indexoraddress) {};
+		Crater(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		/// @brief 消失倒计时
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x18);
 	};
@@ -59,6 +63,7 @@ namespace PVZ
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::AquariumBrain;
 		AquariumBrain(int indexoraddress) :Griditem(indexoraddress) {};
+		AquariumBrain(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		/// @brief 实际的 X 坐标
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
 		/// @brief 实际的 Y 坐标
@@ -70,6 +75,7 @@ namespace PVZ
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::Snail;
 		Snail(int indexoraddress) :Griditem(indexoraddress) {};
+		Snail(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		/// @brief 实际的 X 坐标
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
 		/// @brief 实际的 Y 坐标
@@ -85,6 +91,7 @@ namespace PVZ
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::Vase;
 		Vase(int indexoraddress) :Griditem(indexoraddress) {};
+		Vase(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		/// @brief 罐子外观。本质是场地物件的状态。
 		T_PROPERTY(VaseSkin::VaseSkin, Skin, __get_Skin, __set_Skin, 0xC);
 		/// @brief 内含的僵尸类型
@@ -108,6 +115,7 @@ namespace PVZ
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::IZBrain;
 		IZBrain(int indexoraddress) :Griditem(indexoraddress) {};
+		IZBrain(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		/// @brief 脑子剩余生命值
 		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x18);
 		/// @brief X 坐标
@@ -122,6 +130,7 @@ namespace PVZ
 	{
 	public:
 		Portal(int indexoraddress) :Griditem(indexoraddress) {};
+		Portal(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		/// @brief 关闭此传送门
 		void Close();
 		/// @brief 判定僵尸是否进入这个传送门
@@ -146,6 +155,7 @@ namespace PVZ
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::PortalBlue;
 		CirclePortal(int indexoraddress) : Portal(indexoraddress) {};
+		CirclePortal(Griditem griditem) : Portal(griditem.GetBaseAddress()) {};
 	};
 	/// @brief 矩形传送门，颜色为黄框
 	class SquarePortal : public Portal
@@ -153,5 +163,6 @@ namespace PVZ
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::PortalYellow;
 		SquarePortal(int indexoraddress) : Portal(indexoraddress) {};
+		SquarePortal(Griditem griditem) : Portal(griditem.GetBaseAddress()) {};
 	};
 }
