@@ -172,6 +172,10 @@ namespace PVZ
 		/// @brief 将坐标转换为列数
 		/// @todo 支持禅境花园
 		int PixelToCol(int x, int y);
+		/// @brief 将坐标转换为列数，一定在场地范围内
+		/// @todo 支持禅境花园
+		/// @return 坐标所在列数
+		int PixelToColKeepOnBoard(int x, int y);
 		/// @brief 设置突袭（墓碑刷怪、水下僵尸、蹦极空降）僵尸的倒计时
 		/// @param countdown 设置的倒计时，默认为 0.01 秒。
 		void Assault(int countdown = 1);
