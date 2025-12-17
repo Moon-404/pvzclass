@@ -173,6 +173,16 @@ int PVZ::Board::PixelToCol(int x, int y)
 	return (x - 40) / 80;
 }
 
+int PVZ::Board::PixelToColKeepOnBoard(int x, int y)
+{
+	auto tmp = this->PixelToCol(x, y);
+	if (tmp <= 0)
+		tmp = 0;
+	if (tmp >= 8)
+		tmp = 8;
+	return tmp;
+}
+
 int PVZ::Board::PixelToRow(int x, int y)
 {
 	int col = PixelToCol(x, y);
@@ -191,6 +201,18 @@ int PVZ::Board::PixelToRow(int x, int y)
 	{
 		return (y - 80) / 100;
 	}
+}
+
+int PVZ::Board::PixelToRowKeepOnBoard(int x, int y)
+{
+	if (x < 40)
+		x = 40;
+	auto tmp = this->PixelToRow(x, y);
+	if (tmp <= 0)
+		tmp = 0;
+	if (tmp >= 5)
+		tmp = 5;
+	return tmp;
 }
 
 void PVZ::Board::Lose()
