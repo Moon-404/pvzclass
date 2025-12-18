@@ -91,5 +91,5 @@ namespace ZombieState
 		SQUASH_SMASH,
 	};
 
-	std::string ToString(ZombieState state);
+	const char* ToString(ZombieState state);
 }

@@ -1,6 +1,6 @@
 ﻿#include "ZombieState.h"
 
-std::string ZombieState::ToString(ZombieState state)
+const char* ZombieState::ToString(ZombieState state)
 {
 	switch (state)
 	{
