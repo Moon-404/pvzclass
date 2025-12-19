@@ -336,10 +336,10 @@
     <ClCompile Include="Classes\TodParticleSystem.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Events\PlantDamageZombieEvent.hpp">
+    <ClCompile Include="include\Events\PlantDamageZombieEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClCompile>
-    <ClCompile Include="Events\DLLEvent.cpp">
+    <ClCompile Include="src\Events\DLLEvent.cpp">
       <Filter>源文件\Events</Filter>
     </ClCompile>
     <ClCompile Include="src\Widgets\Widget.cpp">
@@ -455,25 +455,25 @@
     <ClInclude Include="Enums\ChallengePage.hpp">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Events\DialogButtonDepressEvent.h">
+    <ClInclude Include="include\Events\DialogButtonDepressEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\DialogDrawEvent.h">
+    <ClInclude Include="include\Events\DialogDrawEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\DLLEvent.h">
+    <ClInclude Include="include\Events\DLLEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\Events.h">
+    <ClInclude Include="include\Events\Events.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\NewGameEvent.h">
+    <ClInclude Include="include\Events\NewGameEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\UpdateAppEvent.h">
+    <ClInclude Include="include\Events\UpdateAppEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\DrawZombieReanimEvent.h">
+    <ClInclude Include="include\Events\DrawZombieReanimEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
     <ClInclude Include="Enums\AnimationType.h">
@@ -494,22 +494,22 @@
     <ClInclude Include="Enums\ThreeState.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Events\BoardUpdateGameEvent.hpp">
+    <ClInclude Include="include\Events\BoardUpdateGameEvent.hpp">
       <Filter>头文件\Events\Board</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PuzzlePhaseCompleteEvent.hpp">
+    <ClInclude Include="include\Events\PuzzlePhaseCompleteEvent.hpp">
       <Filter>头文件\Events\Challenge</Filter>
     </ClInclude>
-    <ClInclude Include="Events\LawnmowerStartEvent.hpp">
+    <ClInclude Include="include\Events\LawnmowerStartEvent.hpp">
       <Filter>头文件\Events\Lawnmower</Filter>
     </ClInclude>
-    <ClInclude Include="Events\IZLevelCompleteEvent.hpp">
+    <ClInclude Include="include\Events\IZLevelCompleteEvent.hpp">
       <Filter>头文件\Events\Challenge</Filter>
     </ClInclude>
-    <ClInclude Include="Events\IZLevelStartAfterEvent.hpp">
+    <ClInclude Include="include\Events\IZLevelStartAfterEvent.hpp">
       <Filter>头文件\Events\Challenge</Filter>
     </ClInclude>
-    <ClInclude Include="Events\IZScoreBrainEvent.hpp">
+    <ClInclude Include="include\Events\IZScoreBrainEvent.hpp">
       <Filter>头文件\Events\Challenge</Filter>
     </ClInclude>
     <ClInclude Include="Enums\StoreItem.hpp">
@@ -518,88 +518,88 @@
     <ClInclude Include="Enums\HelmType.h">
       <Filter>头文件\Enums\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieUpdateActionEvent.hpp">
+    <ClInclude Include="include\Events\ZombieUpdateActionEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieUpdatePlayingEvent.hpp">
+    <ClInclude Include="include\Events\ZombieUpdatePlayingEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantDoSpecialEvent.hpp">
+    <ClInclude Include="include\Events\PlantDoSpecialEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantSquishEvent.h">
+    <ClInclude Include="include\Events\PlantSquishEvent.h">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieInitAfterEvent.hpp">
+    <ClInclude Include="include\Events\ZombieInitAfterEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\IZInitAfterBrainEvent.hpp">
+    <ClInclude Include="include\Events\IZInitAfterBrainEvent.hpp">
       <Filter>头文件\Events\Challenge</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieDropLootEvent.hpp">
+    <ClInclude Include="include\Events\ZombieDropLootEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\CalcSunCostEvent.hpp">
+    <ClInclude Include="include\Events\CalcSunCostEvent.hpp">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantUpdateAbilityEvent.hpp">
+    <ClInclude Include="include\Events\PlantUpdateAbilityEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantMouseDownEvent.hpp">
+    <ClInclude Include="include\Events\PlantMouseDownEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\BoardKeyDownEvent.hpp">
+    <ClInclude Include="include\Events\BoardKeyDownEvent.hpp">
       <Filter>头文件\Events\Board</Filter>
     </ClInclude>
     <ClInclude Include="Enums\KeyCode.hpp">
       <Filter>头文件\Enums\Sexy</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantEatenEvent.hpp">
+    <ClInclude Include="include\Events\PlantEatenEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantAddProjectileEvent.hpp">
+    <ClInclude Include="include\Events\PlantAddProjectileEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieDropHeadEvent.hpp">
+    <ClInclude Include="include\Events\ZombieDropHeadEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\CoinMouseDownEvent.hpp">
+    <ClInclude Include="include\Events\CoinMouseDownEvent.hpp">
       <Filter>头文件\Events\Coin</Filter>
     </ClInclude>
-    <ClInclude Include="Events\SeedPacketMouseDownEvent.hpp">
+    <ClInclude Include="include\Events\SeedPacketMouseDownEvent.hpp">
       <Filter>头文件\Events\SeedPacket</Filter>
     </ClInclude>
-    <ClInclude Include="Events\VaseBreakerPopulateEvent.hpp">
+    <ClInclude Include="include\Events\VaseBreakerPopulateEvent.hpp">
       <Filter>头文件\Events\Challenge</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantDieLowHealthEvent.hpp">
+    <ClInclude Include="include\Events\PlantDieLowHealthEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantStolenEvent.hpp">
+    <ClInclude Include="include\Events\PlantStolenEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\LawnmowerUpdateEvent.hpp">
+    <ClInclude Include="include\Events\LawnmowerUpdateEvent.hpp">
       <Filter>头文件\Events\Lawnmower</Filter>
     </ClInclude>
-    <ClInclude Include="Events\GriditemDieEvent.hpp">
+    <ClInclude Include="include\Events\GriditemDieEvent.hpp">
       <Filter>头文件\Events\Griditem</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ChallengeInitAfterEvent.hpp">
+    <ClInclude Include="include\Events\ChallengeInitAfterEvent.hpp">
       <Filter>头文件\Events\Challenge</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ChallengeUpdateEvent.hpp">
+    <ClInclude Include="include\Events\ChallengeUpdateEvent.hpp">
       <Filter>头文件\Events\Challenge</Filter>
     </ClInclude>
-    <ClInclude Include="Events\BegTwistFailMoveEvent.hpp">
+    <ClInclude Include="include\Events\BegTwistFailMoveEvent.hpp">
       <Filter>头文件\Events\Challenge\Beghouled</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantShoveledEvent.hpp">
+    <ClInclude Include="include\Events\PlantShoveledEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieEatSoundEvent.hpp">
+    <ClInclude Include="include\Events\ZombieEatSoundEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantProduceEvent.hpp">
+    <ClInclude Include="include\Events\PlantProduceEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
     <ClInclude Include="Classes\ResourceManager.hpp">
@@ -611,106 +611,106 @@
     <ClInclude Include="Classes\TodParticleSystem.hpp">
       <Filter>头文件\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Events\CoinCollectEvent.h">
+    <ClInclude Include="include\Events\CoinCollectEvent.h">
       <Filter>头文件\Events\Coin</Filter>
     </ClInclude>
-    <ClInclude Include="Events\CoinCreateEvent.h">
+    <ClInclude Include="include\Events\CoinCreateEvent.h">
       <Filter>头文件\Events\Coin</Filter>
     </ClInclude>
-    <ClInclude Include="Events\CoinRemoveEvent.h">
+    <ClInclude Include="include\Events\CoinRemoveEvent.h">
       <Filter>头文件\Events\Coin</Filter>
     </ClInclude>
-    <ClInclude Include="Events\GriditemUpdateEvent.hpp">
+    <ClInclude Include="include\Events\GriditemUpdateEvent.hpp">
       <Filter>头文件\Events\Griditem</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantShootEvent.h">
+    <ClInclude Include="include\Events\PlantShootEvent.h">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantDieEvent.h">
+    <ClInclude Include="include\Events\PlantDieEvent.h">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantCreateEvent.h">
+    <ClInclude Include="include\Events\PlantCreateEvent.h">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantReloadEvent.h">
+    <ClInclude Include="include\Events\PlantReloadEvent.h">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieBlastEvent.h">
+    <ClInclude Include="include\Events\ZombieBlastEvent.h">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieEatEvent.h">
+    <ClInclude Include="include\Events\ZombieEatEvent.h">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieTakeDmgEvent.h">
+    <ClInclude Include="include\Events\ZombieTakeDmgEvent.h">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieRemoveEvent.h">
+    <ClInclude Include="include\Events\ZombieRemoveEvent.h">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieHypnotizeEvent.h">
+    <ClInclude Include="include\Events\ZombieHypnotizeEvent.h">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieFrozeEvent.h">
+    <ClInclude Include="include\Events\ZombieFrozeEvent.h">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieDecelerateEvent.h">
+    <ClInclude Include="include\Events\ZombieDecelerateEvent.h">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieButterEvent.h">
+    <ClInclude Include="include\Events\ZombieButterEvent.h">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ProjectileRemoveEvent.h">
+    <ClInclude Include="include\Events\ProjectileRemoveEvent.h">
       <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ProjectileHitZombieEvent.h">
+    <ClInclude Include="include\Events\ProjectileHitZombieEvent.h">
       <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ProjectileHitPlantEvent.h">
+    <ClInclude Include="include\Events\ProjectileHitPlantEvent.h">
       <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ProjectileCollisionEvent.h">
+    <ClInclude Include="include\Events\ProjectileCollisionEvent.h">
       <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ProjectileCreateEvent.h">
+    <ClInclude Include="include\Events\ProjectileCreateEvent.h">
       <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PeaOnFireEvent.h">
+    <ClInclude Include="include\Events\PeaOnFireEvent.h">
       <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="Events\VaseOpenEvent.h">
+    <ClInclude Include="include\Events\VaseOpenEvent.h">
       <Filter>头文件\Events\Griditem</Filter>
     </ClInclude>
-    <ClInclude Include="Events\UpdateGameObjectsEvent.h">
+    <ClInclude Include="include\Events\UpdateGameObjectsEvent.h">
       <Filter>头文件\Events\Board</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieDetachShieldEvent.hpp">
+    <ClInclude Include="include\Events\ZombieDetachShieldEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieDropHeadParticleEvent.hpp">
+    <ClInclude Include="include\Events\ZombieDropHeadParticleEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ParseResourceEvent.hpp">
+    <ClInclude Include="include\Events\ParseResourceEvent.hpp">
       <Filter>头文件\Events\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ExtractResourceEvent.hpp">
+    <ClInclude Include="include\Events\ExtractResourceEvent.hpp">
       <Filter>头文件\Events\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantInitAfterEvent.hpp">
+    <ClInclude Include="include\Events\PlantInitAfterEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantTakeDamageEvent.hpp">
+    <ClInclude Include="include\Events\PlantTakeDamageEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\SeedPacketUpdateEvent.hpp">
+    <ClInclude Include="include\Events\SeedPacketUpdateEvent.hpp">
       <Filter>头文件\Events\SeedPacket</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ImitaterPlantEvent.h">
+    <ClInclude Include="include\Events\ImitaterPlantEvent.h">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
     <ClInclude Include="Enums\ZombieAttackType.hpp">
       <Filter>头文件\Enums\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieTargetPlantEvent.hpp">
+    <ClInclude Include="include\Events\ZombieTargetPlantEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
     <ClInclude Include="Classes\SeedChooserScreen.hpp">
@@ -722,13 +722,13 @@
     <ClInclude Include="Enums\ChallengeState.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantUpdateEvent.hpp">
+    <ClInclude Include="include\Events\PlantUpdateEvent.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Definition.hpp">
       <Filter>头文件\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ProjectileDefEvent.hpp">
+    <ClInclude Include="include\Events\ProjectileDefEvent.hpp">
       <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
     <ClInclude Include="Classes\ZenGarden.hpp">
@@ -740,70 +740,70 @@
     <ClInclude Include="Classes\SaveData.hpp">
       <Filter>头文件\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantRectEvents.hpp">
+    <ClInclude Include="include\Events\PlantRectEvents.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ProjectileImageEvent.hpp">
+    <ClInclude Include="include\Events\ProjectileImageEvent.hpp">
       <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="Events\BoardInitAfterEvent.hpp">
+    <ClInclude Include="include\Events\BoardInitAfterEvent.hpp">
       <Filter>头文件\Events\Board</Filter>
     </ClInclude>
     <ClInclude Include="include\Widgets\ButtonWidget.hpp">
       <Filter>头文件\Widgets</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieEquipmentEvents.hpp">
+    <ClInclude Include="include\Events\ZombieEquipmentEvents.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\LevelDialogQuitEvent.hpp">
+    <ClInclude Include="include\Events\LevelDialogQuitEvent.hpp">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\OverrideSavedataFolderEvent.hpp">
+    <ClInclude Include="include\Events\OverrideSavedataFolderEvent.hpp">
       <Filter>头文件\Events\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Events\IZombieEvents.hpp">
+    <ClInclude Include="include\Events\IZombieEvents.hpp">
       <Filter>头文件\Events\Challenge</Filter>
     </ClInclude>
-    <ClInclude Include="Events\LoadStringEvent.hpp">
+    <ClInclude Include="include\Events\LoadStringEvent.hpp">
       <Filter>头文件\Events\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Events\LawnDialogEvents.hpp">
+    <ClInclude Include="include\Events\LawnDialogEvents.hpp">
       <Filter>头文件\Events\Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="Events\Dialog_ButtonDepressEvent.hpp">
+    <ClInclude Include="include\Events\Dialog_ButtonDepressEvent.hpp">
       <Filter>头文件\Events\Dialog</Filter>
     </ClInclude>
-    <ClInclude Include="Events\SeedPacketResourceEvents.hpp">
+    <ClInclude Include="include\Events\SeedPacketResourceEvents.hpp">
       <Filter>头文件\Events\SeedPacket</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantFindTargetEvents.hpp">
+    <ClInclude Include="include\Events\PlantFindTargetEvents.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
-    <ClInclude Include="Events\CanPlantAtEvents.hpp">
+    <ClInclude Include="include\Events\CanPlantAtEvents.hpp">
       <Filter>头文件\Events\Board</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieDebuffEvents.hpp">
+    <ClInclude Include="include\Events\ZombieDebuffEvents.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieSpeedAlterEvent.hpp">
+    <ClInclude Include="include\Events\ZombieSpeedAlterEvent.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\BoardCustomTooltipEvent.hpp">
+    <ClInclude Include="include\Events\BoardCustomTooltipEvent.hpp">
       <Filter>头文件\Events\Board</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ProjectileUpdateEvents.hpp">
+    <ClInclude Include="include\Events\ProjectileUpdateEvents.hpp">
       <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PoleVaulterEvents.hpp">
+    <ClInclude Include="include\Events\PoleVaulterEvents.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\BungeeEvents.hpp">
+    <ClInclude Include="include\Events\BungeeEvents.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\ZombieAbilityEvents.hpp">
+    <ClInclude Include="include\Events\ZombieAbilityEvents.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantPassiveEvents.hpp">
+    <ClInclude Include="include\Events\PlantPassiveEvents.hpp">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
     <ClInclude Include="Classes\Challenge.hpp">
@@ -839,7 +839,7 @@
     <ClInclude Include="Classes\ReanimatorCache.hpp">
       <Filter>头文件\Classes</Filter>
     </ClInclude>
-    <ClInclude Include="Events\LawnAppInitAfterEvent.hpp">
+    <ClInclude Include="include\Events\LawnAppInitAfterEvent.hpp">
       <Filter>头文件\Events</Filter>
     </ClInclude>
     <ClInclude Include="Enums\GriditemState.h">
@@ -896,13 +896,13 @@
     <ClInclude Include="Enums\CoinMotionType.h">
       <Filter>头文件\Enums\Coin</Filter>
     </ClInclude>
-    <ClInclude Include="Events\DrawPlantReanimEvent.h">
+    <ClInclude Include="include\Events\DrawPlantReanimEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\DrawUIEvents.hpp">
+    <ClInclude Include="include\Events\DrawUIEvents.hpp">
       <Filter>头文件\Events\Draw</Filter>
     </ClInclude>
-    <ClInclude Include="Events\DrawObjectEvents.hpp">
+    <ClInclude Include="include\Events\DrawObjectEvents.hpp">
       <Filter>头文件\Events\Draw</Filter>
     </ClInclude>
     <ClInclude Include="deprecated.hpp">
@@ -923,13 +923,13 @@
     <ClInclude Include="Enums\FoleyType.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Events\BossBungeeSpawnEvent.h">
+    <ClInclude Include="include\Events\BossBungeeSpawnEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Events\GetRandomNumberEvent.h">
+    <ClInclude Include="include\Events\GetRandomNumberEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Events\PlantFromBankEvent.h">
+    <ClInclude Include="include\Events\PlantFromBankEvent.h">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
   </ItemGroup>
