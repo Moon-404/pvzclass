@@ -33,7 +33,7 @@
 #include "BossBungeeSpawnEvent.h"
 #include "ZombieBlastEvent.h"
 #include "ZombieButterEvent.h"
-#include "../include/Events/ZombieConditionEvents.hpp"
+#include "ZombieConditionEvents.hpp"
 #include "ZombieDecelerateEvent.h"
 #include "ZombieEatEvent.h"
 #include "ZombieFrozeEvent.h"
@@ -44,7 +44,7 @@
 #include "ZombieUpdatePlayingEvent.hpp"
 
 #include "BegTwistFailMoveEvent.hpp"
-#include "../include/Events/BoardFadeOutLevelEvent.hpp"
+#include "BoardFadeOutLevelEvent.hpp"
 #include "BoardCustomTooltipEvent.hpp"
 #include "BoardInitAfterEvent.hpp"
 #include "BoardKeyDownEvent.hpp"
@@ -108,6 +108,6 @@
 
 #include "LawnDialogEvents.hpp"
 #include "Dialog_ButtonDepressEvent.hpp"
-#include "../include/Events/GameSelectorUpdateEvent.hpp"
+#include "GameSelectorUpdateEvent.hpp"
 
 #include "LawnAppInitAfterEvent.hpp"

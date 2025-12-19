@@ -9,18 +9,16 @@
 class BossBungeeSpawnEvent : public DLLEvent
 {
 public:
-	BossBungeeSpawnEvent();
+	BossBungeeSpawnEvent()
+	{
+		int procAddress = PVZ::Memory::GetProcAddress("onBossBungeeSpawn");
+		hookAddress = 0x535204;
+		rawlen = 5;
+		BYTE code0[] = { NOP, NOP, NOP, NOP, NOP };
+		PVZ::Memory::WriteArray<BYTE>(hookAddress, STRING(code0));
+		BYTE code1[] = { PUSH_EAX, INVOKE(procAddress), ADD_ESP(4) };
+		start(STRING(code1));
+		BYTE code2[] = { JMPFAR(0x8E) };
+		PVZ::Memory::WriteArray<BYTE>(0x535209, STRING(code2));
+	}
 };
-
-BossBungeeSpawnEvent::BossBungeeSpawnEvent()
-{
-	int procAddress = PVZ::Memory::GetProcAddress("onBossBungeeSpawn");
-	hookAddress = 0x535204;
-	rawlen = 5;
-	BYTE code0[] = { NOP, NOP, NOP, NOP, NOP };
-	PVZ::Memory::WriteArray<BYTE>(hookAddress, STRING(code0));
-	BYTE code1[] = { PUSH_EAX, INVOKE(procAddress), ADD_ESP(4) };
-	start(STRING(code1));
-	BYTE code2[] = { JMPFAR(0x8E) };
-	PVZ::Memory::WriteArray<BYTE>(0x535209, STRING(code2));
-}

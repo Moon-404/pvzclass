@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Events/DLLEvent.h"
+#include "DLLEvent.h"
 
 namespace PVZEvent
 {
