@@ -2,12 +2,14 @@
 #include "GameObject.hpp"
 #include "Griditem.hpp"
 
+DWORD PVZ::Griditem::MemSize = 0x0EC;
+
 PVZ::Griditem::Griditem(int indexoraddress)
 {
 	if (indexoraddress > 1024)
 		BaseAddress = indexoraddress;
 	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x11C) + indexoraddress * 0xEC;
+		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x11C) + indexoraddress * MemSize;
 }
 
 PVZ::Board PVZ::Griditem::GetBoard()

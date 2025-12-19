@@ -10,7 +10,7 @@ namespace PVZ
 	public:
 		/// @brief 场地物件的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
-		static const DWORD MemSize = 0x0EC;
+		static DWORD MemSize;
 		/// @brief 默认的场地物件类型，派生类需要定义同名常量，用于在 Board::GetAllGriditems() 中定向获取场地物件。
 		static const GriditemType::GriditemType ItemType = GriditemType::None;
 		Griditem(int indexoraddress);

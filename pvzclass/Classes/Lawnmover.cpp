@@ -1,11 +1,13 @@
 #include "LawnMower.hpp"
 
+DWORD PVZ::Lawnmover::MemSize = 0x48;
+
 PVZ::LawnMower::LawnMower(int indexoraddress)
 {
 	if (indexoraddress > 1024)
 		BaseAddress = indexoraddress;
 	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x100) + indexoraddress * 0x48;
+		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x100) + indexoraddress * MemSize;
 }
 
 PVZ::Animation PVZ::LawnMower::GetAnimation()

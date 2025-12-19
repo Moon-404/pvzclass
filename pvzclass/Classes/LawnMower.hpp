@@ -9,7 +9,7 @@ namespace PVZ
 	public:
 		/// @brief 除草机的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
-		static const DWORD MemSize = 0x48;
+		static DWORD MemSize;
 		LawnMower(int indexoraddress);
 		/// @brief X 坐标
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 8);
