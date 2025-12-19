@@ -366,26 +366,6 @@ PVZ::Vase Creator::CreateVase(VaseCreateInfo vaseinfo)
 	return CreateVase(vaseinfo.row, vaseinfo.column, vaseinfo.content, vaseinfo.skin, vaseinfo.zombie, vaseinfo.plant, vaseinfo.sun);
 }
 
-byte __asm__CreateRake[26]
-{
-	CREATERAKE,
-	ADD_ESP(8),
-	RET,
-};
-
-byte __asm__CreateRake[]
-{
-	MOV_ESI(0),
-	INVOKE(0x41E1C0),
-	MOV_PTR_ADDR_EAX(0),
-	MOV_PTR_EAX_ADD(0x08, 0), // type
-	MOV_PTR_EAX_ADD(0x10, 0), // col
-	MOV_PTR_EAX_ADD(0x14, 0), // row
-	MOV_PTR_EAX_ADD(0x1C, 0), // layer
-	INVOKE(0x44E1B0),
-	RET
-};
-
 PVZ::Rake Creator::CreateRake(byte row, byte column)
 {
 	PVZ::Board board = PVZ::GetBoard();
