@@ -54,6 +54,11 @@ void PVZ::Portal::Close()
 	Memory::Execute(STRING(__asm__PortalClose));
 }
 
+bool PVZ::Portal::isZombieIn(PVZ::Zombie zombie)
+{
+	return (zombie.Row == Row) && (abs(Column * 80 - zombie.X) < 10);
+}
+
 bool PVZ::Portal::isZombieIn(std::shared_ptr<PVZ::Zombie> zombie)
 {
 	return (zombie->Row == Row) && (abs(Column * 80 - zombie->X) < 10);
@@ -62,6 +67,11 @@ bool PVZ::Portal::isZombieIn(std::shared_ptr<PVZ::Zombie> zombie)
 int PVZ::Portal::getZombieOutX()
 {
 	return Column * 80 - 40;
+}
+
+bool PVZ::Portal::isProjectileIn(PVZ::Projectile projectile)
+{
+	return (projectile.Row == Row) && (abs(Column * 80 + 20 - projectile.X) < 20);
 }
 
 bool PVZ::Portal::isProjectileIn(std::shared_ptr<PVZ::Projectile> projectile)

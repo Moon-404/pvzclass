@@ -138,11 +138,18 @@ namespace PVZ
 		/// @brief 判定僵尸是否进入这个传送门
 		/// @param zombie 被判定的僵尸
 		/// @return 僵尸是否进入传送门
-		/// @todo 实现一个参数为 PVZ::Zombie 的版本
+		bool isZombieIn(PVZ::Zombie zombie);
+		/// @brief 判定僵尸是否进入这个传送门
+		/// @param zombie 被判定的僵尸
+		/// @return 僵尸是否进入传送门
 		bool isZombieIn(std::shared_ptr<PVZ::Zombie> zombie);
 		/// @brief 获取僵尸从这个传送门出来时的X坐标
 		/// @return 僵尸从这个传送门出来时的X坐标
 		int getZombieOutX();
+		/// @brief 判定子弹是否进入这个传送门
+		/// @param projectile 被判定的子弹
+		/// @return 子弹是否进入这个传送门
+		bool isProjectileIn(PVZ::Projectile projectile);
 		/// @brief 判定子弹是否进入这个传送门
 		/// @param projectile 被判定的子弹
 		/// @return 子弹是否进入这个传送门
