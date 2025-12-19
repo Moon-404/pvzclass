@@ -9,7 +9,7 @@ namespace PVZ
 	{
 	public:
 		Challenge(int address);
-		static const int MemSize = 0x0BC;
+		static DWORD MemSize;
 		/// @brief 调整该类在 PVZ 中对象的大小。
 		/// @note 请在派生类中调用这个函数。
 		/// @note 调用该函数后，新生成的存档与原版存档不兼容，请注意清理。

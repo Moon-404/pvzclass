@@ -10,7 +10,7 @@ namespace PVZ
 	public:
 		/// @brief 场地物件的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
-		static const DWORD MemSize = 0x0EC;
+		static DWORD MemSize;
 		/// @brief 默认的场地物件类型，派生类需要定义同名常量，用于在 Board::GetAllGriditems() 中定向获取场地物件。
 		static const GriditemType::GriditemType ItemType = GriditemType::None;
 		Griditem(int indexoraddress);
@@ -34,6 +34,18 @@ namespace PVZ
 		/// @brief 是否已消失
 		/// @attention 你应该通过 Remove() 移除一个场地物件，而不是通过修改此变量。
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x20);
+		/// @brief 实际的 X 坐标
+		/// @note 并非所有场地物品都使用这个成员
+		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
+		/// @brief 实际的 Y 坐标
+		/// @note 并非所有场地物品都使用这个成员
+		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
+		/// @brief 获取场地物品动画
+		/// @return 场地物品动画
+		PVZ::Animation GetReanimation();
+		/// @brief 设置场地物品动画
+		/// @param anim 场地物品动画
+		void SetReanimationn(Animation anim);
 		/// @brief 识别 ID
 		INT_READONLY_PROPERTY(Id, __get_Id, 0xE8);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
@@ -66,10 +78,6 @@ namespace PVZ
 		static const GriditemType::GriditemType ItemType = GriditemType::AquariumBrain;
 		AquariumBrain(int indexoraddress) :Griditem(indexoraddress) {};
 		AquariumBrain(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
-		/// @brief 实际的 X 坐标
-		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
-		/// @brief 实际的 Y 坐标
-		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
 	};
 	/// @brief 禅境花园的蜗牛
 	class Snail :public PVZ::Griditem
@@ -78,10 +86,6 @@ namespace PVZ
 		static const GriditemType::GriditemType ItemType = GriditemType::Snail;
 		Snail(int indexoraddress) :Griditem(indexoraddress) {};
 		Snail(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
-		/// @brief 实际的 X 坐标
-		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
-		/// @brief 实际的 Y 坐标
-		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
 		/// @brief 目标 X 坐标
 		T_PROPERTY(FLOAT, TargetX, __get_TargetX, __set_TargetX, 0x2C);
 		/// @brief 目标 Y 坐标
@@ -111,6 +115,14 @@ namespace PVZ
 		/// @brief 直接开启此罐子
 		void Open();
 	};
+	/// @brief 钉耙
+	class Rake :public PVZ::Griditem
+	{
+	public:
+		static const GriditemType::GriditemType ItemType = GriditemType::Rake;
+		Rake(int indexoraddress) : Griditem(indexoraddress) {};
+		Rake(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
+	};
 	/// @brief IZ 模式的脑子
 	class IZBrain :public PVZ::Griditem
 	{
@@ -120,10 +132,6 @@ namespace PVZ
 		IZBrain(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		/// @brief 脑子剩余生命值
 		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x18);
-		/// @brief X 坐标
-		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
-		/// @brief Y 坐标
-		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
 	};
 	/// @brief 传送门
 	/// @note 非传送门关卡，传送门只有画面效果，不会触发传送，\n
@@ -138,11 +146,18 @@ namespace PVZ
 		/// @brief 判定僵尸是否进入这个传送门
 		/// @param zombie 被判定的僵尸
 		/// @return 僵尸是否进入传送门
-		/// @todo 实现一个参数为 PVZ::Zombie 的版本
+		bool isZombieIn(PVZ::Zombie zombie);
+		/// @brief 判定僵尸是否进入这个传送门
+		/// @param zombie 被判定的僵尸
+		/// @return 僵尸是否进入传送门
 		bool isZombieIn(std::shared_ptr<PVZ::Zombie> zombie);
 		/// @brief 获取僵尸从这个传送门出来时的X坐标
 		/// @return 僵尸从这个传送门出来时的X坐标
 		int getZombieOutX();
+		/// @brief 判定子弹是否进入这个传送门
+		/// @param projectile 被判定的子弹
+		/// @return 子弹是否进入这个传送门
+		bool isProjectileIn(PVZ::Projectile projectile);
 		/// @brief 判定子弹是否进入这个传送门
 		/// @param projectile 被判定的子弹
 		/// @return 子弹是否进入这个传送门

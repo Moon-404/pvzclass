@@ -2,12 +2,14 @@
 #include "GameObject.hpp"
 #include "Griditem.hpp"
 
+DWORD PVZ::Griditem::MemSize = 0x0EC;
+
 PVZ::Griditem::Griditem(int indexoraddress)
 {
 	if (indexoraddress > 1024)
 		BaseAddress = indexoraddress;
 	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x11C) + indexoraddress * 0xEC;
+		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x11C) + indexoraddress * MemSize;
 }
 
 PVZ::Board PVZ::Griditem::GetBoard()
@@ -21,6 +23,17 @@ byte __asm__Griditem__Remove[]
 	INVOKE(0x44D000),
 	RET
 };
+
+PVZ::Animation PVZ::Griditem::GetReanimation()
+{
+	int ID = Memory::ReadMemory<int>(BaseAddress + 0x34);
+	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation(ID_INDEX(ID)));
+}
+
+void PVZ::Griditem::SetReanimationn(Animation anim)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0x34, anim.Id);
+}
 
 void PVZ::Griditem::Remove()
 {
@@ -54,6 +67,11 @@ void PVZ::Portal::Close()
 	Memory::Execute(STRING(__asm__PortalClose));
 }
 
+bool PVZ::Portal::isZombieIn(PVZ::Zombie zombie)
+{
+	return (zombie.Row == Row) && (abs(Column * 80 - zombie.X) < 10);
+}
+
 bool PVZ::Portal::isZombieIn(std::shared_ptr<PVZ::Zombie> zombie)
 {
 	return (zombie->Row == Row) && (abs(Column * 80 - zombie->X) < 10);
@@ -62,6 +80,11 @@ bool PVZ::Portal::isZombieIn(std::shared_ptr<PVZ::Zombie> zombie)
 int PVZ::Portal::getZombieOutX()
 {
 	return Column * 80 - 40;
+}
+
+bool PVZ::Portal::isProjectileIn(PVZ::Projectile projectile)
+{
+	return (projectile.Row == Row) && (abs(Column * 80 + 20 - projectile.X) < 20);
 }
 
 bool PVZ::Portal::isProjectileIn(std::shared_ptr<PVZ::Projectile> projectile)

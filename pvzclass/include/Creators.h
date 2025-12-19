@@ -30,7 +30,6 @@ namespace Creator
 #define CREATEGRAVE INVOKE(0x426620)
 #define CREATECRATER INVOKE_BYTE(0x408F80,0)
 #define CREATELADDER INVOKE_BYTE(0x408F40,0)
-#define CREATERAKE INVOKE_DWORD_BYTE_BYTE(0x40B9C0,0,0,0)
 #define CHARSTRTOSTRING INVOKE(0x404450)
 #define CREATECAPTION INVOKE(0x459010)
 #define CREATEIMAGECAPTION INVOKE(0x40CA10)
@@ -178,11 +177,9 @@ namespace Creator
 	PVZ::Vase CreateVase(VaseCreateInfo vaseinfo);
 
 	/// @brief 在指定位置生成一个钉耙
-	/// @note 此函数没有返回值。
-	/// @todo 尝试实现一个可捕获返回值的版本。
 	/// @param row 行
 	/// @param column 列
-	void CreateRake(byte row, byte column);
+	PVZ::Rake CreateRake(byte row, byte column);
 
 	/// @brief 创建文字字幕
 	/// @param str 文字内容

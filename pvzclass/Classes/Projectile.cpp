@@ -1,11 +1,13 @@
 #include "GameObject.hpp"
 
+DWORD PVZ::Projectile::MemSize = 0x94;
+
 PVZ::Projectile::Projectile(int indexoraddress)
 {
 	if (indexoraddress > 65535)
 		BaseAddress = indexoraddress;
 	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xC8) + indexoraddress * 0x94;
+		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xC8) + indexoraddress * MemSize;
 }
 
 void PVZ::Projectile::OnFire()

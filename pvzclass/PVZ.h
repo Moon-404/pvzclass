@@ -268,6 +268,7 @@ namespace PVZ
 		TrackInstance GetTrackInstance(const char* trackName);
 		/// @brief 循环播放次数
 		INT_PROPERTY(CycleCount, __get_CycleCount, __set_CycleCount, 0x5C);
+		T_PROPERTY(BOOLEAN, IsAttachment, __get_IsAttachment, __set_IsAttachment, 0x64);
 		/// @brief 获取该动画的加色
 		/// @return 加色
 		Color GetAdditiveColor();

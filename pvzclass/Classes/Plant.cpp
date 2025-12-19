@@ -1,5 +1,7 @@
 #include "GameObject.hpp"
 
+DWORD PVZ::Plant::MemSize = 0x14C;
+
 PVZ::Plant::Plant(int indexoraddress)
 {
 	if (indexoraddress > 1024)
@@ -12,6 +14,7 @@ void PVZ::Plant::SetMemSize(int NewSize = 0x14C, int NewCount = 1024)
 {
 	if (NewSize < 0x14C)
 		return;
+	MemSize = NewSize;
 	Memory::WriteMemory<int>(0x401AAC, NewSize - 4);
 	Memory::WriteMemory<int>(0x401C08, NewSize - 4);
 	Memory::WriteMemory<int>(0x407CC2, NewSize * NewCount);

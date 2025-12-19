@@ -5,11 +5,13 @@ PVZ::Challenge::Challenge(int address)
 	BaseAddress = Memory::ReadMemory<int>(address + 0x160);
 }
 
+DWORD PVZ::Challenge::MemSize = 0x0BC;
+
 namespace PVZ
 {
 	bool Challenge::SetMemSize(int NewSize)
 	{
-		if(NewSize < Challenge::MemSize)
+		if(NewSize < 0x0BC)
 			return(false);
 		Memory::WriteMemory<int>(0x00408232, NewSize);
 		Memory::WriteMemory<int>(0x00481C39, NewSize);
