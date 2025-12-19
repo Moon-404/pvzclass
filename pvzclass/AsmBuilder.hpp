@@ -252,6 +252,14 @@ public:
 		return *this;
 	}
 
+	/// @brief 添加 MOV 指令（立即数到内存）
+	AsmBuilder& mov_mem_reg_add_reg(uint8_t reg, uint32_t add, uint32_t imm32)
+	{
+		if (reg > 7)
+			throw std::invalid_argument("Invalid register for MOV");
+		return this->add_byte(0xC7).add_byte(0x80 + reg).add_dword(add).add_dword(imm32);
+	}
+
 	// 添加 ADD 指令
 	AsmBuilder& add_reg_reg(uint8_t dest_reg, uint8_t src_reg)
 	{

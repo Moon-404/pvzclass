@@ -178,11 +178,9 @@ namespace Creator
 	PVZ::Vase CreateVase(VaseCreateInfo vaseinfo);
 
 	/// @brief 在指定位置生成一个钉耙
-	/// @note 此函数没有返回值。
-	/// @todo 尝试实现一个可捕获返回值的版本。
 	/// @param row 行
 	/// @param column 列
-	void CreateRake(byte row, byte column);
+	PVZ::Rake CreateRake(byte row, byte column);
 
 	/// @brief 创建文字字幕
 	/// @param str 文字内容

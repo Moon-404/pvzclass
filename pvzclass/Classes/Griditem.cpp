@@ -24,6 +24,17 @@ byte __asm__Griditem__Remove[]
 	RET
 };
 
+PVZ::Animation PVZ::Griditem::GetReanimation()
+{
+	int ID = Memory::ReadMemory<int>(BaseAddress + 0x34);
+	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation(ID_INDEX(ID)));
+}
+
+void PVZ::Griditem::SetReanimationn(Animation anim)
+{
+	Memory::WriteMemory<int>(BaseAddress + 0x34, anim.Id);
+}
+
 void PVZ::Griditem::Remove()
 {
 	SETARG(__asm__Griditem__Remove, 1) = BaseAddress;

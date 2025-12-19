@@ -373,22 +373,45 @@ byte __asm__CreateRake[26]
 	RET,
 };
 
-void Creator::CreateRake(byte row, byte column)
+byte __asm__CreateRake[]
 {
-	__asm__CreateRake[1] = row;
-	__asm__CreateRake[3] = column;
-	SETARG(__asm__CreateRake, 5) = PVZBASEADDRESS;
-	PVZ::Memory::WriteMemory<byte>(0x40B9E3, 0x81);
-	PVZ::Memory::WriteMemory<unsigned short>(0x40B9E4, 0xA6);
-	PVZ::Memory::WriteMemory<byte>(0x40BB2B, 0);
-	PVZ::Memory::WriteMemory<int>(0x40BB3B, 0x900C4D8B);
-	PVZ::Memory::WriteMemory<int>(0x40BB41, 0x9010458B);
-	PVZ::Memory::Execute(STRING(__asm__CreateRake));
-	PVZ::Memory::WriteMemory<byte>(0x40B9E3, 0x84);
-	PVZ::Memory::WriteMemory<unsigned short>(0x40B9E4, 0x279);
-	PVZ::Memory::WriteMemory<byte>(0x40BB2B, -1);
-	PVZ::Memory::WriteMemory<int>(0x40BB3B, 0x10244C8B);
-	PVZ::Memory::WriteMemory<int>(0x40BB41, 0x1424448B);
+	MOV_ESI(0),
+	INVOKE(0x41E1C0),
+	MOV_PTR_ADDR_EAX(0),
+	MOV_PTR_EAX_ADD(0x08, 0), // type
+	MOV_PTR_EAX_ADD(0x10, 0), // col
+	MOV_PTR_EAX_ADD(0x14, 0), // row
+	MOV_PTR_EAX_ADD(0x1C, 0), // layer
+	INVOKE(0x44E1B0),
+	RET
+};
+
+PVZ::Rake Creator::CreateRake(byte row, byte column)
+{
+	PVZ::Board board = PVZ::GetBoard();
+
+	PVZ::Rake rake = PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, PVZBASEADDRESS + 0x11C)
+		.invoke(0x41E1C0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.mov_mem_reg_add_reg(REG_EAX, 8, GriditemType::Rake)
+		.mov_mem_reg_add_reg(REG_EAX, 0x0C, GriditemState::RakeAttracting)
+		.mov_mem_reg_add_reg(REG_EAX, 0x10, column)
+		.mov_mem_reg_add_reg(REG_EAX, 0x14, row)
+		.mov_mem_reg_add_reg(REG_EAX, 0x1C, row * 10000 + 301009)
+		.ret()
+	);
+
+	rake.X = board.GridToXPixel(row, column);
+	rake.Y = board.GridToYPixel(row, column);
+
+	auto model = Creator::CreateReanimation(AnimationType::Rake, rake.X + 20.0f, rake.Y, 0);
+	model.LoopType = PVZEnum::REANIM_PLAY_ONCE_AND_HOLD;
+	model.Speed = 0;
+	model.IsAttachment = true;
+	rake.SetReanimationn(model);
+
+	return rake;
 }
 
 byte __asm__CreateCaption[]
