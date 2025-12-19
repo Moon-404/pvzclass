@@ -73,9 +73,10 @@ namespace PVZ
 		Zombie(int indexoraddress);
 		/// @brief 植物的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
-		static const DWORD MemSize = 0x15C;
+		static DWORD MemSize;
 		/// @brief 调整该类在 PVZ 中对象的大小。
 		/// @note 请在派生类中调用这个函数。
+		/// @note 该函数会自动调整 MemSize。
 		/// @note 调用该函数后，新生成的存档与原版存档不兼容，请注意清理。
 		/// @param MemSize 更改后的大小。
 		/// @param NewCount 调整后僵尸上限数
@@ -333,10 +334,11 @@ namespace PVZ
 	public:
 		/// @brief 植物的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
-		static const int MemSize = 0x14C;
+		static DWORD MemSize;
 		Plant(int indexoraddress);
 		/// @brief 调整该类在 PVZ 中对象的大小。
 		/// @note 请在派生类中调用这个函数。
+		/// @note 该函数会自动调整 MemSize。
 		/// @note 调用该函数后，新生成的存档与原版存档不兼容，请注意清理。
 		/// @param MemSize 更改后的大小。
 		/// @param NewCount 调整后植物上限数
@@ -467,7 +469,7 @@ namespace PVZ
 	public:
 		/// @brief 掉落物的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
-		static const DWORD MemSize = 0x0D8;
+		static DWORD MemSize;
 		Coin(int indexoraddress);
 		INT_READONLY_PROPERTY(ImageXVariation, __get_ImageXVariation, 8);
 		INT_READONLY_PROPERTY(ImageYVariation, __get_ImageYVariation, 0xC);
@@ -513,7 +515,7 @@ namespace PVZ
 	public:
 		/// @brief 子弹的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
-		static const DWORD MemSize = 0x94;
+		static DWORD MemSize;
 		Projectile(int indexoraddress);
 		/// @brief 实际 X 坐标
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x30);

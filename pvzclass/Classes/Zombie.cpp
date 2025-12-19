@@ -2,18 +2,22 @@
 
 using std::max;
 
+DWORD PVZ::Zombie::MemSize = 0x15C;
+
 PVZ::Zombie::Zombie(int indexoraddress)
 {
 	if (indexoraddress > 65535)
 		BaseAddress = indexoraddress;
 	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x90) + indexoraddress * 0x15C;
+		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x90) + indexoraddress * MemSize;
 }
 
 void PVZ::Zombie::SetMemSize(int NewSize, int NewCount)
 {
 	if (NewSize < 0x15C)
 		return;
+	MemSize = NewSize;
+
 	Memory::WriteMemory<int>(0x407CAA, NewSize * NewCount);
 
 	byte __asm__Mem1[] = { ADD_EAX_DWORD(NewSize) };

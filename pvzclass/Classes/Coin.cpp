@@ -1,11 +1,13 @@
 #include "GameObject.hpp"
 
+DWORD PVZ::Coin::MemSize = 0x0D8;
+
 PVZ::Coin::Coin(int indexoraddress)
 {
 	if (indexoraddress > 1024)
 		BaseAddress = indexoraddress;
 	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xE4) + indexoraddress * 0xD8;
+		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xE4) + indexoraddress * MemSize;
 }
 
 void PVZ::Coin::GetCollision(PVZ::Rect* collbox)
