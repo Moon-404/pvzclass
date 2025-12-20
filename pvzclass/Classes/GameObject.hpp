@@ -272,7 +272,6 @@ namespace PVZ
 		/// @return 是否可被冰减速
 		bool canDecelerate();
 		/// @brief 僵尸是否可被冻结
-		/// @todo 将该函数改为完全调用内置函数的版本。
 		/// @return 是否可被冻结
 		bool canFroze();
 		/// @brief 判定僵尸是否能被指定索敌类型搜寻到。

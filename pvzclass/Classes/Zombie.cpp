@@ -378,31 +378,12 @@ bool PVZ::Zombie::canDecelerate()
 
 bool PVZ::Zombie::canFroze()
 {
-	if (!this->canDecelerate())
-		return(false);
-	ZombieState::ZombieState state = this->State;
-	switch (state)
-	{
-	case ZombieState::POLE_VALUTING_JUMPPING:
-	case ZombieState::DOPHIN_JUMP_IN_POOL:
-	case ZombieState::DOPHIN_JUMP:
-	case ZombieState::SNORKEL_JUMP_IN_THE_POOL:
-	case ZombieState::IMP_FLYING:
-	case ZombieState::IMP_LANDING:
-	case ZombieState::BALLOON_FLYING:
-	case ZombieState::BALLOON_FALLING:
-	case ZombieState::JACKBOX_POP:
-	case ZombieState::BOBSLED_GETOFF:
-	case ZombieState::SQUASH_RISE:
-	case ZombieState::SQUASH_FALL:
-	case ZombieState::SQUASH_SMASH:
-		return(false);
-	}
-	if (state >= 20 && state <= 28)
-		return(false);
-	if (this->Type == ZombieType::BungeeZombie && state != ZombieState::BUNGEE_IDLE_AFTER_DROP)
-		return(false);
-	return(true);
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x531A10)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
 }
 
 byte __asm__Zombie_EffectedBy[]
