@@ -367,6 +367,32 @@ void PVZ::Zombie::ReanimShowPrefix(const char* TrackName, int renderGroup)
 	Memory::Execute(STRING(__asm__Zombie_ReanimShowPrefix));
 }
 
+PVZ::TodParticleSystem PVZ::Zombie::AddAttachedParticle(int X, int Y, EffectType::EffectType effect)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(effect)
+		.push_imm32(Y)
+		.push_imm32(X)
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x5321F0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+}
+
+PVZ::Animation PVZ::Zombie::AddAttachedReanim(int X, int Y, AnimationType::AnimationType reanim_type)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(Y)
+		.push_imm32(X)
+		.mov_reg_imm(REG_EDX, reanim_type)
+		.mov_reg_imm(REG_ESI, this->GetBaseAddress())
+		.invoke(0x5322C0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+}
+
 bool PVZ::Zombie::canDecelerate()
 {
 	Memory::WriteMemory<byte>(0x5319E5, 112);//无视魅惑
