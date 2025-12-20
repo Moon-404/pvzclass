@@ -258,6 +258,16 @@ void PVZ::Zombie::Decelerate(int countdown = 1000)
 	DecelerateCountdown = max(temp, countdown);
 }
 
+void PVZ::Zombie::DropHelm(DamageFlags damage_flags)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(damage_flags)
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x530E30)
+		.ret()
+	);
+}
+
 byte __asm__Froze[]
 {
 	MOV_EAX(0),
