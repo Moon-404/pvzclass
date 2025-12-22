@@ -241,6 +241,8 @@ namespace PVZ
 		/// @brief 僵尸失去头盔防具
 		/// @param theDamageFlags 伤害标签
 		void DropHelm(DamageFlags damage_flags);
+		/// @brief 僵尸失去盾类防具
+		void DetachShield();
 		/// @brief 冻结僵尸，无法冻结默认免疫冻结的僵尸。
 		/// @note 不造成冻结伤害。\n
 		///		不影响减速时长。

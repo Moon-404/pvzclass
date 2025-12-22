@@ -268,6 +268,15 @@ void PVZ::Zombie::DropHelm(DamageFlags damage_flags)
 	);
 }
 
+void PVZ::Zombie::DetachShield()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x5330E0)
+		.ret()
+	);
+}
+
 byte __asm__Froze[]
 {
 	MOV_EAX(0),
