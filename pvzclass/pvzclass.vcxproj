@@ -428,6 +428,7 @@
     <ClInclude Include="Enums\SeedState.h" />
     <ClInclude Include="include\Events\UpdateGameObjectsEvent.h" />
     <ClInclude Include="include\Sexy.h" />
+    <ClInclude Include="pvzevent.hpp" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="include\Events\ZombieBlastEvent.h" />
     <ClInclude Include="include\Events\ZombieButterEvent.h" />

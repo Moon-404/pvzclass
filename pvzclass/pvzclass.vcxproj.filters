@@ -932,5 +932,8 @@
     <ClInclude Include="include\Events\PlantFromBankEvent.h">
       <Filter>头文件\Events\Plant</Filter>
     </ClInclude>
+    <ClInclude Include="pvzevent.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
