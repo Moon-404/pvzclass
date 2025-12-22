@@ -164,7 +164,7 @@ void PVZ::PVZApp::PreNewGame(PVZLevel::PVZLevel mode, bool look_for_saved_game)
 	);
 }
 
-void PVZ::PVZApp::PlayFoley(FoleyType::FoleyType type)
+void PVZ::PVZApp::PlayFoley(PVZEnum::FoleyType type)
 {
 	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_ESI, type)

@@ -162,7 +162,7 @@ namespace PVZ
 		void PreNewGame(PVZLevel::PVZLevel mode, bool look_for_saved_game);
 
 		/// @brief 播放指定音效
-		void PlayFoley(FoleyType::FoleyType type);
+		void PlayFoley(PVZEnum::FoleyType type);
 	};
 	/// @brief 获取游戏程序主对象
 	/// @return 游戏程序主对象
