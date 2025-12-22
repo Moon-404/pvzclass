@@ -258,6 +258,25 @@ void PVZ::Zombie::Decelerate(int countdown = 1000)
 	DecelerateCountdown = max(temp, countdown);
 }
 
+void PVZ::Zombie::DropHelm(DamageFlags damage_flags)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(damage_flags)
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x530E30)
+		.ret()
+	);
+}
+
+void PVZ::Zombie::DetachShield()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x5330E0)
+		.ret()
+	);
+}
+
 byte __asm__Froze[]
 {
 	MOV_EAX(0),
@@ -357,6 +376,32 @@ void PVZ::Zombie::ReanimShowPrefix(const char* TrackName, int renderGroup)
 	Memory::Execute(STRING(__asm__Zombie_ReanimShowPrefix));
 }
 
+PVZ::TodParticleSystem PVZ::Zombie::AddAttachedParticle(int X, int Y, EffectType::EffectType effect)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(effect)
+		.push_imm32(Y)
+		.push_imm32(X)
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x5321F0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+}
+
+PVZ::Animation PVZ::Zombie::AddAttachedReanim(int X, int Y, AnimationType::AnimationType reanim_type)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(Y)
+		.push_imm32(X)
+		.mov_reg_imm(REG_EDX, reanim_type)
+		.mov_reg_imm(REG_ESI, this->GetBaseAddress())
+		.invoke(0x5322C0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+}
+
 bool PVZ::Zombie::canDecelerate()
 {
 	Memory::WriteMemory<byte>(0x5319E5, 112);//无视魅惑
@@ -368,31 +413,12 @@ bool PVZ::Zombie::canDecelerate()
 
 bool PVZ::Zombie::canFroze()
 {
-	if (!this->canDecelerate())
-		return(false);
-	ZombieState::ZombieState state = this->State;
-	switch (state)
-	{
-	case ZombieState::POLE_VALUTING_JUMPPING:
-	case ZombieState::DOPHIN_JUMP_IN_POOL:
-	case ZombieState::DOPHIN_JUMP:
-	case ZombieState::SNORKEL_JUMP_IN_THE_POOL:
-	case ZombieState::IMP_FLYING:
-	case ZombieState::IMP_LANDING:
-	case ZombieState::BALLOON_FLYING:
-	case ZombieState::BALLOON_FALLING:
-	case ZombieState::JACKBOX_POP:
-	case ZombieState::BOBSLED_GETOFF:
-	case ZombieState::SQUASH_RISE:
-	case ZombieState::SQUASH_FALL:
-	case ZombieState::SQUASH_SMASH:
-		return(false);
-	}
-	if (state >= 20 && state <= 28)
-		return(false);
-	if (this->Type == ZombieType::BungeeZombie && state != ZombieState::BUNGEE_IDLE_AFTER_DROP)
-		return(false);
-	return(true);
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x531A10)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
 }
 
 byte __asm__Zombie_EffectedBy[]
