@@ -533,7 +533,7 @@ void PVZ::Zombie::BossSummonZombie(ZombieType::ZombieType type, int row)
 	TargetRow = row;
 	DWORD animAddress = 0x66F454 + row * 0x10;
 	PlayZombieReanimation(animAddress, PVZEnum::ReanimLoopType::REANIM_PLAY_ONCE_AND_HOLD, 20, 12.0f);
-	GetPVZApp().PlayFoley(FoleyType::FOLEY_HYDRAULIC_SHORT);
+	GetPVZApp().PlayFoley(PVZEnum::FOLEY_HYDRAULIC_SHORT);
 }
 
 void PVZ::Zombie::BossRVAttack(int row, int col)

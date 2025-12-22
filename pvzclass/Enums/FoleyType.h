@@ -1,5 +1,5 @@
 #pragma once
-namespace FoleyType
+namespace PVZEnum
 {
 
     enum FoleyType
