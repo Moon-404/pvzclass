@@ -52,6 +52,14 @@ byte __asm__Reanimation__Play[]
 	RET
 };
 
+byte __asm__Reanimation__IsAnimPlaying[]
+{
+	MOV_EDX(0),
+	MOV_ESI(0),
+	REANIM_ISANIMPLAYING,
+	RET
+};
+
 byte __asm__Reanimation__AssignGroupToPrefix[]
 {
 	REANIMATION_ASSIGnGROUPPREFIX,
