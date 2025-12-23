@@ -123,13 +123,23 @@ void PVZ::Animation::Play(const char* trackName, int blendType, PVZEnum::ReanimL
 	SETARG(__asm__Reanimation__Play, 22) = PVZ::Memory::Variable + 100;
 	PVZ::Memory::Execute(STRING(__asm__Reanimation__Play));
 }
+
+byte __asm__Reanimation__IsAnimPlaying[24]
+{
+	MOV_EDX(0),
+	MOV_ESI(0),
+	INVOKE(0x4745B0),
+	RET
+};
+
 bool PVZ::Animation::IsAnimPlaying(const char* trackName)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, trackName, std::strlen(trackName) + 1);
-	SETARG(__asm__Reanimation__IsAnimPlaying, 1) = PVZ::Memory::Variable;
+	SETARG(__asm__Reanimation__IsAnimPlaying, 1) = PVZ::Memory::Variable + 100;
 	SETARG(__asm__Reanimation__IsAnimPlaying, 6) = BaseAddress;
 	return PVZ::Memory::Execute(STRING(__asm__Reanimation__IsAnimPlaying));
 }
+
 void PVZ::Animation::AssignRenderGroupToPrefix(byte RenderGroup, const char* trackName)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, trackName, std::strlen(trackName) + 1);

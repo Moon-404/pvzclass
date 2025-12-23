@@ -435,7 +435,6 @@ typedef uint8_t byte;
 #define REANIMATION_DIE INVOKE(0x4733F0)
 #define REANIM_ATTACHTO INVOKE(0x4055D0)
 #define REANIM_PLAY INVOKE_DWORD_DWORD(0x473BF0,0,0)
-#define REANIM_ISANIMPLAYING INVOKE(0x4745B0)
 #define REANIM_FINDTRACKINDEX INVOKE_DWORD(0x472F30,0)
 #define REANIMATION_ASSIGnGROUPPREFIX INVOKE_DWORD_DWORD_BYTE(0x473A40,0,0,0)
 #define SET_LEVELSCENE INVOKE(0x40A160)
@@ -488,8 +487,6 @@ extern byte __asm__Reanimation__AttachTo[44];
 extern byte __asm__Reanimation__Die[19];
 
 extern byte __asm__Reanimation__Play[40];
-
-extern byte __asm__Reanimation__IsAnimPlaying[24];
 
 extern byte __asm__Reanimation__FindTrackIndex[29];
 
