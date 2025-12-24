@@ -304,6 +304,9 @@ namespace PVZ
 		/// @param loopType 循环类型
 		/// @param rate 播放帧频
 		void Play(const char* TrackName, int blendType, PVZEnum::ReanimLoopType loopType, float rate);
+		/// @brief 判断是否在播放指定动画
+		/// @param TrackName 动画轨道名称
+		bool IsAnimPlaying(const char* TrackName);
 		/// @brief 设置指定前缀的所有轨道在绘制时的分组。通常情况下，分组为 -1 时表示隐藏该轨道。
 		/// @param trackName 动作轨道的名称前缀
 		/// @param renderGroup 分组大小
