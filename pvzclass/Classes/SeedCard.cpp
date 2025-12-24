@@ -44,6 +44,17 @@ void PVZ::CardSlot::SeedCard::Planted()
 	);
 }
 
+void PVZ::CardSlot::SeedCard::MouseDown()
+{
+	Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, PVZ::GetBoard().GetBaseAddress())
+		.invoke(0x40CD80)
+		.push(BaseAddress)
+		.invoke(0x488590)
+		.ret()
+	);
+}
+
 AsmBuilder SetPacketType_builder = AsmBuilder();
 void PVZ::CardSlot::SeedCard::SetPacketType(SeedType::SeedType type, SeedType::SeedType imitater_type)
 {
