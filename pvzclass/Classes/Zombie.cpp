@@ -287,6 +287,16 @@ void PVZ::Zombie::DropShield(DamageFlags damage_flags)
 	);
 }
 
+void PVZ::Zombie::EatPlant(PVZ::Plant plant)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, plant.GetBaseAddress())
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x52FB40)
+		.ret()
+	);
+}
+
 byte __asm__Froze[]
 {
 	MOV_EAX(0),

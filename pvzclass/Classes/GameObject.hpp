@@ -247,6 +247,9 @@ namespace PVZ
 		/// @note 该函数的功能包含 DetachShield() 的功能。
 		/// @param damage_flags 伤害标签
 		void DropShield(DamageFlags damage_flags);
+		/// @brief 立刻对植物造成一次啃食伤害。
+		/// @param plant 受伤的植物
+		void EatPlant(Plant plant);
 		/// @brief 冻结僵尸，无法冻结默认免疫冻结的僵尸。
 		/// @note 不造成冻结伤害。\n
 		///		不影响减速时长。
