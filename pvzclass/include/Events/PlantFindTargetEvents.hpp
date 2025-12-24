@@ -31,7 +31,7 @@ namespace PVZEvent
 	/// @note 优先级低于 PVZ::DamageRangeFlags 的判别，高于其他判定
 	/// @param 触发事件的植物，植物判定的僵尸
 	/// @return 若为负数，则按原版处理；若为 0，则为不可选中；若为正数，则为强制可选。
-	class StarfruitFindTargetEvent : public ThreeStateEventTemplate<0x45F4F1, 6, 0x45F6D1, 0x45F6AD, REG_EBX, REG_ECX>
+	class StarfruitFindTargetEvent : public ThreeStateEventTemplate<0x45F4F1, 6, 0x45F6D1, 0x45F6AD, REG_EBX, MEM_ESP_ADD(0x70)>
 	{
 	public:
 		StarfruitFindTargetEvent(const char* str) : ThreeStateEventTemplate() { Init(str); };
