@@ -238,11 +238,21 @@ namespace PVZ
 		/// @brief 减速僵尸，无法减速默认免疫减速的僵尸。
 		/// @param countdown 持续时间
 		void Decelerate(int countdown);
-		/// @brief 僵尸失去头盔防具
+		/// @brief 僵尸受伤失去头盔防具
 		/// @param theDamageFlags 伤害标签
 		void DropHelm(DamageFlags damage_flags);
 		/// @brief 僵尸失去盾类防具
 		void DetachShield();
+		/// @brief 僵尸受伤失去盾类防具
+		/// @note 该函数的功能包含 DetachShield() 的功能。
+		/// @param damage_flags 伤害标签
+		void DropShield(DamageFlags damage_flags);
+		/// @brief 立刻对植物造成一次啃食伤害。
+		/// @param plant 受伤的植物
+		void EatPlant(Plant plant);
+		/// @brief 立刻对僵尸造成一次啃食伤害。
+		/// @param zombie 受伤的僵尸
+		void EatZombie(Zombie zombie);
 		/// @brief 冻结僵尸，无法冻结默认免疫冻结的僵尸。
 		/// @note 不造成冻结伤害。\n
 		///		不影响减速时长。
