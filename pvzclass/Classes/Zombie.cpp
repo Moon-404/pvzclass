@@ -297,6 +297,16 @@ void PVZ::Zombie::EatPlant(PVZ::Plant plant)
 	);
 }
 
+void PVZ::Zombie::EatZombie(PVZ::Zombie zombie)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, zombie.GetBaseAddress())
+		.mov_reg_imm(REG_EDI, this->GetBaseAddress())
+		.invoke(0x52FE10)
+		.ret()
+	);
+}
+
 byte __asm__Froze[]
 {
 	MOV_EAX(0),
