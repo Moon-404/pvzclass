@@ -277,6 +277,16 @@ void PVZ::Zombie::DetachShield()
 	);
 }
 
+void PVZ::Zombie::DropShield(DamageFlags damage_flags)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(damage_flags)
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x530A00)
+		.ret()
+	);
+}
+
 byte __asm__Froze[]
 {
 	MOV_EAX(0),
