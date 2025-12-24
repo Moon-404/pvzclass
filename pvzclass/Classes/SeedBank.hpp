@@ -57,6 +57,9 @@ namespace PVZ
 			/// @brief 该卡槽被种植
 			/// @note 如果是传送带则移除，不是传送带则进入CD
 			void Planted();
+			/// @brief 模拟点击该卡槽
+			/// @note 模拟点击前会强制放下手上的东西
+			void MouseDown();
 			/// @brief 设置卡牌类型
 			/// @param type 卡牌类型
 			/// @param imitater_type 模仿者模仿的植物类型s 
