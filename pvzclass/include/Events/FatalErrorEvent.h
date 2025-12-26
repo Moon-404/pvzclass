@@ -1,16 +1,19 @@
 #pragma once
 #include "DLLEvent.h"
 
-/// @brief 弹出Fatal Error窗口前
-/// @param EXCEPTION_POINTERS
-/// @note 可以打印一些额外的调试信息，头文件提供了一个打印调用栈的示例
-class FatalErrorEvent : public DLLEventTemplate<0x5A4760, 7, MEM_ESP_ADD(0x24)>
+namespace PVZEvent
 {
-public:
-	FatalErrorEvent(int address) : DLLEventTemplate() { Init(address); };
-	FatalErrorEvent(const char* name) : DLLEventTemplate() { Init(name); };
-	FatalErrorEvent() : FatalErrorEvent("onFatalError") {};
-};
+	/// @brief 弹出Fatal Error窗口前
+	/// @param EXCEPTION_POINTERS
+	/// @note 可以打印一些额外的调试信息，头文件提供了一个打印调用栈的示例
+	class FatalErrorEvent : public DLLEventTemplate<0x5A4760, 7, MEM_ESP_ADD(0x24)>
+	{
+	public:
+		FatalErrorEvent(int address) : DLLEventTemplate() { Init(address); };
+		FatalErrorEvent(const char* name) : DLLEventTemplate() { Init(name); };
+		FatalErrorEvent() : FatalErrorEvent("onFatalError") {};
+	};
+}
 
 #include <DbgHelp.h>
 #pragma comment(lib, "dbghelp.lib")
