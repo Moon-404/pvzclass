@@ -271,6 +271,7 @@
     <ClInclude Include="deprecated.hpp" />
     <ClInclude Include="Enums\FoleyType.h" />
     <ClInclude Include="include\Events\BossBungeeSpawnEvent.h" />
+    <ClInclude Include="include\Events\FatalErrorEvent.h" />
     <ClInclude Include="include\Events\GetRandomNumberEvent.h" />
     <ClInclude Include="include\Events\PlantFromBankEvent.h" />
     <ClInclude Include="include\Draw.h" />

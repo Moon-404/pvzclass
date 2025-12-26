@@ -935,5 +935,8 @@
     <ClInclude Include="pvzevent.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\Events\FatalErrorEvent.h">
+      <Filter>头文件\Events</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

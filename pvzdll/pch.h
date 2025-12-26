@@ -11,6 +11,7 @@
 #include "framework.h"
 typedef unsigned char byte;
 #include "../pvzclass/pvzclass.h"
+#include "../pvzclass/include/Events/FatalErrorEvent.h"
 
 extern "C"
 {
@@ -24,6 +25,7 @@ extern "C"
 	__declspec(dllexport) void onDrawUITop(DWORD graphics);
 	__declspec(dllexport) void onDrawPlantReanim(DWORD plantAddress, DWORD animationAddress);
 	__declspec(dllexport) int onDrawZombieReanim(DWORD zombieAddress, DWORD animationAddress);
+	__declspec(dllexport) void onFatalError(EXCEPTION_POINTERS* lpEP);
 	__declspec(dllexport) int onRandomNumberGet(int number);
 	__declspec(dllexport) void onNewGame();
 	__declspec(dllexport) void onPlantCreate(DWORD plantAddress);

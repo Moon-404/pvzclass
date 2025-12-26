@@ -9,6 +9,7 @@
 #include "DrawObjectEvents.hpp"
 #include "DrawPlantReanimEvent.h"
 #include "DrawZombieReanimEvent.h"
+#include "FatalErrorEvent.h"
 #include "IZLevelCompleteEvent.hpp"
 #include "IZLevelStartAfterEvent.hpp"
 #include "IZScoreBrainEvent.hpp"

@@ -56,6 +56,11 @@ int onDrawZombieReanim(DWORD zombieAddress, DWORD animationAddress)
 	return 0;
 }
 
+void onFatalError(EXCEPTION_POINTERS* lpEP)
+{
+	WriteStackTrace(lpEP, "stacktrace.txt");
+}
+
 int onRandomNumberGet(int number)
 {
 	return number;
