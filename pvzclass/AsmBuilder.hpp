@@ -1471,7 +1471,7 @@ public:
 	{
 		if (index > 7)
 			throw std::invalid_argument("Invalid register for FSTP");
-		return this->add_byte(0xDD).add_byte(0xDC + index);
+		return this->add_byte(0xDD).add_byte(0xD8 + index);
 	}
 	// 添加 FILD 指令（加载整数到 ST0）
 	AsmBuilder& fild(uint32_t address)
