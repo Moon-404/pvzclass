@@ -290,7 +290,7 @@ typedef uint8_t byte;
 
 #define FLD_ST(st) 0xD9,0xC0+(st)
 #define FST_ST(st) 0xDD,0xD0+(st)
-#define FSTP_ST(st) 0xDD,0xDC+(st)
+#define FSTP_ST(st) 0xDD,0xD8+(st)
 #define FXCH_ST(st) 0xD9,0xC8+(st)
 #define FADD_STZ_ST(st) 0xD8,0xC0+(st)
 #define FADD_ST_STZ(st) 0xDC,0xC0+(st)
