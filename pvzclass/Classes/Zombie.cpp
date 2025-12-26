@@ -679,7 +679,7 @@ PVZ::Rect PVZ::Zombie::GetActualRect()
 	return tmp;
 }
 
-double PVZ::Zombie::ZombieTargetLeadX(float time)
+float PVZ::Zombie::ZombieTargetLeadX(float time)
 {
 	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
@@ -688,6 +688,6 @@ double PVZ::Zombie::ZombieTargetLeadX(float time)
 		.fstp(PVZ::Memory::Variable)
 		.ret()
 	);
-	double tmp = PVZ::Memory::ReadMemory<float>(PVZ::Memory::Variable);
+	float tmp = PVZ::Memory::ReadMemory<float>(PVZ::Memory::Variable);
 	return tmp;
 }
