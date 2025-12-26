@@ -335,6 +335,8 @@ namespace PVZ
 		/// @brief 获取僵尸的实际受击范围。
 		/// @return 僵尸的实际受击范围
 		Rect GetActualRect();
+		/// @brief 根据僵尸当前的运动，估算僵尸在time后大概的受击中心x
+		double ZombieTargetLeadX(float time);
 
 		/// @brief 设置是否显示铁门僵尸的手臂。
 		/// @param shown 是否显示，默认为 true
