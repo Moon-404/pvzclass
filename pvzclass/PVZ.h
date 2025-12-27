@@ -160,7 +160,9 @@ namespace PVZ
 		/// @param mode 模式
 		/// @param look_for_saved_game 是否尝试读档。若为 false，则会删除旧有存档。
 		void PreNewGame(PVZLevel::PVZLevel mode, bool look_for_saved_game);
-
+		/// @brief 清除所有不存在的效果对象并释放内存。
+		/// @note Board::Update() 如果连续多次调用则需要使用该函数清理。
+		void RemoveNotExistEffects();
 		/// @brief 播放指定音效
 		void PlayFoley(PVZEnum::FoleyType type);
 	};

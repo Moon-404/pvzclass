@@ -355,6 +355,15 @@ void PVZ::Board::Update()
 	);
 }
 
+void PVZ::Board::RemoveNotExistGameObjects()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, BaseAddress)
+		.call_reg(0x41BAD0)
+		.ret()
+	);
+}
+
 void PVZ::Board::Assault(int countdown)
 {
 	Memory::WriteMemory<int>(BaseAddress + 0x5574, countdown);

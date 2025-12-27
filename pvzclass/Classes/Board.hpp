@@ -218,7 +218,12 @@ namespace PVZ
 		void UpdateGame();
 		/// @brief 执行一次额外更新，可以用于加速游戏进行。
 		/// @note 是总更新接口，更新关卡内的各种东西。
+		/// @note 注意，部分更新和清理是在 app 的更新中进行的。
+		/// @see RemoveNotExistGameObjects RemoveNotExistEffects
 		void Update();
+		/// @brief 清除所有不存在的游戏对象并释放内存。
+		/// @note Board::Update() 如果连续多次调用则需要使用该函数清理。
+		void RemoveNotExistGameObjects();
 
 #pragma endregion
 
