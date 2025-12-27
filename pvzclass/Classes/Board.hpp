@@ -223,6 +223,7 @@ namespace PVZ
 		void Update();
 		/// @brief 清除所有不存在的游戏对象并释放内存。
 		/// @note Board::Update() 如果连续多次调用则需要使用该函数清理。
+		/// @note 注意不要清理掉了后续还要被使用的对象。
 		void RemoveNotExistGameObjects();
 
 #pragma endregion

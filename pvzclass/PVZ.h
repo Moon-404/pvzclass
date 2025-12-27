@@ -151,6 +151,8 @@ namespace PVZ
 		T_PROPERTY(PVZGameState::PVZGameState,	GameState,			__get_GameState,			__set_GameState,			0x7FC);
 		/// @brief 是否开启自由种植
 		T_PROPERTY(BOOLEAN,						FreePlantingCheat,	__get_FreePlantingCheat,	__set_FreePlantingCheat,	0x814);
+		/// @brief 特效系统地址
+		T_PROPERTY(DWORD,                       EffectSystem,       __get_EffectSystem,         __set_EffectSystem,         0x820);
 		/// @brief 是否在玩完整版。部分 PVZ 主程序反转了它的效果。
 		T_PROPERTY(BOOLEAN,						FullVersion,		__get_FullVersion,			__set_FullVersion,			0x8C0);
 
