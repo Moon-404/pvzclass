@@ -15,6 +15,7 @@ namespace PVZEvent
 
 	/// @brief 因为游戏暂停而中止更新的事件
 	/// @note 没有参数，请用 GetBoard() 获取
+	/// @note 暂停并不会中止所有更新，比如暴风雨夜关暂停会更新到屏幕完全暗下来为止。
 	class BoardPauseUpdateEvent : public DLLEventTemplate<0x415E27, 6>
 	{
 	public:
