@@ -938,5 +938,8 @@
     <ClInclude Include="include\Events\FatalErrorEvent.h">
       <Filter>头文件\Events</Filter>
     </ClInclude>
+    <ClInclude Include="include\Events\BoardUpdateEvent.h">
+      <Filter>头文件\Events\Board</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

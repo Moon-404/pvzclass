@@ -16,7 +16,6 @@ namespace PVZEvent
 }
 
 #include <DbgHelp.h>
-#pragma comment(lib, "dbghelp.lib")
 #define MAX_NAME_LEN 1024
 
 static bool ResolveInvoke(DWORD rawAddr, DWORD* newAddr)

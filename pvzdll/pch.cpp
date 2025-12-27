@@ -10,6 +10,21 @@ void init()
 	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
 }
 
+void beforeBoardUpdate()
+{
+	auto board = PVZ::GetBoard();
+}
+
+void pauseBoardUpdate()
+{
+	auto board = PVZ::GetBoard();
+}
+
+void afterBoardUpdate()
+{
+	auto board = PVZ::GetBoard();
+}
+
 void onAppUpdate(DWORD appAddress)
 {
 	auto app = PVZ::PVZApp(appAddress);

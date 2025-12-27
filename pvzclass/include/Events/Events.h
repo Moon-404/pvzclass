@@ -1,4 +1,5 @@
 #pragma once
+#include "BoardUpdateEvent.h"
 #include "BoardUpdateGameEvent.hpp"
 #include "CoinCollectEvent.h"
 #include "CoinCreateEvent.h"
