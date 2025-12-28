@@ -167,6 +167,11 @@ void onSeedCardClick(DWORD seedcardAddress)
 	auto seedcard = PVZ::CardSlot::SeedCard(seedcardAddress);
 }
 
+void onToolClick()
+{
+	auto mousePointer = PVZ::GetBoard().GetMousePointer();
+}
+
 void onBossBungeeSpawn(DWORD zombieAddress)
 {
 	auto boss = PVZ::Zombie(zombieAddress);

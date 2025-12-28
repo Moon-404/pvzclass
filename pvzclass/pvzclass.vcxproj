@@ -273,6 +273,7 @@
     <ClInclude Include="include\Events\BoardUpdateEvent.h" />
     <ClInclude Include="include\Events\BossBungeeSpawnEvent.h" />
     <ClInclude Include="include\Events\ClearMousePointerEvent.h" />
+    <ClInclude Include="include\Events\ClickToolEvent.h" />
     <ClInclude Include="include\Events\FatalErrorEvent.h" />
     <ClInclude Include="include\Events\GetRandomNumberEvent.h" />
     <ClInclude Include="include\Events\PlantFromBankEvent.h" />

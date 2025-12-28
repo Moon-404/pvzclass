@@ -944,5 +944,8 @@
     <ClInclude Include="include\Events\ClearMousePointerEvent.h">
       <Filter>头文件\Events\Board</Filter>
     </ClInclude>
+    <ClInclude Include="include\Events\ClickToolEvent.h">
+      <Filter>头文件\Events\Board</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

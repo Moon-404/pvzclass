@@ -5,6 +5,7 @@
 #include "CoinCreateEvent.h"
 #include "CoinRemoveEvent.h"
 #include "ClearMousePointerEvent.h"
+#include "ClickToolEvent.h"
 #include "DialogButtonDepressEvent.h"
 #include "DialogDrawEvent.h"
 #include "DrawUIEvents.hpp"
