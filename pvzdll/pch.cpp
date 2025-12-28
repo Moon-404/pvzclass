@@ -45,6 +45,11 @@ void onCoinRemove(DWORD coinAddress)
 	auto coin = PVZ::Coin(coinAddress);
 }
 
+void onMousePointerClear(DWORD boardAddress)
+{
+	auto board = PVZ::Board(boardAddress);
+}
+
 int onDialogButtonDepress(int buttonId, int dialogId)
 {
 	return 0;
