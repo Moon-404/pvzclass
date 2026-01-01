@@ -352,3 +352,11 @@ inline void DisableZombieFailHome(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x52B308, JO, JZ);
 }
+
+/// @brief 允许潜水僵尸和海豚骑士僵尸在图内的任意位置下水。
+/// @param b 是否开启此功能
+inline void ZombieAlwaysDive(BOOLEAN b = true)
+{
+	MEMMOD_INT(0x526742, 40, 700);
+	MEMMOD_INT(0x526212, 40, 700);
+}
