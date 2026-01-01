@@ -1,8 +1,10 @@
 #pragma once
 #include "../PVZ.h"
+#include "GameObject.hpp"
 
 namespace PVZ
 {
+	class Zombie;
 	/// @brief 除草机
 	class LawnMower : public BaseClass
 	{
@@ -37,6 +39,9 @@ namespace PVZ
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		/// @brief 移除该除草机
 		void Die();
+		/// @brief 碾压指定僵尸
+		/// @param zombie 僵尸
+		void MowZombie(Zombie zombie);
 		/// @brief 压扁除草机
 		void Squish();
 		/// @brief 启动除草机

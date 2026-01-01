@@ -30,6 +30,16 @@ void PVZ::LawnMower::Die()
 	return;
 }
 
+void PVZ::LawnMower::MowZombie(PVZ::Zombie zombie)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.push_imm32(zombie.GetBaseAddress())
+		.invoke(0x458540)
+		.ret()
+	);
+}
+
 void PVZ::LawnMower::Squish()
 {
 	PVZ::Memory::Execute(AsmBuilder()
