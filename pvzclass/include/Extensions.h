@@ -91,7 +91,7 @@ inline void EnablePortal(BOOLEAN b = true, BOOLEAN adjust_existed = false)
 		PVZ::Memory::WriteMemory<byte>(0x41FFB4, JO);
 		PVZ::Memory::WriteMemory<byte>(0x4248CE, JO);
 
-		if (!adjust_existed && PVZ::GetBoard().GetBaseAddress() != 0)
+		if (!adjust_existed && PVZ::GetBoard().isValid())
 		{
 			Creator::__CreatePortal();
 		}
@@ -102,7 +102,7 @@ inline void EnablePortal(BOOLEAN b = true, BOOLEAN adjust_existed = false)
 		PVZ::Memory::WriteMemory<byte>(0x41FFB4, JNE);
 		PVZ::Memory::WriteMemory<byte>(0x4248CE, JNE);
 
-		if (adjust_existed && PVZ::GetBoard().GetBaseAddress() != 0)
+		if (adjust_existed && PVZ::GetBoard().isValid())
 		{
 			auto griditems = PVZ::GetBoard().GetAllGriditems();
 			for (DWORD i = 0; i < griditems.size(); i++)
