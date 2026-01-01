@@ -16,6 +16,13 @@ PVZ::Animation PVZ::LawnMower::GetAnimation()
 	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation(ID_INDEX(ID)));
 }
 
+byte __asm__Lawnmover_Die[]
+{
+	MOV_EUX(REG_EAX, 0),
+	LAWNMOVER_DIE,
+	RET,
+};
+
 void PVZ::LawnMower::Die()
 {
 	SETARG(__asm__Lawnmover_Die, 1) = BaseAddress;

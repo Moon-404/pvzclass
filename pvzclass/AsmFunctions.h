@@ -546,6 +546,4 @@ extern byte __asm__Zombie__setAnimation[100];
 
 extern byte __asm__Plant__setAnimation[100];
 
-extern byte __asm__Lawnmover_Die[19];
-
 extern byte __asm__CardSlot__set_CardsCount[24];
