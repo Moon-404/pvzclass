@@ -263,7 +263,7 @@ inline void DisableIceLevelFailSound(BOOLEAN b = true)
 /// @param b 是否开启此功能
 inline void DisableBoardDraw(BOOLEAN b = true)
 {
-	MEMMOD_BYTE(0x42492D, 129, 133);
+	MEMMOD_BYTE(0x41AD23, 129, 133);
 }
 
 /// @brief 阻止新生成的粒子系统产生粒子效果。\n
