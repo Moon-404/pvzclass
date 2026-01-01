@@ -37,6 +37,8 @@ namespace PVZ
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		/// @brief 移除该除草机
 		void Die();
+		/// @brief 更新该除草机
+		void Update();
 	};
 	using Lawnmover = LawnMower;
 }

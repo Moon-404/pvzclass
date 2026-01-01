@@ -29,3 +29,12 @@ void PVZ::LawnMower::Die()
 	Memory::Execute(STRING(__asm__Lawnmover_Die));
 	return;
 }
+
+void PVZ::LawnMower::Update()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x4586E0)
+		.ret()
+	);
+}
