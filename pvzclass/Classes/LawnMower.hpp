@@ -39,6 +39,8 @@ namespace PVZ
 		void Die();
 		/// @brief 更新该除草机
 		void Update();
+		/// @brief 更新除草机出入水时的高度偏移和状态
+		void UpdatePool();
 	};
 	using Lawnmover = LawnMower;
 }

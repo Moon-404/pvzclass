@@ -38,3 +38,12 @@ void PVZ::LawnMower::Update()
 		.ret()
 	);
 }
+
+void PVZ::LawnMower::UpdatePool()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EDI, this->GetBaseAddress())
+		.invoke(0x4581E0)
+		.ret()
+	);
+}
