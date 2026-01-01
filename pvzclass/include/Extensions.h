@@ -91,7 +91,7 @@ inline void EnablePortal(BOOLEAN b = true, BOOLEAN adjust_existed = false)
 		PVZ::Memory::WriteMemory<byte>(0x41FFB4, JO);
 		PVZ::Memory::WriteMemory<byte>(0x4248CE, JO);
 
-		if (!adjust_existed && PVZ::GetBoard().GetBaseAddress() != 0)
+		if (!adjust_existed && PVZ::GetBoard().isValid())
 		{
 			Creator::__CreatePortal();
 		}
@@ -102,7 +102,7 @@ inline void EnablePortal(BOOLEAN b = true, BOOLEAN adjust_existed = false)
 		PVZ::Memory::WriteMemory<byte>(0x41FFB4, JNE);
 		PVZ::Memory::WriteMemory<byte>(0x4248CE, JNE);
 
-		if (adjust_existed && PVZ::GetBoard().GetBaseAddress() != 0)
+		if (adjust_existed && PVZ::GetBoard().isValid())
 		{
 			auto griditems = PVZ::GetBoard().GetAllGriditems();
 			for (DWORD i = 0; i < griditems.size(); i++)
@@ -263,7 +263,7 @@ inline void DisableIceLevelFailSound(BOOLEAN b = true)
 /// @param b 是否开启此功能
 inline void DisableBoardDraw(BOOLEAN b = true)
 {
-	MEMMOD_BYTE(0x42492D, 129, 133);
+	MEMMOD_BYTE(0x41AD23, 129, 133);
 }
 
 /// @brief 阻止新生成的粒子系统产生粒子效果。\n
@@ -351,4 +351,12 @@ inline void DisableMusicUpdate(BOOLEAN b = true)
 inline void DisableZombieFailHome(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x52B308, JO, JZ);
+}
+
+/// @brief 允许潜水僵尸和海豚骑士僵尸在图内的任意位置下水。
+/// @param b 是否开启此功能
+inline void ZombieAlwaysDive(BOOLEAN b = true)
+{
+	MEMMOD_INT(0x526742, 40, 700);
+	MEMMOD_INT(0x526212, 40, 700);
 }
