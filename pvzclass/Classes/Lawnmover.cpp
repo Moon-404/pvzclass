@@ -30,6 +30,24 @@ void PVZ::LawnMower::Die()
 	return;
 }
 
+void PVZ::LawnMower::Squish()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x458EB0)
+		.ret()
+	);
+}
+
+void PVZ::LawnMower::Start()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, this->GetBaseAddress())
+		.invoke(0x458DA0)
+		.ret()
+	);
+}
+
 void PVZ::LawnMower::Update()
 {
 	PVZ::Memory::Execute(AsmBuilder()

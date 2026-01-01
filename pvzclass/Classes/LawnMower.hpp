@@ -37,6 +37,10 @@ namespace PVZ
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		/// @brief 移除该除草机
 		void Die();
+		/// @brief 压扁除草机
+		void Squish();
+		/// @brief 启动除草机
+		void Start();
 		/// @brief 更新该除草机
 		void Update();
 		/// @brief 更新除草机出入水时的高度偏移和状态
