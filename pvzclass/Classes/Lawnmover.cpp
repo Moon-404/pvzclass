@@ -29,3 +29,49 @@ void PVZ::LawnMower::Die()
 	Memory::Execute(STRING(__asm__Lawnmover_Die));
 	return;
 }
+
+void PVZ::LawnMower::MowZombie(PVZ::Zombie zombie)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.push_imm32(zombie.GetBaseAddress())
+		.invoke(0x458540)
+		.ret()
+	);
+}
+
+void PVZ::LawnMower::Squish()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x458EB0)
+		.ret()
+	);
+}
+
+void PVZ::LawnMower::Start()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, this->GetBaseAddress())
+		.invoke(0x458DA0)
+		.ret()
+	);
+}
+
+void PVZ::LawnMower::Update()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x4586E0)
+		.ret()
+	);
+}
+
+void PVZ::LawnMower::UpdatePool()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EDI, this->GetBaseAddress())
+		.invoke(0x4581E0)
+		.ret()
+	);
+}
