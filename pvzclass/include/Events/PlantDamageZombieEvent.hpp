@@ -203,7 +203,7 @@ namespace PVZEvent
 
 					MOV_PTR_EUX_ADD_V_EVX(REG_EBP, REG_ESI, 0),
 					PUSH_EDI,
-					0x8B, 0x7C, 0x44, 0x64,// mov edi [esp+64]
+					0x8B, 0x7C, 0x24, 0x64,// mov edi [esp+64]
 					MOV_PTR_EUX_ADD_V_EVX(REG_EBP, REG_EDI, 4),
 					POP_EUX(REG_EDI),
 					MOV_PTR_EUX_ADD_V_EVX(REG_EBP, REG_EAX, 8),
