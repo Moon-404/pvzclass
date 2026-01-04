@@ -84,6 +84,6 @@ namespace PVZEvent
 	public:
 		ZombieEatByZombieEvent(int address) : BoolDLLEventTemplate() { Init(address); };
 		ZombieEatByZombieEvent(const char* name) : BoolDLLEventTemplate() { Init(name); };
-		ZombieEatByZombieEvent() : ZombieEatByZombieEvent("onZombieDamageByZombie") {};
+		ZombieEatByZombieEvent() : ZombieEatByZombieEvent("onZombieEatByZombie") {};
 	};
 }
