@@ -76,4 +76,14 @@ namespace PVZEvent
 		ZombieWitherEvent(const char* name) : DiversionEventTemplate() { Init(name); };
 		ZombieWitherEvent() : ZombieWitherEvent("onZombieWither") {};
 	};
+	/// @brief 僵尸被其他僵尸啃食事件
+	/// @param 被啃咬者，伤害，伤害类型，攻击者
+	/// @return 僵尸是否受到伤害
+	class ZombieEatByZombieEvent : public BoolDLLEventTemplate<0x52FE1A, 5, 0x52FE1F, MEM_ESP_ADD(0x24), CONST_VAL(9), CONST_VAL(4), REG_ESI>
+	{
+	public:
+		ZombieEatByZombieEvent(int address) : BoolDLLEventTemplate() { Init(address); };
+		ZombieEatByZombieEvent(const char* name) : BoolDLLEventTemplate() { Init(name); };
+		ZombieEatByZombieEvent() : ZombieEatByZombieEvent("onZombieDamageByZombie") {};
+	};
 }
