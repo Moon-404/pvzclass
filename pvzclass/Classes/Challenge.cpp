@@ -1,4 +1,5 @@
 #include "Challenge.hpp"
+#include "Griditem.hpp"
 
 PVZ::Challenge::Challenge(int address)
 {
@@ -54,6 +55,17 @@ byte __asm__IZSquishBrain[]
 	INVOKE(0x42BA30),
 	RET
 };
+
+PVZ::Griditem PVZ::Challenge::GetAnotherSameTypeGriditem(PVZ::Griditem griditem)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(griditem.GetBaseAddress())
+		.mov_reg_imm(REG_EDI, this->GetBaseAddress())
+		.invoke(0x4273C0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+}
 
 void PVZ::Challenge::IZSquishBrain(IZBrain brain)
 {

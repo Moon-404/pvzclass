@@ -14,6 +14,7 @@ namespace PVZ
 		/// @brief 默认的场地物件类型，派生类需要定义同名常量，用于在 Board::GetAllGriditems() 中定向获取场地物件。
 		static const GriditemType::GriditemType ItemType = GriditemType::None;
 		Griditem(int indexoraddress);
+		Griditem(std::nullptr_t addr) : BaseClass(0) {};
 		/// @brief 场地物件所在的 PVZApp
 		T_PROPERTY(PVZApp, App, __get_App, __set_App, 0);
 		/// @brief 获取场地物件所在的 Board
