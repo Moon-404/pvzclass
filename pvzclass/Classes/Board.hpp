@@ -294,6 +294,8 @@ namespace PVZ
 		MousePointer GetMousePointer();
 		Caption GetCaption();
 		CardSlot GetCardSlot();
+		CutScene GetCutScene();
+		
 		/// @brief 获取 Challenge 类型的成员。
 		/// @tparam T 返回值的类型，必须为 Challenge 或它的派生类。
 		/// @return Challenge （或者其派生类）成员对象 

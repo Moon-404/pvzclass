@@ -187,6 +187,7 @@ namespace PVZ
 	class Caption;
 	class CardSlot;
 	class Challenge;
+	class CutScene;
 	class Lawn;
 	class Icetrace;
 	class Wave;

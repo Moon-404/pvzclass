@@ -414,6 +414,11 @@ PVZ::CardSlot PVZ::Board::GetCardSlot()
 	return CardSlot(BaseAddress);
 }
 
+PVZ::CutScene PVZ::Board::GetCutScene()
+{
+	return CutScene(BaseAddress);
+}
+
 PVZ::Challenge PVZ::Board::GetMiscellaneous()
 {
 	return this->GetChallenge<PVZ::Challenge>();

@@ -169,6 +169,7 @@
     <ClCompile Include="Classes\Caption.cpp" />
     <ClCompile Include="Classes\CardSlot.cpp" />
     <ClCompile Include="Classes\Coin.cpp" />
+    <ClCompile Include="Classes\CutScene.cpp" />
     <ClCompile Include="Classes\Definition.cpp" />
     <ClCompile Include="Classes\Griditem.cpp" />
     <ClCompile Include="Classes\Icetrace.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="AsmBuilder.hpp" />
     <ClInclude Include="Classes\Advice.hpp" />
     <ClInclude Include="Classes\Board.hpp" />
+    <ClInclude Include="Classes\CutScene.hpp" />
     <ClInclude Include="Classes\GameObject.hpp" />
     <ClInclude Include="Classes\Griditem.hpp" />
     <ClInclude Include="Classes\LawnMower.hpp" />
