@@ -4,19 +4,19 @@
 namespace PVZEvent
 {
 	/// @brief 在一切更新开始前的事件
-	/// @note 没有参数，请用 GetBoard() 获取
-	class BoardBeforeUpdateEvent : public DLLEventTemplate<0x415D40, 7>
+	/// @param Board
+	class BoardUpdateStartEvent : public DLLEventTemplate<0x415D40, 7, REG_ECX>
 	{
 	public:
-		BoardBeforeUpdateEvent(const char* str) : DLLEventTemplate() { Init(str); };
-		BoardBeforeUpdateEvent(int address) : DLLEventTemplate() { Init(address); };
-		BoardBeforeUpdateEvent() : DLLEventTemplate() { Init("beforeBoardUpdate"); };
+		BoardUpdateStartEvent(const char* str) : DLLEventTemplate() { Init(str); };
+		BoardUpdateStartEvent(int address) : DLLEventTemplate() { Init(address); };
+		BoardUpdateStartEvent() : DLLEventTemplate() { Init("onBoardUpdateStart"); };
 	};
 
 	/// @brief 因为游戏暂停而中止更新的事件
-	/// @note 没有参数，请用 GetBoard() 获取
+	/// @param Board
 	/// @note 暂停并不会中止所有更新，比如暴风雨夜关暂停会更新到屏幕完全暗下来为止。
-	class BoardPauseUpdateEvent : public DLLEventTemplate<0x415E27, 6>
+	class BoardPauseUpdateEvent : public DLLEventTemplate<0x415E14, 5, REG_EBP>
 	{
 	public:
 		BoardPauseUpdateEvent(const char* str) : DLLEventTemplate() { Init(str); };
@@ -25,8 +25,8 @@ namespace PVZEvent
 	};
 
 	/// @brief 游戏正常更新结束的事件
-	/// @note 没有参数，请用 GetBoard() 获取
-	class BoardAfterUpdateEvent : public DLLEventTemplate<0x416076, 6>
+	/// @param Board
+	class BoardAfterUpdateEvent : public DLLEventTemplate<0x41606E, 8, REG_EBP>
 	{
 	public:
 		BoardAfterUpdateEvent(const char* str) : DLLEventTemplate() { Init(str); };
