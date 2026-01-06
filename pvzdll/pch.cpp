@@ -167,6 +167,11 @@ void onSeedCardClick(DWORD seedcardAddress)
 	auto seedcard = PVZ::CardSlot::SeedCard(seedcardAddress);
 }
 
+bool onSeedPacketAllowedToPick(SeedType::SeedType type)
+{
+	return true;
+}
+
 void onToolClick()
 {
 	auto mousePointer = PVZ::GetBoard().GetMousePointer();

@@ -90,6 +90,7 @@
 #include "SeedPacketMouseDownEvent.hpp"
 #include "SeedPacketResourceEvents.hpp"
 #include "SeedPacketUpdateEvent.hpp"
+#include "SeedPacketAllowedToPickEvent.h"
 #include "VaseBreakerPopulateEvent.hpp"
 #include "GriditemUpdateEvent.hpp"
 #include "ZombieInitAfterEvent.hpp"

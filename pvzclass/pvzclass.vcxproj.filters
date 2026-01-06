@@ -953,5 +953,8 @@
     <ClInclude Include="Classes\CutScene.hpp">
       <Filter>头文件\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="include\Events\SeedPacketAllowedToPickEvent.h">
+      <Filter>头文件\Events\SeedPacket</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
