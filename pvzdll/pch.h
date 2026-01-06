@@ -11,19 +11,25 @@
 #include "framework.h"
 typedef unsigned char byte;
 #include "../pvzclass/pvzclass.h"
+#include "../pvzclass/include/Events/FatalErrorEvent.h"
 
 extern "C"
 {
 	__declspec(dllexport) void init();
+	__declspec(dllexport) void beforeBoardUpdate();
+	__declspec(dllexport) void pauseBoardUpdate();
+	__declspec(dllexport) void afterBoardUpdate();
 	__declspec(dllexport) void onAppUpdate(DWORD appAddress);
 	__declspec(dllexport) void onCoinCollect(DWORD coinAddress);
 	__declspec(dllexport) void onCoinCreate(DWORD coinAddress);
 	__declspec(dllexport) void onCoinRemove(DWORD coinAddress);
+	__declspec(dllexport) void onMousePointerClear(DWORD boardAddress);
 	__declspec(dllexport) int onDialogButtonDepress(int buttonId, int dialogId);
 	__declspec(dllexport) void onDialogDraw(DWORD graphics, Sexy::PDialog dialog);
 	__declspec(dllexport) void onDrawUITop(DWORD graphics);
 	__declspec(dllexport) void onDrawPlantReanim(DWORD plantAddress, DWORD animationAddress);
 	__declspec(dllexport) int onDrawZombieReanim(DWORD zombieAddress, DWORD animationAddress);
+	__declspec(dllexport) void onFatalError(EXCEPTION_POINTERS* lpEP);
 	__declspec(dllexport) int onRandomNumberGet(int number);
 	__declspec(dllexport) void onNewGame();
 	__declspec(dllexport) void onPlantCreate(DWORD plantAddress);
@@ -39,6 +45,8 @@ extern "C"
 	__declspec(dllexport) int onProjectileRemove(DWORD projectileAddress);
 	__declspec(dllexport) void onGameObjectsUpdate(DWORD boardAddress);
 	__declspec(dllexport) void onSeedCardClick(DWORD seedcardAddress);
+	__declspec(dllexport) bool onSeedPacketAllowedToPick(SeedType::SeedType type);
+	__declspec(dllexport) void onToolClick();
 	__declspec(dllexport) void onBossBungeeSpawn(DWORD zombieAddress);
 	__declspec(dllexport) void onZombieBlast(DWORD zombieAddress);
 	__declspec(dllexport) void onZombieButter(DWORD zombieAddress);

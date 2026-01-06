@@ -151,6 +151,8 @@ namespace PVZ
 		T_PROPERTY(PVZGameState::PVZGameState,	GameState,			__get_GameState,			__set_GameState,			0x7FC);
 		/// @brief 是否开启自由种植
 		T_PROPERTY(BOOLEAN,						FreePlantingCheat,	__get_FreePlantingCheat,	__set_FreePlantingCheat,	0x814);
+		/// @brief 特效系统地址
+		T_PROPERTY(DWORD,                       EffectSystem,       __get_EffectSystem,         __set_EffectSystem,         0x820);
 		/// @brief 是否在玩完整版。部分 PVZ 主程序反转了它的效果。
 		T_PROPERTY(BOOLEAN,						FullVersion,		__get_FullVersion,			__set_FullVersion,			0x8C0);
 
@@ -160,7 +162,9 @@ namespace PVZ
 		/// @param mode 模式
 		/// @param look_for_saved_game 是否尝试读档。若为 false，则会删除旧有存档。
 		void PreNewGame(PVZLevel::PVZLevel mode, bool look_for_saved_game);
-
+		/// @brief 清除所有不存在的效果对象并释放内存。
+		/// @note Board::Update() 如果连续多次调用则需要使用该函数清理。
+		void RemoveNotExistEffects();
 		/// @brief 播放指定音效
 		void PlayFoley(PVZEnum::FoleyType type);
 	};
@@ -183,6 +187,7 @@ namespace PVZ
 	class Caption;
 	class CardSlot;
 	class Challenge;
+	class CutScene;
 	class Lawn;
 	class Icetrace;
 	class Wave;

@@ -10,6 +10,7 @@
 #include "Classes/Advice.hpp"
 #include "Classes/SeedBank.hpp"
 #include "Classes/Challenge.hpp"
+#include "Classes/CutScene.hpp"
 
 #include "Classes/Definition.hpp"
 

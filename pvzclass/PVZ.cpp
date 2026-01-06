@@ -164,6 +164,15 @@ void PVZ::PVZApp::PreNewGame(PVZLevel::PVZLevel mode, bool look_for_saved_game)
 	);
 }
 
+void PVZ::PVZApp::RemoveNotExistEffects()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(EffectSystem)
+		.invoke(0x445680)
+		.ret()
+	);
+}
+
 void PVZ::PVZApp::PlayFoley(PVZEnum::FoleyType type)
 {
 	PVZ::Memory::Execute(AsmBuilder()

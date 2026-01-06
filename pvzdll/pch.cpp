@@ -10,6 +10,21 @@ void init()
 	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
 }
 
+void beforeBoardUpdate()
+{
+	auto board = PVZ::GetBoard();
+}
+
+void pauseBoardUpdate()
+{
+	auto board = PVZ::GetBoard();
+}
+
+void afterBoardUpdate()
+{
+	auto board = PVZ::GetBoard();
+}
+
 void onAppUpdate(DWORD appAddress)
 {
 	auto app = PVZ::PVZApp(appAddress);
@@ -28,6 +43,11 @@ void onCoinCreate(DWORD coinAddress)
 void onCoinRemove(DWORD coinAddress)
 {
 	auto coin = PVZ::Coin(coinAddress);
+}
+
+void onMousePointerClear(DWORD boardAddress)
+{
+	auto board = PVZ::Board(boardAddress);
 }
 
 int onDialogButtonDepress(int buttonId, int dialogId)
@@ -54,6 +74,11 @@ int onDrawZombieReanim(DWORD zombieAddress, DWORD animationAddress)
 	auto zombie = PVZ::Zombie(zombieAddress);
 	auto anim = PVZ::Animation(animationAddress);
 	return 0;
+}
+
+void onFatalError(EXCEPTION_POINTERS* lpEP)
+{
+	WriteStackTrace(lpEP, "stacktrace.txt");
 }
 
 int onRandomNumberGet(int number)
@@ -140,6 +165,16 @@ void onGameObjectsUpdate(DWORD boardAddress)
 void onSeedCardClick(DWORD seedcardAddress)
 {
 	auto seedcard = PVZ::CardSlot::SeedCard(seedcardAddress);
+}
+
+bool onSeedPacketAllowedToPick(SeedType::SeedType type)
+{
+	return true;
+}
+
+void onToolClick()
+{
+	auto mousePointer = PVZ::GetBoard().GetMousePointer();
 }
 
 void onBossBungeeSpawn(DWORD zombieAddress)

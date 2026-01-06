@@ -169,6 +169,7 @@
     <ClCompile Include="Classes\Caption.cpp" />
     <ClCompile Include="Classes\CardSlot.cpp" />
     <ClCompile Include="Classes\Coin.cpp" />
+    <ClCompile Include="Classes\CutScene.cpp" />
     <ClCompile Include="Classes\Definition.cpp" />
     <ClCompile Include="Classes\Griditem.cpp" />
     <ClCompile Include="Classes\Icetrace.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="AsmBuilder.hpp" />
     <ClInclude Include="Classes\Advice.hpp" />
     <ClInclude Include="Classes\Board.hpp" />
+    <ClInclude Include="Classes\CutScene.hpp" />
     <ClInclude Include="Classes\GameObject.hpp" />
     <ClInclude Include="Classes\Griditem.hpp" />
     <ClInclude Include="Classes\LawnMower.hpp" />
@@ -270,7 +272,11 @@
     <ClInclude Include="Classes\ZenGarden.hpp" />
     <ClInclude Include="deprecated.hpp" />
     <ClInclude Include="Enums\FoleyType.h" />
+    <ClInclude Include="include\Events\BoardUpdateEvent.h" />
     <ClInclude Include="include\Events\BossBungeeSpawnEvent.h" />
+    <ClInclude Include="include\Events\ClearMousePointerEvent.h" />
+    <ClInclude Include="include\Events\ClickToolEvent.h" />
+    <ClInclude Include="include\Events\FatalErrorEvent.h" />
     <ClInclude Include="include\Events\GetRandomNumberEvent.h" />
     <ClInclude Include="include\Events\PlantFromBankEvent.h" />
     <ClInclude Include="include\Draw.h" />
@@ -339,6 +345,7 @@
     <ClInclude Include="include\Events\ProjectileDefEvent.hpp" />
     <ClInclude Include="include\Events\ProjectileImageEvent.hpp" />
     <ClInclude Include="include\Events\ProjectileUpdateEvents.hpp" />
+    <ClInclude Include="include\Events\SeedPacketAllowedToPickEvent.h" />
     <ClInclude Include="include\Events\SeedPacketMouseDownEvent.hpp" />
     <ClInclude Include="include\Events\ProjectileCreateEvent.h" />
     <ClInclude Include="include\Events\PuzzlePhaseCompleteEvent.hpp" />

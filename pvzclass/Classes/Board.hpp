@@ -218,7 +218,13 @@ namespace PVZ
 		void UpdateGame();
 		/// @brief 执行一次额外更新，可以用于加速游戏进行。
 		/// @note 是总更新接口，更新关卡内的各种东西。
+		/// @note 注意，部分更新和清理是在 app 的更新中进行的。
+		/// @see RemoveNotExistGameObjects RemoveNotExistEffects
 		void Update();
+		/// @brief 清除所有不存在的游戏对象并释放内存。
+		/// @note Board::Update() 如果连续多次调用则需要使用该函数清理。
+		/// @note 注意不要清理掉了后续还要被使用的对象。
+		void RemoveNotExistGameObjects();
 
 #pragma endregion
 
@@ -288,6 +294,8 @@ namespace PVZ
 		MousePointer GetMousePointer();
 		Caption GetCaption();
 		CardSlot GetCardSlot();
+		CutScene GetCutScene();
+		
 		/// @brief 获取 Challenge 类型的成员。
 		/// @tparam T 返回值的类型，必须为 Challenge 或它的派生类。
 		/// @return Challenge （或者其派生类）成员对象 

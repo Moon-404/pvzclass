@@ -13,7 +13,7 @@ int main()
 	EnableBackgroundRunning();
 	DisableInitialLawnmover();
 	DisableIceLevelFailSound();
-	DrawPlantReanimEvent();
+	PVZEvent::FatalErrorEvent();
 	PVZ::QuitPVZ();
 	return 0;
 }

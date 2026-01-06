@@ -357,6 +357,9 @@
     <ClCompile Include="src\Widgets\GameSelector.cpp">
       <Filter>源文件\Widget</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\CutScene.cpp">
+      <Filter>源文件\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ProcessOpener.h">
@@ -934,6 +937,24 @@
     </ClInclude>
     <ClInclude Include="pvzevent.hpp">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Events\FatalErrorEvent.h">
+      <Filter>头文件\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Events\BoardUpdateEvent.h">
+      <Filter>头文件\Events\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Events\ClearMousePointerEvent.h">
+      <Filter>头文件\Events\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Events\ClickToolEvent.h">
+      <Filter>头文件\Events\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\CutScene.hpp">
+      <Filter>头文件\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Events\SeedPacketAllowedToPickEvent.h">
+      <Filter>头文件\Events\SeedPacket</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
