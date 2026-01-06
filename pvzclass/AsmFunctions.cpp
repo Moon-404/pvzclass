@@ -265,13 +265,6 @@ byte __asm__Plant__setAnimation[100]
 	RET,
 };
 
-byte __asm__Lawnmover_Die[]
-{
-	MOV_EUX(REG_EAX, 0),
-	LAWNMOVER_DIE,
-	RET,
-};
-
 byte __asm__CardSlot__set_CardsCount[]
 {
 	MOV_EUX(REG_EAX, 0),
