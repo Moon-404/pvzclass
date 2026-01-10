@@ -312,6 +312,9 @@ namespace PVZ
 		/// @brief 判断是否在播放指定动画
 		/// @param TrackName 动画轨道名称
 		bool IsAnimPlaying(const char* TrackName);
+		/// @brief 判断动画在 theEventTime 时刻的事件是否应该触发
+		/// @param theEventTime 事件触发的时刻, 取值范围为 [0, 1]
+		bool ShouldTriggerTimedEvent(float theEventTime);
 		/// @brief 设置指定前缀的所有轨道在绘制时的分组。通常情况下，分组为 -1 时表示隐藏该轨道。
 		/// @param trackName 动作轨道的名称前缀
 		/// @param renderGroup 分组大小
