@@ -530,10 +530,6 @@ extern byte __asm__Plant__Remove[19];
 
 extern byte __asm__Shoot[34];
 
-extern byte __asm__OnFire[19];
-
-extern byte __asm__Projectile__Remove[19];
-
 extern byte __asm__Collect[19];
 
 extern byte __asm__Plantable[36];

@@ -202,20 +202,6 @@ byte __asm__Shoot[]
 	RET,
 };
 
-byte __asm__OnFire[]
-{
-	MOV_ECX(0),
-	ONFIRE,
-	RET,
-};
-
-byte __asm__Projectile__Remove[]
-{
-	MOV_EAX(0),
-	PROJECTILE_REMOVE,
-	RET
-};
-
 byte __asm__Collect[]
 {
 	MOV_ECX(0),

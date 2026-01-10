@@ -67,6 +67,11 @@ namespace PVZ
 		/// @brief 智慧树话语序号
 		INT_READONLY_PROPERTY(TreeOfWisdomTalkIndex, __get_TreeOfWisdomTalkIndex, 0x0B8);
 
+		/// @brief 获取另一个同类型的场地物品
+		/// @param griditem 场地物品
+		/// @return 另一个同类型的场地物品，可能为空。
+		PVZ::Griditem GetAnotherSameTypeGriditem(PVZ::Griditem griditem);
+
 		/// @brief 压扁指定的脑子，并计算因此产生的得分
 		/// @param brain 将被压扁的脑子
 		/// @see IZBrain
