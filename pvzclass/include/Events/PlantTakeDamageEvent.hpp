@@ -64,7 +64,7 @@ private:
 				ADD_ESP(16),
 				TEST_EUX_EVX(REG_EAX, REG_EAX),
 				POP_EUX(REG_ECX),
-				JS(12),
+				JS(9),
 
 				0xF7, 0xD8,
 				ADD_PTR_EUX_ADD_V_EVX(REG_ECX, 0x40, REG_EAX),
@@ -95,7 +95,7 @@ private:
 
 				ADD_ESP(16),
 				TEST_EUX_EVX(REG_EAX, REG_EAX),
-				JS(12),
+				JS(9),
 
 				0xF7, 0xD8,
 				ADD_PTR_EUX_ADD_V_EVX(REG_ESI, 0x40, REG_EAX),
