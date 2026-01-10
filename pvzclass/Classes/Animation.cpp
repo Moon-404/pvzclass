@@ -142,6 +142,17 @@ bool PVZ::Animation::IsAnimPlaying(const char* trackName)
 	return PVZ::Memory::Execute(STRING(__asm__Reanimation__IsAnimPlaying));
 }
 
+bool PVZ::Animation::ShouldTriggerTimedEvent(float thetime)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.push_float(thetime)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x473B70)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	) & 0x0FF;
+}
+
 void PVZ::Animation::AssignRenderGroupToPrefix(byte RenderGroup, const char* trackName)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, trackName, std::strlen(trackName) + 1);
