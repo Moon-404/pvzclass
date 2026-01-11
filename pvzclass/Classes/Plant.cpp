@@ -224,7 +224,7 @@ void PVZ::Plant::AnimateNuts()
 {
 	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EDI, GetBaseAddress())
-		.invoke(464480)
+		.invoke(0x464480)
 		.ret()
 	);
 }
