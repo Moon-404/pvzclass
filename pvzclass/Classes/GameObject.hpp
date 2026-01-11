@@ -472,7 +472,7 @@ namespace PVZ
 		/// @brief 以指定帧频播放闲置动画。IZ 关卡中动画速率会设为 0 。
 		/// @param speed 指定的帧频
 		void PlayIdleAnim(float speed);
-
+		/// @brief 保龄球特性更新函数
 		void UpdateBowling();
 		class MagnetItem
 		{
