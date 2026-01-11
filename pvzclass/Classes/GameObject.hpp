@@ -474,6 +474,8 @@ namespace PVZ
 		void PlayIdleAnim(float speed);
 		/// @brief 保龄球特性更新函数
 		void UpdateBowling();
+		/// @brief 坚果类植物的特殊动画更新函数
+		void AnimateNuts();
 		class MagnetItem
 		{
 			int BaseAddress;

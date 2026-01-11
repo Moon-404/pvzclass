@@ -220,6 +220,15 @@ void PVZ::Plant::UpdateBowling()
 	);
 }
 
+void PVZ::Plant::AnimateNuts()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EDI, GetBaseAddress())
+		.invoke(464480)
+		.ret()
+	);
+}
+
 PVZ::Plant::MagnetItem::MagnetItem(int address)
 {
 	BaseAddress = address;
