@@ -211,6 +211,14 @@ void PVZ::Plant::PlayIdleAnim(float speed)
 
 	PVZ::Memory::Execute(PlayIdleAnim_builder);
 }
+void PVZ::Plant::UpdateBowling()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EDI, GetBaseAddress())
+		.invoke(0x462CE0)
+		.ret()
+	);
+}
 
 PVZ::Plant::MagnetItem::MagnetItem(int address)
 {
