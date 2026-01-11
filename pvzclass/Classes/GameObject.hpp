@@ -474,7 +474,7 @@ namespace PVZ
 		void PlayIdleAnim(float speed);
 		/// @brief 保龄球特性更新函数
 		void UpdateBowling();
-		/// @brief 坚果类植物的特殊动画更新函数
+		/// @brief 坚果类植物（坚果、高坚果）的动态函数，根据植物当前血量更新其形态相应的覆写贴图。
 		void AnimateNuts();
 		class MagnetItem
 		{
