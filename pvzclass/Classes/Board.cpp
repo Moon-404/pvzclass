@@ -359,7 +359,7 @@ void PVZ::Board::RemoveNotExistGameObjects()
 {
 	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_ESI, BaseAddress)
-		.call_reg(0x41BAD0)
+		.invoke(0x41BAD0)
 		.ret()
 	);
 }
