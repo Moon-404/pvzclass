@@ -263,7 +263,9 @@ namespace PVZEvent
 					MOV_PTR_EUX_ADD_V(REG_EDX, 0x10, PLANTDAMAGETYPE_AOE),
 
 					PUSH_EDX,
+					PUSH_EDX,
 					INVOKE(address),
+					ADD_ESP(4),
 					POP_EUX(REG_EDX),
 					MOV_PTR_ADDR_EUX(REG_EDX, tmp),
 					POPAD,
