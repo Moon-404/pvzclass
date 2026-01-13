@@ -1,4 +1,6 @@
 # 目录
+- [2.7](#2.7)
+- [2.6](#2.6)
 - [2.5.1](#2.5.1)
 - [2.5](#2.5)
 - [2.4](#2.4)
@@ -21,6 +23,79 @@
 - [1.15.1](#1.15.1（2023/11/22）)
 - [1.15.0](#1.15.0（2023/10/27）)
 - [1.14.3](#1.14.3（2023/10/22）)
+
+## 2.7
+
+### 构建
+
+- 引入了 `general.props` 和 `pvzclass.props`，前者影响所有三个项目，后者只影响 `pvzclass`。
+- 现在 `pvzclass` 的构建工具集可通过 `Directory.Build.props` 覆盖。
+  - 默认工具集依然是 `v143` 。
+- 现在 CI 构建检查使用 `Debug` 构建，以检查更多潜在问题。
+
+### 新增内容
+
+- `GameSelector` 及 `GameSelectorUpdateEvent`
+- `PVZApp` 新增若干成员。
+- `Plant` 新增若干成员。
+- `Zombie` 新增若干成员。
+- `PuzzlePhaseCompleteBonusEvent`
+- `Board` 新增若干成员。
+- `Music` 新增若干成员。
+- `AsmBuilder::call_reg()`
+- `Sexy::SetEditString()`
+- `CardSlot::AddSeed()`
+- `PVZEnum::FoleyType`，取代原本 `LowerSoundType` 的作用。
+  - 默认使用 `PVZApp::PlayFoley()` 播放。
+- `BossBungeeSpawnEvent`
+- `PSaveGameContext` 及若干相关函数。
+- `GetRandomNumberEvent`
+- `SeedBank::SeedPacket` 新增若干成员函数。
+- `PlantFromBankEvent`
+- `DisableZombieFailHome()`
+- `Griditem` 新增若干成员。
+- `Griditem` 的派生类现在可以直接从 `Griditem` 对象构造了。
+- `Animation` 新增若干成员函数。
+- `ZombieAlwaysDive()`
+- `LawnMower` 新增若干成员。
+- `ZombieEatByZombieEvent`
+- `CutScene`
+- `FatalErrorEvent`
+- `BoardUpdateStartEvent` 等更新相关事件。
+- `Challenge::GetAnotherSameTypeGriditem()`
+
+### 改动内容
+
+- 部分 `AsmFunctions.h` 中的数组不再具有全局性。
+- 撤销了 `AsmFunctions.h` 中的部分指令宏。
+- 现在包含 `WIN32_LEAN_AND_MEAN` 宏、`VC_EXTRALEAN` 宏和 `NOMINMAX` 宏，以减少 `windows.h` 带来的编译开销。
+  - 这意味着 `min` 和 `max` 将使用 STL 版本，而不是宏版本。
+- 大部分源代码文件和头文件分别分入 `src` 和 `include` 文件夹中。
+- `INVALID_BASEADDRESS` 现在是常量，而非宏。
+- `Board` 的 `GetAll` 系列函数现在能正确适配 `MemSize` 以构造变量了。
+- `Zombie::Height` 更名为 `Zombie::Altitude`，因为原名称与 `GameObject` 的同名成员冲突。
+- `ZombieState::ToString()` 现在返回 `char*`。
+- `Creator::CreateRake()` 原理调整，现在可以返回生成的钉耙对象了。
+- 现在所有 `MemSize` 均不再是常量。
+  - `SetMemSize()` 会自动调整它们，不再需要在派生类中单独定义静态成员。
+
+### 漏洞修复
+
+- 修复 `ReanimatorCache::SetMemSize()` 的崩溃漏洞。
+- 修复 `ConvertSubClass2Flag()` 没有正常生效的漏洞。
+- 修复 `Animation` 的 `YScale` 和 `YSlant` 位置相反的漏洞。
+- 修复 `ReanimationParams::Reposition` 在存档读档时会崩溃的漏洞。
+- 修复 `StarfruitFindTargetEvent` 对象获取不正确的漏洞。
+- 修复 `fstp` 相关内容的数值不正确的漏洞。
+- 修复 `DisableBoardDraw` 功能异常的漏洞。
+- 修复 `PlantDamageZombieEvent` 对部分植物崩溃的漏洞。
+- 修复 `PlantTakeDamageEvent` 有时崩溃的漏洞。
+
+### pvzdll
+
+- 修复不构造 `Debug` 工件的漏洞。
+- 移除了所有 `make_shared()` 的使用。
+- 默认不使用增强指令集。
 
 ## 2.6
 
