@@ -129,6 +129,21 @@ namespace PVZ
 		READONLY_PROPERTY(PVZVersion::PVZVersion,	__get_GameVersion)	GameVersion;
 	};
 
+	/// @brief 字符串类，用于对应 PVZ 内部的 std::string
+	class PVZString : public BaseClass
+	{
+	public:
+		PVZString(DWORD address) : BaseClass(address) {};
+		/// @brief 在 PVZ 主程序中创建字符串
+		/// @note 以此法创建的字符串需要使用 Free() 销毁，否则会造成内存泄露。
+		/// @return 创建的字符串
+		/// @author Moon404
+		static PVZString Make(const char* str);
+		/// @brief 释放该字符串在 PVZ 占用的内存空间
+		/// @attention 只有通过 Make 创建的字符串才应该使用该函数销毁。
+		void Free();
+	};
+
 	/// @brief 游戏程序主类（原 LawnApp）。
 	class PVZApp : public BaseClass
 	{

@@ -140,6 +140,29 @@ PVZ::Mouse PVZ::GetMouse()
 	return Mouse(Memory::ReadPointer(0x6A9EC0, 0x320));
 }
 
+uint8_t __asm__MakeString[]
+{
+	PUSHDWORD(0),
+	MOV_ECX(0),
+	INVOKE(0x404450),
+	RET
+};
+
+PVZ::PVZString PVZ::PVZString::Make(const char* str) 
+{
+	uint32_t len = strlen(str);
+	uint32_t fromAddress = PVZ::Memory::AllocMemory(0, len + 1);
+	PVZ::Memory::WriteArray<const char>(fromAddress, str, len + 1);
+	uint32_t toAddress = PVZ::Memory::AllocMemory(0, 0x1C);
+
+	SETARG(__asm__MakeString, 1) = fromAddress;
+	SETARG(__asm__MakeString, 6) = toAddress;
+	PVZ::Memory::Execute(STRING(__asm__MakeString));
+
+	PVZ::Memory::FreeMemory(fromAddress);
+	return toAddress;
+}
+
 byte __asm_KillGameSelector[] =
 {
 	MOV_ESI(0),
