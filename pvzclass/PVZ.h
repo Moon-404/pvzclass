@@ -77,13 +77,13 @@ namespace PVZ
 	{
 	protected:
 		/// @brief 对应对象的基地址
-		int BaseAddress;
+		uint32_t BaseAddress;
 	public:
 		BaseClass() : BaseAddress(INVALID_BASEADDRESS) {};
-		BaseClass(int address) : BaseAddress(address) {};
+		BaseClass(uint32_t address) : BaseAddress(address) {};
 		/// @brief 返回基址
 		/// @return 基址
-		int GetBaseAddress() const
+		uint32_t GetBaseAddress() const
 		{ return(this->BaseAddress); }
 		/// @brief 对应的对象是否已经失效，或者构造不良。
 		/// @return 是否已经失效或构造不良。
