@@ -192,13 +192,13 @@ void PVZ::Zombie::SetBodyHp(int hp, int maxhp)
 PVZ::Animation PVZ::Zombie::GetAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x118);
-	return PVZ::Animation(ID_INDEX(ID));
+	return (ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : ID_INDEX(ID);
 }
 
 PVZ::Animation PVZ::Zombie::GetSpecialHeadAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x144);
-	return PVZ::Animation(ID_INDEX(ID));
+	return (ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : ID_INDEX(ID);
 }
 
 void PVZ::Zombie::SetSpecialHeadAnimation(PVZ::Animation anim)
