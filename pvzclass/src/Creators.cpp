@@ -382,8 +382,8 @@ PVZ::Rake Creator::CreateRake(byte row, byte column)
 		.ret()
 	);
 
-	rake.X = board.GridToXPixel(row, column);
-	rake.Y = board.GridToYPixel(row, column);
+	rake.X = static_cast<float>(board.GridToXPixel(row, column));
+	rake.Y = static_cast<float>(board.GridToYPixel(row, column));
 
 	auto model = Creator::CreateReanimation(AnimationType::Rake, rake.X + 20.0f, rake.Y, 0);
 	model.LoopType = PVZEnum::REANIM_PLAY_ONCE_AND_HOLD;
