@@ -1,5 +1,8 @@
 #include "PVZ.h"
 
+using std::optional;
+using std::nullopt;
+
 PVZ::Image* PVZ::Resource::IMAGE_BLANK = nullptr;
 
 /*
@@ -180,6 +183,38 @@ void PVZ::PVZString::Free()
 	PVZ::Memory::FreeMemory(this->BaseAddress);
 }
 
+optional<int> PVZ::PVZString::ToInt(PVZ::PVZString str)
+{
+	bool tmp = PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(str.GetBaseAddress())
+		.mov_reg_imm(REG_ESI, PVZ::Memory::Variable + 4)
+		.invoke(0x5AFD80)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	) & 0x0FF;
+
+	if (tmp)
+		return PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 4);
+	else
+		return nullopt;
+}
+
+optional<double> PVZ::PVZString::ToDouble(PVZ::PVZString str)
+{
+	bool tmp = PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(str.GetBaseAddress())
+		.mov_reg_imm(REG_EDI, PVZ::Memory::Variable + 4)
+		.invoke(0x5B0050)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	) & 0x0FF;
+	
+	if (tmp)
+		return PVZ::Memory::ReadMemory<double>(PVZ::Memory::Variable + 4);
+	else
+		return nullopt;
+}
+
 byte __asm_KillGameSelector[] =
 {
 	MOV_ESI(0),
@@ -221,6 +256,55 @@ void PVZ::PVZApp::PlayFoley(PVZEnum::FoleyType type)
 		.invoke(0x453630)
 		.ret()
 	);
+}
+
+bool PVZ::PVZApp::GetBoolean(PVZ::PVZString id, bool default_val)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.mov_reg_imm(REG_ECX, id.GetBaseAddress())
+		.push_imm32(default_val)
+		.invoke(0x552840)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	) & 0x0FF;
+}
+
+int PVZ::PVZApp::GetInteger(PVZ::PVZString id, int default_val)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.mov_reg_imm(REG_ECX, id.GetBaseAddress())
+		.push_imm32(default_val)
+		.invoke(0x5528B0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+}
+
+PVZ::PVZString PVZ::PVZApp::GetString(PVZ::PVZString id, PVZ::PVZString default_val)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.mov_reg_imm(REG_ESI, PVZ::Memory::Variable)
+		.mov_reg_imm(REG_ECX, id.GetBaseAddress())
+		.push_imm32(default_val.GetBaseAddress())
+		.invoke(0x552920)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+}
+
+bool PVZ::PVZApp::LoadProperties(PVZ::PVZString file_name, bool check_sig)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(this->BaseAddress)
+		.mov_reg_imm(REG_ECX, file_name.GetBaseAddress())
+		.push_imm32(check_sig)
+		.invoke(0x5524C0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	) & 0x0FF;
 }
 
 #pragma endregion

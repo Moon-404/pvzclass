@@ -8,6 +8,7 @@
 #include <memory>
 #include <vector>
 #include <type_traits>
+#include <optional>
 
 using std::enable_if_t;
 using std::is_base_of;
@@ -134,6 +135,7 @@ namespace PVZ
 	{
 	public:
 		PVZString(DWORD address) : BaseClass(address) {};
+
 		/// @brief 在 PVZ 主程序中创建字符串
 		/// @note 以此法创建的字符串需要使用 Free() 销毁，否则会造成内存泄露。
 		/// @return 创建的字符串
@@ -142,6 +144,16 @@ namespace PVZ
 		/// @brief 释放该字符串在 PVZ 占用的内存空间
 		/// @attention 只有通过 Make 创建的字符串才应该使用该函数销毁。
 		void Free();
+		/// @brief 将字符串转换为整数
+		/// @param str 字符串
+		/// @return 由 std::optional 表示的，转换为整数的结果。
+		/// @retval nullopt 转换失败
+		std::optional<int> ToInt(PVZString str);
+		/// @brief 将字符串转换为双精度浮点数
+		/// @param str 字符串
+		/// @return 由 std::optional 表示的，转换为浮点数的结果。
+		/// @retval nullopt 转换失败
+		std::optional<double> ToDouble(PVZString str);
 	};
 
 	/// @brief 游戏程序主类（原 LawnApp）。
@@ -182,6 +194,26 @@ namespace PVZ
 		void RemoveNotExistEffects();
 		/// @brief 播放指定音效
 		void PlayFoley(PVZEnum::FoleyType type);
+		/// @brief 获取 bool 类型的配置属性
+		/// @param id 属性 ID
+		/// @param default_val 获取失败时的默认值 
+		/// @return 获取的属性
+		bool GetBoolean(PVZString id, bool default_val);
+		/// @brief 获取 int 类型的配置属性
+		/// @param id 属性 ID
+		/// @param default_val 获取失败时的默认值 
+		/// @return 获取的属性
+		int GetInteger(PVZ::PVZString id, int default_val);
+		/// @brief 获取字符串类型的配置属性
+		/// @param id 属性 ID
+		/// @param default_val 获取失败时的默认值 
+		/// @return 获取的属性
+		PVZ::PVZString GetString(PVZ::PVZString id, PVZ::PVZString default_val);
+		/// @brief 加载属性文件
+		/// @param file_name 文件名
+		/// @param check_sig 是否检查签名文件
+		/// @return 是否加载成功
+		bool LoadProperties(PVZ::PVZString file_name, bool check_sig = false);
 	};
 	/// @brief 获取游戏程序主对象
 	/// @return 游戏程序主对象
