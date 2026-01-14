@@ -194,6 +194,11 @@ namespace PVZ
 		void RemoveNotExistEffects();
 		/// @brief 播放指定音效
 		void PlayFoley(PVZEnum::FoleyType type);
+		/// @brief 获取 bool 类型的配置属性
+		/// @param id 属性 ID
+		/// @param default_val 获取失败时的默认值 
+		/// @return 获取的属性
+		bool GetBoolean(PVZString id, bool default_val);
 	};
 	/// @brief 获取游戏程序主对象
 	/// @return 游戏程序主对象

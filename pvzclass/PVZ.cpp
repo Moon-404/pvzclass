@@ -258,4 +258,16 @@ void PVZ::PVZApp::PlayFoley(PVZEnum::FoleyType type)
 	);
 }
 
+bool PVZ::PVZApp::GetBoolean(PVZ::PVZString id, bool default_val)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.mov_reg_imm(REG_ECX, id.GetBaseAddress())
+		.push_imm32(default_val)
+		.invoke(0x552840)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	) & 0x0FF;
+}
+
 #pragma endregion
