@@ -1,5 +1,8 @@
 #include "PVZ.h"
 
+using std::optional;
+using std::nullopt;
+
 PVZ::Image* PVZ::Resource::IMAGE_BLANK = nullptr;
 
 /*
@@ -178,6 +181,22 @@ void PVZ::PVZString::Free()
 		.ret()
 	);
 	PVZ::Memory::FreeMemory(this->BaseAddress);
+}
+
+optional<int> PVZ::PVZString::ToInt(PVZ::PVZString str)
+{
+	bool tmp = PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(str.GetBaseAddress())
+		.mov_reg_imm(REG_ESI, PVZ::Memory::Variable + 4)
+		.invoke(0x5AFD80)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	) & 0x0FF;
+
+	if (tmp)
+		return PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 4);
+	else
+		return nullopt;
 }
 
 byte __asm_KillGameSelector[] =

@@ -8,6 +8,7 @@
 #include <memory>
 #include <vector>
 #include <type_traits>
+#include <optional>
 
 using std::enable_if_t;
 using std::is_base_of;
@@ -134,6 +135,7 @@ namespace PVZ
 	{
 	public:
 		PVZString(DWORD address) : BaseClass(address) {};
+
 		/// @brief 在 PVZ 主程序中创建字符串
 		/// @note 以此法创建的字符串需要使用 Free() 销毁，否则会造成内存泄露。
 		/// @return 创建的字符串
@@ -142,6 +144,11 @@ namespace PVZ
 		/// @brief 释放该字符串在 PVZ 占用的内存空间
 		/// @attention 只有通过 Make 创建的字符串才应该使用该函数销毁。
 		void Free();
+		/// @brief 将字符串转换为整数
+		/// @param str 字符串
+		/// @return 由 std::optional 表示的，转换为整数的结果。
+		/// @retval nullopt 转换失败
+		std::optional<int> ToInt(PVZString str);
 	};
 
 	/// @brief 游戏程序主类（原 LawnApp）。
