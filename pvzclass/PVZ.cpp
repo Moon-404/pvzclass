@@ -270,4 +270,16 @@ bool PVZ::PVZApp::GetBoolean(PVZ::PVZString id, bool default_val)
 	) & 0x0FF;
 }
 
+int PVZ::PVZApp::GetInteger(PVZ::PVZString id, int default_val)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.mov_reg_imm(REG_ECX, id.GetBaseAddress())
+		.push_imm32(default_val)
+		.invoke(0x5528B0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+}
+
 #pragma endregion
