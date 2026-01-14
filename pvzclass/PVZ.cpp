@@ -282,4 +282,17 @@ int PVZ::PVZApp::GetInteger(PVZ::PVZString id, int default_val)
 	);
 }
 
+PVZ::PVZString PVZ::PVZApp::GetString(PVZ::PVZString id, PVZ::PVZString default_val)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.mov_reg_imm(REG_ESI, PVZ::Memory::Variable)
+		.mov_reg_imm(REG_ECX, id.GetBaseAddress())
+		.push_imm32(default_val.GetBaseAddress())
+		.invoke(0x552920)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+}
+
 #pragma endregion
