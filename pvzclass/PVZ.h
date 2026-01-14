@@ -149,6 +149,11 @@ namespace PVZ
 		/// @return 由 std::optional 表示的，转换为整数的结果。
 		/// @retval nullopt 转换失败
 		std::optional<int> ToInt(PVZString str);
+		/// @brief 将字符串转换为双精度浮点数
+		/// @param str 字符串
+		/// @return 由 std::optional 表示的，转换为浮点数的结果。
+		/// @retval nullopt 转换失败
+		std::optional<double> ToDouble(PVZString str);
 	};
 
 	/// @brief 游戏程序主类（原 LawnApp）。

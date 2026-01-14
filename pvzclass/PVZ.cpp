@@ -199,6 +199,22 @@ optional<int> PVZ::PVZString::ToInt(PVZ::PVZString str)
 		return nullopt;
 }
 
+optional<double> PVZ::PVZString::ToDouble(PVZ::PVZString str)
+{
+	bool tmp = PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(str.GetBaseAddress())
+		.mov_reg_imm(REG_EDI, PVZ::Memory::Variable + 4)
+		.invoke(0x5B0050)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	) & 0x0FF;
+	
+	if (tmp)
+		return PVZ::Memory::ReadMemory<double>(PVZ::Memory::Variable + 4);
+	else
+		return nullopt;
+}
+
 byte __asm_KillGameSelector[] =
 {
 	MOV_ESI(0),
