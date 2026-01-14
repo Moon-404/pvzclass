@@ -4,6 +4,7 @@
 namespace PVZEvent
 {
 	/// @brief 重载默认存读档目录事件
+	/// @note 该事件是所有事件中触发时机最早的。
 	/// @param 触发事件时指定的存读档目录（std::string* 形式）
 	/// @return 重载的存读档目录的地址（std::string* 形式），非正数会被忽略。
 	class OverrideSavedataFolderEvent : public DLLEventTemplate<0x5AF5C0, 7, REG_ECX>
