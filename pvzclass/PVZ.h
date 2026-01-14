@@ -209,6 +209,11 @@ namespace PVZ
 		/// @param default_val 获取失败时的默认值 
 		/// @return 获取的属性
 		PVZ::PVZString GetString(PVZ::PVZString id, PVZ::PVZString default_val);
+		/// @brief 加载属性文件
+		/// @param file_name 文件名
+		/// @param check_sig 是否检查签名文件
+		/// @return 是否加载成功
+		bool LoadProperties(PVZ::PVZString file_name, bool check_sig = false);
 	};
 	/// @brief 获取游戏程序主对象
 	/// @return 游戏程序主对象
