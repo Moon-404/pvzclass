@@ -163,6 +163,23 @@ PVZ::PVZString PVZ::PVZString::Make(const char* str)
 	return toAddress;
 }
 
+void PVZ::PVZString::Free()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EBX, this->BaseAddress)
+		.cmp_mem_RAI32_imm32(REG_EBX, 0x18, 16)
+		.jb_rel(20)
+
+		.mov_reg_mem_reg_add_imm(REG_EAX, REG_EBX, 4)
+		.push_reg(REG_EAX)
+		.invoke(0x61C19A)
+		.add_reg_imm(REG_ESP, 4)
+
+		.ret()
+	);
+	PVZ::Memory::FreeMemory(this->BaseAddress);
+}
+
 byte __asm_KillGameSelector[] =
 {
 	MOV_ESI(0),

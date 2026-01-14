@@ -740,6 +740,13 @@ public:
 		return *this;
 	}
 
+	AsmBuilder& cmp_mem_RAI32_imm32(uint8_t reg, uint32_t imm, uint32_t val)
+	{
+		if (reg > 7)
+			throw std::invalid_argument("Invalid register for CMP");
+		return this->add_byte(0x81).add_byte(0xB8 + reg).add_dword(imm).add_dword(val);
+	}
+
 	AsmBuilder& test_al_al()
 	{
 		return this->add_byte(0x84).add_byte(0xC0);
