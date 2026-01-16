@@ -923,9 +923,6 @@
     <ClInclude Include="include\Events\ZombieConditionEvents.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\FoleyType.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\Events\BossBungeeSpawnEvent.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -955,6 +952,9 @@
     </ClInclude>
     <ClInclude Include="include\Events\SeedPacketAllowedToPickEvent.h">
       <Filter>头文件\Events\SeedPacket</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums\FoleyType.h">
+      <Filter>头文件\Enums</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
