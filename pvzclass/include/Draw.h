@@ -32,12 +32,14 @@ namespace PVZ
 // 请与DrawUITopEvent配合使用
 namespace Draw
 {
+	/// @deprecated 请改用 PVZ::PVZString
 	typedef DWORD PString;
 	typedef DWORD PSharedImageRef;
 	typedef DWORD PImage;
 	extern BYTE color[16];
 
-	// 将字符数组转化为字符串
+	/// @brief 将字符数组转化为字符串
+	/// @deprecated 请改用 PVZ::PVZString::Make()
 	PString ToString(const char* str);
 
 	// 将字符串转化为字符数组
