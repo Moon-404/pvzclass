@@ -1,6 +1,9 @@
-﻿#pragma once
+#pragma once
+/// @brief 旧的 Foley 式音效类型
+/// @see FoleyType
 namespace LowerSoundType
 {
+	/// @deprecated 请改用 FoleyType::FoleyType
 	enum LowerSoundType
 	{
 		GainSun,
