@@ -1,8 +1,6 @@
 #include "Draw.h"
 #include <iostream>
 
-BYTE Draw::color[16];
-
 BYTE __asm__ToString[]
 {
 	PUSHDWORD(0),
@@ -50,28 +48,6 @@ void Draw::StringWidth(PString str, DWORD imageFontAddress)
 	SETARG(__asm__StringWidth, 1) = str;
 	SETARG(__asm__StringWidth, 6) = imageFontAddress;
 	PVZ::Memory::Execute(STRING(__asm__StringWidth));
-}
-
-BYTE __asm__SetColor[]
-{
-	PUSHDWORD(0),
-	MOV_EDX(0),
-	MOV_ECX(0),
-	MOV_EAX(0),
-	INVOKE(0x5643D0),
-	MOV_ECX(0),
-	INVOKE(0x586CC0),
-	RET
-};
-
-void Draw::SetColor(DWORD r, DWORD g, DWORD b, DWORD graphics)
-{
-	SETARG(__asm__SetColor, 1) = r;
-	SETARG(__asm__SetColor, 6) = g;
-	SETARG(__asm__SetColor, 11) = b;
-	SETARG(__asm__SetColor, 16) = (int)color;
-	SETARG(__asm__SetColor, 34) = graphics;
-	PVZ::Memory::Execute(STRING(__asm__SetColor));
 }
 
 BYTE __asm__GetSharedImage[]
@@ -145,116 +121,125 @@ void Draw::DrawString(DWORD x, DWORD y, PString str, DWORD graphics)
 	PVZ::Memory::Execute(STRING(__asm__DrawString));
 }
 
-BYTE __asm__DrawImage[]
+void PVZ::Graphics::SetColor(int red, int green, int blue, int alpha)
 {
-	PUSHDWORD(0),
-	PUSHDWORD(0),
-	MOV_EBX(0),
-	MOV_EAX(0),
-	INVOKE(0x587150),
-	RET
-};
-
-void Draw::DrawImage(DWORD x, DWORD y, PImage image, DWORD graphics)
-{
-	SETARG(__asm__DrawImage, 1) = y;
-	SETARG(__asm__DrawImage, 6) = x;
-	SETARG(__asm__DrawImage, 11) = image;
-	SETARG(__asm__DrawImage, 16) = graphics;
-	PVZ::Memory::Execute(STRING(__asm__DrawImage));
+	Red = red;
+	Green = green;
+	Blue = blue;
+	Alpha = alpha;
 }
 
-BYTE __asm__DrawLine[]
+void PVZ::Graphics::SetColorizeImages(bool value)
 {
-	PUSHDWORD(0),
-	PUSHDWORD(0),
-	PUSHDWORD(0),
-	PUSHDWORD(0),
-	INVOKE(0x587080),
-	RET
-};
-
-void Draw::DrawLine(int startx, int starty, int endx, int endy, DWORD graphics)
-{
-	SETARG(__asm__DrawLine, 1) = endy;
-	SETARG(__asm__DrawLine, 6) = endx;
-	SETARG(__asm__DrawLine, 11) = startx;
-	SETARG(__asm__DrawLine, 16) = graphics;
-	PVZ::Memory::WriteMemory<double>(PVZ::Memory::Variable, starty);
-	PVZ::Memory::WriteMemory<DWORD>(0x5870A4, PVZ::Memory::Variable);
-	PVZ::Memory::Execute(STRING(__asm__DrawLine));
-	PVZ::Memory::WriteMemory<DWORD>(0x5870A4, 0x65B8F8);
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, value)
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x586D10)
+		.ret()
+	);
 }
 
-BYTE __asm__DrawRect[]
+void PVZ::Graphics::ClipRect(int x, int y, int width, int height)
 {
-	PUSHDWORD(0),
-	PUSHDWORD(0),
-	PUSHDWORD(0),
-	PUSHDWORD(0),
-	MOV_EAX(0),
-	INVOKE(0x586DE0),
-	RET
-};
-
-void Draw::DrawRect(int x, int y, int width, int height, DWORD graphics)
-{
-	SETARG(__asm__DrawRect, 1) = height;
-	SETARG(__asm__DrawRect, 6) = width;
-	SETARG(__asm__DrawRect, 11) = y;
-	SETARG(__asm__DrawRect, 16) = x;
-	SETARG(__asm__DrawRect, 21) = graphics;
-	PVZ::Memory::Execute(STRING(__asm__DrawRect));
-}
-
-BYTE __asm__FillRect[]
-{
-	PUSHDWORD(0),
-	PUSHDWORD(0),
-	PUSHDWORD(0),
-	PUSHDWORD(0),
-	MOV_EAX(0),
-	INVOKE(0x586D50),
-	RET
-};
-
-void Draw::FillRect(int x, int y, int width, int height, DWORD graphics)
-{
-	SETARG(__asm__FillRect, 1) = height;
-	SETARG(__asm__FillRect, 6) = width;
-	SETARG(__asm__FillRect, 11) = y;
-	SETARG(__asm__FillRect, 16) = x;
-	SETARG(__asm__FillRect, 21) = graphics;
-	PVZ::Memory::Execute(STRING(__asm__FillRect));
-}
-
-BYTE __asm__DrawTextBox[]
-{
-	PUSHDWORD(0),
-	MOV_ECX(0),
-	0x8B, 0x11, // mov edx,[ecx]
-	MOV_EUX_PTR_EVX_ADD(2, 2, 0x04),
-	CALL_EUX(2),
-	MOV_EBX_EAX,
-	MOV_EUX_PTR_ADDR(0, 0x6A7890),
-	PUSHDWORD(0),
-	INVOKE(0x587900),
-	RET
-};
-
-void Draw::DrawTextBox(DWORD edit, DWORD graphics)
-{
-	int rect = PVZ::Memory::AllocMemory(0, 16);
-	SETARG(__asm__DrawTextBox, 1) = rect;
-	SETARG(__asm__DrawTextBox, 6) = edit;
-	SETARG(__asm__DrawTextBox, 29) = graphics;
-	PVZ::Memory::Execute(STRING(__asm__DrawTextBox));
-	PVZ::Memory::FreeMemory(rect);
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(height)
+		.push(width)
+		.push(y)
+		.push(x)
+		.mov_reg_imm(REG_ESI, BaseAddress)
+		.invoke(0x587790)
+		.ret()
+	);
 }
 
 void PVZ::Graphics::DrawImage(PVZ::Image image, int x, int y)
 {
-	Draw::DrawImage(x, y, image.GetBaseAddress(), this->GetBaseAddress());
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(y)
+		.push(x)
+		.mov_reg_imm(REG_EBX, image.GetBaseAddress())
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x587150)
+		.ret()
+	);
+}
+
+void PVZ::Graphics::DrawLine(int start_x, int start_y, int end_x, int end_y)
+{
+	PVZ::Memory::WriteMemory<double>(PVZ::Memory::Variable, start_y);
+	PVZ::Memory::WriteMemory<DWORD>(0x5870A4, PVZ::Memory::Variable);
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(end_y)
+		.push(end_x)
+		.push(start_x)
+		.push(BaseAddress)
+		.invoke(0x587080)
+		.ret()
+	);
+	PVZ::Memory::WriteMemory<DWORD>(0x5870A4, 0x65B8F8);
+}
+
+void PVZ::Graphics::DrawRect(int x, int y, int width, int height)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(height)
+		.push(width)
+		.push(y)
+		.push(x)
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x586DE0)
+		.ret()
+	);
+}
+
+void PVZ::Graphics::FillRect(int x, int y, int width, int height)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(height)
+		.push(width)
+		.push(y)
+		.push(x)
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x586D50)
+		.ret()
+	);
+}
+
+void PVZ::Graphics::DrawTextBox(DWORD edit)
+{
+	int rect = PVZ::Memory::AllocMemory(0, 16);
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(rect)
+		.mov_reg_imm(REG_ECX, edit)
+		.mov_reg_mem_reg_add_imm(REG_EDX, REG_ECX, 0)
+		.mov_reg_mem_reg_add_imm(REG_EDX, REG_EDX, 4)
+		.call_reg(REG_EDX)
+		.mov_reg_reg(REG_EBX, REG_EAX)
+		.mov_reg_mem(REG_EAX, 0x6A7890)
+		.push(BaseAddress)
+		.invoke(0x587900)
+		.ret()
+	);
+	PVZ::Memory::FreeMemory(rect);
+}
+
+void PVZ::Graphics::DrawString(int x, int y, Draw::PString str, DWORD font, int just, int r, int g, int b, int a)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(a)
+		.push(b)
+		.push(g)
+		.push(r)
+		.push(just)
+		.mov_reg_imm(REG_EBX, font)
+		.push(y)
+		.mov_reg_imm(REG_ECX, x)
+		.mov_reg_imm(REG_EDX, str)
+		.push(BaseAddress)
+		.invoke(0x511CE0)
+		.add_reg_imm(REG_ESP, 0x1C)
+		.ret()
+	);
 }
 
 void PVZ::Graphics::TodDrawImageScaledF(PVZ::Image image, float x, float y, float scale_x, float scale_y)
@@ -283,6 +268,36 @@ void PVZ::Graphics::TodDrawImageCenterScaledF(PVZ::Image image, float x, float y
 		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
 		.invoke(0x512A10)
 		.add_reg_imm(REG_ESP, 16)
+		.ret()
+	);
+}
+
+void PVZ::Graphics::TodDrawImageCelScaledF(PVZ::Image image, float x, float y, float scale_x, float scale_y, int row, int col)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_float(scale_y)
+		.push_float(scale_x)
+		.push(row)
+		.push(col)
+		.push_float(y)
+		.push_float(x)
+		.mov_reg_imm(REG_ECX, image.GetBaseAddress())
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x512880)
+		.add_reg_imm(REG_ESP, 0x18)
+		.ret()
+	);
+}
+
+void PVZ::Graphics::DrawZombie(ZombieType::ZombieType type, float x, float y, DWORD cache)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, type)
+		.push_float(y)
+		.push_float(x)
+		.mov_reg_imm(REG_EDI, BaseAddress)
+		.mov_reg_imm(REG_EBX, cache)
+		.invoke(0x470170)
 		.ret()
 	);
 }
