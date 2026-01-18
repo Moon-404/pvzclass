@@ -134,7 +134,8 @@ namespace PVZ
 	class PVZString : public BaseClass
 	{
 	public:
-		PVZString(DWORD address) : BaseClass(address) {};
+		PVZString() = default;
+		explicit PVZString(int address) : BaseClass(address) {};
 
 		/// @brief 在 PVZ 主程序中创建字符串
 		/// @note 以此法创建的字符串需要使用 Free() 销毁，否则会造成内存泄露。

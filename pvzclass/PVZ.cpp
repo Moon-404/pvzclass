@@ -163,7 +163,7 @@ PVZ::PVZString PVZ::PVZString::Make(const char* str)
 	PVZ::Memory::Execute(STRING(__asm__MakeString));
 
 	PVZ::Memory::FreeMemory(fromAddress);
-	return toAddress;
+	return PVZ::PVZString(toAddress);
 }
 
 PVZ::PVZString PVZ::PVZString::Translate(const char* str)
@@ -301,7 +301,7 @@ int PVZ::PVZApp::GetInteger(PVZ::PVZString id, int default_val)
 
 PVZ::PVZString PVZ::PVZApp::GetString(PVZ::PVZString id, PVZ::PVZString default_val)
 {
-	return PVZ::Memory::Execute(AsmBuilder()
+	return PVZ::PVZString{ PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EAX, this->BaseAddress)
 		.mov_reg_imm(REG_ESI, PVZ::Memory::Variable)
 		.mov_reg_imm(REG_ECX, id.GetBaseAddress())
@@ -309,7 +309,7 @@ PVZ::PVZString PVZ::PVZApp::GetString(PVZ::PVZString id, PVZ::PVZString default_
 		.invoke(0x552920)
 		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
 		.ret()
-	);
+	) };
 }
 
 bool PVZ::PVZApp::LoadProperties(PVZ::PVZString file_name, bool check_sig)
