@@ -232,6 +232,29 @@ optional<double> PVZ::PVZString::ToDouble(PVZ::PVZString str)
 		return nullopt;
 }
 
+void PVZ::PVZString::Concat(const char* src, int len)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len);
+
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(len)
+		.push_imm32(PVZ::Memory::Variable + 100)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x41E3E0)
+		.ret());
+}
+
+void PVZ::PVZString::Concat(PVZ::PVZString src)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(0xFFFFFFFF)
+		.push(0)
+		.push_imm32(src.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x41DC70)
+		.ret());
+}
+
 byte __asm_KillGameSelector[] =
 {
 	MOV_ESI(0),

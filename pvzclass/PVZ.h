@@ -160,6 +160,13 @@ namespace PVZ
 		/// @return 由 std::optional 表示的，转换为浮点数的结果。
 		/// @retval nullopt 转换失败
 		std::optional<double> ToDouble(PVZString str);
+		/// @brief 拼接字符数组中的字符串
+		/// @param src 字符串
+		/// @param len 长度
+		void Concat(const char* src, int len);
+		/// @brief 拼接字符串
+		/// @param src 字符串
+		void Concat(PVZ::PVZString src);
 	};
 
 	/// @brief 游戏程序主类（原 LawnApp）。
