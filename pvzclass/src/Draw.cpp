@@ -9,26 +9,14 @@ BYTE __asm__ToString[]
 	RET
 };
 
-Draw::PString Draw::ToString(const char* str)
+char* Draw::ToChar(PVZ::PVZString str)
 {
-	int len = strlen(str);
-	DWORD fromAddress = PVZ::Memory::AllocMemory(0, len + 1);
-	PVZ::Memory::WriteArray<const char>(fromAddress, str, len + 1);
-	PString toAddress = PVZ::Memory::AllocMemory(0, 0x1C);
-	SETARG(__asm__ToString, 1) = fromAddress;
-	SETARG(__asm__ToString, 6) = toAddress;
-	PVZ::Memory::Execute(STRING(__asm__ToString));
-	PVZ::Memory::FreeMemory(fromAddress);
-	return toAddress;
-}
-
-char* Draw::ToChar(PString str)
-{
-	int size = PVZ::Memory::ReadMemory<int>(str + 0x18);
+	auto str_address = str.GetBaseAddress();
+	int size = PVZ::Memory::ReadMemory<int>(str_address + 0x18);
 	DWORD address = 0;
-	if (size < 16) address = str + 4;
-	else address = PVZ::Memory::ReadMemory<DWORD>(str + 4);
-	int len = PVZ::Memory::ReadMemory<int>(str + 0x14);
+	if (size < 16) address = str_address + 4;
+	else address = PVZ::Memory::ReadMemory<DWORD>(str_address + 4);
+	int len = PVZ::Memory::ReadMemory<int>(str_address + 0x14);
 	char* result = new char[len + 1];
 	PVZ::Memory::ReadArray<char>(address, result, len);
 	result[len] = 0;
@@ -43,9 +31,9 @@ BYTE __asm__StringWidth[]
 	RET
 };
 
-void Draw::StringWidth(PString str, DWORD imageFontAddress)
+void Draw::StringWidth(PVZ::PVZString str, DWORD imageFontAddress)
 {
-	SETARG(__asm__StringWidth, 1) = str;
+	SETARG(__asm__StringWidth, 1) = str.GetBaseAddress();
 	SETARG(__asm__StringWidth, 6) = imageFontAddress;
 	PVZ::Memory::Execute(STRING(__asm__StringWidth));
 }
@@ -63,11 +51,11 @@ BYTE __asm__GetSharedImage[]
 	RET
 };
 
-Draw::PSharedImageRef Draw::GetSharedImage(DWORD isnewAddress, PString variant, PString filename)
+Draw::PSharedImageRef Draw::GetSharedImage(DWORD isnewAddress, PVZ::PVZString variant, PVZ::PVZString filename)
 {
 	SETARG(__asm__GetSharedImage, 1) = isnewAddress;
-	SETARG(__asm__GetSharedImage, 6) = variant;
-	SETARG(__asm__GetSharedImage, 11) = filename;
+	SETARG(__asm__GetSharedImage, 6) = variant.GetBaseAddress();
+	SETARG(__asm__GetSharedImage, 11) = filename.GetBaseAddress();
 	PSharedImageRef imageRef = PVZ::Memory::AllocMemory(0, 4);
 	SETARG(__asm__GetSharedImage, 16) = imageRef;
 	PVZ::Memory::Execute(STRING(__asm__GetSharedImage));
@@ -112,11 +100,11 @@ BYTE __asm__DrawString[]
 	RET
 };
 
-void Draw::DrawString(DWORD x, DWORD y, PString str, DWORD graphics)
+void Draw::DrawString(DWORD x, DWORD y, PVZ::PVZString str, DWORD graphics)
 {
 	SETARG(__asm__DrawString, 1) = y;
 	SETARG(__asm__DrawString, 6) = x;
-	SETARG(__asm__DrawString, 11) = str;
+	SETARG(__asm__DrawString, 11) = str.GetBaseAddress();
 	SETARG(__asm__DrawString, 16) = graphics;
 	PVZ::Memory::Execute(STRING(__asm__DrawString));
 }
@@ -223,7 +211,7 @@ void PVZ::Graphics::DrawTextBox(DWORD edit)
 	PVZ::Memory::FreeMemory(rect);
 }
 
-void PVZ::Graphics::DrawString(int x, int y, Draw::PString str, DWORD font, int just, int r, int g, int b, int a)
+void PVZ::Graphics::DrawString(int x, int y, PVZ::PVZString str, DWORD font, int just, int r, int g, int b, int a)
 {
 	PVZ::Memory::Execute(AsmBuilder()
 		.push(a)
@@ -234,7 +222,7 @@ void PVZ::Graphics::DrawString(int x, int y, Draw::PString str, DWORD font, int 
 		.mov_reg_imm(REG_EBX, font)
 		.push(y)
 		.mov_reg_imm(REG_ECX, x)
-		.mov_reg_imm(REG_EDX, str)
+		.mov_reg_imm(REG_EDX, str.GetBaseAddress())
 		.push(BaseAddress)
 		.invoke(0x511CE0)
 		.add_reg_imm(REG_ESP, 0x1C)

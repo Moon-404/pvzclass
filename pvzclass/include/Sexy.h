@@ -78,21 +78,21 @@ namespace Sexy
 	// listener：按钮事件监听器
 	// theId：一个按钮Id
 	// 返回：按钮的地址
-	PButton MakeButton(Draw::PString str, PButtonListener listener, int theId);
+	PButton MakeButton(PVZ::PVZString str, PButtonListener listener, int theId);
 
 	// 创建贴图按钮
 	// image**Address：对应状态的Image，使用Draw.h相关代码构建
 	// 返回：按钮的地址
 	PButton MakeImageButton(Draw::PImage down, Draw::PImage over, Draw::PImage normal,
-		DWORD fontAddress, Draw::PString str, PButtonListener listener, int theId);
+		DWORD fontAddress, PVZ::PVZString str, PButtonListener listener, int theId);
 
 	// 创建对话框
 	// buttonMode：0(NONE) | 1(YES_NO) | 2(OK_CANCEL) | 3(FOOTER)
 	// 其中：YES OK FOOTER 对应的buttonId是1000，NO CANCEL是1001
 	// modal：0或1，为1时其他窗口将无法响应点击事件且不可获得焦点
 	// dialogId：对话框Id，0-50为原版Id，建议从100开始
-	PDialog MakeDialog(int buttonMode, Draw::PString footer, Draw::PString lines,
-		Draw::PString header, int modal, int dialogId);
+	PDialog MakeDialog(int buttonMode, PVZ::PVZString footer, PVZ::PVZString lines,
+		PVZ::PVZString header, int modal, int dialogId);
 
 	// 创建输入框
 	// 必须附着在某个Dialog中
@@ -100,13 +100,13 @@ namespace Sexy
 	PEdit MakeEdit(PDialog dialog, PEditListener listener);
 
 	// 获取字符串
-	Draw::PString GetEditString(PEdit edit);
+	PVZ::PVZString GetEditString(PEdit edit);
 
 	// 设置字符串
 	// left 是否将移动位置归零
 	// 例如如果只能显示 3 个字符，对于 Helloworld 这个字符串
 	// true 则显示 Hel，false 则显示 rld，大概是这个意思……吧
-	void SetEditString(PEdit edit, Draw::PString pstr, bool left);
+	void SetEditString(PEdit edit, PVZ::PVZString pstr, bool left);
 
 	// 创建勾选框
 	// checked为是否默认勾选
@@ -126,7 +126,7 @@ namespace Sexy
 	// 为列表list加一行line
 	// alphabetical为是否按照字母表顺序插入
 	// 返回值为插入行在列表中的序号
-	int AddListLine(PList list, Draw::PString line, bool alphabetical);
+	int AddListLine(PList list, PVZ::PVZString line, bool alphabetical);
 
 	// 设置列表每一行的高度
 	void SetListLineHeight(PList list, int height);
