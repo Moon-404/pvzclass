@@ -1,17 +1,52 @@
 #pragma once
 #include "../PVZ.h"
 
+namespace Draw
+{
+	/// @deprecated 请改用 PVZ::PVZString
+	typedef DWORD PString;
+}
+
 namespace PVZ
 {
 	class Graphics : public BaseClass
 	{
 	public:
 		Graphics(uint32_t address) : BaseClass(address) {};
+		/// @brief 缩放比例
+		T_PROPERTY(float, ScaleX, __get_ScaleX, __set_ScaleX, 0x10);
+		T_PROPERTY(float, ScaleY, __get_ScaleY, __set_ScaleY, 0x14);
+		/// @brief 颜色
+		INT_PROPERTY(Red, __get_Red, __set_Red, 0x30);
+		INT_PROPERTY(Green, __get_Green, __set_Green, 0x34);
+		INT_PROPERTY(Blue, __get_Blue, __set_Blue, 0x38);
+		INT_PROPERTY(Alpha, __get_Alpha, __set_Alpha, 0x3C);
+		/// @brief 设置颜色
+		void SetColor(int red, int green, int blue, int alpha = 0xFF);
+		/// @brief 设置是否着色
+		void SetColorizeImages(bool value);
+		/// @brief 设置裁剪矩形
+		/// @note 参数 x 和 y 采用以自身的偏移坐标为参考的相对坐标
+		void ClipRect(int x, int y, int width, int height);
+		/// @brief 在指定位置绘制字体
+		/// @param just 文本的对齐方式：0(左对齐)|1(右对齐)|2(居中对齐)|3(左对齐，垂直居中)|4(右对齐，垂直居中)|5(完全居中)
+		void DrawString(int x, int y, Draw::PString str, DWORD font, int just, int r, int g, int b, int a);
 		/// @brief 在指定坐标绘制图片
 		/// @param image 绘制的图片
 		/// @param x X 坐标
 		/// @param y Y 坐标
 		void DrawImage(PVZ::Image image, int x, int y);
+		/// @brief 在指定位置绘制一条线
+		void DrawLine(int start_x, int start_y, int end_x, int end_y);
+		/// @brief 绘制空心矩形
+		void DrawRect(int x, int y, int width, int height);
+		/// @brief 绘制实心矩形
+		void FillRect(int x, int y, int width, int height);
+		/// @brief 绘制Edit的黄色输入框背景
+		void DrawTextBox(DWORD edit);
+		/// @brief 绘制动画缓存的僵尸贴图，若无缓存的贴图则会制取贴图并写入缓存。
+		/// @param cache 为 PVZApp 中的 ReanimatorCache
+		void DrawZombie(ZombieType::ZombieType type, float x, float y, DWORD cache);
 		/// @brief 在指定坐标拉伸地绘制贴图。拉伸原点为贴图左上顶点。
 		/// @param image 绘制的图片
 		/// @param x X 坐标
@@ -26,17 +61,18 @@ namespace PVZ
 		/// @param scale_x X 方向拉伸
 		/// @param scale_y Y 方向拉伸
 		void TodDrawImageCenterScaledF(PVZ::Image image, float x, float y, float scale_x, float scale_y);
+		/// @brief 在指定坐标拉伸地绘制分割贴图。
+		/// @param row 分割贴图的行
+		/// @param col 分割贴图的列
+		void TodDrawImageCelScaledF(PVZ::Image image, float x, float y, float scale_x, float scale_y, int row, int col);
 	};
 }
 
 // 请与DrawUITopEvent配合使用
 namespace Draw
 {
-	/// @deprecated 请改用 PVZ::PVZString
-	typedef DWORD PString;
 	typedef DWORD PSharedImageRef;
 	typedef DWORD PImage;
-	extern BYTE color[16];
 
 	/// @brief 将字符数组转化为字符串
 	/// @deprecated 请改用 PVZ::PVZString::Make()
@@ -47,9 +83,6 @@ namespace Draw
 
 	// 加载字体，由于汉化版的特殊处理，这个函数实际上调用的是计算字符串长度
 	void StringWidth(PString str, DWORD imageFontAddress);
-
-	// 设置字体颜色
-	void SetColor(DWORD r, DWORD g, DWORD b, DWORD graphics);
 
 	// 从指定路径加载图像文件
 	// isnewAddress存放了这个图像文件是否已经存在
@@ -63,19 +96,4 @@ namespace Draw
 
 	// 在指定位置绘制字体
 	void DrawString(DWORD x, DWORD y, PString str, DWORD graphics);
-
-	// 在指定位置绘制图片
-	void DrawImage(DWORD x, DWORD y, PImage image, DWORD graphics);
-
-	// 在指定位置绘制一条线
-	void DrawLine(int startx, int starty, int endx, int endy, DWORD graphics);
-
-	// 绘制空心矩形
-	void DrawRect(int x, int y, int width, int height, DWORD graphics);
-
-	// 绘制实心矩形
-	void FillRect(int x, int y, int width, int height, DWORD graphics);
-
-	// 绘制Edit的黄色输入框背景
-	void DrawTextBox(DWORD edit, DWORD graphics);
 }
