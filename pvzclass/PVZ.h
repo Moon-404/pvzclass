@@ -141,6 +141,11 @@ namespace PVZ
 		/// @return 创建的字符串
 		/// @author Moon404
 		static PVZString Make(const char* str);
+		/// @brief 将给定的“[X]”格式字符数组转换为对应的译文字符串
+		/// @note 不符合格式时，会直接转换为字符串。
+		/// @param str 原字符串
+		/// @return 翻译后得到的字符串
+		PVZ::PVZString Translate(const char* str);
 		/// @brief 释放该字符串在 PVZ 占用的内存空间
 		/// @attention 只有通过 Make 创建的字符串才应该使用该函数销毁。
 		void Free();
