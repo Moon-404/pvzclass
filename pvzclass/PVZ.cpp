@@ -163,7 +163,24 @@ PVZ::PVZString PVZ::PVZString::Make(const char* str)
 	PVZ::Memory::Execute(STRING(__asm__MakeString));
 
 	PVZ::Memory::FreeMemory(fromAddress);
-	return toAddress;
+	return PVZ::PVZString(toAddress);
+}
+
+PVZ::PVZString PVZ::PVZString::Translate(const char* str)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, str, std::strlen(str) + 1);
+
+	return PVZ::PVZString{ PVZ::Memory::Execute(AsmBuilder()
+		.push(0)
+
+		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable + 100)
+		.mov_reg_reg(REG_ESI, REG_ESP)
+		.invoke(0x5195D0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+
+		.add_reg_imm(REG_ESP, 4)
+		.ret()
+	) };
 }
 
 void PVZ::PVZString::Free()
@@ -213,6 +230,29 @@ optional<double> PVZ::PVZString::ToDouble(PVZ::PVZString str)
 		return PVZ::Memory::ReadMemory<double>(PVZ::Memory::Variable + 4);
 	else
 		return nullopt;
+}
+
+void PVZ::PVZString::Concat(const char* src, int len)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len);
+
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(len)
+		.push_imm32(PVZ::Memory::Variable + 100)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x41E3E0)
+		.ret());
+}
+
+void PVZ::PVZString::Concat(PVZ::PVZString src)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(0xFFFFFFFF)
+		.push(0)
+		.push_imm32(src.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x41DC70)
+		.ret());
 }
 
 byte __asm_KillGameSelector[] =
@@ -284,7 +324,7 @@ int PVZ::PVZApp::GetInteger(PVZ::PVZString id, int default_val)
 
 PVZ::PVZString PVZ::PVZApp::GetString(PVZ::PVZString id, PVZ::PVZString default_val)
 {
-	return PVZ::Memory::Execute(AsmBuilder()
+	return PVZ::PVZString{ PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EAX, this->BaseAddress)
 		.mov_reg_imm(REG_ESI, PVZ::Memory::Variable)
 		.mov_reg_imm(REG_ECX, id.GetBaseAddress())
@@ -292,7 +332,7 @@ PVZ::PVZString PVZ::PVZApp::GetString(PVZ::PVZString id, PVZ::PVZString default_
 		.invoke(0x552920)
 		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
 		.ret()
-	);
+	) };
 }
 
 bool PVZ::PVZApp::LoadProperties(PVZ::PVZString file_name, bool check_sig)

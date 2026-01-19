@@ -1,12 +1,6 @@
 #pragma once
 #include "../PVZ.h"
 
-namespace Draw
-{
-	/// @deprecated 请改用 PVZ::PVZString
-	typedef DWORD PString;
-}
-
 namespace PVZ
 {
 	class Graphics : public BaseClass
@@ -30,7 +24,7 @@ namespace PVZ
 		void ClipRect(int x, int y, int width, int height);
 		/// @brief 在指定位置绘制字体
 		/// @param just 文本的对齐方式：0(左对齐)|1(右对齐)|2(居中对齐)|3(左对齐，垂直居中)|4(右对齐，垂直居中)|5(完全居中)
-		void DrawString(int x, int y, Draw::PString str, DWORD font, int just, int r, int g, int b, int a);
+		void DrawString(int x, int y, PVZString str, DWORD font, int just, int r, int g, int b, int a);
 		/// @brief 在指定坐标绘制图片
 		/// @param image 绘制的图片
 		/// @param x X 坐标
@@ -74,19 +68,15 @@ namespace Draw
 	typedef DWORD PSharedImageRef;
 	typedef DWORD PImage;
 
-	/// @brief 将字符数组转化为字符串
-	/// @deprecated 请改用 PVZ::PVZString::Make()
-	PString ToString(const char* str);
-
 	// 将字符串转化为字符数组
-	char* ToChar(PString str);
+	char* ToChar(PVZ::PVZString str);
 
 	// 加载字体，由于汉化版的特殊处理，这个函数实际上调用的是计算字符串长度
-	void StringWidth(PString str, DWORD imageFontAddress);
+	void StringWidth(PVZ::PVZString str, DWORD imageFontAddress);
 
 	// 从指定路径加载图像文件
 	// isnewAddress存放了这个图像文件是否已经存在
-	PSharedImageRef GetSharedImage(DWORD isnewAddress, PString variant, PString filename);
+	PSharedImageRef GetSharedImage(DWORD isnewAddress, PVZ::PVZString variant, PVZ::PVZString filename);
 
 	// 将sharedImageRef转换为Image*返回
 	PImage SharedImageRefToImage(PSharedImageRef imageRef);
@@ -95,5 +85,5 @@ namespace Draw
 	void FreeImage(PSharedImageRef imageRef);
 
 	// 在指定位置绘制字体
-	void DrawString(DWORD x, DWORD y, PString str, DWORD graphics);
+	void DrawString(DWORD x, DWORD y, PVZ::PVZString str, DWORD graphics);
 }

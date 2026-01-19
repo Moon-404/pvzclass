@@ -1,4 +1,4 @@
-﻿#include "Sexy.h"
+#include "Sexy.h"
 
 Sexy::PButtonListener Sexy::MakeButtonListener(ButtonListener* listener)
 {
@@ -43,9 +43,9 @@ BYTE __asm__MakeButton[]
 	RET
 };
 
-Sexy::PButton Sexy::MakeButton(Draw::PString str, PButtonListener listener, int theId)
+Sexy::PButton Sexy::MakeButton(PVZ::PVZString str, PButtonListener listener, int theId)
 {
-	SETARG(__asm__MakeButton, 1) = str;
+	SETARG(__asm__MakeButton, 1) = str.GetBaseAddress();
 	SETARG(__asm__MakeButton, 6) = listener;
 	SETARG(__asm__MakeButton, 11) = theId;
 	SETARG(__asm__MakeButton, 32) = PVZ::Memory::Variable;
@@ -68,13 +68,13 @@ BYTE __asm__MakeImageButton[]
 };
 
 Sexy::PButton Sexy::MakeImageButton(Draw::PImage down, Draw::PImage over, Draw::PImage normal,
-	DWORD fontAddress, Draw::PString str, PButtonListener listener, int theId)
+	DWORD fontAddress, PVZ::PVZString str, PButtonListener listener, int theId)
 {
 	SETARG(__asm__MakeImageButton, 1) = down;
 	SETARG(__asm__MakeImageButton, 6) = over;
 	SETARG(__asm__MakeImageButton, 11) = normal;
 	SETARG(__asm__MakeImageButton, 16) = fontAddress;
-	SETARG(__asm__MakeImageButton, 21) = str;
+	SETARG(__asm__MakeImageButton, 21) = str.GetBaseAddress();
 	SETARG(__asm__MakeImageButton, 26) = listener;
 	SETARG(__asm__MakeImageButton, 31) = theId;
 	SETARG(__asm__MakeImageButton, 52) = PVZ::Memory::Variable;
@@ -97,13 +97,13 @@ BYTE __asm__MakeDialog[]
 	RET
 };
 
-Sexy::PDialog Sexy::MakeDialog(int buttonMode, Draw::PString footer, Draw::PString lines,
-	Draw::PString header, int modal, int dialogId)
+Sexy::PDialog Sexy::MakeDialog(int buttonMode, PVZ::PVZString footer, PVZ::PVZString lines,
+	PVZ::PVZString header, int modal, int dialogId)
 {
 	SETARG(__asm__MakeDialog, 1) = buttonMode;
-	SETARG(__asm__MakeDialog, 6) = footer;
-	SETARG(__asm__MakeDialog, 11) = lines;
-	SETARG(__asm__MakeDialog, 16) = header;
+	SETARG(__asm__MakeDialog, 6) = footer.GetBaseAddress();
+	SETARG(__asm__MakeDialog, 11) = lines.GetBaseAddress();
+	SETARG(__asm__MakeDialog, 16) = header.GetBaseAddress();
 	SETARG(__asm__MakeDialog, 21) = modal;
 	SETARG(__asm__MakeDialog, 26) = dialogId;
 	SETARG(__asm__MakeDialog, 47) = PVZ::Memory::Variable;
@@ -128,16 +128,16 @@ Sexy::PEdit Sexy::MakeEdit(PDialog dialog, PEditListener listener)
 	return PVZ::Memory::Execute(STRING(__asm__MakeEdit));
 }
 
-Draw::PString Sexy::GetEditString(PEdit edit)
+PVZ::PVZString Sexy::GetEditString(PEdit edit)
 {
-	return edit + 0x8C;
+	return PVZ::PVZString(edit + 0x8C);
 }
 
-void Sexy::SetEditString(PEdit edit, Draw::PString pstr, bool left)
+void Sexy::SetEditString(PEdit edit, PVZ::PVZString pstr, bool left)
 {
 	PVZ::Memory::Execute(AsmBuilder()
 		.push(left)
-		.push(pstr)
+		.push(pstr.GetBaseAddress())
 		.mov_reg_imm(REG_ECX, edit)
 		.mov_reg_mem_reg_add_imm(REG_EDX, REG_ECX, 0)
 		.mov_reg_mem_reg_add_imm(REG_EDX, REG_EDX, 0x124)
@@ -219,10 +219,10 @@ BYTE __asm__AddListLine[]
 	RET
 };
 
-int Sexy::AddListLine(PList list, Draw::PString line, bool alphabetical)
+int Sexy::AddListLine(PList list, PVZ::PVZString line, bool alphabetical)
 {
 	__asm__AddListLine[1] = alphabetical;
-	SETARG(__asm__AddListLine, 3) = line;
+	SETARG(__asm__AddListLine, 3) = line.GetBaseAddress();
 	SETARG(__asm__AddListLine, 8) = list;
 	SETARG(__asm__AddListLine, 23) = PVZ::Memory::Variable;
 	return PVZ::Memory::Execute(STRING(__asm__AddListLine));
