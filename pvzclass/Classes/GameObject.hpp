@@ -599,6 +599,17 @@ namespace PVZ
 		/// @brief 识别 ID
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x90);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		/// @brief 水平运动的子弹进行碰撞检测。同时判定子弹是否应当消失。
+		void CheckForCollision();
+		/// @brief 子弹过火，转化为普通豌豆
+		/// @param column 转化子弹的植物所在的列
+		void ConvertToPea(int column);
+		/// @brief 子弹击中僵尸
+		/// @param zombie 击中的僵尸，可以为空以表示击中地面
+		void DoImpact(PVZ::Zombie zombie);
+		/// @brief 子弹造成溅射伤害
+		/// @param zombie 主目标僵尸，可以为空
+		void DoSplashDamage(PVZ::Zombie zombie);
 		/// @brief 子弹过火，转化为火球
 		void OnFire();
 		/// @brief 移除该子弹。
