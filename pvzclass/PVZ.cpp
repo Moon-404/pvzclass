@@ -234,7 +234,7 @@ optional<double> PVZ::PVZString::ToDouble(PVZ::PVZString str)
 
 void PVZ::PVZString::Concat(const char* src, int len)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len * sizeof(DWORD));
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, sizeof(src));
 
 	PVZ::Memory::Execute(AsmBuilder()
 		.push_imm32(len)
@@ -267,9 +267,9 @@ void PVZ::PVZString::Assign(const char* src, size_t len ,uint32_t count, uint32_
 		.ret());
 }*/
 
-void PVZ::PVZString::Assign(const char* src, size_t len, uint32_t count)
+void PVZ::PVZString::Assign(const char* src, uint32_t count)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len * sizeof(DWORD));
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, sizeof(src));
 
 	PVZ::Memory::Execute(AsmBuilder()
 		.push_imm32(count)
@@ -279,9 +279,9 @@ void PVZ::PVZString::Assign(const char* src, size_t len, uint32_t count)
 		.ret());
 }
 
-void PVZ::PVZString::Assign(const char* src, size_t len)
+void PVZ::PVZString::Assign(const char* src)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len * sizeof(DWORD));
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, sizeof(src));
 	PVZ::Memory::Execute(AsmBuilder()
 		.push_imm32(PVZ::Memory::Variable + 100)
 		.mov_reg_imm(REG_ECX, this->GetBaseAddress())

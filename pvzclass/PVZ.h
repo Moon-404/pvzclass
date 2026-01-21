@@ -162,20 +162,18 @@ namespace PVZ
 		std::optional<double> ToDouble(PVZString str);
 		/// @brief 拼接字符数组中的字符串
 		/// @param src 字符串
-		/// @param len 长度
+		/// @param len 字符串长度
 		void Concat(const char* src, int len);
 		/// @brief 拼接字符串
 		/// @param src 字符串
 		void Concat(PVZ::PVZString src);
 		/// @brief 赋值字符串为ptr
 		/// @param ptr 字符串
-		/// @param len 字符串长度
-		void Assign(const char* ptr, size_t len);
+		void Assign(const char* ptr);
 		/// @brief 赋值字符串为ptr的前count个字符
 		/// @param ptr 字符串
-		/// @param len 字符串长度
 		/// @param count 子串长度
-		void Assign(const char* ptr, size_t len, uint32_t count);
+		void Assign(const char* ptr, uint32_t count);
 		/// @brief 赋值字符串为ptr的第roff个字符往右count个字符
 		/// @param ptr 字符串
 		/// @param len 字符串长度
