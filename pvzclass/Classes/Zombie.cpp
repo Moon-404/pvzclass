@@ -578,7 +578,15 @@ void PVZ::Zombie::RiseFromGrave(int row, int col)
 		.ret()
 	);
 }
-
+void PVZ::Zombie::LandFlyer(PVZ::DamageFlags flag)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.push_imm32(flag)
+		.invoke(0x535200)
+		.ret()
+	);
+}
 void PVZ::Zombie::BossSummonZombie(ZombieType::ZombieType type, int row)
 {
 	PVZ::Memory::WriteMemory<DWORD>(0x534DC4, 0); // 跳过一个判定
