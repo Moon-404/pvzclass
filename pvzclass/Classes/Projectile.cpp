@@ -10,6 +10,45 @@ PVZ::Projectile::Projectile(int indexoraddress)
 		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xC8) + indexoraddress * MemSize;
 }
 
+void PVZ::Projectile::CheckForCollision()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(this->BaseAddress)
+		.invoke(0x46CE80)
+		.ret()
+	);
+}
+
+void PVZ::Projectile::ConvertToPea(int column)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EBX, column)
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.invoke(0x46EE00)
+		.ret()
+	);
+}
+
+void PVZ::Projectile::DoImpact(PVZ::Zombie zombie)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, zombie.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, this->BaseAddress)
+		.invoke(0x46E000)
+		.ret()
+	);
+}
+
+void PVZ::Projectile::DoSplashDamage(PVZ::Zombie zombie)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(zombie.GetBaseAddress())
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.invoke(0x46D390)
+		.ret()
+	);
+}
+
 byte __asm__OnFire[]
 {
 	MOV_ECX(0),
