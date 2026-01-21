@@ -581,9 +581,9 @@ void PVZ::Zombie::RiseFromGrave(int row, int col)
 void PVZ::Zombie::LandFlyer(PVZ::DamageFlags flag)
 {
 	PVZ::Memory::Execute(AsmBuilder()
-		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
 		.push_imm32(flag)
-		.invoke(0x535200)
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x525B60)
 		.ret()
 	);
 }
