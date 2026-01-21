@@ -234,7 +234,7 @@ optional<double> PVZ::PVZString::ToDouble(PVZ::PVZString str)
 
 void PVZ::PVZString::Concat(const char* src, int len)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len);
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len * sizeof(DWORD));
 
 	PVZ::Memory::Execute(AsmBuilder()
 		.push_imm32(len)
