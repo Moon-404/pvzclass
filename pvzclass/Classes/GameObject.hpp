@@ -558,10 +558,13 @@ namespace PVZ
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x34);
 		/// @brief 子弹 Z 坐标
 		T_PROPERTY(FLOAT, Height, __get_Height, __set_Height, 0x38);
-		/// @brief X 方向坐标
+		/// @brief X 方向速度
 		T_PROPERTY(FLOAT, XSpeed, __get_XSpeed, __set_XSpeed, 0x3C);
+		/// @brief Y 方向速度
 		T_PROPERTY(FLOAT, YSpeed, __get_YSpeed, __set_YSpeed, 0x40);
+		/// @brief Z 方向速度
 		T_PROPERTY(FLOAT, HeightSpeed, __get_HeightSpeed, __set_HeightSpeed, 0x44);
+		/// @brief Z 方向加速度
 		T_PROPERTY(FLOAT, HeightAcceleration, __get_HeightAcceleration, __set_HeightAcceleration, 0x48);
 		/// @brief 影子 Y 坐标
 		T_PROPERTY(FLOAT, ShadowY, __get_ShadowY, __ShadowY, 0x4C);
@@ -573,17 +576,42 @@ namespace PVZ
 		T_PROPERTY(ProjectileType::ProjectileType, Type, __get_Type, __set_Type, 0x5C);
 		/// @brief 存在时间
 		INT_READONLY_PROPERTY(ExistedTime, __get_ExistedTime, 0x60);
-		/// @brief 旋转大小，暂不确定单位是否为弧度。
+		INT_PROPERTY(ClickBackoffCounter, __get_ClickBackoffCounter, __set_ClickBackoffCounter, 0x64);
+		/// @brief 旋转大小，
+		/// @note 单位为弧度。
 		T_PROPERTY(FLOAT, RotationAngle, __get_RotationAngle, __set_RotationAngle, 0x68);
-		/// @brief 旋转速度，尚不确认是否是角速度。
+		/// @brief 旋转速度
 		T_PROPERTY(FLOAT, RotationSpeed, __get_RotationSpeed, __set_RotationSpeed, 0x6C);
+		/// @brief 是否位于高度
+		T_PROPERTY(BOOLEAN, OnHighGround, __get_OnHighGround, __set_OnHighGround, 0x70);
 		/// @brief 子弹索敌标签
 		T_PROPERTY(DamageRangeFlags, DamageAbility, __get_DamageAbility, __set_DamageAbility, 0x74);
+		/// @brief 最近一次被火炬树桩改变类型时的列
+		INT_PROPERTY(HitTorchwoodGridX, __get_HitTorchwoodGridX, __set_HitTorchwoodGridX, 0x78);
+		/// @brief 附件 ID
+		T_PROPERTY(AttachmentID, mAttachmentID, __get_mAttachmentID, __set_mAttachmentID, 0x7C);
+		/// @brief 玉米炮弹目标 X
+		INT_PROPERTY(CobTargetX, __get_CobTargetX, __set_CobTargetX, 0x80);
+		/// @brief 玉米炮弹目标行
+		INT_PROPERTY(CobTargetRow, __get_CobTargetRow, __set_CobTargetRow, 0x84);
 		/// @brief 对于跟踪弹道，表示跟踪目标僵尸的 ID 。
 		INT_PROPERTY(TracktargetId, __get_TracktargetId, __set_TracktargetId, 0x88);
+		/// @brief 最近一次被传送门传送的 X 坐标
+		INT_PROPERTY(LastPortalX, __get_LastPortalX, __set_LastPortalX, 0x8C);
 		/// @brief 识别 ID
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x90);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		/// @brief 水平运动的子弹进行碰撞检测。同时判定子弹是否应当消失。
+		void CheckForCollision();
+		/// @brief 子弹过火，转化为普通豌豆
+		/// @param column 转化子弹的植物所在的列
+		void ConvertToPea(int column);
+		/// @brief 子弹击中僵尸
+		/// @param zombie 击中的僵尸，可以为空以表示击中地面
+		void DoImpact(PVZ::Zombie zombie);
+		/// @brief 子弹造成溅射伤害
+		/// @param zombie 主目标僵尸，可以为空
+		void DoSplashDamage(PVZ::Zombie zombie);
 		/// @brief 子弹过火，转化为火球
 		void OnFire();
 		/// @brief 移除该子弹。
