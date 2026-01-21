@@ -254,7 +254,50 @@ void PVZ::PVZString::Concat(PVZ::PVZString src)
 		.invoke(0x41DC70)
 		.ret());
 }
+/*
+void PVZ::PVZString::Assign(const char* src, size_t len ,uint32_t count, uint32_t roff)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len);
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(count)
+		.push_imm32(roff)
+		.push_imm32(PVZ::Memory::Variable + 100)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x403E20)
+		.ret());
+}*/
 
+void PVZ::PVZString::Assign(const char* src, size_t len, uint32_t count)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len * sizeof(DWORD));
+
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(count)
+		.push_imm32(PVZ::Memory::Variable + 100)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x404330)
+		.ret());
+}
+
+void PVZ::PVZString::Assign(const char* src, size_t len)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len * sizeof(DWORD));
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(PVZ::Memory::Variable + 100)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x404300)
+		.ret());
+}
+
+const char* PVZ::PVZString::c_str()
+{
+	return (const char*)PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x4042D0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+}
 byte __asm_KillGameSelector[] =
 {
 	MOV_ESI(0),
