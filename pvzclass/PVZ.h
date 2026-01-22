@@ -162,11 +162,26 @@ namespace PVZ
 		std::optional<double> ToDouble(PVZString str);
 		/// @brief 拼接字符数组中的字符串
 		/// @param src 字符串
-		/// @param len 长度
+		/// @param len 字符串长度
 		void Concat(const char* src, int len);
 		/// @brief 拼接字符串
 		/// @param src 字符串
 		void Concat(PVZ::PVZString src);
+		/// @brief 赋值字符串为ptr
+		/// @param ptr 字符串
+		void Assign(const char* ptr, uint32_t len);
+		/// @brief 赋值字符串为ptr的前count个字符
+		/// @param ptr 字符串
+		/// @param count 子串长度
+		void Assign(const char* ptr, uint32_t len, uint32_t count);
+		/// @brief 赋值字符串为ptr的第roff个字符往右count个字符
+		/// @param ptr 字符串
+		/// @param len 字符串长度
+		/// @param 子串起始点
+		/// @param count 子串长度，为-1时不限制拷贝长度
+		void Assign(PVZString ptr, uint32_t len, uint32_t count, uint32_t roff);
+		/// @brief 获取c风格字符串
+		const char* c_str();
 	};
 
 	/// @brief 游戏程序主类（原 LawnApp）。
@@ -246,6 +261,7 @@ namespace PVZ
 	class LawnMower;
 	class Griditem;
 	class MousePointer;
+	class GameButton;
 	class Caption;
 	class CardSlot;
 	class Challenge;
