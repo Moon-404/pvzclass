@@ -602,6 +602,17 @@ void PVZ::Zombie::GetTrackPosition(const char* trackName, float& thePosX, float&
 	thePosY = PVZ::Memory::ReadMemory<float>(PVZ::Memory::Variable);
 	thePosX = PVZ::Memory::ReadMemory<float>(PVZ::Memory::Variable + 4);
 }
+
+void PVZ::Zombie::OverrideParticleColor(PVZ::TodParticleSystem particle)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX,particle.GetBaseAddress())
+		.mov_reg_imm(REG_EAX,this->GetBaseAddress())
+		.invoke(0x529810)
+		.ret()
+	);
+}
+
 void PVZ::Zombie::BossSummonZombie(ZombieType::ZombieType type, int row)
 {
 	PVZ::Memory::WriteMemory<DWORD>(0x534DC4, 0); // 跳过一个判定
