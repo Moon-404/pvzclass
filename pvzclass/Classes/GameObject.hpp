@@ -320,6 +320,9 @@ namespace PVZ
 		/// @param thePosX 将要被赋值为轨道X坐标的float类型引用
 		/// @param thePosY 将要被赋值为轨道Y坐标的float类型引用
 		void GetTrackPosition(const char* trackName, float& thePosX, float& thePosY);
+		/// @brief 根据僵尸的减速, 魅惑与否设置粒子系统的颜色和高亮
+		/// @param particle 需要被设置的粒子系统
+		void OverrideParticleColor(PVZ::TodParticleSystem particle);
 
 		/// @brief 僵王博士召唤僵尸。
 		/// @param type 通过修改原游戏逻辑控制放置类型。
