@@ -169,18 +169,17 @@ namespace PVZ
 		void Concat(PVZ::PVZString src);
 		/// @brief 赋值字符串为ptr
 		/// @param ptr 字符串
-		void Assign(const char* ptr);
+		void Assign(const char* ptr, uint32_t len);
 		/// @brief 赋值字符串为ptr的前count个字符
 		/// @param ptr 字符串
 		/// @param count 子串长度
-		void Assign(const char* ptr, uint32_t count);
+		void Assign(const char* ptr, uint32_t len, uint32_t count);
 		/// @brief 赋值字符串为ptr的第roff个字符往右count个字符
 		/// @param ptr 字符串
 		/// @param len 字符串长度
 		/// @param 子串起始点
 		/// @param count 子串长度，为-1时不限制拷贝长度
-		/// @note 不知为何使用时会导致游戏闪退(非崩溃), 等待好心人修复
-		//void Assign(const char* ptr, size_t len, uint32_t count, uint32_t roff);
+		void Assign(PVZString ptr, uint32_t len, uint32_t count, uint32_t roff);
 		/// @brief 获取c风格字符串
 		const char* c_str();
 	};
