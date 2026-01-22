@@ -469,6 +469,8 @@ namespace PVZ
 		void MoveTo(int row, int column);
 		/// @brief 移除该植物
 		void Remove();
+		/// @brief 立即更新一次
+		void Update();
 		/// @deprecated
 		PVZ::Projectile Shoot(int targetid = -1);
 		/// @brief 立刻发射子弹
