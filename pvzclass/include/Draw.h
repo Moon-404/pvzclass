@@ -24,7 +24,6 @@ namespace PVZ
 		INT_PROPERTY(Green, __get_Green, __set_Green, 0x34);
 		INT_PROPERTY(Blue, __get_Blue, __set_Blue, 0x38);
 		INT_PROPERTY(Alpha, __get_Alpha, __set_Alpha, 0x3C);
-		T_PROPERTY(Font*, mFont, __get_mFont, __set_mFont, 0x40);
 		/// @brief 获取Graphics使用的字体
 		/// @return 字体
 		Font GetFont();
