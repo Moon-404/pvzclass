@@ -315,6 +315,11 @@ namespace PVZ
 		void RiseFromGrave(int row, int col);
 		/// @brief 气球僵尸开始下坠。特别地，当伤害类型的 DOESNT_LEAVE_BODY 标志为 1 时，不会造成气球破裂。
 		void LandFlyer(PVZ::DamageFlags flag);
+		/// @brief 取得僵尸动画 trackName 轨道的绝对位置，并将其横、纵坐标分别赋值给 thePosX 和 thePosY。
+		/// @param trackName 轨道名称
+		/// @param thePosX 将要被赋值为轨道X坐标的float类型引用
+		/// @param thePosY 将要被赋值为轨道Y坐标的float类型引用
+		void GetTrackPosition(const char* trackName, float& thePosX, float& thePosY);
 
 		/// @brief 僵王博士召唤僵尸。
 		/// @param type 通过修改原游戏逻辑控制放置类型。

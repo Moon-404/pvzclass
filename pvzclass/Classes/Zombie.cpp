@@ -587,6 +587,21 @@ void PVZ::Zombie::LandFlyer(PVZ::DamageFlags flag)
 		.ret()
 	);
 }
+void PVZ::Zombie::GetTrackPosition(const char* trackName, float& thePosX, float& thePosY)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, trackName, strlen(trackName));
+	PVZ::Memory::WriteMemory<char>(PVZ::Memory::Variable + 100 + strlen(trackName), '\0');
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EDI,PVZ::Memory::Variable)
+		.push_imm32(PVZ::Memory::Variable + 4)
+		.push_imm32(PVZ::Memory::Variable + 100)
+		.mov_reg_imm(REG_ESI,this->GetBaseAddress())
+		.invoke(0x5345F0)
+		.ret()
+	);
+	thePosY = PVZ::Memory::ReadMemory<float>(PVZ::Memory::Variable);
+	thePosX = PVZ::Memory::ReadMemory<float>(PVZ::Memory::Variable + 4);
+}
 void PVZ::Zombie::BossSummonZombie(ZombieType::ZombieType type, int row)
 {
 	PVZ::Memory::WriteMemory<DWORD>(0x534DC4, 0); // 跳过一个判定
