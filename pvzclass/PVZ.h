@@ -111,6 +111,12 @@ namespace PVZ
 		/// @param rect 另一矩形
 		/// @return 两矩形的重叠部分。若无交叉部分，返回空矩形。
 		Rect Intersection(const Rect& rect) const;
+		/// @brief 判断矩形是否非空
+		/// @return 矩形非空
+		inline bool IsVaild()
+		{
+			return this->X | this->Y | this->Width | this->Height;
+		}
 	};
 	// 取得两个矩形横向重叠部分的长度。
 	// 若横向无重叠部分，返回两矩形横向间距的相反数。
@@ -410,6 +416,9 @@ namespace PVZ
 		/// @param theTrackName 轨道名称
 		/// @param theImage 图片
 		void SetImageOverride(const char* theTrackName, Image theImage);
+		/// @brief 用于补间动画开始混合时，设置每条轨道的初始补间动画数据。
+		/// @param blendTime 需要设置的补间市场
+		void StartBlend(int blendTime);
 	};
 	class Attachment : public BaseClass
 	{
