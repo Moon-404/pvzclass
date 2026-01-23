@@ -35,14 +35,14 @@ public:
 		rawlen = 7;
 		BYTE code[] = {
 			PUSH_PTR_ESP_ADD_V(36),
-			MOV_PTR_ADDR_EAX(PVZ::Memory::Variable),
-			PUSHDWORD(PVZ::Memory::Variable),
+			MOV_PTR_ADDR_EAX(PVZ::Memory::Variable + 400),
+			PUSHDWORD(PVZ::Memory::Variable + 400),
 			PUSH_ESI,
 			INVOKE(address),
 			ADD_ESP(12),
 			MOV_PTR_ESP_ADD_V_EUX(0, 36),
 			POPAD,
-			MOV_EAX_PTR(PVZ::Memory::Variable),
+			MOV_EAX_PTR(PVZ::Memory::Variable + 400),
 			0x51, 0x8B, 0x4E, 0x28, 0x83, 0xF9, 0x10,// <-origincode here
 			PUSHDWORD(0x5317C7),
 			RET
