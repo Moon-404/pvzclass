@@ -205,6 +205,8 @@ namespace PVZ
 		T_PROPERTY(BOOLEAN,						Shutdown,			__get_Shutdown,				__set_Shutdown,				0x341);
 		/// @brief 窗口句柄
 		T_PROPERTY(HWND,						HWnd,				__get_HWnd,					__set_HWnd,					0x350);
+		/// @brief DEBUG按键是否开启
+		T_PROPERTY(bool,						mDebugKeysEnabled,  __get_mDebugKeysEnabled,	__set_mDebugKeysEnabled,	0x5AC);
 		/// @brief 当前模式类型
 		T_PROPERTY(PVZLevel::PVZLevel,			LevelId,			__get_LevelId,				__set_LevelId,				0x7F8);
 		/// @brief 游戏状态
