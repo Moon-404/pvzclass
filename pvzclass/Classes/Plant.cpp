@@ -152,7 +152,14 @@ void PVZ::Plant::Remove()
 	Memory::Execute(STRING(__asm__Plant__Remove));
 	return;
 }
-
+void PVZ::Plant::Update()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x463E40)
+		.ret()
+	);
+}
 PVZ::Projectile PVZ::Plant::Shoot(int targetid)
 {
 	return(this->Shoot(targetid == -1 ? MotionType::None : MotionType::Track, targetid, false));
