@@ -22,7 +22,7 @@ public:
 };
 
 /// @brief 僵尸受伤事件
-/// @param 触发事件的僵尸，伤害类型，伤害数值
+/// @param 触发事件的僵尸，伤害类型的引用，伤害数值
 /// @return 更新后的伤害值
 class ZombieTakeDmgEvent : public DLLEvent
 {
@@ -33,7 +33,7 @@ public:
 	{
 		hookAddress = 0x5317C0;
 		rawlen = 7;
-		BYTE code[] = { PUSH_PTR_ESP_ADD_V(36), PUSH_EAX, PUSH_ESI, INVOKE(address), ADD_ESP(12), MOV_PTR_ESP_ADD_V_EUX(0, 36) };
+		BYTE code[] = { PUSH_PTR_ESP_ADD_V(36), MOV_PTR_ADDR_EAX(PVZ::Memory::Variable), PUSHDWORD(PVZ::Memory::Variable), PUSH_ESI, INVOKE(address), MOV_EAX_PTR(PVZ::Memory::Variable), ADD_ESP(12), MOV_PTR_ESP_ADD_V_EUX(0, 36)};
 		start(STRING(code));
 	}
 };
