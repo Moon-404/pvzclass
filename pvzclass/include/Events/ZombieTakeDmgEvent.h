@@ -45,7 +45,8 @@ public:
 			MOV_EAX_PTR(PVZ::Memory::Variable),
 			0x51, 0x8B, 0x4E, 0x28, 0x83, 0xF9, 0x10,// <-origincode here
 			PUSHDWORD(0x5317C7),
-			RET};
+			RET
+		};
 		start(STRING(code));
 	}
 };
