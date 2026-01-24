@@ -48,7 +48,21 @@ void PVZ::Projectile::DoSplashDamage(PVZ::Zombie zombie)
 		.ret()
 	);
 }
-
+PVZ::Rect PVZ::Projectile::GetProjectileRect()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable)
+		.mov_reg_imm(REG_ESI, this->GetBaseAddress())
+		.invoke(0x46EBC0)
+		.ret()
+	);
+	auto rect = Rect{};
+	rect.X = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 0);
+	rect.Y = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 4);
+	rect.Width = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 8);
+	rect.Height = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 12);
+	return rect;
+}
 byte __asm__OnFire[]
 {
 	MOV_ECX(0),

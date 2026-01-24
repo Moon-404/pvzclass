@@ -236,6 +236,22 @@ void PVZ::Plant::AnimateNuts()
 	);
 }
 
+PVZ::Rect PVZ::Plant::GetPlantRect()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, PVZ::Memory::Variable)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x467EF0)
+		.ret()
+	);
+	auto rect = Rect{};
+	rect.X = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 0);
+	rect.Y = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 4);
+	rect.Width = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 8);
+	rect.Height = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 12);
+	return rect;
+}
+
 PVZ::Plant::MagnetItem::MagnetItem(int address)
 {
 	BaseAddress = address;

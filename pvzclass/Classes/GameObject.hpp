@@ -344,7 +344,7 @@ namespace PVZ
 		Rect GetActualAttackRect();
 		/// @brief 获取僵尸的实际受击范围。
 		/// @return 僵尸的实际受击范围
-		Rect GetActualRect();
+		Rect GetZombieRect();
 		/// @brief 根据僵尸当前的运动，估算僵尸在time后大概的受击中心x
 		float ZombieTargetLeadX(float time);
 
@@ -488,6 +488,8 @@ namespace PVZ
 		void UpdateBowling();
 		/// @brief 坚果类植物（坚果、高坚果）的动态函数，根据植物当前血量更新其形态相应的覆写贴图。
 		void AnimateNuts();
+		/// @brief 获取植物的实际受击矩形
+		Rect GetPlantRect();
 		class MagnetItem
 		{
 			int BaseAddress;
@@ -622,6 +624,8 @@ namespace PVZ
 		/// @brief 子弹造成溅射伤害
 		/// @param zombie 主目标僵尸，可以为空
 		void DoSplashDamage(PVZ::Zombie zombie);
+		/// @brief 获取子弹的实际受击矩形
+		Rect GetProjectileRect();
 		/// @brief 子弹过火，转化为火球
 		void OnFire();
 		/// @brief 移除该子弹。
