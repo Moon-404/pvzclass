@@ -342,6 +342,8 @@ namespace PVZ
 		/// @brief 获取僵尸的实际可攻击范围。
 		/// @return 僵尸的实际攻击范围
 		Rect GetActualAttackRect();
+		/// @deprecated 请改用 GetZombieRect()
+		[[deprecated]] Rect GetActualRect();
 		/// @brief 获取僵尸的实际受击范围。
 		/// @return 僵尸的实际受击范围
 		Rect GetZombieRect();

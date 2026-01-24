@@ -695,6 +695,11 @@ PVZ::Rect PVZ::Zombie::GetActualAttackRect()
 	return tmp;
 }
 
+PVZ::Rect PVZ::Zombie::GetActualRect()
+{
+    return this->GetZombieRect();
+}
+
 PVZ::Rect PVZ::Zombie::GetZombieRect()
 {
 	PVZ::Memory::Execute(AsmBuilder()
