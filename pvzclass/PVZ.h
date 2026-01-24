@@ -92,6 +92,35 @@ namespace PVZ
 		{ return(this->BaseAddress != INVALID_BASEADDRESS && this->BaseAddress != 0); }
 	};
 
+	/// @brief 对应 PVZ 内部数组的类
+	/// @tparam T 数组元素的类型
+	template<typename T>
+	class Array : public BaseClass
+	{
+	public:
+		Array(uint32_t address) : BaseClass(address) {};
+		class Item : public BaseClass
+		{
+		public:
+			explicit Item(uint32_t address) : BaseClass(address) {};
+
+			const Item& operator=(const T val)
+			{
+				PVZ::Memory::WriteMemoryUnsafe<T>(this->BaseAddress, val);
+				return *this;
+			}
+			/// @brief 获取该元素的值
+			T get() const { return PVZ::Memory::ReadMemory<T>(this->BaseAddress); }
+		};
+		/// @brief 获取指定下标的元素
+		/// @param index 下标
+		/// @return 元素
+		Item operator[](int index)
+		{
+			return Item(BaseAddress + index * sizeof(T));
+		}
+	};
+
 	class Rect
 	{
 	public:
